@@ -18,9 +18,9 @@
 <body>
     <div id="navbar">
         {% block nav %}   
-            <button href="{{ url_for('.login') }}">Log in</button>
-            <button href="{{ url_for('.sign_up') }}">Sign up</button>
-            <button href="{{ url_for('.about') }}">About us</button>
+            <a href="{{ url_for('.login') }}"><button>Log in</button></a>
+            <a href="{{ url_for('.sign_up') }}"><button>Sign up</button></a>
+            <a href="{{ url_for('.about') }}"><button>About us</button></a>
             <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
         {% endblock %}
     </div>
