@@ -18,10 +18,10 @@
 <body>
     <div id="navbar">
         {% block nav %}   
-            <button href="login.html">Log in</button>
-            <button href="newuser.html">Sign up</button>
-            <button href="about.html">About us</button>
-            <button><img id="hder-img" src="../img/logo.jpg"></button>
+            <button href="{{ url_for('.login') }}">Log in</button>
+            <button href="{{ url_for('.sign_up') }}">Sign up</button>
+            <button href="{{ url_for('.about') }}">About us</button>
+            <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
         {% endblock %}
     </div>
     <div id="content">{% block content %}{% endblock %}</div>
