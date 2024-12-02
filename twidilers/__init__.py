@@ -3,8 +3,8 @@ Welcome to Twidilers App! Backend by Derin and Oliver. Frontend by Eamon.
 '''
 
 from flask import Flask
-import os
 from dotenv import load_dotenv
+import os
 
 load_dotenv() #load the environment variables from .env
 
