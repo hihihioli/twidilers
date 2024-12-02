@@ -9,8 +9,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="wbesit">
         <meta name="keywords" content="HTML, CSS, Python">
-        <meta name="author" content="Derin">
-        <meta name="author" content="Oliver">
+        <meta name="author" content="dereena">
+        <meta name="author" content="hihihioli">
         <meta name="author" content="Wall03">
     {% endblock %}
 </head>
@@ -18,12 +18,19 @@
 <body>
     <div id="navbar">
         {% block nav %}   
-            <button href="login.html">Log in</button>
-            <button href="newuser.html">Sign up</button>
-            <button href="about.html">About us</button>
-            <button><img id="hder-img" src="../img/logo.jpg"></button>
+            <button href="{{ url_for('.login') }}">Log in</button>
+            <button href="{{ url_for('.sign_up') }}">Sign up</button>
+            <button href="{{ url_for('.about') }}">About us</button>
+            <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
         {% endblock %}
     </div>
+    <div id="flashes">
+        {% block flashes %}
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+                <div class="flash {{ category }}">
+                    <span>{{message}}</span>
+                </div>
+        {% endblock %}</div>
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
         {% block footer %}
