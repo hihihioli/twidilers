@@ -9,9 +9,12 @@ def login():
         return render_template('login.html')
 
 @app.route('/sign_up')
-def login():
+def sign_up():
         return render_template('sign_up.html')
 
+@app.route('/about')
+def about():
+        return render_template('about.html')
 
 
 @app.errorhandler(404)
