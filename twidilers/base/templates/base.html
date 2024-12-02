@@ -8,7 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="wbesit">
-        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="keywords" content="HTML, CSS, Python">
         <meta name="author" content="Derin">
         <meta name="author" content="Oliver">
         <meta name="author" content="Wall03">
@@ -16,10 +16,18 @@
 </head>
 
 <body>
+    <div id="navbar">
+        {% block nav %}   
+            <button href="login.html">Log in</button>
+            <button href="newuser.html">Sign up</button>
+            <button href="about.html">About us</button>
+            <button><img id="hder-img" src="../img/logo.jpg"></button>
+        {% endblock %}
+    </div>
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
         {% block footer %}
-            <section class="footer">
+            <section>
                 <p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p>
             </section>
         {% endblock %}
