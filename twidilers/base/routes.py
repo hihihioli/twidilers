@@ -13,5 +13,7 @@ def error404(error):
 @app.route('/',defaults={'page':'index'})
 @app.route('/<page>')
 def page(page):
-        return render_template(f'{page}.html')
-    
+        try:
+                return render_template(f'{page}.html')
+        except TemplateNotFound:
+                abort(404)
