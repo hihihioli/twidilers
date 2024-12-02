@@ -24,6 +24,13 @@
             <button><img id="hder-img" src="../img/logo.jpg"></button>
         {% endblock %}
     </div>
+    <div id="flashes">
+        {% block flashes %}
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+                <div class="blackborder flash {{ category }}">
+                    <span>{{message}}</span>
+                </div>
+        {% endblock %}</div>
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
         {% block footer %}
