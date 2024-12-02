@@ -4,6 +4,14 @@ from jinja2 import TemplateNotFound
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 
+@app.route('/login')
+def login():
+        return render_template('login.html')
+
+@app.route('/sign_up')
+def login():
+        return render_template('sign_up.html')
+
 
 
 @app.errorhandler(404)
