@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+        <title>{% block title %}{% endblock %} - Twidilers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="wbesit">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="author" content="Derin">
+        <meta name="author" content="Oliver">
+        <meta name="author" content="Eamon">
+    {% endblock %}
+</head>
+
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+            <section>
+                <p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p>
+            </section>
+        {% endblock %}
+    </div>
+</body>
+
+</html>

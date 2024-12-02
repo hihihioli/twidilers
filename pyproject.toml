@@ -1,0 +1,13 @@
+[project]
+name = "twidilers"
+dependencies = [
+    "flask",
+    "Flask-SQLAlchemy",
+    "python-dotenv",
+]
+version='1.0'
+description='A wonderful website'
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
