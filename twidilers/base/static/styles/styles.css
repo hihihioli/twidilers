@@ -51,3 +51,8 @@ body {
     text-align: center;
 }
 
+@media only screen and (prefers-color-scheme: dark) {
+    html {
+        filter: invert(100%);
+    }
+}
