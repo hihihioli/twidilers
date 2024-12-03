@@ -9,5 +9,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 class Base(DeclarativeBase):
   pass
 
-from . import models 
 db = SQLAlchemy(model_class=Base)
+
+from . import models
+
