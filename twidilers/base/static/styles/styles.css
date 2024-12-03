@@ -1,6 +1,6 @@
 body {
-    background-color: #0d0d6b;
-    color: #9fefff;
+    background-color: #B0FDB0;
+    color: #01223E;
     font-family: Arial;
     width: 600px;
     margin: auto;
@@ -8,18 +8,25 @@ body {
 
 #navbar button {
     padding: 15px;
-    background-color: #9fefff;
-    color: #0d0d6b;
+    background-color: #01223E;
+    color: #B0FDB0;
     border-radius: 5px;
     border: 0;
     height: 46px; 
     margin: auto;
+    margin-top: 10px;
 }
 #navbar {
     display:flex;
-    align-items: center;
-    justify-content: center;
     width:100%;
     padding:3px;
-    gap:10px
+    gap:10px;
+    margin-bottom: 40px;
+}
+
+#hder-img {
+    background-color: inherit !important;
+    float: left;
+    margin: 0 270px 0 0 !important;
+    padding: 20px 0 !important;
 }
