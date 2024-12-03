@@ -1,1 +1,17 @@
-/* eamon can u do it ok thx */
+body {
+    background-color: #B0FDB0;
+    color: #01223E;
+    font-family: Arial;
+    width: 600px;
+    margin: auto;
+}
+
+#navbar button {
+    width: fit-content;
+    margin: auto;
+    padding: 20px;
+    background-color: #01223E;
+    color: #B0FDB0;
+    border-radius: 5px;
+    border: 0;
+}
