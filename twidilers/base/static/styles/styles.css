@@ -71,6 +71,11 @@ Click generate until you get the loss under 3 */
 
 }
 
+#account_form{
+    display:flex;
+    flex-direction: column;
+}
+
 #account_form input{
     margin-bottom:12px;
 }

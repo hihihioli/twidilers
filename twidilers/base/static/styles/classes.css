@@ -1,6 +1,8 @@
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
+    --darkishblue: #0d0d6b;
+    --lightishblue: #97eeff;
 }
 
 .heading {
@@ -11,34 +13,44 @@ html {
 }
 
 .textbox {
-    border: 3px solid var(--lightblue);
+    border: 3px solid var(--darkblue);
     border-radius: 5px;
-    background: #0d0d6b;
+    background: var(--lightishblue);
     width:204px;
     height:18px;
     padding:5px;
 }
 .textbox::placeholder {
-    color: var(--lightblue);
+    color: var(--darkblue);
     font-size: 11pt;
 }
 
 .textbox:focus {
     outline: none;
-    box-shadow: 0px 0px 10px var(--lightblue);
+    box-shadow: 0px 0px 10px var(--darkblue);
 }
 
-@media only screen and (prefers-color-scheme: light) {
+.submit-button {
+    border: 3px solid var(--darkblue);
+    color: var(--darkblue);
+    border-radius: 5px;
+    background: var(--lightishblue);
+    width:80%;
+    justify-self: center;
+    align-self: center;
+}
+
+@media only screen and (prefers-color-scheme: dark) {
     .textbox {
-        border: 3px solid var(--darkblue);
-        background: var(--lightblue);
+        border: 3px solid var(--lightblue);
+        background: var(--darkishblue);
     }
 
     .textbox::placeholder {
-        color:var(--darkblue)
+        color:var(--lightblue)
     }
 
     .textbox:focus {
-        box-shadow: 0px 0px 10px var(--darkblue);
+        box-shadow: 0px 0px 10px var(--lightblue);
     }
 }
