@@ -25,7 +25,7 @@ def about():
 
 @app.errorhandler(404)
 def error404(error):
-        return f'An error occured: {error}', 404 #probably should change this later
+        return f'<h1>An error occured:</h1><h3> {error}</h3>', 404 #probably should change this later
 
 #The page handler for default pages
 #For templates do: url_for('.page',page='insert_page_here')
