@@ -6,3 +6,5 @@ twidilers/base/__pycache__
 .vscode/settings.json
 /twidilers/__pycache__
 twidilers/base/test.db
+/instance
+/twidilers/.env

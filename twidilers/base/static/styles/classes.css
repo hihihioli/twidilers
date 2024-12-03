@@ -1,3 +1,10 @@
+/* Gives the styles to elements by class 
+Example: 
+.heading { 
+    * Styles go here *
+} 
+*/
+
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
@@ -39,7 +46,7 @@ html {
     margin-bottom: 10px;
 }
 
-#submit {
+.submit {
     width: 100%;
     height: auto;
     font-size: 11pt;
@@ -53,14 +60,14 @@ html {
     margin-top: 10px;
 }
 
-#submit:hover {
+.submit:hover {
     padding: 8px 4px;
     background-color: var(--darkblue);
     color: var(--lightblue);
     border: 3px solid var(--lightblue);
 }
 
-#account_form {
+.input_form {
     width: fit-content;
     margin: 0 auto;
     padding: 10px;
@@ -77,6 +84,10 @@ html {
 }
 
 
+.flex {
+    display: flex !important;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
     .textbox {
         color: var(--lightblue);
@@ -84,13 +95,13 @@ html {
         border: 3px solid var(--lightblue) !important;
 
     }
-    #submit {
+    .submit {
         background-color: var(--lightblue);
         color: var(--darkblue);
         border: 3px solid var(--darkblue) !important;
 
     }
-    #submit:hover {
+    .submit:hover {
         background-color: var(--lightblue) !important;
         color: var(--darkblue) !important;
     }
