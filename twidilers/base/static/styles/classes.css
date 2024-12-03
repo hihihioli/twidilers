@@ -10,7 +10,6 @@ html {
     --darkblue: #04043c;
     --darkishblue: #0d0d6b;
     --lightishblue: #97eeff;
-    --lighterblue: #e0faffaf;
 }
 
 .flash {
@@ -29,7 +28,7 @@ html {
 }
 
 .heading {
-    font-size:24pt;
+    font-size:36pt;
     align-self:center;
     font-weight: bold;
     margin: 20px auto;
@@ -39,7 +38,7 @@ html {
     border-radius: 5px;
     width:204px;
     height:18px;
-    padding:9px;
+    padding:8px;
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 0;
@@ -70,13 +69,14 @@ html {
 .input_form {
     width: fit-content;
     margin: 0 auto;
+    background-color: var(--darkblue);
     padding: 10px;
     border-radius: 5px;
 }
 
 .textbox::placeholder {
     color: var(--darkblue);
-    font-size: 9pt;
+    font-size: 11pt;
 }
 .textbox:focus {
     outline: none;
@@ -92,23 +92,22 @@ html {
     .textbox {
         color: var(--lightblue);
         background-color: var(--darkblue);
-        border: 3px solid var(--lightblue) !important;
-
     }
     .submit {
-        background-color: var(--lightblue);
-        color: var(--darkblue);
-        border: 3px solid var(--darkblue) !important;
-
+        background-color: var(--darkblue);
+        color: var(--lightblue);
     }
     .submit:hover {
         background-color: var(--lightblue) !important;
         color: var(--darkblue) !important;
+        border: 3px solid var(--darkblue) !important;
     }
     .textbox::placeholder {
-        color: var(--darkishblue)
+        color: var(--lightblue)
     }
-
+    .input_form {
+        background-color: var(--lightblue);
+    }
 
     .flash {
         background: var(--darkishblue);
