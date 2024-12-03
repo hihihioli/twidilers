@@ -16,10 +16,11 @@ def create_app():
 
     from .base import base #Import the base blueprint
     app.register_blueprint(base) #Register the base blueprint at root prefix
+    '''
     from .base.models import db
     db.init_app(app)
     with app.app_context(): #Creates the tables for each class and adds it to the database
         db.create_all() 
-    
+    '''
     return app #Return the app to the runtime
 
