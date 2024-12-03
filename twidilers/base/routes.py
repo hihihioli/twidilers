@@ -22,6 +22,9 @@ def sign_up():
     password1=request.form.get('password1')
     password2=request.form.get('password2')
     accounts = db.session.execute(db.select(Account).order_by(Account.username)).scalars()
+    if new_username == '':
+        flash('Please enter a username','error')
+        return redirect('/sign_up')
     for account in accounts:
         if account.username == new_username:
             flash('Username already exists','error')

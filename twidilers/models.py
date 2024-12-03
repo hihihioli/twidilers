@@ -1,4 +1,4 @@
-from .database import db,Mapped, mapped_column,relationship
+from .database import db, Mapped, mapped_column,relationship
 
 class Account(db.Model):
   __tablename__ = 'accounts'

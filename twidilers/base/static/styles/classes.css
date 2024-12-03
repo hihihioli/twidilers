@@ -5,6 +5,21 @@ html {
     --lightishblue: #97eeff;
 }
 
+.flash {
+    justify-self: center;
+    align-self: center;
+    height:50px;
+    width:fit-content;
+    border-radius: 5px;
+    background:var(--lightishblue);
+    border:3px solid var(--darkblue);
+    color: var(--darkblue);
+    vertical-align: middle;
+    align-content: center;
+    padding:5px;
+    font-size: 16pt;
+}
+
 .heading {
     font-size:36pt;
     align-self:center;
@@ -90,5 +105,11 @@ form {
     }
     form {
         background-color: var(--lightblue);
+    }
+
+    .flash {
+        background: var(--darkishblue);
+        border: 3px solid var(--lightblue);
+        color: var(--lightblue)
     }
 }
