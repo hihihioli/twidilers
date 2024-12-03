@@ -1,12 +1,14 @@
 body {
-    background-color: #9fefff;
-    color: #0d0d6b;
     font-family: Arial;
     width: 600px;
     margin: auto;
     display:flex;
     flex-direction: column;
     height: 100vh;
+    --lightblue: #9fefff;
+    --darkblue: #0d0d6b;
+    background-color: var(--lightblue);
+    color: var(--darkblue);
 }
 
 #content {
@@ -20,8 +22,8 @@ body {
 
 #navbar button {
     padding: 15px;
-    background-color: #0d0d6b;
-    color: #9fefff;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
     border-radius: 5px;
     border: 0;
     height: 46px; 
@@ -37,6 +39,8 @@ body {
     padding:3px;
     gap:10px;
     margin-bottom: 40px;
+    font-size: 1.3em !important;
+    font-weight: bold !important;
 }
 
 #hder-img {
@@ -44,7 +48,7 @@ body {
     float: left;
     margin: 0 300px 0 0 !important;
     padding: 20px 0 !important;
-    color:#0d0d6b;
+    filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
 }
 
 #footer {
@@ -52,7 +56,15 @@ body {
 }
 
 @media only screen and (prefers-color-scheme: dark) {
-    html {
-        filter: invert(100%);
+    body {
+        color: var(--lightblue);
+        background-color: var(--darkblue);
+    }
+    #navbar button {
+        color: var(--darkblue);
+        background-color: var(--lightblue);
+    }
+    #hder-img {
+        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
     }
 }
