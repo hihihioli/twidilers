@@ -23,8 +23,13 @@ html {
     color: var(--darkblue);
     vertical-align: middle;
     align-content: center;
-    padding:5px;
+    padding:5px 10px 5px;
     font-size: 16pt;
+}
+
+.flash.error {
+    color:rgb(83, 23, 23);
+    background:red;
 }
 
 .heading {
