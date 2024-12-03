@@ -1,7 +1,5 @@
 /.DS_Store
 /.env
 /venv
-twidilers/__pycache__/__init__.cpython-313.pyc
-twidilers/base/__pycache__/__init__.cpython-313.pyc
-twidilers/base/__pycache__/routes.cpython-313.pyc
-twidilers/base/__pycache__/generic_routes.cpython-313.pyc
+twidilers/__pycache__/
+twidilers/base/__pycache__/
