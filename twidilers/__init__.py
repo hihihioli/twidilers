@@ -15,7 +15,7 @@ def create_app():
     app.config.from_prefixed_env() #Automatically sets the app's config variables based on the environment variables (with 'FLASK_' as prefix)
 
     from .base import base #Import the base blueprint
-    app.register_blueprint(base)
+    app.register_blueprint(base) #Register the base blueprint at root prefix
     
     return app #Return the app to the runtime
 
