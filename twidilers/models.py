@@ -4,6 +4,6 @@ class Account(db.Model):
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
-  password:Mapped[str]
+  password:Mapped[str] = mapped_column(nullable=False)
   def __repr__(self):
-    return f'username={self.username},id={self.id}'
+    return f'username={self.username},password={self.password},id={self.id}'
