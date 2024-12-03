@@ -17,11 +17,12 @@
 
 <body>
     <div id="navbar">
-        {% block nav %}   
-            <a href="{{ url_for('.login') }}"><button>Log in</button></a>
-            <a href="{{ url_for('.sign_up') }}"><button>Sign up</button></a>
-            <a href="{{ url_for('.about') }}"><button>About us</button></a>
-            <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
+        {% block nav %} 
+            <img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}">
+            <a href="{{ url_for('.about') }}"><button id="about" >About us</button></a>
+            <a href="{{ url_for('.login') }}"><button id="login" >Log in</button></a>
+            <a href="{{ url_for('.sign_up') }}"><button id="signup">Sign up</button></a>
+            
         {% endblock %}
     </div>
     <div id="flashes">
