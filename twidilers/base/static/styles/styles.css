@@ -11,6 +11,11 @@ body {
     color: var(--darkblue);
 }
 
+#home-href {
+    width:45px;
+    margin-right:300px
+}
+
 #content {
     flex:1;
 }
