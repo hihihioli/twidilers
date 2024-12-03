@@ -24,3 +24,7 @@ body {
     padding:3px;
     gap:10px
 }
+
+#img-button {
+    height:fit-content!important;
+}
