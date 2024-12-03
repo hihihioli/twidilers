@@ -14,4 +14,13 @@ body {
     color: #B0FDB0;
     border-radius: 5px;
     border: 0;
+    cursor: pointer;
+}
+
+#navbar {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    padding:3px;
 }
