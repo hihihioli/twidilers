@@ -5,14 +5,22 @@ Why does this page exist?
 
 ## What have we done?
 ### 12/2/24
-I added some dependencies to the navbar--we need to add login.html, newuser.html, about.html, and a header logo. Of course, we don't have to do this but I tried to get the ball rolling.\n
--Eamon\n
-Made the html files and logo stuff. Tomorrow going to make the models and schema for the database when Oliver creates it on the server.\n
--Derin\n
+I added some dependencies to the navbar--we need to add login.html, newuser.html, about.html, and a header logo. Of course, we don't have to do this but I tried to get the ball rolling.
+
+-Eamon
+
+
+Made the html files and logo stuff. Tomorrow going to make the models and schema for the database when Oliver creates it on the server.
+
+-Derin
 
 ### 12/3/24
+Added animations and dark mode. Added more page content
 
 ## What should we work on?
 * a proper dark mode--not just inverted colors or an inverse filter (done)
 * a log-in/signup feature that unlocks new parts of the website
-* animations (already some)
+* animations (menu already has some)
+* add flash announcements (done)
+
+I am going to start making the design of the sign up page and setting up the forms. Might need Eamon's help with the graphical design and we also need to figure out the .env thing to use session data and sqlalchemy

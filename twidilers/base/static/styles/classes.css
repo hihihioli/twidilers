@@ -1,0 +1,56 @@
+html {
+    --lightblue: #b8eef9;
+    --darkblue: #04043c;
+    --darkishblue: #0d0d6b;
+    --lightishblue: #97eeff;
+}
+
+.heading {
+    font-size:52pt;
+    align-self:center;
+    font-weight: bold;
+    margin-bottom: 20px
+}
+
+.textbox {
+    border: 3px solid var(--darkblue);
+    border-radius: 5px;
+    background: var(--lightishblue);
+    width:204px;
+    height:18px;
+    padding:5px;
+}
+.textbox::placeholder {
+    color: var(--darkblue);
+    font-size: 11pt;
+}
+
+.textbox:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px var(--darkblue);
+}
+
+.submit-button {
+    border: 3px solid var(--darkblue);
+    color: var(--darkblue);
+    border-radius: 5px;
+    background: var(--lightishblue);
+    width:80%;
+    justify-self: center;
+    align-self: center;
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+    .textbox {
+        border: 3px solid var(--lightblue);
+        background: var(--darkishblue);
+    }
+
+    .textbox::placeholder {
+        color:var(--lightblue)
+    }
+
+    .textbox:focus {
+        box-shadow: 0px 0px 10px var(--lightblue);
+    }
+}
