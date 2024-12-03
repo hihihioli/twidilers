@@ -5,104 +5,105 @@ Example:
 } 
     */
 
-body {
-    font-family: Arial;
-    width: 600px;
-    margin: auto;
-    display:flex;
-    flex-direction: column;
-    height: 100vh;
-    --lightblue: #b8eef9;
-    --darkblue: #04043c;
-    background-color: var(--lightblue);
-    color: var(--darkblue);
-}
-
-button {
-    cursor:pointer
-}
-
-#home-href {
-    width:45px;
-    margin-right:300px
-}
-
-#content {
-    flex:1;
-    display:flex;
-    flex-direction: column;
-}
-
-#hometext {
-    color: #0d0d6b;
-    margin-top:0;
-}
-
-#navbar button {
-    padding: 15px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    border-radius: 5px;
-    border: 0;
-    height: 46px; 
-    margin: auto;
-    margin-top: 10px;
-    width: fit-content;
-    cursor:pointer;
-    transition: all 0.5s;
-}
-
-#navbar button:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 7px 0 var(--darkblue);
-}
-
-#navbar {
-    display:flex;
-    width:100%;
-    padding:3px;
-    gap:10px;
-    font-size: 1.3em !important;
-    font-weight: bold !important;
-}
-
-#hder-img {
-    background-color: inherit !important;
-    margin: 20px 300px 0 0 !important;
-    padding: 5px !important;
-    filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
-    position: relative;bottom:12px
-}
-
-/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
-Click generate until you get the loss under 3 */
-
-#hder-img {
-    box-shadow: none !important;
-
-}
-
-#footer {
-    text-align: center;
-}
-
-@media only screen and (prefers-color-scheme: dark) {
-    /* Flips the color and background color from the base. */
-
     body {
-        color: var(--lightblue);
-        background-color: var(--darkblue);
-    }
-    #navbar button {
-        color: var(--darkblue);
+        font-family: Arial;
+        width: 600px;
+        margin: auto;
+        display:flex;
+        flex-direction: column;
+        height: 100vh;
+        --lightblue: #b8eef9;
+        --darkblue: #04043c;
         background-color: var(--lightblue);
+        color: var(--darkblue);
     }
-
+    
+    button {
+        cursor:pointer
+    }
+    
+    #home-href {
+        width:45px;
+        margin-right:300px
+    }
+    
+    #content {
+        flex:1;
+        display:flex;
+        flex-direction: column;
+    }
+    
+    #hometext {
+        color: #0d0d6b;
+        margin-top:0;
+    }
+    
+    #navbar button {
+        padding: 15px;
+        background-color: var(--darkblue);
+        color: var(--lightblue);
+        border-radius: 5px;
+        border: 0;
+        height: 46px; 
+        margin: auto;
+        margin-top: 10px;
+        width: fit-content;
+        cursor:pointer;
+        transition: all 0.5s;
+    }
+    
     #navbar button:hover {
-        box-shadow: 0 0 7px 0 var(--lightblue);
+        border-radius: 6px;
+        box-shadow: 0 0 7px 0 var(--darkblue);
     }
-    /* Sets the image to be a certain color */
+    
+    #navbar {
+        display:flex;
+        width:100%;
+        padding:3px;
+        gap:10px;
+        font-size: 1.3em !important;
+        font-weight: bold !important;
+    }
+    
     #hder-img {
-        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
+        background-color: inherit !important;
+        margin: 20px 300px 0 0 !important;
+        padding: 5px !important;
+        filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
+        position: relative;bottom:12px
     }
-}
+    
+    /* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
+    Click generate until you get the loss under 3 */
+    
+    #hder-img {
+        box-shadow: none !important;
+    
+    }
+    
+    #footer {
+        text-align: center;
+    }
+    
+    @media only screen and (prefers-color-scheme: dark) {
+        /* Flips the color and background color from the base. */
+    
+        body {
+            color: var(--lightblue);
+            background-color: var(--darkblue);
+        }
+        #navbar button {
+            color: var(--darkblue);
+            background-color: var(--lightblue);
+        }
+    
+        #navbar button:hover {
+            box-shadow: 0 0 7px 0 var(--lightblue);
+        }
+        /* Sets the image to be a certain color */
+        #hder-img {
+            filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
+        }
+    }
+    
