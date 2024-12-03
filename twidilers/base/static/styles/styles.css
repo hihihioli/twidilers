@@ -1,6 +1,6 @@
 body {
-    background-color: #B0FDB0;
-    color: #01223E;
+    background-color: #0d0d6b;
+    color: #9fefff;
     font-family: Arial;
     width: 600px;
     margin: auto;
@@ -10,8 +10,8 @@ body {
     width: fit-content;
     margin: auto;
     padding: 20px;
-    background-color: #01223E;
-    color: #B0FDB0;
+    background-color: #9fefff;
+    color: #0d0d6b;
     border-radius: 5px;
     border: 0;
     cursor: pointer;
@@ -21,6 +21,7 @@ body {
     display:flex;
     align-items: center;
     justify-content: center;
-    gap:10px;
+    width:100%;
     padding:3px;
+    gap:10px
 }
