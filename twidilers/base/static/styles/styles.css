@@ -4,6 +4,13 @@ body {
     font-family: Arial;
     width: 600px;
     margin: auto;
+    display:flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#content {
+    flex:1;
 }
 
 #navbar button {
@@ -16,6 +23,7 @@ body {
     margin: auto;
     margin-top: 10px;
     width: fit-content;
+    cursor:pointer;
 }
 
 #navbar {
@@ -31,4 +39,8 @@ body {
     float: left;
     margin: 0 300px 0 0 !important;
     padding: 20px 0 !important;
+}
+
+#footer {
+    text-align: center;
 }
