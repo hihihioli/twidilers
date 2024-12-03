@@ -57,6 +57,7 @@ body {
     margin: 0 300px 0 0 !important;
     padding: 20px 0 !important;
     filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
+    position: relative;bottom:12px
 }
 
 /* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
