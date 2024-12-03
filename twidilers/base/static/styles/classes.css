@@ -1,6 +1,8 @@
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
+    --darkishblue: #0d0d6b;
+    --lightishblue: #97eeff;
 }
 
 .heading {
