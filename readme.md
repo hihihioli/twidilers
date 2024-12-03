@@ -24,3 +24,9 @@ Added animations and dark mode. Added more page content
 * add flash announcements (done)
 
 I am going to start making the design of the sign up page and setting up the forms. Might need Eamon's help with the graphical design and we also need to figure out the .env thing to use session data and sqlalchemy
+
+-Derin
+
+Eamon did the styling so I will start working in the database config
+
+-Derin
