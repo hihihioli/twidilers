@@ -11,6 +11,10 @@ body {
     color: var(--darkblue);
 }
 
+button {
+    cursor:pointer
+}
+
 #home-href {
     width:45px;
     margin-right:300px

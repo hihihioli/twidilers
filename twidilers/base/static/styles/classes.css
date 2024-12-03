@@ -38,6 +38,8 @@ html {
     width:80%;
     justify-self: center;
     align-self: center;
+    height:34px;
+    font-size: 12pt;
 }
 
 @media only screen and (prefers-color-scheme: dark) {

@@ -6,4 +6,4 @@ from flask import Blueprint
 
 base = Blueprint('base', __name__,template_folder='templates',static_folder='static') #make the blueprint
 
-from . import generic_routes #Import the routes from routes.py
+from . import generic_routes #Import the routes from generic_routes.py, which includes routes.py
