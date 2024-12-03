@@ -19,10 +19,10 @@
 <body>
     <div id="navbar">
         {% block nav %}   
-            <a href="{{ url_for('.login') }}"><button>Log in</button></a>
-            <a href="{{ url_for('.sign_up') }}"><button>Sign up</button></a>
-            <a href="{{ url_for('.about') }}"><button>About us</button></a>
-            <a href="{{ url_for('.index') }}"><button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"><br>Home</button></a>
+            <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
+            <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
+            <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
+            <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
         {% endblock %}
     </div>
     <div id="flashes">
