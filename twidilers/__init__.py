@@ -16,8 +16,9 @@ def create_app():
 
     from .base import base #Import the base blueprint
     app.register_blueprint(base) #Register the base blueprint at root prefix
-    from .base.models import db
+    from .database import db #Import the models from the models file
     db.init_app(app)
+    
     with app.app_context(): #Creates the tables for each class and adds it to the database
         db.create_all() 
     
