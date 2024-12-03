@@ -2,8 +2,8 @@
 {% block title %}Sign Up{% endblock %}
 {% block content %}
 <span class="heading">Sign Up</span>
-<form action="/sign_up" method="post" id="account_form" name="account_form">
-    <input type="text" class="textbox" placeholder="Create Username" id="username" name="username"/><br>
+<form action="{{url_for('.sign_up')}}" method="post" id="account_form" name="account_form">
+    <input type="text" class="textbox" placeholder="Create Username" id="username" name="username" autocomplete="off"/><br>
     <input type="password" class="textbox" placeholder="Create Password" id="password1" name="password1"/><br>
     <input type="password" class="textbox" placeholder="Confirm Password" id="password2" name="password2"/><br>
     <button id="submit" type="submit">Create Account</button>

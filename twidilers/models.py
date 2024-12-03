@@ -5,3 +5,5 @@ class Account(db.Model):
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
   username:Mapped[str] = mapped_column(unique=True)
   password:Mapped[str]
+  def __repr__(self):
+    return f'username={self.username},password={self.password},id={self.id}'
