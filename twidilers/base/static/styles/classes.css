@@ -35,6 +35,7 @@ html {
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 0;
+    margin-bottom: 10px;
 }
 
 #submit {
@@ -48,6 +49,7 @@ html {
     cursor: pointer;
     border: 0;
     transition: all 0.3s;
+    margin-top: 10px;
 }
 
 #submit:hover {
@@ -57,7 +59,7 @@ html {
     border: 3px solid var(--lightblue);
 }
 
-form {
+#account_form {
     width: fit-content;
     margin: 0 auto;
     background-color: var(--darkblue);
@@ -74,17 +76,6 @@ form {
     box-shadow: 0px 0px 10px var(--darkblue);
 }
 
-.submit-button {
-    border: 3px solid var(--darkblue);
-    color: var(--darkblue);
-    border-radius: 5px;
-    background: var(--lightishblue);
-    width:80%;
-    justify-self: center;
-    align-self: center;
-    height:34px;
-    font-size: 12pt;
-}
 
 .flex {
     display: flex !important;
@@ -107,7 +98,7 @@ form {
     .textbox::placeholder {
         color: var(--lightblue)
     }
-    form {
+    #account_form {
         background-color: var(--lightblue);
     }
 
