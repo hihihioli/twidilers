@@ -21,19 +21,18 @@ def sign_up():
     new_username=request.form.get('username')
     password1=request.form.get('password1')
     password2=request.form.get('password2')
-    accounts = db.session.execute(db.select(Account).order_by(Account.username)).scalars()
-    if new_username == '':
+    if new_username == '': #Checks if the username is empty and flashes an error if it is
         flash('Please enter a username','error')
         return redirect('/sign_up')
-    for account in accounts:
+    accounts = db.session.execute(db.select(Account).order_by(Account.username)).scalars() # Gets all accounts from the database
+    for account in accounts: #checks if the username already exists
         if account.username == new_username:
             flash('Username already exists','error')
             return redirect('/sign_up')
-    if password1 == password2:
+    if password1 == password2: #Checks if the passwords match and raises an error if they dont
         new_account = Account(username=new_username,password=password2)
-        db.session.add(new_account)
-        save()
-        print(db.session.execute(db.select(Account).filter_by(username=new_username)).scalar()) # Remove this!!! #
+        db.session.add(new_account) #Creates the account and adds it to the database
+        save() #Commits the changes and rolls back if there is an error
         flash('User created successfully','success')
         return redirect('/sign_up')
     flash('Passwords do not match','error')

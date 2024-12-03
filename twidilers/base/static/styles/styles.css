@@ -1,3 +1,10 @@
+/* Gives the styles to elements by id 
+Example: 
+#navbar { 
+    * Styles go here *
+} 
+    */
+
 body {
     font-family: Arial;
     width: 600px;
