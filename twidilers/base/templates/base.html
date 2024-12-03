@@ -3,11 +3,12 @@
 
 <head>
     {% block head %}
-        <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('.static', filename='styles/styles.css') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icons/favicon.svg',v=2) }}">
         <title>{% block title %}{% endblock %} - Twidilers</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="wbesit">
+        <meta name="description" content="A wonderful website">
         <meta name="keywords" content="HTML, CSS, Python">
         <meta name="author" content="dereena">
         <meta name="author" content="hihihioli">
@@ -17,12 +18,11 @@
 
 <body>
     <div id="navbar">
-        {% block nav %} 
-            <img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}">
-            <a href="{{ url_for('.about') }}"><button id="about" >About us</button></a>
-            <a href="{{ url_for('.login') }}"><button id="login" >Log in</button></a>
-            <a href="{{ url_for('.sign_up') }}"><button id="signup">Sign up</button></a>
-            
+        {% block nav %}   
+            <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
+            <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
+            <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
+            <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
         {% endblock %}
     </div>
     <div id="flashes">
