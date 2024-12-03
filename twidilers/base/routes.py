@@ -3,7 +3,6 @@ The file for routes that need extra processing, such as processing a login.
 """
 #Imports
 from flask import current_app, render_template, abort, request,redirect,url_for,flash, session
-from jinja2 import TemplateNotFound
 import sqlalchemy
 
 #Our objects
