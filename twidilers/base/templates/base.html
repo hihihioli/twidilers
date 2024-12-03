@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
     <!-- The head with configuration. By default do not override this, but it can be overridden. -->
@@ -25,6 +25,7 @@
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
+            <a href="{{ url_for('.page',page='index') }}"><button id="img-button"><img id="hder-img" src="{{ url_for('.static',filename='images/logo.svg') }}">Home</img></button></a>
         {% endblock %}
     </div>
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
@@ -41,8 +42,8 @@
     <!-- The footer has a default but can be overridden. -->
     <div id="footer">
         {% block footer %}
-            <section>
-                <p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p>
+            <section id="footers">
+                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p></b>
             </section>
         {% endblock %}
     </div>

@@ -4,6 +4,13 @@ body {
     font-family: Arial;
     width: 600px;
     margin: auto;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+}
+
+#content {
+    flex:1;
 }
 
 #navbar button {
@@ -14,8 +21,10 @@ body {
     border: 0;
     height: 46px; 
     margin: auto;
+    cursor:pointer;
     margin-top: 10px;
 }
+
 #navbar {
     display:flex;
     width:100%;
@@ -29,4 +38,20 @@ body {
     float: left;
     margin: 0 270px 0 0 !important;
     padding: 20px 0 !important;
+}
+
+#img-button {
+    height:fit-content!important;
+}
+
+#footer {
+    text-align: center;
+}
+
+#img-button {
+    height:fit-content!important;
+}
+
+#footer {
+    text-align: center;
 }
