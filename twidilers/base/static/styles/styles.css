@@ -31,6 +31,14 @@ body {
     margin-top: 10px;
     width: fit-content;
     cursor:pointer;
+    transition: all 0.5s;
+}
+
+#navbar button:hover {
+    border-radius: 8px;
+    padding: 16px;
+    transform: translateY(-1px);
+    background-color: #A2E9FF;
 }
 
 #navbar {
@@ -50,6 +58,9 @@ body {
     padding: 20px 0 !important;
     filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
 }
+
+/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
+Click generate until you get the loss under 3 */
 
 #footer {
     text-align: center;
