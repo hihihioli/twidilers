@@ -2,7 +2,7 @@
 The file for routes that need extra processing, such as processing a login.
 """
 #Imports
-from flask import current_app, render_template, abort, request,redirect,url_for,flash
+from flask import current_app, render_template, abort, request,redirect,url_for,flash, session
 from jinja2 import TemplateNotFound
 
 #Our objects
@@ -12,7 +12,15 @@ from ..functions import *
 
 @app.post('/login')
 def login():
-    #Handles logins
+    username = request.form.get('username') #Retrieves the username and password from the form
+    password = request.form.get('password')
+    account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
+    if account: #Checks if the given account exists
+        if account.password == password:
+            flash('Login Successful!','success')
+            session['username'] = username
+            return redirect('/login')
+    flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect('/login')
 
 @app.post('/sign_up')
