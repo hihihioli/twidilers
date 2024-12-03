@@ -24,7 +24,7 @@
     <!-- The navbar. Also can be overridden if necessary. -->
     <div id="navbar">
         {% block nav %}   
-            <a href="{{ url_for('.page',page='index') }}"><button id="hder-img" ><img src="{{ url_for('.static',filename='images/logo.svg') }}">Home</button></a> 
+            <a href="{{ url_for('.page',page='index') }}"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}"><p id="hometext">Home</p>/img></button></a> 
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>

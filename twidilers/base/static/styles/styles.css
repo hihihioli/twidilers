@@ -1,6 +1,6 @@
 body {
-    background-color: #B0FDB0;
-    color: #01223E;
+    background-color: #9fefff;
+    color: #0d0d6b;
     font-family: Arial;
     width: 600px;
     margin: auto;
@@ -13,10 +13,15 @@ body {
     flex:1;
 }
 
+#hometext {
+    color: #0d0d6b;
+    margin-top:0;
+}
+
 #navbar button {
     padding: 15px;
-    background-color: #01223E;
-    color: #B0FDB0;
+    background-color: #0d0d6b;
+    color: #9fefff;
     border-radius: 5px;
     border: 0;
     height: 46px; 
@@ -39,8 +44,10 @@ body {
     float: left;
     margin: 0 300px 0 0 !important;
     padding: 20px 0 !important;
+    color:#0d0d6b;
 }
 
 #footer {
     text-align: center;
 }
+
