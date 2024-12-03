@@ -15,6 +15,7 @@ body {
     height: 46px; 
     margin: auto;
 }
+
 #navbar {
     display:flex;
     align-items: center;
