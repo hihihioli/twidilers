@@ -5,6 +5,10 @@ from jinja2 import TemplateNotFound
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 
+@app.route('/')
+def index():
+        return render_template('index.html')
+
 @app.route('/login')
 def login():
         return render_template('login.html')
@@ -22,7 +26,6 @@ def about():
 def error404(error):
         return f'An error occured: {error}', 404 #probably should change this later
 
-@app.route('/',defaults={'page':'index'})
 @app.route('/<page>')
 def page(page):
         try:

@@ -14,4 +14,5 @@ body {
     color: #B0FDB0;
     border-radius: 5px;
     border: 0;
+    cursor: pointer;
 }

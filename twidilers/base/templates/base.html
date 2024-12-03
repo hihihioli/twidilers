@@ -22,7 +22,7 @@
             <a href="{{ url_for('.login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.sign_up') }}"><button>Sign up</button></a>
             <a href="{{ url_for('.about') }}"><button>About us</button></a>
-            <button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button>
+            <a href="{{ url_for('.index') }}"><button><img id="hder-img" src="{{ url_for('.static',filename='logo.png') }}"></button></a>
         {% endblock %}
     </div>
     <div id="flashes">
