@@ -7,7 +7,7 @@ from jinja2 import TemplateNotFound
 
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
-
+from . import routes
 #Moved custom routes to routes.py(routes like login)
 
 @app.errorhandler(404)

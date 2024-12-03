@@ -21,4 +21,6 @@ Added animations and dark mode. Added more page content
 * a proper dark mode--not just inverted colors or an inverse filter (done)
 * a log-in/signup feature that unlocks new parts of the website
 * animations (menu already has some)
-* add flash announcements
+* add flash announcements (done)
+
+I am going to start making the design of the sign up page and setting up the forms. Might need Eamon's help with the graphical design and we also need to figure out the .env thing to use session data and sqlalchemy
