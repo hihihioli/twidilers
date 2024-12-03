@@ -8,3 +8,5 @@ twidilers/base/__pycache__
 twidilers/base/test.db
 /instance
 /twidilers/.env
+/instance/memory
+/instance/test.db
