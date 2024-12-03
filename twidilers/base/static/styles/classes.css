@@ -1,3 +1,29 @@
+html {
+    --lightblue: #b8eef9;
+    --darkblue: #04043c;
+}
+
 .heading {
     font-size:52pt;
+    align-self:center;
+    font-weight: bold;
+    margin-bottom: 20px
+}
+
+.textbox {
+    border: 3px solid var(--lightblue);
+    border-radius: 5px;
+    background: #0d0d6b;
+    width:204px;
+    height:18px;
+    padding:5px;
+}
+.textbox::placeholder {
+    color: var(--lightblue);
+    font-size: 11pt;
+}
+
+.textbox:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px var(--lightblue);
 }
