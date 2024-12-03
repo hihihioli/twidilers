@@ -9,11 +9,11 @@ from jinja2 import TemplateNotFound
 from . import base as app #Blueprint imported as app so blueprint layer 
 from ..models import *
 from ..functions import *
-"""
+
 @app.post('/login')
 def login():
     #Handles logins
-"""
+    return redirect('/login')
 
 @app.post('/sign_up')
 def sign_up():

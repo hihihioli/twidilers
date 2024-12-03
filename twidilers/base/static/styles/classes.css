@@ -86,6 +86,10 @@ form {
     font-size: 12pt;
 }
 
+.flex {
+    display: flex !important;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
     .textbox {
         color: var(--lightblue);
