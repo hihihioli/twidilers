@@ -13,6 +13,6 @@ Made the html files and logo stuff. Tomorrow going to make the models and schema
 ### 12/3/24
 
 ## What should we work on?
-* a proper dark mode--not just inverted colors or an inverse filter
+* a proper dark mode--not just inverted colors or an inverse filter (done)
 * a log-in/signup feature that unlocks new parts of the website
 * animations (already some)

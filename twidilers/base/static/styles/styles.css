@@ -78,4 +78,8 @@ Click generate until you get the loss under 3 */
     #hder-img {
         filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
     }
+
+    #hometext {
+        color:var(--lightblue)
+    }
 }
