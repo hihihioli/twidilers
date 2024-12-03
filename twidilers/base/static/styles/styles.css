@@ -16,10 +16,6 @@ body {
     margin-right:300px
 }
 
-#account_form input{
-    margin-bottom:12px;
-}
-
 #content {
     flex:1;
     display:flex;
@@ -67,13 +63,18 @@ body {
     position: relative;bottom:12px
 }
 
+/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
+Click generate until you get the loss under 3 */
+
 #hder-img {
     box-shadow: none !important;
 
 }
 
-/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
-Click generate until you get the loss under 3 */
+#account_form input{
+    margin-bottom:12px;
+}
+
 
 #footer {
     text-align: center;

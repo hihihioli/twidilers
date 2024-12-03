@@ -27,3 +27,18 @@ html {
     outline: none;
     box-shadow: 0px 0px 10px var(--lightblue);
 }
+
+@media only screen and (prefers-color-scheme: light) {
+    .textbox {
+        border: 3px solid var(--darkblue);
+        background: var(--lightblue);
+    }
+
+    .textbox::placeholder {
+        color:var(--darkblue)
+    }
+
+    .textbox:focus {
+        box-shadow: 0px 0px 10px var(--darkblue);
+    }
+}
