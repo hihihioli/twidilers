@@ -8,8 +8,10 @@ Example:
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
-    --darkishblue: #0d0d6b;
+    --darkishblue: #1f1f92;
     --lightishblue: #97eeff;
+    --maroonred: rgb(83, 23, 23);
+    --greenish: #1AC0AF;
 }
 
 .flash {
@@ -28,7 +30,7 @@ html {
 }
 
 .flash.error {
-    color:rgb(83, 23, 23);
+    color: var(--maroonred);
     background:red;
 }
 
@@ -47,7 +49,6 @@ html {
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 0;
-    margin-bottom: 10px;
 }
 
 .card {
@@ -79,13 +80,14 @@ html {
     color: var(--darkblue);
     cursor: pointer;
     border: 0;
-    justify-self: center;
+    align-self: center !important;
     transition: all 0.3s;
     margin: 10px auto 0 0;
+
 }
 
 .submit:hover {
-    padding: 8px 4px;
+    padding: 12px;
     background-color: var(--darkblue);
     color: var(--lightblue);
     border: 3px solid var(--lightblue);
@@ -95,8 +97,11 @@ html {
     width: fit-content;
     margin: 0 auto;
     background-color: var(--darkblue);
-    padding: 10px;
-    border-radius: 5px;
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .textbox::placeholder {
@@ -121,21 +126,23 @@ html {
     .textbox {
         color: var(--lightblue);
         background-color: var(--darkblue);
+        border: 3px solid var(--lightishblue);
     }
     .submit {
-        background-color: var(--darkblue);
-        color: var(--lightblue);
+        background-color: var(--lightblue);
+        color: var(--darkblue);
     }
     .submit:hover {
-        background-color: var(--lightblue) !important;
-        color: var(--darkblue) !important;
-        border: 3px solid var(--darkblue) !important;
+        background-color: var(--greenish) !important;
+        color: white !important;
+        border: 0 !important;
+        padding: 13px;
     }
     .textbox::placeholder {
         color: var(--lightblue)
     }
     .input_form {
-        background-color: var(--lightblue);
+        background-color: var(--darkishblue);
     }
 
     .flash {

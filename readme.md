@@ -17,12 +17,6 @@ Made the html files and logo stuff. Tomorrow going to make the models and schema
 ### 12/3/24
 Added animations and dark mode. Added more page content
 
-## What should we work on?
-* a proper dark mode--not just inverted colors or an inverse filter (done)
-* a log-in/signup feature that unlocks new parts of the website
-* animations (menu already has some)
-* add flash announcements (done)
-
 I am going to start making the design of the sign up page and setting up the forms. Might need Eamon's help with the graphical design and we also need to figure out the .env thing to use session data and sqlalchemy
 
 -Derin
@@ -38,4 +32,5 @@ Add stuff to do when logged in
 * aonnect the database to the server
 * add some more pages and page content
 * push the old websites maybe
+* work on sign in interface
 * do the facebook blog feed thing
