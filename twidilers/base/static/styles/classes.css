@@ -15,16 +15,16 @@ html {
 .flash {
     justify-self: center;
     align-self: center;
-    height:50px;
     width:fit-content;
+    height: fit-content;
     border-radius: 5px;
     background:var(--lightishblue);
     border:3px solid var(--darkblue);
     color: var(--darkblue);
     vertical-align: middle;
     align-content: center;
-    padding:5px 10px 5px;
-    font-size: 16pt;
+    padding: 8px;
+    font-size: 12pt;
 }
 
 .flash.error {
