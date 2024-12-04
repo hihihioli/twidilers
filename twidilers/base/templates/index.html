@@ -4,8 +4,9 @@
 <h1>Welcome to Twidilers!</h1>
     <h2>Made in collaboration with Oliver, wall03, and Derin.</h2>
     <h3>We don't really know what this website is. Learn more below.</h3>
-<section class="flex vert">
-<button class="card">we don't really know what this website is.</button>
+    <h2>Try exploring:</h2>
+<div id="cards" style="text-align: center;">
+<a href="{{ url_for('.page',page='about') }}"><button class="card">About Us!</button></a>
 <button class="card">Why does this exist</button>
-</section>
+</div>
 {% endblock %}
