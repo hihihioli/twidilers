@@ -1,30 +1,31 @@
-/* wtf why is this just for ids. No. This is general stuff and home page. -E */
+/* This page is for base.html and generally used styles like .card
 
+This is variables. You can access them by doing var(--varname) instead of a color. */
+html {
+    --lightblue: #b8eef9;
+    --darkblue: #04043c;
+    --darkishblue: #1f1f92;
+    --lightishblue: #9eefff;
+    --maroonred: rgb(83, 23, 23);
+    --greenish: #4d7b9f;
+}
+
+/* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
 body {
     font-family: Arial;
     width: 600px;
     margin: auto;
     height: 100vh;
-    --lightblue: #b8eef9;
-    --darkblue: #04043c;
     background-color: var(--lightblue);
     color: var(--darkblue);
     display: flex;
     flex-direction: column;
 }
 
-button {
-    cursor:pointer
-}
-
-#home-href {
+/* hdr-href is the icon in the leftmost part of the navbar. hdr-img is the image element. We need to filter it to match the text */
+#hdr-href {
     width:45px;
     margin-right:300px
-}
-
-#content {
-    display: flex;
-    flex-direction: column
 }
 
 #hometext {
@@ -32,6 +33,20 @@ button {
     margin-top:0;
 }
 
+#hder-img {
+    background-color: inherit !important;
+    margin: 20px 300px 0 0 !important;
+    padding: 5px !important;
+    filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
+    position: relative;
+    bottom:9px;
+    box-shadow: none !important;
+}
+
+/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
+Click generate until you get the loss under 3 */
+
+/* This is where the navbar styling is stored.*/
 #navbar button {
     padding: 15px;
     background-color: var(--darkblue);
@@ -45,27 +60,6 @@ button {
     cursor:pointer;
     transition: all 0.5s;
 }
-
-
-.card {
-    padding: 15px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    border-radius: 5px;
-    border: 0;
-    height: 46px; 
-    margin: auto;
-    margin-top: 10px;
-    width: fit-content;
-    cursor:pointer;
-    transition: all 0.5s;
-}
-
-.card:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 7px 0 var(--darkblue);
-}
-
 #navbar button:hover {
     border-radius: 6px;
     box-shadow: 0 0 7px 0 var(--darkblue);
@@ -80,31 +74,33 @@ button {
     font-weight: bold !important;
 }
 
-#hder-img {
-    background-color: inherit !important;
-    margin: 20px 300px 0 0 !important;
-    padding: 5px !important;
-    filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
-    position: relative;
-    bottom:9px
+/* Cards are just navbars but slightly different as of 12/4/24 */
+.card {
+    padding: 20px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    margin: auto;
+    margin-top: 10px;
+    cursor:pointer;
+    transition: all 0.5s;
 }
 
-/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
-Click generate until you get the loss under 3 */
-
-#hder-img {
-    box-shadow: none !important;
-
+.card:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 2px 0 var(--darkblue);
 }
 
-#footer {
+/* Footer stuff here. #footer-div is the div for #footer*/
+#footer-div {
     text-align: center;
     align-self:flex-end;
     height: 100px;
     width: 100%;
 }
 
-#footers {
+#footer {
     position: absolute;
     margin: auto;
     bottom: 0;

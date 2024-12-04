@@ -26,7 +26,7 @@
     <!-- The navbar. Also can be overridden if necessary. -->
     <div id="navbar">
         {% block nav %}   
-            <a href="{{ url_for('.page',page='index') }}" id="home-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
+            <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
@@ -45,9 +45,9 @@
     <!-- The main content of the page goes in a div with id content. -->
     <div id="content">{% block content %}{% endblock %}</div>
     <!-- The footer has a default but can be overridden. -->
-    <div id="footer">
+    <div id="footer-div">
         {% block footer %}
-            <section id="footers">
+            <section id="footer">
                 <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p></b>
             </section>
         {% endblock %}

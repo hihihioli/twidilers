@@ -1,3 +1,5 @@
+/* This page is for feed.html and for the surrounding social media-style feed.*/
+
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
@@ -10,6 +12,7 @@ html {
 .pst {
     padding: 10px;
     background-color: var(--lightishblue);
+    border-radius: 10px;
 }
 
 @media only screen and (prefers-color-scheme: dark) {

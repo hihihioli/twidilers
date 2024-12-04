@@ -11,18 +11,15 @@ html {
 
 /* Flashes are the notices like "login successful" and stuff. */
 .flash {
-    justify-self: center;
-    align-self: center;
-    width:fit-content;
+    width:100%;
     height: fit-content;
     border-radius: 5px;
-    background:var(--lightishblue);
-    border:3px solid var(--darkblue);
-    color: var(--darkblue);
-    vertical-align: middle;
-    align-content: center;
+    background: var(--maroonred) !important;
+    border: 3px solid white !important;
+    color: white !important;
     padding: 8px;
     font-size: 12pt;
+    text-align: center;
 }
 
 .flash.error {
@@ -30,13 +27,27 @@ html {
     background:red;
 }
 
+/* The big 'Log In' heading at the top of the page */
 .heading {
     font-size:36pt;
-    align-self:center;
+    text-align:center;
     font-weight: bold;
-    margin: 20px auto;
+    margin: 40px auto;
 }
 
+/* .input_form is the wrapper for the inputs and button. */
+.input_form {
+    width: fit-content;
+    margin: 0 auto;
+    background-color: var(--darkblue);
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* The textbox for password and username input */
 .textbox {
     border-radius: 5px;
     width:250px;
@@ -46,7 +57,18 @@ html {
     color: var(--darkblue);
     border: 0;
 }
+/* Placeholders are the preview text stuffs before you put your cursor in*/
+.textbox::placeholder {
+    color: var(--darkblue);
+    font-size: 11pt;
+}
+/* focus is what it looks like when you click on the textbox */
+.textbox:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px var(--darkblue);
+}
 
+/* The submit button. */
 .submit {
     width: auto ;
     height: auto;
@@ -70,27 +92,7 @@ html {
     border: 3px solid var(--lightblue);
 }
 
-.input_form {
-    width: fit-content;
-    margin: 0 auto;
-    background-color: var(--darkblue);
-    padding: 25px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.textbox::placeholder {
-    color: var(--darkblue);
-    font-size: 11pt;
-}
-.textbox:focus {
-    outline: none;
-    box-shadow: 0px 0px 10px var(--darkblue);
-}
-
-
+/* fancy inline styling if you're cool. I don't know why these are here though. Derin? */
 .flex {
     display: flex !important;
 }
@@ -99,6 +101,8 @@ html {
     flex-direction: column !important;
 }
 
+/* most of this is just inversion of the colors. However, because we develop in dark mode,
+we make it look better then light-style. Maybe check in lightmode once in a while. */
 @media only screen and (prefers-color-scheme: dark) {
     .textbox {
         color: var(--lightblue);
@@ -125,9 +129,7 @@ html {
     }
 
     .flash {
-        background: var(--darkishblue);
-        border: 3px solid var(--lightblue);
-        color: var(--lightblue)
+
     }
 
     .card {
