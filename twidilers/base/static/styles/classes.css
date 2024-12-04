@@ -41,9 +41,9 @@ html {
 
 .textbox {
     border-radius: 5px;
-    width:204px;
+    width:250px;
     height:18px;
-    padding:8px;
+    padding:13px;
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 0;
@@ -70,17 +70,18 @@ html {
 }
 
 .submit {
-    width: 100%;
+    width: auto ;
     height: auto;
     font-size: 11pt;
-    padding: 8px;
+    padding: 13px;
     border-radius: 5px;
     background-color: var(--lightblue);
     color: var(--darkblue);
     cursor: pointer;
     border: 0;
+    justify-self: center;
     transition: all 0.3s;
-    margin-top: 10px;
+    margin: 10px auto 0 0;
 }
 
 .submit:hover {
