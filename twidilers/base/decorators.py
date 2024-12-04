@@ -10,6 +10,7 @@ def login_required(f): #'f' is the function that the decorator is acting on
     @wraps(f) #Passing 'f' to wraps
     def decorated_function(*args, **kwargs): #This function runs before the function its acting on
         if not session['username']:
+            flash('You must me logged in to view this page','error')
             return redirect(url_for('.page',page='login')) #Redirect if username isn't in the session
         return f(*args, **kwargs) #Return the function it acting on and pass it its arguments
     return decorated_function #return the function we just made

@@ -2,7 +2,7 @@
 The file for routes that need extra processing, such as processing a login.
 """
 #Imports
-from flask import current_app, render_template, abort, request,redirect,url_for,flash, session
+from flask import current_app, render_template, abort, request, redirect, url_for, flash, session
 import sqlalchemy
 
 #Our objects
@@ -45,3 +45,13 @@ def sign_up():
     except sqlalchemy.exc.IntegrityError: #If the username already exists
         flash('Username already exists','error')
         return redirect('/sign_up')
+    
+@app.route('/feed', methods=['GET', 'POST'])
+@login_required
+def feed():
+    if request.method == 'GET':
+        posts = db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars()
+        return render_template('feed.html',posts=posts)
+    if request.method == 'POST':
+        return redirect('/feed')
+        
