@@ -50,6 +50,25 @@ html {
     margin-bottom: 10px;
 }
 
+.card {
+    padding: 15px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    height: 46px; 
+    margin: auto;
+    margin-top: 10px;
+    width: fit-content;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+
+.card:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
+}
+
 .submit {
     width: 100%;
     height: auto;
@@ -93,6 +112,10 @@ html {
     display: flex !important;
 }
 
+.vert {
+    flex-direction: column !important;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
     .textbox {
         color: var(--lightblue);
@@ -118,5 +141,13 @@ html {
         background: var(--darkishblue);
         border: 3px solid var(--lightblue);
         color: var(--lightblue)
+    }
+
+    .card {
+        background-color: var(--lightblue);
+        color: var(--darkblue);
+    }
+    .card:hover {
+        box-shadow: 0 0 7px 0 var(--lightblue);
     }
 }
