@@ -9,8 +9,6 @@ body {
     font-family: Arial;
     width: 600px;
     margin: auto;
-    display:flex;
-    flex-direction: column;
     height: 100vh;
     --lightblue: #b8eef9;
     --darkblue: #04043c;
@@ -71,7 +69,8 @@ button {
     margin: 20px 300px 0 0 !important;
     padding: 5px !important;
     filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
-    position: relative;bottom:12px
+    position: relative;
+    bottom:9px
 }
 
 /* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
