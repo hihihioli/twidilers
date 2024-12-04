@@ -30,3 +30,12 @@ I am going to start making the design of the sign up page and setting up the for
 Eamon did the styling so I will start working in the database config
 
 -Derin
+
+### 12/4/24
+Add stuff to do when logged in
+
+## What should we work on?
+* aonnect the database to the server
+* add some more pages and page content
+* push the old websites maybe
+* do the facebook blog feed thing
