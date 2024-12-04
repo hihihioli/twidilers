@@ -10,3 +10,4 @@ twidilers/base/test.db
 /twidilers/.env
 /instance/memory
 /instance/test.db
+twidilers/.env
