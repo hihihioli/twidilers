@@ -25,10 +25,15 @@
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
     <!-- The navbar. Also can be overridden if necessary. -->
     <div id="navbar">
-        {% block nav %}   
+        {% block nav %}
             <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
+            {% if not session['username'] %}
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
+            {% endif %}
+            {% if session['username'] %}
+            <a href="{{ url_for('.logout') }}"><button>Log Out</button></a>
+            {% endif %}
             <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
             <a href="{{ url_for('.page',page='feed') }}"><button>Main Feed</button></a>
         {% endblock %}

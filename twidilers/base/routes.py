@@ -20,9 +20,18 @@ def login():
         if account.password == password: #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
             session['username'] = username #Sets session data to be used on other sites
-            return redirect('/login')
+            return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
-    return redirect('/login')
+    return redirect(url_for('.page',page='login'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('.page',page='login'))
+
+@app.post('/post')
+def post():
+    return redirect(url_for('.page',page='feed'))
 
 @app.post('/sign_up')
 def sign_up():
@@ -33,25 +42,30 @@ def sign_up():
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
             flash('Please enter a username','error')
-            return redirect('/sign_up')
+            return redirect(url_for('.page',page='sign_up'))
         if password1 == password2: #Checks if the passwords match
             new_account = Account(username=new_username,password=password1)
             db.session.add(new_account)
             db.session.commit() #For now use db.session.commit() instead of save()
             flash('User created successfully','success')
-            return redirect('/sign_up')
+            return redirect(url_for('.page',page='index'))
         flash('Passwords do not match','error')
-        return redirect('/sign_up')
+        return redirect(url_for('.page',page='sign_up'))
     except sqlalchemy.exc.IntegrityError: #If the username already exists
         flash('Username already exists','error')
-        return redirect('/sign_up')
+        return redirect(url_for('.page',page='sign_up'))
     
 @app.route('/feed', methods=['GET', 'POST'])
 @login_required
 def feed():
     if request.method == 'GET':
+        postlist = []
         posts = db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars()
-        return render_template('feed.html',posts=posts)
+        for post in posts:
+            data = [post.title,post.content,post.author]
+            postlist.append(data)
+            print(postlist)
+        return render_template('feed.html',postlist=postlist)
     if request.method == 'POST':
         return redirect('/feed')
         

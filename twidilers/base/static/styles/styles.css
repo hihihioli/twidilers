@@ -24,8 +24,7 @@ body {
 
 /* hdr-href is the icon in the leftmost part of the navbar. hdr-img is the image element. We need to filter it to match the text */
 #hdr-href {
-    width:45px;
-    margin-right:300px
+    margin-right:auto
 }
 
 #hometext {
@@ -35,7 +34,7 @@ body {
 
 #hder-img {
     background-color: inherit !important;
-    margin: 20px 300px 0 0 !important;
+    margin: 20px auto 0 0 !important;
     padding: 5px !important;
     filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
     position: relative;
@@ -107,6 +106,107 @@ Click generate until you get the loss under 3 */
     width: 600px;
 }
 
+/* Classes are below */
+
+/* Flashes are the notices like "login successful" and stuff. */
+.flash {
+    width:100%;
+    height: fit-content;
+    border-radius: 5px;
+    background: var(--darkishblue) !important;
+    border: 3px solid white !important;
+    color: white !important;
+    padding: 8px;
+    font-size: 12pt;
+    text-align: center;
+}
+
+.flash.error {
+    color: var(--maroonred);
+    background:red;
+}
+
+/* The big 'Log In' heading at the top of the page */
+.heading {
+    font-size:36pt;
+    text-align:center;
+    font-weight: bold;
+    margin: 25px auto 20px auto;
+}
+
+/* .input_form is the wrapper for the inputs and button. */
+.input_form {
+    width: fit-content;
+    margin: 0 auto;
+    background-color: var(--darkblue);
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* The textbox for password and username input */
+.textbox {
+    border-radius: 5px;
+    width:250px;
+    height:18px;
+    padding:13px;
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+    border: 0;
+}
+/* Placeholders are the preview text stuffs before you put your cursor in*/
+.textbox::placeholder {
+    color: var(--darkblue);
+    font-size: 11pt;
+}
+/* focus is what it looks like when you click on the textbox */
+.textbox:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px var(--darkblue);
+}
+
+/* The submit button. */
+.submit {
+    width: auto ;
+    height: auto;
+    font-size: 11pt;
+    padding: 13px;
+    border-radius: 5px;
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+    cursor: pointer;
+    border: 0;
+    align-self: center !important;
+    transition: all 0.3s;
+    margin: 10px auto 0 auto;
+
+}
+
+.submit:hover {
+    padding: 12px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border: 3px solid var(--lightblue);
+}
+
+/* fancy inline styling if you're cool. I don't know why these are here though. Derin? */
+.flex {
+    display: flex !important;
+}
+
+.vert {
+    flex-direction: column !important;
+}
+
+.pst {
+    padding: 10px;
+    background-color: var(--lightishblue);
+    border-radius: 10px;
+    margin: 8px 0px
+}
+
 @media only screen and (prefers-color-scheme: dark) {
     /* Flips the color and background color from the base. */
 
@@ -125,5 +225,41 @@ Click generate until you get the loss under 3 */
     /* Sets the image to be a certain color */
     #hder-img {
         filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
+    }
+
+    .textbox {
+        color: var(--lightblue);
+        background-color: var(--darkblue);
+        border: 3px solid var(--lightishblue);
+    }
+    .submit {
+        background-color: var(--lightblue);
+        color: var(--darkblue);
+        border: 3px solid var(--lightblue);
+        padding: 11.5px;
+    }
+    .submit:hover {
+        background-color: var(--darkishblue) !important;
+        color: white !important;
+        border: 3px solid var(--lightblue) !important;
+        padding: 11.5px;
+    }
+    .textbox::placeholder {
+        color: var(--lightblue)
+    }
+    .input_form {
+        background-color: var(--darkishblue);
+    }
+
+    .card {
+        background-color: var(--lightblue);
+        color: var(--darkblue);
+    }
+    .card:hover {
+        box-shadow: 0 0 7px 0 var(--lightblue);
+    }
+
+    .pst {
+        background-color: var(--darkishblue);
     }
 }
