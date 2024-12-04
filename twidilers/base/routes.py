@@ -42,8 +42,9 @@ def post():
         title = request.form.get('title')
         content = request.form.get('content')
         date = datetime.datetime.now().strftime('%D')
-        print(date)
         new_post = Post(title=title,content=content,author=session.get('username'),date=date)
+        db.session.add(new_post)
+        db.session.commit()
         return redirect(url_for('.feed'))
 
 @app.post('/sign_up')
@@ -61,7 +62,7 @@ def sign_up():
             db.session.add(new_account)
             db.session.commit() #For now use db.session.commit() instead of save()
             flash('User created successfully','success')
-            return redirect(url_for('.page',page='index'))
+            return redirect(url_for('.page',page='login'))
         flash('Passwords do not match','error')
         return redirect(url_for('.page',page='sign_up'))
     except sqlalchemy.exc.IntegrityError: #If the username already exists
@@ -72,9 +73,8 @@ def sign_up():
 @login_required
 def feed():
     if request.method == 'GET':
-        print('hi')
-        postlist = db.session.execute(db.select(Post).order_by(Post.id)).scalars()
-        return render_template('feed.html',postlist=postlist)
+        postlist = db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars()
+        return render_template('feed.html',postlist=list(postlist))
     if request.method == 'POST':
         return redirect(url_for('.feed'))
         

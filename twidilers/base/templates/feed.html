@@ -2,13 +2,16 @@
 {% block title %}Feed{% endblock %}
 {% block content %}
 <h1 class="heading">Your feed</h1>
+{% if postlist | length > 0 %}
 {% for post in postlist %}
 <div class="pst">
-    <script>alert('hi')</script>
-    <h3 class="pst-title">{{post.title}}</h3>
+    <h2 class="pst-title">{{post.title}}</h3>
     <p class="pst-content">{{post.content}}</p>
     <p class="pst-date">{{post.date}}</p>
 </div>
 {% endfor %}
+{% else %}
+<h2>Nothing here yet...</h2>
+{% endif %}
 <a href="{{ url_for('.post') }}"><button class="card">Create a Post</button></a>
 {% endblock %}

@@ -73,24 +73,6 @@ Click generate until you get the loss under 3 */
     font-weight: bold !important;
 }
 
-/* Cards are just navbars but slightly different as of 12/4/24 */
-.card {
-    padding: 20px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    border-radius: 5px;
-    border: 0;
-    margin: auto;
-    margin-top: 10px;
-    cursor:pointer;
-    transition: all 0.5s;
-}
-
-.card:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 2px 0 var(--darkblue);
-}
-
 /* Footer stuff here. #footer-div is the div for #footer*/
 #footer-div {
     text-align: center;
@@ -106,7 +88,18 @@ Click generate until you get the loss under 3 */
     width: 600px;
 }
 
+#content {
+    height: 220px;
+}
+
+#cards {
+    text-align: center;
+}
+
+
 /* Classes are below */
+
+
 
 /* Flashes are the notices like "login successful" and stuff. */
 .flash {
@@ -191,7 +184,26 @@ Click generate until you get the loss under 3 */
     border: 3px solid var(--lightblue);
 }
 
+/* Cards are just navbars but slightly different as of 12/4/24 */
+.card {
+    padding: 20px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    margin: auto;
+    margin-top: 10px;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+
+.card:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 2px 0 var(--darkblue);
+}
+
 /* fancy inline styling if you're cool. I don't know why these are here though. Derin? */
+/* Derin. It's for when you need something with a flex display and vertical flex direction */
 .flex {
     display: flex !important;
 }
