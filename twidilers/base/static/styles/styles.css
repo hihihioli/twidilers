@@ -14,6 +14,8 @@ body {
     --darkblue: #04043c;
     background-color: var(--lightblue);
     color: var(--darkblue);
+    display: flex;
+    flex-direction: column;
 }
 
 button {
@@ -26,9 +28,8 @@ button {
 }
 
 #content {
-    flex:1;
-    display:flex;
-    flex-direction: column;
+    display: flex;
+    flex-direction: column
 }
 
 #hometext {
@@ -83,6 +84,16 @@ Click generate until you get the loss under 3 */
 
 #footer {
     text-align: center;
+    align-self:flex-end;
+    height: 100px;
+    width: 100%;
+}
+
+#footers {
+    position: absolute;
+    margin: auto;
+    bottom: 0;
+    width: 600px;
 }
 
 @media only screen and (prefers-color-scheme: dark) {
