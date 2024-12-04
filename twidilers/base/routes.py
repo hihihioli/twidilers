@@ -4,12 +4,14 @@ The file for routes that need extra processing, such as processing a login.
 #Imports
 from flask import current_app, render_template, abort, request, redirect, url_for, flash, session
 import sqlalchemy
-
+import datetime
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import * #The custom decorators
 from ..models import * #Database models, like Account
 from ..functions import * #Custom functions, like save()
+
+# Make sure to use url_for('.feed') and not url_for('.page',page='feed')
 
 @app.post('/login')
 def login():
@@ -29,9 +31,20 @@ def logout():
     session.pop('username',None)
     return redirect(url_for('.page',page='login'))
 
-@app.post('/post')
+@app.route('/post', methods=['GET', 'POST'])
 def post():
-    return redirect(url_for('.page',page='feed'))
+    if request.method =='GET':
+        if session['username']:
+            return render_template('post.html')
+        else:
+            return redirect(url_for('.feed'))
+    if request.method == 'POST':
+        title = request.form.get('title')
+        content = request.form.get('content')
+        date = datetime.datetime.now().strftime('%D')
+        print(date)
+        new_post = Post(title=title,content=content,author=session.get('username'),date=date)
+        return redirect(url_for('.feed'))
 
 @app.post('/sign_up')
 def sign_up():
@@ -59,13 +72,9 @@ def sign_up():
 @login_required
 def feed():
     if request.method == 'GET':
-        postlist = []
-        posts = db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars()
-        for post in posts:
-            data = [post.title,post.content,post.author]
-            postlist.append(data)
-            print(postlist)
+        print('hi')
+        postlist = db.session.execute(db.select(Post).order_by(Post.id)).scalars()
         return render_template('feed.html',postlist=postlist)
     if request.method == 'POST':
-        return redirect('/feed')
+        return redirect(url_for('.feed'))
         

@@ -13,6 +13,7 @@ class Post(db.Model):
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
   title:Mapped[str]
   content:Mapped[str]
-  author:Mapped[str]
+  author:Mapped[str] = mapped_column(default='')
+  date:Mapped[str]
   def __repr__(self):
     return f"id={self.id},title={self.title},author={self.author}"

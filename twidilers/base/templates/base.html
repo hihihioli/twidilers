@@ -5,8 +5,6 @@
     <!-- The head with configuration. By default do not override this, but it can be overridden. -->
     {% block head %}
         <link rel="stylesheet" href="{{ url_for('.static', filename='styles/styles.css') }}">
-        <link rel="stylesheet" href="{{ url_for('.static', filename='styles/signinup.css') }}">
-        <link rel="stylesheet" href="{{ url_for('.static', filename='styles/feed.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('.static', filename='images/favicon.png', v=2) }}">
         <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
 
@@ -35,7 +33,7 @@
             <a href="{{ url_for('.logout') }}"><button>Log Out</button></a>
             {% endif %}
             <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
-            <a href="{{ url_for('.page',page='feed') }}"><button>Main Feed</button></a>
+            <a href="{{ url_for('.feed') }}"><button>Main Feed</button></a>
         {% endblock %}
     </div>
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
@@ -53,7 +51,7 @@
     <div id="footer-div">
         {% block footer %}
             <section id="footer">
-                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p></b>
+                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().strftime('%D')</p></b>
             </section>
         {% endblock %}
     </div>

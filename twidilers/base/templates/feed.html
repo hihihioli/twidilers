@@ -2,11 +2,13 @@
 {% block title %}Feed{% endblock %}
 {% block content %}
 <h1 class="heading">Your feed</h1>
-<!-- This is an example post for styling reasons. This should be the general structure for posts though-->
+{% for post in postlist %}
 <div class="pst">
-    <p class="pst-txt">This is example post test. I should figure out what to say. I'm continuing to talk.</p>
-    <img  class="pst-img" href="../static/images/favicon.png">
-    <p class="pst-date">December 4, 2024</p>
+    <script>alert('hi')</script>
+    <h3 class="pst-title">{{post.title}}</h3>
+    <p class="pst-content">{{post.content}}</p>
+    <p class="pst-date">{{post.date}}</p>
 </div>
-<a href="{{ url_for('.page',page='post') }}"><button class="card">Create a Post</button></a>
+{% endfor %}
+<a href="{{ url_for('.post') }}"><button class="card">Create a Post</button></a>
 {% endblock %}
