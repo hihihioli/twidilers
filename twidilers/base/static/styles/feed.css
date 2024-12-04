@@ -14,6 +14,6 @@ html {
 
 @media only screen and (prefers-color-scheme: dark) {
     .pst {
-
+        background-color: var(--darkishblue);
     }
 }
