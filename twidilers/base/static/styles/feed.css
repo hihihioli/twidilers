@@ -1,0 +1,19 @@
+html {
+    --lightblue: #b8eef9;
+    --darkblue: #04043c;
+    --darkishblue: #1f1f92;
+    --lightishblue: #9eefff;
+    --maroonred: rgb(83, 23, 23);
+    --greenish: #4d7b9f;
+}
+
+.pst {
+    padding: 10px;
+    background-color: var(--lightishblue);
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+    .pst {
+
+    }
+}

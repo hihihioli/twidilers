@@ -1,19 +1,15 @@
-/* Gives the styles to elements by class 
-Example: 
-.heading { 
-    * Styles go here *
-} 
-*/
+/* This stylesheet is for the signup/login pages. Please don't put other stuff in here. */
 
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
     --darkishblue: #1f1f92;
-    --lightishblue: #97eeff;
+    --lightishblue: #9eefff;
     --maroonred: rgb(83, 23, 23);
     --greenish: #4d7b9f;
 }
 
+/* Flashes are the notices like "login successful" and stuff. */
 .flash {
     justify-self: center;
     align-self: center;
@@ -49,25 +45,6 @@ html {
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 0;
-}
-
-.card {
-    padding: 15px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    border-radius: 5px;
-    border: 0;
-    height: 46px; 
-    margin: auto;
-    margin-top: 10px;
-    width: fit-content;
-    cursor:pointer;
-    transition: all 0.5s;
-}
-
-.card:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 7px 0 var(--darkblue);
 }
 
 .submit {

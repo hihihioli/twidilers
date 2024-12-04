@@ -1,9 +1,4 @@
-/* Gives the styles to elements by id 
-Example: 
-#navbar { 
-    * Styles go here *
-} 
-*/
+/* wtf why is this just for ids. No. This is general stuff and home page. -E */
 
 body {
     font-family: Arial;
@@ -49,6 +44,26 @@ button {
     width: fit-content;
     cursor:pointer;
     transition: all 0.5s;
+}
+
+
+.card {
+    padding: 15px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    height: 46px; 
+    margin: auto;
+    margin-top: 10px;
+    width: fit-content;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+
+.card:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
 }
 
 #navbar button:hover {
