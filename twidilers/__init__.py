@@ -23,6 +23,5 @@ def create_app():
     from .base import base #Import the base blueprint
     app.register_blueprint(base) #Register the base blueprint at root prefix
     
-    
     return app #Return the app to the runtime
 
