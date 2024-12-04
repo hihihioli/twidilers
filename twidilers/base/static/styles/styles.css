@@ -91,6 +91,9 @@ Click generate until you get the loss under 3 */
 #content {
     height: 220px;
 }
+p #content {
+    margin: 0;
+}
 
 #cards {
     text-align: center;
@@ -212,11 +215,18 @@ Click generate until you get the loss under 3 */
     flex-direction: column !important;
 }
 
+/* This is the feed area. feed.html */
+/* container for posts  */
+#pst-div {
+    display: flex;
+}
+
+/* Individual posts */
 .pst {
-    padding: 10px;
+    padding: 20px;
     background-color: var(--lightishblue);
     border-radius: 10px;
-    margin: 8px 0px
+    margin: 8px 0px;
 }
 
 @media only screen and (prefers-color-scheme: dark) {
