@@ -99,6 +99,12 @@ p #content {
     text-align: center;
 }
 
+/* For the checkpox system in the blog */
+#decorators {
+    display:flexbox;
+    vertical-align: middle;
+    align-items: center;
+}
 
 /* Classes are below */
 

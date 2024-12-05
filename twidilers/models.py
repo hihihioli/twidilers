@@ -15,5 +15,6 @@ class Post(db.Model):
   content:Mapped[str]
   author:Mapped[str] = mapped_column(default='')
   date:Mapped[str]
+  decorators:Mapped[str] = mapped_column(default='')
   def __repr__(self):
     return f"id={self.id},title={self.title},author={self.author}"
