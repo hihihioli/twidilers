@@ -6,7 +6,7 @@
 {% for post in postlist %}
 <div class="pst">
     <u><p class="pst-auth">{{post.author}}</p></u>
-    <h2 class="pst-title">{{post.title}}</h3>
+    <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
     <p class="pst-content">{{post.content}}</p>
     <p class="pst-date">{{post.date}}</p>
 </div>
