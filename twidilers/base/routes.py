@@ -72,7 +72,7 @@ def sign_up():
         db.session.rollback()
         return redirect(url_for('.page',page='sign_up'))
     except Exception as e:
-        print('Thgis',e)
+        print('Thgis',e) # Delete This
         db.session.rollback()
         return redirect(url_for('.page',page='sign_up')
 )
