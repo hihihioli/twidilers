@@ -51,7 +51,7 @@ def post():
 
 @app.post('/sign_up')
 def sign_up():
-    try:
+
         #Handle sign up stuff here
         new_username=request.form.get('username') #Gets username and passwords that were inputted into the form
         password1=request.form.get('password1')
@@ -62,21 +62,17 @@ def sign_up():
         if password1 == password2: #Checks if the passwords match
             new_account = Account(username=new_username,password=password1)
             db.session.add(new_account)
-            db.session.commit() #For now use db.session.commit() instead of save()
+            try:
+                db.session.commit() #For now use db.session.commit() instead of save()
+            except sqlalchemy.exc.IntegrityError: #If the username already exists
+                flash('Username already exists','error')
+                db.session.rollback()
+                return redirect(url_for('.page',page='sign_up'))
             flash('User created successfully','success')
             return redirect(url_for('.page',page='login'))
         flash('Passwords do not match','error')
         return redirect(url_for('.page',page='sign_up'))
-    except sqlalchemy.exc.IntegrityError: #If the username already exists
-        print(db.session.execute(db.select(Account.username)).scalars())
-        flash('Username already exists','error')
-        db.session.rollback()
-        return redirect(url_for('.page',page='sign_up'))
-    except Exception as e:
-        print('Thgis',e) # Delete This
-        db.session.rollback()
-        return redirect(url_for('.page',page='sign_up')
-)
+
     
 @app.route('/feed', methods=['GET', 'POST'])
 @login_required
