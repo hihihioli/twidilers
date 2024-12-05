@@ -4,7 +4,7 @@ This is variables. You can access them by doing var(--varname) instead of a colo
 html {
     --lightblue: #b8eef9;
     --darkblue: #04043c;
-    --darkishblue: #1f1f92;
+    --darkishblue: #03036d;
     --lightishblue: #9eefff;
     --maroonred: rgb(83, 23, 23);
     --greenish: #4d7b9f;
@@ -227,6 +227,7 @@ p #content {
     background-color: var(--lightishblue);
     border-radius: 10px;
     margin: 8px 0px;
+    height: fit-content;
 }
 
 .pst-auth {
@@ -236,6 +237,14 @@ p #content {
 
 .pst-title {
     margin-top:1px
+}
+
+.pst-date {
+    margin: 0px
+}
+
+.pst-content {
+    margin-top:0px
 }
 
 
