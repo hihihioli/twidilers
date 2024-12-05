@@ -223,6 +223,7 @@ p #content {
 /* #content is the main content area. #post-content is the input form content area. */
 #post-content {
     resize:vertical;
+    overflow-y: hidden;
 }
 #title, #post-content {
     width: 470px;

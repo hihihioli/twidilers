@@ -29,8 +29,9 @@ Eamon did the styling so I will start working in the database config
 Add stuff to do when logged in
 
 ## What should we work on?
-* aonnect the database to the server
+* connect the database to the server
 * add some more pages and page content
 * push the old websites maybe
 * work on sign in interface (specifically lightmode)
-* do the facebook blog feed thing
+* do the facebook blog feed thing (kinda done)
+
