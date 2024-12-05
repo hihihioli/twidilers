@@ -2,7 +2,7 @@
 The file for routes that need extra processing, such as processing a login.
 """
 #Imports
-from flask import current_app, render_template, abort, request, redirect, url_for, flash, session
+from flask import current_app, render_template, abort, request, redirect, url_for, flash, session,jsonify
 import sqlalchemy
 import datetime
 #Our objects
@@ -62,7 +62,7 @@ def sign_up():
         if password1 == password2: #Checks if the passwords match
             new_account = Account(username=new_username,password=password1)
             db.session.add(new_account)
-            db.session.commit() #For now use db.session.commit() instead of save()
+            save() #db.session.commit() but with a try except rollback clause around it (in functions.py)
             flash('User created successfully','success')
             return redirect(url_for('.page',page='login'))
         flash('Passwords do not match','error')
@@ -90,12 +90,36 @@ def feed():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    if request.method == "GET":
-        if 'username' in session:
+    if request.method == "GET": #If the user is visiting the page, gets the user's account using findAccount() (in functions.py) to display information on the webpage
+        if 'username' in session: #Ensures that the user is logged in
             account = findAccount()
             return render_template("profile.html",account=account)
         else:
             flash('You must be logged in to view this page','error')
             return redirect(url_for('.page',page='login'))
-    if request.method == "POST":
-        return redirect(url_for('profile'))
+    if request.method == "POST": #If the user is accessing the POST method (deleting theitr account), recieves the data from the fetch request in profile.html and deletes the account
+        data = request.get_json()
+        account = findAccount() 
+        if account: #Ensures that the account exists and is the intended account to be deleted
+            if account.username == data['account']:
+                db.session.delete(account) #Removes the account from the database and save()s (in functions.py)
+                save()
+                session.pop('username',None) #Removes username from the session data
+                flash('Account deleted successfully','success')
+                response = { #Returns the data to the frontend
+                        "message": "Data get!",
+                        "recieved_data": data
+                        }
+                return jsonify(response)
+            flash('An error occured','error')
+            response = {
+                        "message": "An error occured",
+                        "recieved_data": data
+                        }
+            return jsonify(response) #Returns the data to the frontend
+        flash('An error occured','error')
+        response = {
+                        "message": "An error occured",
+                        "recieved_data": data
+                        }
+        return jsonify(response) #Returns the data to the frontend
