@@ -66,8 +66,15 @@ def sign_up():
         flash('Passwords do not match','error')
         return redirect(url_for('.page',page='sign_up'))
     except sqlalchemy.exc.IntegrityError: #If the username already exists
+        print(db.session.execute(db.select(Account.username)).scalars())
         flash('Username already exists','error')
+        db.session.rollback()
         return redirect(url_for('.page',page='sign_up'))
+    except Exception as e:
+        print('Thgis',e)
+        db.session.rollback()
+        return redirect(url_for('.page',page='sign_up')
+)
     
 @app.route('/feed', methods=['GET', 'POST'])
 @login_required
