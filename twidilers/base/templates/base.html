@@ -5,7 +5,7 @@
     <!-- The head with configuration. By default do not override this, but it can be overridden. -->
     {% block head %}
         <link rel="stylesheet" href="{{ url_for('.static', filename='styles/styles.css') }}">
-        <link rel="stylesheet" href="{{ url_for('.static', filename='styles/classes.css') }}">
+        <link rel="stylesheet" href="{{ url_for('.static', filename='styles/fontawesome.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('.static', filename='images/favicon.png', v=2) }}">
         <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
 
@@ -21,14 +21,21 @@
     {% endblock %}
 </head>
 
-<body>
+<body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
     <!-- The navbar. Also can be overridden if necessary. -->
     <div id="navbar">
-        {% block nav %}   
-            <a href="{{ url_for('.page',page='index') }}" id="home-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}"><p id="hometext">Home</p></button></a> 
+        {% block nav %}
+            <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
+            <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
+
+            {% if not session['username'] %}
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
-            <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
+            {% endif %}
+            {% if session['username'] %}
+            <a href="{{ url_for('.feed') }}"><button>Main Feed</button></a>
+            <a href="{{ url_for('.logout') }}"><button><i class="fa-solid fa-right-from-bracket"></i></button></a>
+            {% endif %}
         {% endblock %}
     </div>
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
@@ -43,10 +50,10 @@
     <!-- The main content of the page goes in a div with id content. -->
     <div id="content">{% block content %}{% endblock %}</div>
     <!-- The footer has a default but can be overridden. -->
-    <div id="footer">
+    <div id="footer-div">
         {% block footer %}
-            <section id="footers">
-                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().srtf('%m-%D-%Y')</p></b>
+            <section id="footer">
+                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright datetime.datetime.now().strftime('%D')</p></b>
             </section>
         {% endblock %}
     </div>

@@ -1,4 +1,4 @@
-from .database import db, Mapped, mapped_column,relationship
+from .database import db, Mapped, mapped_column,relationship,desc
 
 class Account(db.Model):
   __tablename__ = 'accounts'
@@ -7,3 +7,13 @@ class Account(db.Model):
   password:Mapped[str] = mapped_column(nullable=False)
   def __repr__(self):
     return f'username={self.username},password={self.password},id={self.id}'
+  
+class Post(db.Model):
+  __tablename = 'posts'
+  id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
+  title:Mapped[str]
+  content:Mapped[str]
+  author:Mapped[str] = mapped_column(default='')
+  date:Mapped[str]
+  def __repr__(self):
+    return f"id={self.id},title={self.title},author={self.author}"
