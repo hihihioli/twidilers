@@ -41,8 +41,10 @@ def post():
     if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('post-content')
+        decorators = ' '.join(value for value in [request.form.get('overline'),request.form.get('underline'),request.form.get('line-through')] if value is not None)
+        print(decorators)
         date = datetime.datetime.now().strftime('%D')
-        new_post = Post(title=title,content=content,author=session.get('username'),date=date)
+        new_post = Post(title=title,content=content,author=session.get('username'),date=date,decorators=decorators)
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('.feed'))
