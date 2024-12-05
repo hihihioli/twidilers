@@ -334,7 +334,7 @@ p #content {
         background-color: var(--darkishblue);
         color: white !important;
         border: 3px solid var(--lightblue);
-        padding: 11.5px;
+        padding: 13px 90px;
     }
     .textbox::placeholder {
         color: var(--lightblue)
