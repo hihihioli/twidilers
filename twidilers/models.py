@@ -9,7 +9,6 @@ class Account(db.Model):
     return f'username={self.username},password={self.password},id={self.id}'
   
 class Post(db.Model):
-  __tablename = 'posts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
   title:Mapped[str]
   content:Mapped[str]
