@@ -22,6 +22,10 @@ body {
     flex-direction: column;
 }
 
+label {
+    color:var(--darkblue)
+}
+
 #content {
     flex: 1;
 }
@@ -95,7 +99,6 @@ Click generate until you get the loss under 3 */
 }
 
 #footer {
-    position: absolute;
     margin: auto;
     bottom: 0;
     width: 600px;
@@ -254,6 +257,7 @@ p #content {
 }
 #blog_form {
     width: 500px;
+    margin-bottom:1px;
 }
 /* Individual posts */
 .pst {
@@ -291,6 +295,11 @@ p #content {
         color: var(--lightblue);
         background-color: var(--darkblue);
     }
+
+    label {
+        color:var(--lightblue)
+    }
+
     #navbar button {
         color: var(--darkblue);
         background-color: var(--lightblue);
@@ -325,7 +334,7 @@ p #content {
         background-color: var(--darkishblue);
         color: white !important;
         border: 3px solid var(--lightblue);
-        padding: 11.5px;
+        padding: 13px 90px;
     }
     .textbox::placeholder {
         color: var(--lightblue)
