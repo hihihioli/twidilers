@@ -32,7 +32,7 @@ def sign_up():
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
-            flash('Please enter a username','error')
+            flash('Please enter a username and password','error') #Tell the user whats wrong
             return redirect('/sign_up')
         if password1 == password2: #Checks if the passwords match
             new_account = Account(username=new_username,password=password1)
@@ -43,5 +43,11 @@ def sign_up():
         flash('Passwords do not match','error')
         return redirect('/sign_up')
     except sqlalchemy.exc.IntegrityError: #If the username already exists
+        print(db.session.execute(db.select(Account.username)).scalars())
         flash('Username already exists','error')
+        db.session.rollback()
+        return redirect('/sign_up')
+    except Exception as e:
+        print('Thgis',e)
+        db.session.rollback()
         return redirect('/sign_up')
