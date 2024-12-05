@@ -22,14 +22,13 @@ body {
     flex-direction: column;
 }
 
+#content {
+    flex: 1;
+}
+
 /* hdr-href is the icon in the leftmost part of the navbar. hdr-img is the image element. We need to filter it to match the text */
 #hdr-href {
     margin-right:auto
-}
-
-#hometext {
-    color: #0d0d6b;
-    margin-top:0;
 }
 
 #hder-img {
@@ -88,8 +87,9 @@ Click generate until you get the loss under 3 */
     width: 600px;
 }
 
-#content {
-    flex:1
+#form-content {
+    flex:1;
+
 }
 p #content {
     margin: 0;
@@ -177,7 +177,6 @@ p #content {
     align-self: center !important;
     transition: all 0.3s;
     margin: 10px auto 0 auto;
-
 }
 
 .submit:hover {
@@ -221,6 +220,21 @@ p #content {
     display: flex;
 }
 
+/* #content is the main content area. #post-content is the input form content area. */
+#post-content {
+    resize:vertical;
+}
+#title, #post-content {
+    width: 470px;
+    border-radius: 10px;
+}
+#post-submit {
+    margin:0;
+    align-self:inherit !important;
+}
+#blog_form {
+    width: 500px;
+}
 /* Individual posts */
 .pst {
     padding: 20px;
@@ -262,7 +276,11 @@ p #content {
     .textbox {
         color: var(--lightblue);
         background-color: var(--darkblue);
+        border: 0;
+    }
+    .textbox:focus {
         border: 3px solid var(--lightishblue);
+
     }
     .submit {
         background-color: var(--lightblue);

@@ -40,7 +40,7 @@ def post():
             return redirect(url_for('.feed'))
     if request.method == 'POST':
         title = request.form.get('title')
-        content = request.form.get('content')
+        content = request.form.get('post-content')
         date = datetime.datetime.now().strftime('%D')
         new_post = Post(title=title,content=content,author=session.get('username'),date=date)
         db.session.add(new_post)
