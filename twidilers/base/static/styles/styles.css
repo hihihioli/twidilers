@@ -140,12 +140,12 @@ p #content {
 .input_form {
     width: fit-content;
     margin: 0 auto;
-    background-color: var(--darkblue);
     padding: 25px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    color: var(--darkblue);
 }
 
 /* The textbox for password and username input */
@@ -156,7 +156,8 @@ p #content {
     padding:13px;
     background-color: var(--lightblue);
     color: var(--darkblue);
-    border: 0;
+    border: 3px solid var(--darkblue);
+
 }
 /* Placeholders are the preview text stuffs before you put your cursor in*/
 .textbox::placeholder {
@@ -176,8 +177,8 @@ p #content {
     font-size: 11pt;
     padding: 13px;
     border-radius: 5px;
-    background-color: var(--lightblue);
-    color: var(--darkblue);
+    background-color: var(--darkblue);
+    color: var(--lightblue);
     cursor: pointer;
     border: 0;
     align-self: center !important;
@@ -186,10 +187,7 @@ p #content {
 }
 
 .submit:hover {
-    padding: 12px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    border: 3px solid var(--lightblue);
+    padding: 13px 90px;
 }
 
 /* Cards are just navbars but slightly different as of 12/4/24 */

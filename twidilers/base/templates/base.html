@@ -26,9 +26,8 @@
     <div id="navbar">
         {% block nav %}
             <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-
-            {% if not session['username'] %}
             <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
+            {% if not session['username'] %}
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             {% endif %}
