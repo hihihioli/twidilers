@@ -89,7 +89,7 @@ Click generate until you get the loss under 3 */
 }
 
 #content {
-    height: 220px;
+    flex:1
 }
 p #content {
     margin: 0;
@@ -229,6 +229,16 @@ p #content {
     margin: 8px 0px;
 }
 
+.pst-auth {
+    margin:0px;
+    color:var(--darkblue)
+}
+
+.pst-title {
+    margin-top:1px
+}
+
+
 @media only screen and (prefers-color-scheme: dark) {
     /* Flips the color and background color from the base. */
 
@@ -283,5 +293,9 @@ p #content {
 
     .pst {
         background-color: var(--darkishblue);
+    }
+
+    .pst-auth {
+        color:var(--lightblue)
     }
 }
