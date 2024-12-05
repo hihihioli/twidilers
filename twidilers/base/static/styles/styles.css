@@ -214,6 +214,7 @@ p #content {
     flex-direction: column !important;
 }
 
+
 /* This is the feed area. feed.html */
 /* container for posts  */
 #pst-div {
@@ -243,6 +244,8 @@ p #content {
     border-radius: 10px;
     margin: 8px 0px;
     height: fit-content;
+    inline-size: 565px;
+    overflow-wrap: break-word;
 }
 
 .pst-auth {
@@ -292,6 +295,8 @@ p #content {
         border: 3px solid var(--lightishblue);
 
     }
+        
+
     .submit {
         background-color: var(--lightblue);
         color: var(--darkblue);
@@ -299,9 +304,9 @@ p #content {
         padding: 11.5px;
     }
     .submit:hover {
-        background-color: var(--darkishblue) !important;
+        background-color: var(--darkishblue);
         color: white !important;
-        border: 3px solid var(--lightblue) !important;
+        border: 3px solid var(--lightblue);
         padding: 11.5px;
     }
     .textbox::placeholder {
