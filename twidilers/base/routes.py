@@ -63,8 +63,8 @@ def sign_up():
             new_account = Account(username=new_username,password=password1)
             db.session.add(new_account)
             try:
-                db.session.commit() #For now use db.session.commit() instead of save()
-            except sqlalchemy.exc.IntegrityError: #If the username already exists
+                db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
+            except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
                 flash('Username already exists','error')
                 db.session.rollback()
                 return redirect(url_for('.page',page='sign_up'))
