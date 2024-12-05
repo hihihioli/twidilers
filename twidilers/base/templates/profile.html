@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
-{% block title %}Profile page{% endblock %}
+{% block title %}Profile{% endblock %}
 {% block content %}
-
-
+<h1 class="heading">Profile</h1>
+<p name="prof-username" id="prof-username"><b>Username:</b> {{account.username}}</p><br>
+<span name="prof-password" id="prof-password">Password: {% for x in range(account.password| length)%}•{% endfor %}</span><br>
+<button class="submit" id="prof-show-password" onclick="show_password()">Show Password</button>
+<script>
+    let shown = 0
+    let pDisplay = document.getElementById('prof-password')
+    let pDisplayButton = document.getElementById('prof-show-password')
+    function show_password() {
+        if (shown == 0) {
+            pDisplay.textContent = 'Password: {{account.password}}'
+            pDisplayButton.textContent = 'Hide Password'
+            shown = 1
+        } else {
+            pDisplay.textContent = 'Password: {% for x in range(account.password| length)%}•{% endfor %}'
+            pDisplayButton.textContent = 'Show Password'
+            shown = 0
+        }
+    }
+</script>
 {% endblock %}

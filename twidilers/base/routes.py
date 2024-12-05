@@ -21,7 +21,7 @@ def login():
     if account: #Checks if the given account exists
         if account.password == password: #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
-            session['username'] = username #Sets session data to be used on other sites
+            session['username'] = username #Sets session data to be used on other pages
             return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
@@ -34,8 +34,9 @@ def logout():
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     if request.method =='GET':
-        if session['username']:
-            return render_template('post.html')
+        if 'username' in session:
+            if session['username']:
+                return render_template('post.html')
         else:
             return redirect(url_for('.feed'))
     if request.method == 'POST':
@@ -85,4 +86,16 @@ def feed():
         return render_template('feed.html',postlist=list(postlist))
     if request.method == 'POST':
         return redirect(url_for('.feed'))
-        
+    
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == "GET":
+        if 'username' in session:
+            account = findAccount()
+            return render_template("profile.html",account=account)
+        else:
+            flash('You must be logged in to view this page','error')
+            return redirect(url_for('.page',page='login'))
+    if request.method == "POST":
+        return redirect(url_for('profile'))

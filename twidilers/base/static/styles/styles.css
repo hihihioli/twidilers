@@ -72,6 +72,20 @@ Click generate until you get the loss under 3 */
     font-weight: bold !important;
 }
 
+#prof-username {
+    font-size:22pt;
+    margin-top:0px;
+}
+
+#prof-password {
+    font-size:22pt;
+    margin-top:0px;
+}
+
+#prof-show-password {
+    width: fit-content;
+}
+
 /* Footer stuff here. #footer-div is the div for #footer*/
 #footer-div {
     text-align: center;

@@ -2,7 +2,7 @@
 Welcome to Twidilers App! Backend by Derin and Oliver. Frontend by Eamon. 
 '''
 
-from flask import Flask
+from flask import Flask, session
 from dotenv import load_dotenv
 import os
 
