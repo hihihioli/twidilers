@@ -1,11 +1,23 @@
-from .database import db, Mapped, mapped_column,relationship,desc
+from .database import db, bcrypt,Mapped, mapped_column,relationship,desc, LargeBinary
 
 class Account(db.Model):
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
-  password:Mapped[str] = mapped_column(nullable=False)
-  def __repr__(self):
+  password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
+  
+  @property
+  def password(self):
+    raise AttributeError("Password cannot be retrieved.") #Prevent trying to directly access the password.
+  
+  @password.setter
+  def password(self,plain_password): #This will be called when setting the password
+    self.password_hash = bcrypt.generate_password_hash(plain_password) #hash the password then store it in a binary object
+
+  def check_password(self,plain_password): #Returns a bool on whether the passwords match
+    return bcrypt.check_password_hash(self.password_hash, plain_password) #Check them
+  
+  def __repr__(self): #When printing, what to return
     return f'username={self.username},password={self.password},id={self.id}'
   
 class Post(db.Model):

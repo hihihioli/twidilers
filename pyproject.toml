@@ -5,7 +5,7 @@ dependencies = [
     "Flask-SQLAlchemy",
     "python-dotenv",
     "psycopg2",
-    "bcrypt",
+    "flask-bcrypt",
 ]
 version='1.0'
 description='A wonderful website'

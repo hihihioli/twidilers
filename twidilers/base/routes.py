@@ -19,7 +19,7 @@ def login():
     password = request.form.get('password')
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
     if account: #Checks if the given account exists
-        if account.password == password: #Checks if the account's logged password is the same as the inputted password
+        if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
             session['username'] = username #Sets session data to be used on other pages
             return redirect(url_for('.page',page='index'))
@@ -41,7 +41,7 @@ def post():
             return redirect(url_for('.feed'))
     if request.method == 'POST':
         title = request.form.get('title')
-        content = request.form.get('post-content')
+        content = request.form.get('post-content') #What does the next line do?
         decorators = ' '.join(value for value in [request.form.get('overline'),request.form.get('underline'),request.form.get('line-through'),request.form.get('wavy')] if value is not None)
         date = datetime.datetime.now().strftime('%D')
         new_post = Post(title=title,content=content,author=session.get('username'),date=date,decorators=decorators)
