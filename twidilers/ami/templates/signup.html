@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block main %}
+<h1 class="heading">Sign Up</h1>
+<form method="post" name="sign_form" id="sign_form" class="form_block">
+    <div class="i-container">
+    <input type="text" placeholder="Create a Username" class="textbox">
+    <input type="passwords" placeholder="Create Password" class="textbox">
+    <input type="password" placeholder="Confirm Password" class="textbox"><br>
+    <button type="button" class="submit" id="submit">Submit</button>
+    </div>
+</form>
+
+<script>
+    const submit = document.getElementById('submit')
+    const instance = 1
+    submit.addEventListener('click',function(event) {
+        event.preventDefault()
+        if (instance == 1) {
+            document.getElementById('sign_form').style.filter = 'opacity(0)'
+            wondow.setTimeout()
+        }
+    })
+</script>
+{% endblock %}
