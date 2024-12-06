@@ -3,22 +3,39 @@
 {% block main %}
 <h1 class="heading">Sign Up</h1>
 <form method="post" name="sign_form" id="sign_form" class="form_block">
-    <div class="i-container">
-    <input type="text" placeholder="Create a Username" class="textbox">
-    <input type="passwords" placeholder="Create Password" class="textbox">
-    <input type="password" placeholder="Confirm Password" class="textbox"><br>
+    <div class="i-container" id="div1">
+    <input type="text" placeholder="Create a Username" class="textbox" id="username" autocomplete="off">
+    <input type="password" placeholder="Create Password" class="textbox" id="password1" autocomplete="off">
+    <input type="password" placeholder="Confirm Password" class="textbox" id="password2" autocomplete="off"><br>
     <button type="button" class="submit" id="submit">Submit</button>
+    </div>
+    <div class="i-container" id="div2" style="display:none">
+        <h1 class="heading">Please select your instrument(s)</h1>
+        <input type="checkbox" id="Piano">
     </div>
 </form>
 
 <script>
     const submit = document.getElementById('submit')
-    const instance = 1
+    const Div1  = document.getElementById('div1')
+    const Div2  = document.getElementById('div2')
     submit.addEventListener('click',function(event) {
         event.preventDefault()
-        if (instance == 1) {
-            document.getElementById('sign_form').style.filter = 'opacity(0)'
-            wondow.setTimeout()
+        if (document.getElementById('username')?.value.trim() !== '' && document.getElementById('password1')?.value.trim() !== '' && document.getElementById('password2')?.value.trim() !== '') {
+            if (document.getElementById('password2')?.value === document.getElementById('password1')?.value) {
+                Div1.style.filter = 'opacity(0)'
+                Div2.style.filter = 'opacity(0)'
+            setTimeout(function() {
+                Div1.style.display = 'none'
+                Div2.style.display = 'block'
+                Div2.style.filter = 'opacity(1)'
+            },500)
+            } else {
+                alert('Your passwords do not match')
+            }
+            
+        } else {
+            alert('Please ensure that the fields are not empty and that they do not only consist of spaces')
         }
     })
 </script>
