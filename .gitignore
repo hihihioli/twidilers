@@ -11,3 +11,4 @@ twidilers/base/test.db
 /instance/memory
 /instance/test.db
 twidilers/.env
+/twidilers/ami/__pycache__
