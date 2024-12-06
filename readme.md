@@ -28,10 +28,15 @@ Eamon did the styling so I will start working in the database config
 ### 12/4/24
 Add stuff to do when logged in
 
+### 12/6/24
+I am working on hashing and adding a profile photo system
+
+-Oliver
+
 ## What should we work on?
-* connect the database to the server
+* connect the database to the server ✅
 * add some more pages and page content
 * push the old websites maybe
 * work on sign in interface (specifically lightmode)
 * do the facebook blog feed thing (kinda done)
-
+* profile photo system(oliver)
