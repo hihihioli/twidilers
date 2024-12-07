@@ -1,13 +1,14 @@
 from .database import db, bcrypt
 
 from sqlalchemy.orm import Mapped, mapped_column,relationship
-from sqlalchemy import desc, LargeBinary, DateTime
+from sqlalchemy import desc, LargeBinary, DateTime, ForeignKey
 import datetime
 
 class Account(db.Model):
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
+  posts:Mapped[list["Post"]] = relationship(back_populates="author")
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   
   @property
@@ -26,9 +27,10 @@ class Account(db.Model):
   
 class Post(db.Model):
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
+  author_id:Mapped[int] = mapped_column(ForeignKey("accounts.id"))
+  author:Mapped["Account"] = relationship(back_populates="posts")
   title:Mapped[str]
   content:Mapped[str]
-  author:Mapped[str] = mapped_column(default='')
   decorators:Mapped[str] = mapped_column(default='')
   date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=datetime.datetime.now(datetime.timezone.utc),nullable=True) #an aware datetime object
   def __repr__(self):

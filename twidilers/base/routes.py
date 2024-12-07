@@ -38,7 +38,7 @@ def post():
     content = request.form.get('post-content') #What does the next line do?
     decorators = ' '.join(value for value in [request.form.get('overline'),request.form.get('underline'),request.form.get('line-through'),request.form.get('wavy')] if value is not None)
     date_utc = datetime.datetime.now(datetime.timezone.utc)
-    new_post = Post(title=title,content=content,author=author,date=date_utc,decorators=decorators)
+    new_post = Post(title=title,content=content,date=date_utc,decorators=decorators,author=findAccount())
     db.session.add(new_post)
     db.session.commit()
     return redirect(url_for('.page',page='feed'))
