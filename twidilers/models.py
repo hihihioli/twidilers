@@ -1,4 +1,8 @@
-from .database import db, bcrypt,Mapped, mapped_column,relationship,desc, LargeBinary
+from .database import db, bcrypt
+
+from sqlalchemy.orm import Mapped, mapped_column,relationship
+from sqlalchemy import desc, LargeBinary, DateTime
+import datetime
 
 class Account(db.Model):
   __tablename__ = 'accounts'
@@ -25,7 +29,7 @@ class Post(db.Model):
   title:Mapped[str]
   content:Mapped[str]
   author:Mapped[str] = mapped_column(default='')
-  date:Mapped[str]
   decorators:Mapped[str] = mapped_column(default='')
+  date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=datetime.datetime.now(datetime.timezone.utc),nullable=True) #an aware datetime object
   def __repr__(self):
     return f"id={self.id},title={self.title},author={self.author}"

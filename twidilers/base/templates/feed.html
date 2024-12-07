@@ -8,7 +8,11 @@
     <a><p class="pst-auth">{{post.author}}</p></a>
     <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
     <p class="pst-content">{{post.content}}</p>
-    <p class="pst-date">{{post.date}}</p>
+    <p class="pst-date" id="date{{ loop.index0 }}"></p>
+    <script>
+        const post_date = new Date({{ post.date.timestamp()*1000 }})
+        document.getElementById("date{{ loop.index0 }}").innerHTML = post_date.toLocaleString();
+    </script>
 </div>
 {% endfor %}
 {% else %}
