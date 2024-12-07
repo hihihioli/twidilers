@@ -34,11 +34,10 @@ def logout():
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     if request.method =='GET':
-        if 'username' in session:
-            if session['username']:
-                return render_template('post.html')
+        if session['username']:
+            return render_template('post.html')
         else:
-            return redirect(url_for('.feed'))
+            return redirect(url_for('.page',page='feed'))
     if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('post-content') #What does the next line do?
@@ -47,7 +46,7 @@ def post():
         new_post = Post(title=title,content=content,author=session.get('username'),date=date,decorators=decorators)
         db.session.add(new_post)
         db.session.commit()
-        return redirect(url_for('.feed'))
+        return redirect(url_for('.page',page='feed'))
 
 @app.post('/sign_up')
 def sign_up():
@@ -73,15 +72,6 @@ def sign_up():
         flash('Passwords do not match','error')
         return redirect(url_for('.page',page='sign_up'))
 
-    
-@app.route('/feed', methods=['GET', 'POST'])
-@login_required
-def feed():
-    if request.method == 'GET':
-        postlist = db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars()
-        return render_template('feed.html',postlist=list(postlist))
-    if request.method == 'POST':
-        return redirect(url_for('.feed'))
     
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required

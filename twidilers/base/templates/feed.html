@@ -2,8 +2,8 @@
 {% block title %}Feed{% endblock %}
 {% block content %}
 <h1 class="heading">Your feed</h1>
-{% if postlist | length > 0 %}
-{% for post in postlist %}
+{% if postlist() | length > 0 %}
+{% for post in postlist() %}
 <div class="pst">
     <a><p class="pst-auth">{{post.author}}</p></a>
     <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
