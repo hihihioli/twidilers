@@ -68,39 +68,11 @@ def sign_up():
         return redirect(url_for('.page',page='sign_up'))
 
     
-@app.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profile():
-    if request.method == "GET": #If the user is visiting the page, gets the user's account using findAccount() (in functions.py) to display information on the webpage
-        if 'username' in session: #Ensures that the user is logged in
-            account = findAccount()
-            return render_template("profile.html",account=account)
-        else:
-            flash('You must be logged in to view this page','error')
-            return redirect(url_for('.page',page='login'))
-    if request.method == "POST": #If the user is accessing the POST method (deleting theitr account), recieves the data from the fetch request in profile.html and deletes the account
-        data = request.get_json()
-        account = findAccount() 
-        if account: #Ensures that the account exists and is the intended account to be deleted
-            if account.username == data['account']:
-                db.session.delete(account) #Removes the account from the database and save()s (in functions.py)
-                save()
-                session.pop('username',None) #Removes username from the session data
-                flash('Account deleted successfully','success')
-                response = { #Returns the data to the frontend
-                        "message": "Data get!",
-                        "recieved_data": data
-                        }
-                return jsonify(response)
-            flash('An error occured','error')
-            response = {
-                        "message": "An error occured",
-                        "recieved_data": data
-                        }
-            return jsonify(response) #Returns the data to the frontend
-        flash('An error occured','error')
-        response = {
-                        "message": "An error occured",
-                        "recieved_data": data
-                        }
-        return jsonify(response) #Returns the data to the frontend
+@app.post('/profile')
+def profile(): #The delete function
+    if session['username']:
+        account = findAccount()
+        db.session.delete(account)
+        db.session.commit()
+        flash('Successfully Deleted Account','success')
+    return redirect(url_for('.logout'))

@@ -23,6 +23,7 @@ def page(page):
         password_protected = [
                 'feed',
                 'post',
+                'profile',
         ]
         if page in password_protected and 'username' not in session:
                 flash('You must be logged in to view this page','error')

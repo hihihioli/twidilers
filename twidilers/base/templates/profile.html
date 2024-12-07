@@ -1,41 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock %}
 {% block content %}
+{% set account = findAccount() %}
 <h1 class="heading">Profile</h1>
 <p name="prof-username" id="prof-username"><b>Username:</b> {{account.username}}</p><br>
-<span name="prof-password" id="prof-password">Password: {% for x in range(account.password| length)%}•{% endfor %}</span><br>
-<button class="submit" id="prof-show-password" onclick="show_password()">Show Password</button>
-<button class="submit" id="prof-delete-account" onclick="delete_account()">Delete Account</button>
+<form method="post">
+    <button class="submit" id="prof-delete-account">Delete Account</button>
+</form> 
 
-<script>
-    let shown = 0
-    let pDisplay = document.getElementById('prof-password') //Accesses the password display and the button that displayes the password
-    let pDisplayButton = document.getElementById('prof-show-password')
-    function show_password() {
-        if (shown == 0) {
-            pDisplay.textContent = 'Password: {{account.password}}' //If the password is not shown, displays the password and changes the button's text to 'Hide Password'
-            pDisplayButton.textContent = 'Hide Password'
-            shown = 1
-        } else {
-            pDisplay.textContent = 'Password: {% for x in range(account.password| length)%}•{% endfor %}' //If the password is already displayed, hides the password and cchanges the button's text to 'Hide Password'
-            pDisplayButton.textContent = 'Show Password'
-            shown = 0
-        }
-    }
-    function delete_account() {
-    let data = { "account": '{{account.username}}'}
-    fetch("{{url_for('.profile')}}", {
-                                method: 'POST',
-                                headers: {
-                                        'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(data)
-                        })
-                                .then(response => response.json())
-                                .then(response => {
-                                    console.log(JSON.stringify(response))
-                                    window.location = "{{url_for('.page', page='sign_up')}}"
-                                })
-                                }
-</script>
 {% endblock %}
