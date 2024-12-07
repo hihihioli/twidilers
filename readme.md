@@ -34,7 +34,6 @@ I am working on hashing and adding a profile photo system
 -Oliver
 
 ## What should we work on?
-* connect the database to the server ✅
 * add some more pages and page content
 * push the old websites maybe
 * work on sign in interface (specifically lightmode)
