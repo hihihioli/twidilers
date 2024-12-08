@@ -20,7 +20,7 @@ def create_app():
     bcrypt.init_app(app)
     
     with app.app_context(): #Creates the tables for each class and adds it to the database
-        db.create_all() 
+        db.create_all()
     
     from .base import base #Import the base blueprint
     app.register_blueprint(base) #Register the base blueprint at root prefix

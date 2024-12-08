@@ -9,6 +9,7 @@ class Account(db.Model):
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
   posts:Mapped[list["Post"]] = relationship(back_populates="author")
+  photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   
   @property
@@ -26,8 +27,9 @@ class Account(db.Model):
     return f'username={self.username},password={self.password},id={self.id}'
   
 class Post(db.Model):
+  __tablename__ = 'posts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
-  author_id:Mapped[int] = mapped_column(ForeignKey("accounts.id"))
+  author_id:Mapped[int] = mapped_column(ForeignKey("accounts.id",ondelete='CASCADE'))
   author:Mapped["Account"] = relationship(back_populates="posts")
   title:Mapped[str]
   content:Mapped[str]

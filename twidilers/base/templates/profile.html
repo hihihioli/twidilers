@@ -3,9 +3,29 @@
 {% block content %}
 {% set account = findAccount() %}
 <h1 class="heading">Profile</h1>
+<form method="post" enctype="multipart/form-data" id="upload_pfp">
+    <label for="file">
+        <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
+    </label>
+    <input type="file" id="file" name="file" accept="image/*", style="display:none">
+</form>
+
+<script>
+    file = document.getElementById('file');
+    file.addEventListener('change',() => {
+        if(file.files.length > 0){
+            document.getElementById('upload_pfp').submit();
+        }
+    })
+</script>
+
 <p name="prof-username" id="prof-username"><b>Username:</b> {{account.username}}</p><br>
+
+
 <form method="post">
-    <button class="submit" id="prof-delete-account">Delete Account</button>
+    <button class="submit" id="prof-delete-account" name="delete">Delete Account</button>
 </form> 
+
+
 
 {% endblock %}

@@ -2,9 +2,11 @@
 The file for routes that need extra processing, such as processing a login.
 """
 #Imports
-from flask import current_app, render_template, abort, request, redirect, url_for, flash, session,jsonify
+from flask import current_app, render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
 import sqlalchemy
 import datetime
+from io import BytesIO
+from PIL import Image, ImageOps
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import * #The custom decorators
@@ -32,6 +34,7 @@ def logout():
     return redirect(url_for('.page',page='login'))
 
 @app.post('/post')
+@login_required
 def post():
     title = request.form.get('title')
     author = session.get('username')
@@ -68,11 +71,34 @@ def sign_up():
         return redirect(url_for('.page',page='sign_up'))
 
     
-@app.post('/profile')
-def profile(): #The delete function
-    if session['username']:
+@app.post('/profile') #trying to delete user
+@login_required
+def profile(): #Handles the forms
+    if 'delete' in request.form: #the user wants to delete their account
         account = findAccount()
         db.session.delete(account)
         db.session.commit()
         flash('Successfully Deleted Account','success')
-    return redirect(url_for('.logout'))
+    else: #The user wants to update their pfp
+        account = findAccount()
+        if 'file' in request.files:
+            img = Image.open(request.files['file'])
+            img = ImageOps.fit(img,(512,512))
+            temp_file = BytesIO()
+            img.save(temp_file, format="PNG")
+            account.photo = temp_file.getvalue()
+            db.session.commit()
+            flash('Updated Photo Successfully','success')
+        else:
+            flash('No File Selected','error')
+        return redirect(url_for('.page',page='profile'))
+
+
+@app.get('/<username>/pfp')
+def get_pfp(username):
+    account = findAccount(username)
+    account if account else abort(404)
+    if account.photo:
+        return send_file(BytesIO(account.photo),download_name=f'{username}_pfp.png')
+    else:
+        return send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
