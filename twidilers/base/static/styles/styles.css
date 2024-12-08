@@ -8,6 +8,7 @@ html {
     --lightishblue: #9eefff;
     --maroonred: rgb(83, 23, 23);
     --greenish: #4d7b9f;
+    --maroongreen: #003d00;
 }
 
 /* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
@@ -132,9 +133,9 @@ p #content {
     width:100%;
     height: fit-content;
     border-radius: 5px;
-    background: var(--darkishblue) !important;
-    border: 3px solid white !important;
-    color: white !important;
+    background: var(--darkishblue);
+    border: 3px solid white;
+    color: white;
     padding: 8px;
     font-size: 12pt;
     text-align: center;
@@ -143,6 +144,11 @@ p #content {
 .flash.error {
     color: var(--maroonred);
     background:red;
+}
+
+.flash.success {
+    color: var(--maroongreen);
+    background: rgb(0, 222, 19);
 }
 
 /* The big 'Log In' heading at the top of the page */
