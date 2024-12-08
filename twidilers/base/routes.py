@@ -6,7 +6,7 @@ from flask import current_app, render_template, abort, request, redirect, url_fo
 import sqlalchemy
 import datetime
 from io import BytesIO
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, UnidentifiedImageError
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import * #The custom decorators
@@ -82,13 +82,18 @@ def profile(): #Handles the forms
     else: #The user wants to update their pfp
         account = findAccount()
         if 'file' in request.files:
-            img = Image.open(request.files['file'])
-            img = ImageOps.fit(img,(512,512))
-            temp_file = BytesIO()
-            img.save(temp_file, format="PNG")
-            account.photo = temp_file.getvalue()
-            db.session.commit()
-            flash('Updated Photo Successfully','success')
+            try:
+                img = Image.open(request.files['file'])
+                img = ImageOps.fit(img,(512,512))
+                temp_file = BytesIO()
+                img.save(temp_file, format="PNG")
+                account.photo = temp_file.getvalue()
+                db.session.commit()
+                flash('Updated Photo Successfully','success')
+            except UnidentifiedImageError:
+                flash('Unsupported Image Type','error')
+            except Exception as e:
+                flash(f'An Error Occured: {e}')
         else:
             flash('No File Selected','error')
         return redirect(url_for('.page',page='profile'))
