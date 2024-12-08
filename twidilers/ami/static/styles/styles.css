@@ -80,6 +80,16 @@ button {
     transition: all 0.5s
 }
 
+#submit {
+    width:148.5px;
+    align-self: center;
+    justify-self: center;
+}
+
+#sign-div2 {
+    filter:opacity(0);
+}
+
 .submit {
     padding:8px 12px 8px 12px;
     border-radius: 5000px;
@@ -100,7 +110,7 @@ button {
     width:30%;
     justify-content: center;
     align-self:center;
-    transition: all 0.5s
+    transition: all 0.8s
 }
 
 
