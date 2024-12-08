@@ -2,9 +2,11 @@
 The file for routes that need extra processing, such as processing a login.
 """
 #Imports
-from flask import current_app, render_template, abort, request, redirect, url_for, flash, session,jsonify
+from flask import current_app, render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
 import sqlalchemy
 import datetime
+from io import BytesIO
+from PIL import Image, ImageOps, UnidentifiedImageError
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import * #The custom decorators
@@ -31,23 +33,18 @@ def logout():
     session.pop('username',None)
     return redirect(url_for('.page',page='login'))
 
-@app.route('/post', methods=['GET', 'POST'])
+@app.post('/post')
+@login_required
 def post():
-    if request.method =='GET':
-        if 'username' in session:
-            if session['username']:
-                return render_template('post.html')
-        else:
-            return redirect(url_for('.feed'))
-    if request.method == 'POST':
-        title = request.form.get('title')
-        content = request.form.get('post-content') #What does the next line do?
-        decorators = ' '.join(value for value in [request.form.get('overline'),request.form.get('underline'),request.form.get('line-through'),request.form.get('wavy')] if value is not None)
-        date = datetime.datetime.now().strftime('%D')
-        new_post = Post(title=title,content=content,author=session.get('username'),date=date,decorators=decorators)
-        db.session.add(new_post)
-        db.session.commit()
-        return redirect(url_for('.feed'))
+    title = request.form.get('title')
+    author = session.get('username')
+    content = request.form.get('post-content') #What does the next line do?
+    decorators = ' '.join(value for value in [request.form.get('overline'),request.form.get('underline'),request.form.get('line-through'),request.form.get('wavy')] if value is not None)
+    date_utc = datetime.datetime.now(datetime.timezone.utc)
+    new_post = Post(title=title,content=content,date=date_utc,decorators=decorators,author=findAccount())
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(url_for('.page',page='feed'))
 
 @app.post('/sign_up')
 def sign_up():
@@ -74,48 +71,39 @@ def sign_up():
         return redirect(url_for('.page',page='sign_up'))
 
     
-@app.route('/feed', methods=['GET', 'POST'])
+@app.post('/profile') #trying to delete user
 @login_required
-def feed():
-    if request.method == 'GET':
-        postlist = db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars()
-        return render_template('feed.html',postlist=list(postlist))
-    if request.method == 'POST':
-        return redirect(url_for('.feed'))
-    
-@app.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profile():
-    if request.method == "GET": #If the user is visiting the page, gets the user's account using findAccount() (in functions.py) to display information on the webpage
-        if 'username' in session: #Ensures that the user is logged in
-            account = findAccount()
-            return render_template("profile.html",account=account)
+def profile(): #Handles the forms
+    if 'delete' in request.form: #the user wants to delete their account
+        account = findAccount()
+        db.session.delete(account)
+        db.session.commit()
+        flash('Successfully Deleted Account','success')
+    else: #The user wants to update their pfp
+        account = findAccount()
+        if 'file' in request.files:
+            try:
+                img = Image.open(request.files['file'])
+                img = ImageOps.fit(img,(512,512))
+                temp_file = BytesIO()
+                img.save(temp_file, format="PNG")
+                account.photo = temp_file.getvalue()
+                db.session.commit()
+                flash('Updated Photo Successfully','success')
+            except UnidentifiedImageError:
+                flash('Unsupported Image Type','error')
+            except Exception as e:
+                flash(f'An Error Occured: {e}')
         else:
-            flash('You must be logged in to view this page','error')
-            return redirect(url_for('.page',page='login'))
-    if request.method == "POST": #If the user is accessing the POST method (deleting theitr account), recieves the data from the fetch request in profile.html and deletes the account
-        data = request.get_json()
-        account = findAccount() 
-        if account: #Ensures that the account exists and is the intended account to be deleted
-            if account.username == data['account']:
-                db.session.delete(account) #Removes the account from the database and save()s (in functions.py)
-                save()
-                session.pop('username',None) #Removes username from the session data
-                flash('Account deleted successfully','success')
-                response = { #Returns the data to the frontend
-                        "message": "Data get!",
-                        "recieved_data": data
-                        }
-                return jsonify(response)
-            flash('An error occured','error')
-            response = {
-                        "message": "An error occured",
-                        "recieved_data": data
-                        }
-            return jsonify(response) #Returns the data to the frontend
-        flash('An error occured','error')
-        response = {
-                        "message": "An error occured",
-                        "recieved_data": data
-                        }
-        return jsonify(response) #Returns the data to the frontend
+            flash('No File Selected','error')
+        return redirect(url_for('.page',page='profile'))
+
+
+@app.get('/<username>/pfp')
+def get_pfp(username):
+    account = findAccount(username)
+    account if account else abort(404)
+    if account.photo:
+        return send_file(BytesIO(account.photo),download_name=f'{username}_pfp.png')
+    else:
+        return send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')

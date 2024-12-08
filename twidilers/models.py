@@ -1,9 +1,15 @@
-from .database import db, bcrypt,Mapped, mapped_column,relationship,desc, LargeBinary
+from .database import db, bcrypt
+
+from sqlalchemy.orm import Mapped, mapped_column,relationship
+from sqlalchemy import desc, LargeBinary, DateTime, ForeignKey
+import datetime
 
 class Account(db.Model):
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
+  posts:Mapped[list["Post"]] = relationship(back_populates="author")
+  photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   
   @property
@@ -21,11 +27,13 @@ class Account(db.Model):
     return f'username={self.username},password={self.password},id={self.id}'
   
 class Post(db.Model):
+  __tablename__ = 'posts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
+  author_id:Mapped[int] = mapped_column(ForeignKey("accounts.id",ondelete='CASCADE'))
+  author:Mapped["Account"] = relationship(back_populates="posts")
   title:Mapped[str]
   content:Mapped[str]
-  author:Mapped[str] = mapped_column(default='')
-  date:Mapped[str]
   decorators:Mapped[str] = mapped_column(default='')
+  date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=datetime.datetime.now(datetime.timezone.utc),nullable=True) #an aware datetime object
   def __repr__(self):
     return f"id={self.id},title={self.title},author={self.author}"

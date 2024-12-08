@@ -6,6 +6,7 @@ dependencies = [
     "python-dotenv",
     "psycopg2",
     "flask-bcrypt",
+    "pillow",
 ]
 version='1.0'
 description='A wonderful website'

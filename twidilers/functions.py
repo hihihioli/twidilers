@@ -1,5 +1,5 @@
 from .models import *
-from . import session
+from flask import session
 
 def save():
     try:

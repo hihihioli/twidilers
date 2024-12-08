@@ -12,3 +12,10 @@ twidilers/base/test.db
 /instance/test.db
 twidilers/.env
 /twidilers/ami/__pycache__
+twidilers/.DS_Store
+twidilers/.DS_Store
+twidilers/.DS_Store
+twidilers/base/static/.DS_Store
+twidilers/base/static/images/.DS_Store
+twidilers/base/.DS_Store
+twidilers/.DS_Store

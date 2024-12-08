@@ -33,7 +33,7 @@
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             {% endif %}
             {% if session['username'] %}
-            <a href="{{ url_for('.feed') }}"><button>Main Feed</button></a>
+            <a href="{{ url_for('.page',page='feed') }}"><button>Main Feed</button></a>
             <a href="{{ url_for('.page',page='profile') }}"><button>Profile</button></a>
             <a href="{{ url_for('.logout') }}"><button><i class="fa-solid fa-right-from-bracket"></i></button></a>
             {% endif %}
