@@ -99,7 +99,7 @@ def profile(): #Handles the forms
         return redirect(url_for('.page',page='profile'))
 
 
-@app.get('/<username>/pfp')
+@app.get('/user/<username>/pfp')
 def get_pfp(username):
     account = findAccount(username)
     account if account else abort(404)

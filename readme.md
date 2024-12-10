@@ -38,4 +38,4 @@ I am working on hashing and adding a profile photo system
 * push the old websites maybe
 * work on sign in interface (specifically lightmode)
 * do the facebook blog feed thing (kinda done)
-* profile photo system(oliver)
+* profile photo system(oliver) ✅
