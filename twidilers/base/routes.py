@@ -70,15 +70,20 @@ def sign_up():
         flash('Passwords do not match','error')
         return redirect(url_for('.page',page='sign_up'))
 
-    
+
 @app.post('/profile') #trying to delete user
 @login_required
 def profile(): #Handles the forms
     if 'delete' in request.form: #the user wants to delete their account
         account = findAccount()
+        deleted = findAccount('[deleted]')
+        for post in account.posts:
+            post.author = deleted
+        db.session.commit()
         db.session.delete(account)
         db.session.commit()
         flash('Successfully Deleted Account','success')
+        return redirect(url_for('.logout'))
     else: #The user wants to update their pfp
         account = findAccount()
         if 'file' in request.files:

@@ -24,7 +24,7 @@ class Account(db.Model):
     return bcrypt.check_password_hash(self.password_hash, plain_password) #Check them
   
   def __repr__(self): #When printing, what to return
-    return f'username={self.username},password={self.password},id={self.id}'
+    return f'username={self.username},id={self.id}'
   
 class Post(db.Model):
   __tablename__ = 'posts'

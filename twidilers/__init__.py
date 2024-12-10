@@ -5,7 +5,7 @@ Welcome to Twidilers App! Backend by Derin and Oliver. Frontend by Eamon.
 from flask import Flask, session
 from dotenv import load_dotenv
 import os
-
+import uuid
 
 load_dotenv() #load the environment variables from .env
 
@@ -15,12 +15,17 @@ def create_app():
                 static_url_path='/resources')
     app.config.from_prefixed_env() #Automatically sets the app's config variables based on the environment variables (with 'FLASK_' as prefix)
 
-    from .database import db,bcrypt #Import the models from the models file and bcrypt object
+    from .database import db,bcrypt,models #Import the models from the models file and bcrypt object
     db.init_app(app)
     bcrypt.init_app(app)
-    
+
     with app.app_context(): #Creates the tables for each class and adds it to the database
         db.create_all()
+
+        if db.session.execute(db.select(models.Account).filter_by(username='[deleted]')).scalar() is None: #Create a deleted account if it doesn't already exist
+            deleted = models.Account(username='[deleted]',password=str(uuid.uuid4()))
+            db.session.add(deleted)
+            db.session.commit()
     
     from .base import base #Import the base blueprint
     app.register_blueprint(base) #Register the base blueprint at root prefix

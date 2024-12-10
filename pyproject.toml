@@ -7,6 +7,7 @@ dependencies = [
     "psycopg2",
     "flask-bcrypt",
     "pillow",
+    "pytest",
 ]
 version='1.0'
 description='A wonderful website'
