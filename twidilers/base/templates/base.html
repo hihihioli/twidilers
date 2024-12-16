@@ -26,16 +26,15 @@
     <div id="navbar">
         {% block nav %}
             <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-            <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
             <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
             {% if not session['username'] %}
+            <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
             <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
             <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             {% endif %}
             {% if session['username'] %}
-            {% set account = findAccount() %}
-            <a href="{{ url_for('.page',page='feed') }}"><button>Main Feed</button></a>
-            <a href="{{ url_for('.page',page='profile') }}"><button>Profile<img src="{{ url_for('.get_pfp',username=account.username) }}" width="35.56px" height="35.54"></button></a>
+            <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
+            <a href="{{ url_for('.page',page='profile') }}"><button id="usricon-nav"><i id="usricon-nav-img" class="fa-solid fa-circle-user"></i></button></a>
             <a href="{{ url_for('.logout') }}"><button><i class="fa-solid fa-right-from-bracket"></i></button></a>
             {% endif %}
         {% endblock %}

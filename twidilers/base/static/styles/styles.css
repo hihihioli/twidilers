@@ -73,14 +73,38 @@ Click generate until you get the loss under 3 */
     width:100%;
     padding:3px;
     gap:10px;
-    font-size: 1.3em !important;
+    font-size: 1.3em;
     font-weight: bold !important;
 }
 
-#prof-username {
-    font-size:22pt;
-    margin-top:0px;
+#navbar #usricon-nav {
+    font-size: 46px;
+    padding: 0;
+    margin-top: 8px;
+    border-radius: 1000px;
 }
+
+#prof-username {
+    position: relative;
+    right: 0;
+}
+#pfp {
+    width: 100px;
+    border-radius: 1000000px;
+    float: left;
+}
+
+#pfp-head {
+    height: 100px;
+}
+
+.profile-div {
+    border-radius:15px;
+    padding: 20px;
+    width: 100%;
+    margin: 20px 0;
+}
+
 
 #prof-password {
     font-size:22pt;
@@ -209,8 +233,8 @@ p #content {
     margin: 10px auto 0 auto;
 }
 
-.submit:hover {
-    padding: 13px 90px;
+.submitwide {
+    padding: 13px 100%;
 }
 
 /* Cards are just navbars but slightly different as of 12/4/24 */
@@ -319,6 +343,9 @@ p #content {
         filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
     }
 
+    .profile-div {
+        background-color:var(--darkishblue);
+    }
     .textbox {
         color: var(--lightblue);
         background-color: var(--darkblue);
@@ -328,19 +355,21 @@ p #content {
         border: 3px solid var(--lightishblue);
 
     }
-        
+    
+    #usricon-nav {
+        color: var(--lightblue) !important;
+        background-color: var(--darkblue) !important;
+    }
 
     .submit {
         background-color: var(--lightblue);
         color: var(--darkblue);
         border: 3px solid var(--lightblue);
-        padding: 11.5px;
     }
     .submit:hover {
         background-color: var(--darkishblue);
         color: white !important;
         border: 3px solid var(--lightblue);
-        padding: 13px 90px;
     }
     .textbox::placeholder {
         color: var(--lightblue)
