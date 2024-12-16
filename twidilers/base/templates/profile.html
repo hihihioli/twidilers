@@ -4,14 +4,42 @@
 {% set account = findAccount() %}
 <div class="profile-div" id="pfp-head">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-    <h1 class="heading" name="prof-username" id="prof-username">{{account.username}}</h1><br>
+    <h1 name="prof-username" id="prof-username">{{account.username}}</h1><br>
 </div>
-<div class="profile-div">
-    <form method="post" enctype="multipart/form-data" id="upload_pfp">
-        <input type="file" id="file" name="file" accept="image/*" class="card">
-        <button class="submit">Submit</button>
-    </form>
-</div>
+<button id="openForm" class="submit">Upload Profile Picture</button>
+
+    <!-- Popup Form -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <div class="profile-div">
+                <form method="post" enctype="multipart/form-data" id="upload_pfp">
+                    <input type="file" id="file" name="file" accept="image/*" class="card">
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to control the popup
+        const popup = document.getElementById('popup');
+        const openForm = document.getElementById('openForm');
+        const uploadForm = document.getElementById('upload_pfp');
+
+        // Open the popup
+        openForm.addEventListener('click', () => {
+            popup.style.display = 'flex';
+        });
+
+        // Close the popup on form submission
+        uploadForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent actual submission for demonstration
+            alert('Form submitted!');
+            popup.style.display = 'none';
+        });
+    </script>
+<a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
+
 <script>
     file = document.getElementById('file');
     file.addEventListener('change',() => {
