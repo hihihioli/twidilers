@@ -34,6 +34,10 @@
             {% endif %}
             {% if session['username'] %}
             {% set account = findAccount() %}
+            <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
+            <a href="{{ url_for('.page',page='profile') }}"><button id="usricon-nav"><img src="{{ url_for('.get_pfp',username=account.username) }}"></button></a>
+            <a href="{{ url_for('.logout') }}"><button><i class="fa-solid fa-right-from-bracket"></i></button></a>
+            {% set account = findAccount() %}
             <a href="{{ url_for('.page',page='feed') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
             <a href="{{ url_for('.page',page='profile') }}"><button id="usricon-nav"><img id="usricon-nav-img" src="{{ url_for('.get_pfp',username=account.username) }}"></button></a>
             <a href="{{ url_for('.page',page='post') }}"><button><i class="fa-solid fa-plus"></i></button></a>
