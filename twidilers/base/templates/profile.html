@@ -2,14 +2,16 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 {% set account = findAccount() %}
-<h1 class="heading">Profile</h1>
-<form method="post" enctype="multipart/form-data" id="upload_pfp">
-    <label for="file">
-        <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-    </label>
-    <input type="file" id="file" name="file" accept="image/*", style="display:none">
-</form>
-
+<div class="profile-div" id="pfp-head">
+    <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
+    <h1 class="heading" name="prof-username" id="prof-username">{{account.username}}</h1><br>
+</div>
+<div class="profile-div">
+    <form method="post" enctype="multipart/form-data" id="upload_pfp">
+        <input type="file" id="file" name="file" accept="image/*" class="card">
+        <button class="submit">Submit</button>
+    </form>
+</div>
 <script>
     file = document.getElementById('file');
     file.addEventListener('change',() => {
@@ -19,7 +21,6 @@
     })
 </script>
 
-<p name="prof-username" id="prof-username"><b>Username:</b> {{account.username}}</p><br>
 
 
 <form method="post">
