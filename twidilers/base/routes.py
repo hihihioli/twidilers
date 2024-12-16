@@ -9,9 +9,9 @@ from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
-from .decorators import * #The custom decorators
-from ..models import * #Database models, like Account
-from ..functions import * #Custom functions, like save()
+from .decorators import login_required #The custom decorators
+from ..models import Account,Post,db #Database models, like Account
+from ..functions import findAccount #Custom functions, like save()
 
 # Make sure to use url_for('.feed') and not url_for('.page',page='feed')
 
@@ -33,7 +33,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('username',None)
+    session.pop('username',None) #remove username from session, effectively logging them out
     return redirect(url_for('.page',page='login'))
 
 @app.post('/post')

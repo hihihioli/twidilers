@@ -1,7 +1,9 @@
 from . import base as app
-from flask import session
-from ..models import *
+from ..models import Post,db
 from ..functions import findAccount
+
+from flask import session
+from sqlalchemy import desc
 
 @app.context_processor
 def inject_post_list(): #The post list as a context processor
@@ -13,5 +15,5 @@ def inject_post_list(): #The post list as a context processor
 @app.context_processor
 def inject_account(): #The account finder
     if 'username' in session:
-        return dict(findAccount=findAccount)
+        return dict(findAccount=findAccount) #Return the find account function
     return dict()

@@ -2,13 +2,13 @@
 The route that displays generic html pages.
 """
 #Imports
-from flask import current_app, render_template, abort,session, flash,redirect,url_for
+from flask import render_template, abort,session, flash,redirect,url_for
 from jinja2 import TemplateNotFound
 
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from . import context_processors #Import the context processors
-from . import routes
+from . import routes #the routes
 #Moved custom routes to routes.py(routes like login)
 
 @app.errorhandler(404)
@@ -20,7 +20,7 @@ def error404(error):
 @app.route('/',defaults={'page':'index'}) 
 @app.route('/<page>')
 def page(page):
-        password_protected = [
+        password_protected = [ # the get pages that are password protected
                 'feed',
                 'post',
                 'profile',
@@ -31,4 +31,4 @@ def page(page):
         try:
                 return render_template(f'{page}.html')
         except TemplateNotFound:
-                abort(404)
+                abort(404) #404 if template not found

@@ -1,10 +1,16 @@
-from .database import db, bcrypt
+"""
+This is where all of the database models are created.
+"""
 
+from .database import db, bcrypt #our db objects
+
+#The model imports and data types
 from sqlalchemy.orm import Mapped, mapped_column,relationship
-from sqlalchemy import desc, LargeBinary, DateTime, ForeignKey
-import datetime
+from sqlalchemy import LargeBinary, DateTime, ForeignKey
 
-class Account(db.Model):
+import datetime #For the time
+
+class Account(db.Model): #The user accounts
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
@@ -27,7 +33,7 @@ class Account(db.Model):
   def __repr__(self): #When printing, what to return
     return f'username={self.username},id={self.id}'
   
-class Post(db.Model):
+class Post(db.Model): #The posts(linked to accounts)
   __tablename__ = 'posts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
   author_id:Mapped[int] = mapped_column(ForeignKey("accounts.id",ondelete='CASCADE'))
