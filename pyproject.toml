@@ -8,6 +8,7 @@ dependencies = [
     "flask-bcrypt",
     "pillow",
     "pytest",
+    "gunicorn",
 ]
 version='1.0'
 description='A wonderful website'

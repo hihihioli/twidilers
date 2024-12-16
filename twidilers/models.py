@@ -10,6 +10,7 @@ class Account(db.Model):
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
   posts:Mapped[list["Post"]] = relationship(back_populates="author")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
+  deleted:Mapped[bool] = mapped_column(nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   
   @property

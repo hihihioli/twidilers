@@ -21,6 +21,9 @@ def login():
     password = request.form.get('password')
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
     if account: #Checks if the given account exists
+        if account.deleted: #checks if the account is a deleted placholder
+            flash("Deleted Account","error")
+            return redirect(url_for('.page',page='login'))
         if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
             session['username'] = username #Sets session data to be used on other pages
@@ -76,7 +79,9 @@ def sign_up():
 def profile(): #Handles the forms
     if 'delete' in request.form: #the user wants to delete their account
         account = findAccount()
-        deleted = findAccount('[deleted]')
+        deleted = Account(username=f'{account.username}[deleted]',deleted=True,password='deleted')
+        db.session.add(deleted)
+        deleted = findAccount(f'{account.username}[deleted]')
         for post in account.posts:
             post.author = deleted
         db.session.commit()

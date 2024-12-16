@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    command: [ "flask", "--debug", "--app", "twidilers:create_app()", "run","--host=0.0.0.0" ]
+    environment:
+      - FLASK_SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/db
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    ports:
+      - 80:5000
+    volumes:
+      - ./:/app
+  db:
+    image: postgres
+    volumes:
+      - ./pData:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    healthcheck:      
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 1s

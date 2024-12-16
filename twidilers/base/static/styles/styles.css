@@ -3,7 +3,7 @@
 This is variables. You can access them by doing var(--varname) instead of a color. */
 html {
     --lightblue: #b8eef9;
-    --darkblue: #04043c;
+    --darkblue: #02084c;
     --darkishblue: #03036d;
     --lightishblue: #9eefff;
     --maroonred: rgb(83, 23, 23);
