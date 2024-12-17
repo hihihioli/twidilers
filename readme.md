@@ -3,6 +3,28 @@ You should be one of the three of us. Otherwise, why are you here?
 Github told me to add this but I don't know what to write here.
 Why does this page exist?
 
+# Bugs
+
+# New feature wishlist
+## Profile page
+* other users profile pages
+* settings page is seperate from user page
+* users' posts on their profile page
+
+## Posts
+* Reactions (reply, like/dislike) on posts
+* Blog posts (posts you can click on, segregated from main feed)
+* profile pictures next to name of poster
+* removal of titles (except for blog posts)
+### nice to haves
+* tags for posts
+* HTML markup
+* ability to have line breaks
+
+## Frontend features
+* Mobile version
+* better light mode
+
 ## What have we done?
 ### 12/2/24
 I added some dependencies to the navbar--we need to add login.html, newuser.html, about.html, and a header logo. Of course, we don't have to do this but I tried to get the ball rolling.
@@ -32,10 +54,3 @@ Add stuff to do when logged in
 I am working on hashing and adding a profile photo system
 
 -Oliver
-
-## What should we work on?
-* add some more pages and page content
-* push the old websites maybe
-* work on sign in interface (specifically lightmode)
-* do the facebook blog feed thing (kinda done)
-* profile photo system(oliver) ✅
