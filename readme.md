@@ -18,7 +18,6 @@ Why does this page exist?
 * ability to change password
 
 ## Settings page
-* New page, seperate from profile page
 * Different submenus for things such as the following:
     * Public Information (change username, display name, profile picture)
         * Changing username should require a password challenge
