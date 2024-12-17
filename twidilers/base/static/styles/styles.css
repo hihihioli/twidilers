@@ -423,11 +423,7 @@ a {
     .textbox {
         color: var(--lightblue);
         background-color: var(--darkblue);
-        border: 0;
-    }
-    .textbox:focus {
         border: 3px solid var(--lightishblue);
-
     }
 
     .popup-menu {
@@ -454,6 +450,8 @@ a {
     }
     .input_form {
         background-color: var(--darkishblue);
+        border: 3px solid var(--lightishblue);
+
     }
 
     .card {
