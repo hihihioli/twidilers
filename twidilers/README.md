@@ -1,7 +1,15 @@
-Bugs
-* Datetime in base.html
+# Bugs
 
-New feature wishlist
+# New feature wishlist
+## Profile page
+* other users profile pages
+* settings page is seperate from user page
+* users' posts on their profile page
+
+## Posts
 * Reactions (reply, like/dislike) on posts
-* Other user profiles with their posts and join date
 * Blog posts (posts you can click on, segregated from main feed)
+
+## General shit
+* Mobile version
+* better light mode

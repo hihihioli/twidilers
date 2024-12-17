@@ -82,6 +82,28 @@ Click generate until you get the loss under 3 */
     border-radius: 1000px;
 }
 
+
+        /* Popup Menu */
+        .popup-menu {
+            display: none;
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ddd;
+            width: 150px;
+            z-index: 1000;
+        }
+
+        .popup-menu button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
 #usricon-nav-img {
     width: 46px;
     border-radius: 1000px;
@@ -102,20 +124,19 @@ Click generate until you get the loss under 3 */
     padding: 20px 20px 0 20px;
 }
 
+        /* Popup Menu */
+        .popup-menu {
+            display: none;
+            position: absolute;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 95px;
+            z-index: 1000;
+            margin: 90px 460px;
+            padding: 20px;
+        }
 
-    /* Styling for the popup */
-    .popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
+
 
 .profile-div {
     border-radius:15px;
@@ -169,7 +190,9 @@ p #content {
 
 /* Classes are below */
 
-
+a {
+    text-decoration: none;
+}
 
 /* Flashes are the notices like "login successful" and stuff. */
 .flash {
@@ -373,6 +396,10 @@ p #content {
     .textbox:focus {
         border: 3px solid var(--lightishblue);
 
+    }
+
+    .popup-menu {
+        background-color: var(--darkishblue);
     }
     
     #usricon-nav {

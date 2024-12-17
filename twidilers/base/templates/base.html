@@ -37,9 +37,30 @@
             <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
             <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
             <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
+            <a><button id="usricon-nav"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=account.username) }}"></button>
+    </a>
 
-            <a href="{{ url_for('.page',page='profile') }}"><button id="usricon-nav"><img id="usricon-nav-img" src="{{ url_for('.get_pfp',username=account.username) }}"></button></a>
-            {% endif %}
+    <!-- Popup Menu -->
+    <div class="popup-menu" id="popupMenu">
+        <a href=""><button id="profileBtn" href="{{ url_for('.logout') }}">My Profile</button></a>
+        <a href=""><button id="settingsBtn">Settings</button></a>
+        <a href="{{ url_for('.logout') }}"><button id="logoutBtn">Log Out</button></a>
+    </div>            
+    <script>
+        const userButton = document.getElementById('usricon-nav');
+        const userMenu = document.getElementById('popupMenu');
+
+        userMenu.style.display = 'none';
+
+        userButton.addEventListener('click', () => {
+            if (userMenu.style.display === 'none') {
+                userMenu.style.display = 'block';
+            } else {
+                userMenu.style.display = 'none';
+            }
+        });
+    </script>
+    {% endif %}
         {% endblock %}
     </div>
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
