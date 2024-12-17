@@ -137,7 +137,17 @@ Click generate until you get the loss under 3 */
         }
 
 
-
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
 .profile-div {
     border-radius:15px;
     padding: 20px;

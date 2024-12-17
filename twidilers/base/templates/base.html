@@ -42,8 +42,8 @@
 
     <!-- Popup Menu -->
     <div class="popup-menu" id="popupMenu">
-        <a href=""><button id="profileBtn" href="{{ url_for('.logout') }}">My Profile</button></a>
-        <a href=""><button id="settingsBtn">Settings</button></a>
+        <a href="{{ url_for('.page',page='profile') }}"><button id="profileBtn" href="{{ url_for('.logout') }}">My Profile</button></a>
+        <a href="{{ url_for('.page',page='profile') }}"><button id="settingsBtn">Settings</button></a>
         <a href="{{ url_for('.logout') }}"><button id="logoutBtn">Log Out</button></a>
     </div>            
     <script>
