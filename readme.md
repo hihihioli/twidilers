@@ -5,14 +5,26 @@ Why does this page exist?
 
 
 # Bugs
-## Security/access
+## User accounts
 * Login/signup pages can be accessed while logged in
+* user accounts can be created with the same username as a deleted account
+
 
 # New feature wishlist
 ## Profile page
 * other users profile pages
 * settings page is seperate from user page
 * users' posts on their profile page
+* ability to change password
+
+## Settings page
+* New page, seperate from profile page
+* Different submenus for things such as the following:
+    * Public Information (change username, display name, profile picture)
+        * Changing username should require a password challenge
+    * Security (delete account, change password, etc)
+    * Privacy (is the profile page private, are your posts anon or linked to your account)
+    * 
 
 
 ## Posts
@@ -28,6 +40,7 @@ Why does this page exist?
 * ability to have line breaks
 
 
-## Frontend features
+# Frontend change wishlist
+* Updated flashes
 * Mobile version
 * better light mode
