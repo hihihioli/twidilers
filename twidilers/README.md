@@ -11,7 +11,11 @@
 * Blog posts (posts you can click on, segregated from main feed)
 * profile pictures next to name of poster
 * removal of titles (except for blog posts)
+### nice to haves
+* tags for posts
+* HTML markup
+* ability to have line breaks
 
-## General shit
+## Frontend features
 * Mobile version
 * better light mode
