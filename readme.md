@@ -12,10 +12,12 @@ Why does this page exist?
 
 # New feature wishlist
 ## Profile page
-* other users profile pages
-* settings page is seperate from user page
-* users' posts on their profile page
-* ability to change password
+* A profile page for each user
+* Edit button on your profile page that goes to the Public Information tab of the settings page
+* Posts by user
+* Metadata about user such as
+    * Posts made
+    * Date joined
 
 ## Settings page
 * Different submenus for things such as the following:
@@ -26,17 +28,18 @@ Why does this page exist?
     * 
 
 
-## Posts
+## Feed
 * Reactions (reply, like/dislike) on posts
 * Blog posts (posts you can click on, segregated from main feed)
+    * Blog posts would accept raw HTML
 * profile pictures next to name of poster
 * removal of titles (except for blog posts)
 
 
-### nice to haves
+## nice to haves
 * tags for posts
 * HTML markup
-* ability to have line breaks
+* ability to have line breaks in posts
 
 
 # Frontend change wishlist
