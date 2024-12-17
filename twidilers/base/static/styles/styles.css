@@ -147,7 +147,29 @@ Click generate until you get the loss under 3 */
     display: none;
     justify-content: center;
     align-items: center;
-}
+}/* Hide the default input */
+input[type="file"] {
+    display: none;
+  }
+  
+  /* Custom button */
+  .custom-file-upload {
+    display: inline-block;
+    width: auto ;
+    height: auto;
+    font-size: 11pt;
+    padding: 13px;
+    border-radius: 5px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    cursor: pointer;
+    border: 0;
+    align-self: center !important;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
 .profile-div {
     border-radius:15px;
     padding: 20px;
@@ -422,7 +444,7 @@ a {
         color: var(--darkblue);
         border: 3px solid var(--lightblue);
     }
-    .submit:hover {
+    .custom-file-upload, .submit:hover {
         background-color: var(--darkishblue);
         color: white !important;
         border: 3px solid var(--lightblue);
