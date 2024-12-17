@@ -29,6 +29,6 @@ def page(page):
                 flash('You must be logged in to view this page','error')
                 return redirect(url_for('.page',page='login')) #Redirect if username isn't in the session
         try:
-                return render_template(f'{page}.html')
+                return render_template(f'pages/{page}.html')
         except TemplateNotFound:
                 abort(404) #404 if template not found
