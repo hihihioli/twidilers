@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Feed{% endblock %}
 {% block content %}
-<h1 class="heading">Your feed</h1>
+<h1 id="feedtitle">Your feed</h1>
+<a href="{{ url_for('.post') }}"><button  class="submit" id="createpost">Create a Post</button></a>
+<div class="spacer"></div>
 {% if postlist() | length > 0 %}
 {% for post in postlist() %}
 <div class="pst">
-    <a><p class="pst-auth">{{post.author.username}}</p></a>
+    <div class="auth-info">
+        <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
+        <a><p class="pst-auth">{{post.author.username}}</p></a>
+    </div>
     <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
     <p class="pst-content">{{post.content}}</p>
     <p class="pst-date" id="date{{ loop.index0 }}">date</p>
@@ -18,5 +23,4 @@
 {% else %}
 <h2>Nothing here yet...</h2>
 {% endif %}
-<a href="{{ url_for('.post') }}"><button  class="submit">Create a Post</button></a>
 {% endblock %}

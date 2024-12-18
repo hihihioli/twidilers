@@ -1,62 +1,120 @@
 {% extends 'base.html' %}
-{% block title %}Profile{% endblock %}
+{% block title %}Settings{% endblock %}
 {% block content %}
 {% set account = findAccount() %}
-<div class="profile-div" id="pfp-head">
-    <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-    <h1 name="prof-username" id="prof-username">{{account.username}}</h1><br>
-</div>
-<button id="openForm" class="submit">Upload Profile Picture</button>
+    <!-- A submenu that shows different settings -->
+    <div id="acct-navbar">
+        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="accountDetail()">Account Details</button>
+        <button class="pf-mnu-btn" id="security-btn" onclick="securityDetail()">Security</button>
+        <button class="pf-mnu-btn" id="privacy-btn" onclick="privacyDetail()">Privacy</button>
 
-    <!-- Popup Form -->
-    <div class="popup-overlay" id="popup">
-        <div class="popup-content">
-            <div class="profile-div">
-                <form method="post" enctype="multipart/form-data" id="upload_pfp">
-                    <label for="file" class="custom-file-upload">
-                        Choose an Image
-                      </label>
-                      <input type="file" id="file" name="file" accept="image/*">
-                </form>
-            </div>
+    </div>
+    <style>
+        .submit {
+            margin: 0;
+        }
+        h3 {
+            margin: 0 0 20px 0;
+        }
+    </style>
+    <div id="acct-dtl-content">
+        <!-- Header with profile picture and username -->
+        <div class="profile-div" id="pfp-head">
+            <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
+            <h1 name="prof-username" id="prof-username">{{account.username}}</h1><br>
+        </div>
+        <div class="profile-div">
+            <h3>Upload profile picture</h3>
+            <form method="post" enctype="multipart/form-data" id="upload_pfp">
+                <label for="file" class="custom-file-upload">
+                    choose picture
+                </label>
+                <input type="file" id="file" name="file" accept="image/*">
+                <button class="submit">Upload</button>
+            </form>
+        </div>
+        <!-- Log out button -->
+        <div class="profile-div">
+            <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
+        </div>        
+        <!-- Delete account button -->
+
+    </div>
+    <div id="security-content">
+        <div class="profile-div">
+            <form method="post">
+                <button class="submit" id="prof-delete-account" name="delete">Delete Account</button>
+            </form> 
         </div>
     </div>
+    <div id="privacy-content">
+        <div class="profile-div">
+            <h3>Profile page visibility</h3>
+            <button class="submit">Visable to everyone</button>
+        </div>
+    </div>
+        <script>
+            // This script hides/shows divs if menu bars are clicked.
+            
+            // It fetches the IDs of the divs so it can hide them
+            const accountInfo = document.getElementById('acct-dtl-content');
+            const security = document.getElementById('security-content');
+            const privacy = document.getElementById('privacy-content');
 
-    <script>
-        // JavaScript to control the popup
-        const popup = document.getElementById('popup');
-        const openForm = document.getElementById('openForm');
-        const uploadForm = document.getElementById('upload_pfp');
+            // it finds the buttons so we can make them bold when they're selected
+            const securityButton = document.getElementById('security-btn');
+            const privacyButton = document.getElementById('privacy-btn');
+            const accountInfoButton = document.getElementById('acct-dtl-btn');
 
-        // Open the popup
-        openForm.addEventListener('click', () => {
-            popup.style.display = 'flex';
-        });
+            // I don't have to type out the style stuff. It cleans everything up
+            function makeBold(e){
+                e.style.fontWeight = 'bold';
+            }
+            function makeNormal(e) {
+                e.style.fontWeight = 'normal';
+            }
+            function showDiv(e) {
+                e.style.display = 'block'
+            }
+            function hideDiv(e) {
+                e.style.display = 'none';
+            }
+            // When the account button is clicked, it hides the other 
+            // divs and shows the acct div. 
+            function accountDetail() {
+                showDiv(accountInfo);
+                hideDiv(security);
+                hideDiv(privacy);
+                // It unbolds the other buttons and bolds the account button
+                makeBold(accountInfoButton);
+                makeNormal(privacyButton);
+                makeNormal(securityButton);
+            }
 
-        // Close the popup on form submission
-        uploadForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent actual submission for demonstration
-            alert('Form submitted!');
-            popup.style.display = 'none';
-        });
-    </script>
-<a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
-
-<script>
-    file = document.getElementById('file');
-    file.addEventListener('change',() => {
-        if(file.files.length > 0){
-            document.getElementById('upload_pfp').submit();
-        }
-    })
-</script>
-
-
-
-<form method="post">
-    <button class="submit" id="prof-delete-account" name="delete">Delete Account</button>
-</form> 
-
-
+            // same for these functions just for their respoective elements
+            function securityDetail() {
+                hideDiv(accountInfo);
+                showDiv(security);
+                hideDiv(privacy);
+                makeNormal(accountInfoButton);
+                makeNormal(privacyButton);
+                makeBold(securityButton);
+            }
+            function privacyDetail() {
+                hideDiv(accountInfo);
+                hideDiv(security);
+                showDiv(privacy);
+                makeNormal(accountInfoButton);
+                makeBold(privacyButton);
+                makeNormal(securityButton);
+            }
+                       
+            // Submits the image when uploading a profile picture
+            file = document.getElementById('file');
+            file.addEventListener('change',() => {
+                if(file.files.length > 0){
+                    document.getElementById('upload_pfp').submit();
+                }
+            })</script>
 
 {% endblock %}
