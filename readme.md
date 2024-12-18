@@ -28,7 +28,6 @@ Why does this page exist?
     * Privacy (is the profile page private, are your posts anon or linked to your account)
     * 
 
-
 ## Feed
 * Reactions (reply, like/dislike) on posts
 * Blog posts (posts you can click on, segregated from main feed)

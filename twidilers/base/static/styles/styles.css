@@ -162,9 +162,14 @@ input[type="file"] {
     cursor: pointer;
     text-align: center;
   }
-
+#security-content {
+    display: none;
+}
+#privacy-content {
+    display: none;
+}
   .pf-mnu-btn {
-    padding: 13px;
+    margin: 13px;
     border-radius: 10px;
     border: 0;
     cursor: pointer;

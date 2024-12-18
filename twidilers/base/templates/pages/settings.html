@@ -5,8 +5,11 @@
     <!-- A submenu that shows different settings -->
     <div id="acct-navbar">
         <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="accountDetail()">Account Details</button>
+        <button class="pf-mnu-btn" id="security-btn" onclick="securityDetail()">Security</button>
+        <button class="pf-mnu-btn" id="privacy-btn" onclick="privacyDetail()">Privacy</button>
+
     </div>
-    <div id="acct-dtl-contnt">
+    <div id="acct-dtl-content">
         <!-- Header with profile picture and username -->
         <div class="profile-div" id="pfp-head">
             <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
@@ -34,12 +37,32 @@
         <!-- Delete account button -->
 
     </div>
+    <div id="security-content">
+        security content
+    </div>
+    <div id="privacy-content">
+        privacy content
+    </div>
         <script>
         // Popup form for profile image upload
-            const popup = document.getElementById('acct-dtl-contnt');
+            const accountInfo = document.getElementById('acct-dtl-content');
+            const security = document.getElementById('security-content');
+            const privacy = document.getElementById('privacy-content')
 
             function accountDetail() {
-                popup.style.display = 'flex';
+                accountInfo.style.display = 'flex';
+                security.style.display = 'none';
+                privacy.style.display = 'none';
+            }
+            function securityDetail() {
+                accountInfo.style.display = 'none';
+                security.style.display = 'flex';
+                privacy.style.display = 'none';
+            }
+            function privacyDetail() {
+                accountInfo.style.display = 'none';
+                security.style.display = 'none';
+                privacy.style.display = 'flex';
             }
                        
             // Submits the image
