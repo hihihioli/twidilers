@@ -42,7 +42,7 @@
 
     <!-- Popup Menu -->
     <div class="popup-menu" id="popupMenu">
-        <a href="{{ url_for('.page',page='profile') }}"><button id="profileBtn" href="{{ url_for('.logout') }}">My Profile</button></a>
+        <a href="{{ url_for('.profile',username=account.username) }}"><button id="profileBtn" href="{{ url_for('.logout') }}">My Profile</button></a>
         <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
         <a href="{{ url_for('.logout') }}"><button id="logoutBtn">Log Out</button></a>
     </div>            

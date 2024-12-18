@@ -1,12 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-{% set account = findAccount() %}
 <div class="profile-div" id="pfp-head">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
     <h1 name="prof-username" id="prof-username">{{account.username}}</h1><br>
 </div>
-
+<div>
+    <h1>Recent Posts:</h1>
+    {% for post in posts %}
+    <div class="pst">
+        <a><p class="pst-auth">{{post.author.username}}</p></a>
+        <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
+        <p class="pst-content">{{post.content}}</p>
+        <p class="pst-date" id="date{{ loop.index0 }}">date</p>
+        <script>
+            const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
+                document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
+        </script>
+    </div>
+    {% endfor %}
+</div>
 
 
 {% endblock %}

@@ -74,9 +74,9 @@ def sign_up():
         return redirect(url_for('.page',page='sign_up'))
 
 
-@app.post('/profile') #trying to delete user
+@app.post('/settings') #trying to delete user
 @login_required
-def profile(): #Handles the forms
+def settings(): #Handles the forms
     if 'delete' in request.form: #the user wants to delete their account
         account = findAccount()
         deleted = Account(username=f'{account.username}[deleted]',deleted=True,password='deleted')
@@ -108,6 +108,13 @@ def profile(): #Handles the forms
             flash('No File Selected','error')
         return redirect(url_for('.page',page='profile'))
 
+@app.get('/user/<username>/')
+def profile(username):
+    account = findAccount(username)
+    if account is None:
+        abort(404)
+    posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
+    return render_template('profile.html',account=account, posts=posts)
 
 @app.get('/user/<username>/pfp')
 def get_pfp(username):
@@ -117,3 +124,4 @@ def get_pfp(username):
         return send_file(BytesIO(account.photo),download_name=f'{username}_pfp.png')
     else:
         return send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
+    
