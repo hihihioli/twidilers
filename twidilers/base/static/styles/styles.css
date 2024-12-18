@@ -1,4 +1,4 @@
-/* This page is for base.html and generally used styles like .card
+/*
 
 This is variables. You can access them by doing var(--varname) instead of a color. */
 html {
@@ -419,6 +419,8 @@ a {
     flex-direction: row;
     gap: 15px;
     margin: 0 0 10px 0;
+    width: 100%;
+    cursor:pointer;
 }
 
 .pst-auth-pfp {
@@ -468,7 +470,7 @@ a {
     .popup-menu {
         background-color: var(--darkishblue);
     }
-    
+     
     #usricon-nav {
         color: var(--lightblue) !important;
         background-color: var(--darkblue) !important;

@@ -7,10 +7,12 @@
 {% if postlist() | length > 0 %}
 {% for post in postlist() %}
 <div class="pst">
-    <div class="auth-info">
-        <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
-        <a><p class="pst-auth">{{post.author.username}}</p></a>
-    </div>
+    <a href="{{ url_for('.profile',username=post.author.username) }}">
+        <div class="auth-info">
+            <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
+            <a><p class="pst-auth">{{post.author.username}}</p></a>
+        </div>
+    </a>
     <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
     <p class="pst-content">{{post.content}}</p>
     <p class="pst-date" id="date{{ loop.index0 }}">date</p>
