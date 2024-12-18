@@ -140,9 +140,15 @@ input[type="file"] {
     display: none;
   }
   
-  #acct-dtl-contnt {
+  #acct-dtl-content {
     display: none;
     flex-direction: column;
+  }
+  #acct-navbar {
+    display: flex;
+    flex-direction:row;
+    gap: 10px;
+    margin: 20px 0; 
   }
   /* Custom button */
   .custom-file-upload {
@@ -169,7 +175,6 @@ input[type="file"] {
     display: none;
 }
   .pf-mnu-btn {
-    margin: 13px;
     border-radius: 10px;
     border: 0;
     cursor: pointer;
@@ -369,6 +374,18 @@ a {
     margin:0;
     align-self:inherit !important;
 }
+#createpost {
+    float: right;
+    margin: 20px 0;
+}
+#feedtitle {
+    float: left;
+    font-size: 3em;
+    margin: 20px 0;
+}
+.spacer {
+    height: 100px;
+}
 #blog_form {
     width: 500px;
     margin-bottom:1px;
@@ -385,7 +402,7 @@ a {
 }
 
 .pst-auth {
-    margin:0px;
+    margin:10px 0 0 0;
     color:var(--darkblue)
 }
 
@@ -395,6 +412,18 @@ a {
 
 .pst-date {
     margin: 0px
+}
+
+.auth-info {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 10px 0;
+}
+
+.pst-auth-pfp {
+    border-radius: 1000px;
+    width: 40px;
 }
 
 .pst-content {

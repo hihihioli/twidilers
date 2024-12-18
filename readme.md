@@ -7,9 +7,11 @@ Why does this page exist?
 # Bugs
 ## User accounts
 * Login/signup pages can be accessed while logged in
-* settings pages can be accessed while logged out
+* settings pages throws an error while logged out (should throw a 403)
 * user accounts can be created with the same username as a deleted account
-* You can't upload a profile picture (it throws an error)
+* It throws an error when trying to submit a user profile image
+* You can't delete your account
+* user account names are case sensative
 
 # New feature wishlist
 ## Profile page
@@ -32,9 +34,10 @@ Why does this page exist?
 * Reactions (reply, like/dislike) on posts
 * Blog posts (posts you can click on, segregated from main feed)
     * Blog posts would accept raw HTML
-* profile pictures next to name of poster
 * removal of titles (except for blog posts)
 
+## Login page
+* show password 
 
 ## nice to haves
 * tags for posts
@@ -44,5 +47,6 @@ Why does this page exist?
 
 # Frontend change wishlist
 * Updated flashes
+* login page--make it look better
 * Mobile version
 * better light mode
