@@ -13,6 +13,9 @@ Why does this page exist?
 * You can't delete your account
 * user account names are case sensative
 
+## Post page
+* You can publish a post iwthout content
+
 # New feature wishlist
 ## Profile page
 * A profile page for each user
