@@ -7,8 +7,9 @@ Why does this page exist?
 # Bugs
 ## User accounts
 * Login/signup pages can be accessed while logged in
+* settings pages can be accessed while logged out
 * user accounts can be created with the same username as a deleted account
-
+* You can't upload a profile picture (it throws an error)
 
 # New feature wishlist
 ## Profile page
