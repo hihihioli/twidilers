@@ -20,7 +20,7 @@ class Account(db.Model): #The user accounts
   deleted:Mapped[bool] = mapped_column(nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   userdata:Mapped[dict] = mapped_column(JSONB,default={
-      "joined": datetime.datetime.now(datetime.timezone.utc)
+      "joined": datetime.datetime.now(datetime.timezone.utc).timestamp()
     })
   
   @property
