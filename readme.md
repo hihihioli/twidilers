@@ -16,11 +16,10 @@ Why does this page exist?
 ## Post page
 * You can publish a post without content or a title
 
+
 # New feature wishlist
 ## Profile page
-* A profile page for each user
 * Edit button on your profile page that goes to the Public Information tab of the settings page
-* Posts by user
 * Metadata about user such as
     * Posts made
     * Date joined
@@ -39,22 +38,20 @@ Why does this page exist?
         * Change visability of posts to just people you follow
         * option to force poeple to request to follow you
 
-
 ## Feed
 * Reactions (reply, like/dislike) on posts
 * Blog posts (posts you can click on, segregated from main feed)
     * Blog posts would accept raw HTML
 * removal of titles (except for blog posts)
 * Algorithmic feed that prefers newer posts by people you follow/interact with
-    * Newness weight with a log curve
-    * Weight for the poster (Have you interacted with their posts recently, do you follow them)
+    * Newness weight would be this: y=-0.2x^{4}+1 where x=time and y=weight (to be tweaked)
+    * Weight for the poster (Have you interacted with their posts recently (negetively or positively), do you follow them)
 
 ## Login page
 * show password button
 
 ## nice to haves
 * tags for posts
-* HTML markup
 * ability to have line breaks in posts
 
 
