@@ -51,13 +51,12 @@ def write_post():
 
 @app.post('/sign_up')
 def sign_up():
-
         #Handle sign up stuff here
-        new_username=request.form.get('username') #Gets username and passwords that were inputted into the form
+        new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
-            flash('Please enter a username','error')
+            flash('Please enter a username and password','error')
             return redirect(url_for('.page',page='sign_up'))
         if password1 == password2: #Checks if the passwords match
             new_account = Account(username=new_username,password=password1)
@@ -106,7 +105,7 @@ def settings(): #Handles the forms
                 flash(f'An Error Occured: {e}')
         else:
             flash('No File Selected','error')
-        return redirect(url_for('.page',page='profile'))
+        return redirect(url_for('.profile',username=session.get('username')))
 
 @app.get('/user/<username>/')
 def profile(username):
