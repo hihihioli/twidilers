@@ -7,6 +7,7 @@ from .database import db, bcrypt #our db objects
 #The model imports and data types
 from sqlalchemy.orm import Mapped, mapped_column,relationship
 from sqlalchemy import LargeBinary, DateTime, ForeignKey
+from sqlalchemy.dialects.postgresql import JSONB
 
 import datetime #For the time
 
@@ -18,6 +19,9 @@ class Account(db.Model): #The user accounts
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   deleted:Mapped[bool] = mapped_column(nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
+  userdata:Mapped[dict] = mapped_column(JSONB,default={
+      "joined": datetime.datetime.now(datetime.timezone.utc)w
+    })
   
   @property
   def password(self):

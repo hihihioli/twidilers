@@ -38,7 +38,7 @@ def logout():
 
 @app.post('/post')
 @login_required
-def post():
+def write_post():
     title = request.form.get('title')
     author = session.get('username')
     content = request.form.get('post-content') #What does the next line do?
@@ -125,3 +125,7 @@ def get_pfp(username):
     else:
         return send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
     
+@app.get('/post/<post_id>')
+def post(post_id):
+    post = db.session.execute(db.get_or_404(post_id)).scalar()
+    return render_template('postinfo.html',post=post)
