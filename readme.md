@@ -14,7 +14,7 @@ Why does this page exist?
 * user account names are case sensative
 
 ## Post page
-* You can publish a post iwthout content
+* You can publish a post without content or a title
 
 # New feature wishlist
 ## Profile page
@@ -26,21 +26,31 @@ Why does this page exist?
     * Date joined
 
 ## Settings page
-* Different submenus for things such as the following:
-    * Public Information (change username, display name, profile picture)
-        * Changing username should require a password challenge
-    * Security (delete account, change password, etc)
-    * Privacy (is the profile page private, are your posts anon or linked to your account)
-    * 
+* Expanded submenus
+    * Account Details
+        * Improved pfp upload dialog
+        * Better user card look
+    * Security
+        * Reset password
+        * change email associated with account
+        * see login history
+    * Privacy
+        * make it possible to make your account page private
+        * Change visability of posts to just people you follow
+        * option to force poeple to request to follow you
+
 
 ## Feed
 * Reactions (reply, like/dislike) on posts
 * Blog posts (posts you can click on, segregated from main feed)
     * Blog posts would accept raw HTML
 * removal of titles (except for blog posts)
+* Algorithmic feed that prefers newer posts by people you follow/interact with
+    * Newness weight with a log curve
+    * Weight for the poster (Have you interacted with their posts recently, do you follow them)
 
 ## Login page
-* show password 
+* show password button
 
 ## nice to haves
 * tags for posts
