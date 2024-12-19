@@ -32,9 +32,6 @@ services:
       - 80:80
       - 443:443
     restart: always
-    environment:
-      - DOMAIN=twidilers.com
-      - EMAIL=olivermandel123@gmail.com
     volumes:
       - ./nginx/:/etc/nginx/conf.d/:ro
       - ./certbot/www/:/var/www/certbot/:ro
@@ -47,3 +44,5 @@ services:
       - ./certbot/init_certbot.sh:/init_certbot.sh:ro
     entrypoint: ["sh", "/init_certbot.sh"]
     command: "trap exit TERM; while :; do sleep 12h & wait $!; certbot renew; done"
+    environment:
+      - EMAIL=olivermandel123@gmail.com
