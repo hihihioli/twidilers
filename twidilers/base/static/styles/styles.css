@@ -5,8 +5,12 @@
         filter: opacity(1)
     }
 
-    100% {
+    99% {
         filter: opacity(0)
+    }
+
+    100% {
+        display:none
     }
 }
 
