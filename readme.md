@@ -27,7 +27,6 @@ Why does this page exist?
 ## Settings page
 * Expanded submenus
     * Account Details
-        * Improved pfp upload dialog
         * Better user card look
     * Security
         * Reset password
