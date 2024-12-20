@@ -21,8 +21,8 @@
         <!-- Header with profile picture and username -->
         <div class="profile-div" id="pfp-head">
             <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-            <h1 name="prof-username" id="prof-username">@{{account.username}}</h1><br>
-            <h3 name="dispaly-name" id="display-name">Other people see: {{account.displayname}}</h3>
+            <h1 name="prof-username" id="prof-username">{{account.displayname}}</h1><br>
+            <h3 name="dispaly-name" id="display-name">@{{account.username}}</h3>
         </div>
         <div class="profile-div">
             <form method="post" id="change-name-change">

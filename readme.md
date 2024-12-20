@@ -26,6 +26,7 @@ Why does this page exist?
     * Account Details
         * Improved pfp upload dialog
         * Better user card look
+        * User accounts should not accept emojis
     * Security
         * Reset password
         * change email associated with account
@@ -50,7 +51,6 @@ Why does this page exist?
 ## nice to haves
 * tags for posts
 * ability to have line breaks in posts
-* 404 page
 
 
 # Frontend change wishlist
