@@ -106,7 +106,7 @@ def settings(): #Handles the forms
                 flash(f'An Error Occured: {e}')
         else:
             flash('No File Selected','error')
-        return redirect(url_for('.profile',username=session.get('username')))
+        return redirect(url_for('.page',page='settings'))
 
 @app.get('/user/<username>/')
 def profile(username):
