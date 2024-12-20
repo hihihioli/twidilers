@@ -11,7 +11,7 @@
         <div class="auth-info">
             <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
             <section class="pst-auths">
-            <u><a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-auth">{{post.author.displayname}}</p></a></u>
+            <a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-auth">{{post.author.displayname}}</p></a>
             <a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-disp">@{{post.author.username}}</p></a>
         </section>
         </div>
