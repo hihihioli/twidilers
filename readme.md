@@ -16,9 +16,6 @@ Why does this page exist?
 ## Post page
 * You can publish a post without content or a title
 
-## Flashes
-* They should disappear after 10 seconds
-
 
 # New feature wishlist
 ## Profile page
