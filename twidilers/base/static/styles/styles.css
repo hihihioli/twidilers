@@ -1,6 +1,16 @@
-/*
+/*\ These are the keyframe animations \*/
 
-This is variables. You can access them by doing var(--varname) instead of a color. */
+@keyframes disappear {
+    0% {
+        filter: opacity(1)
+    }
+
+    100% {
+        filter: opacity(0)
+    }
+}
+
+/* This is variables. You can access them by doing var(--varname) instead of a color. */
 html {
     --lightblue: #b8eef9;
     --darkblue: #001554;
@@ -266,6 +276,7 @@ a {
     padding: 8px;
     font-size: 12pt;
     text-align: center;
+    animation: disappear 0.75s ease forwards 10s
 }
 
 .flash.error {

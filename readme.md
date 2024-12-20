@@ -11,14 +11,6 @@ Why does this page exist?
     * Not all posts are deleted after an account is deleted
     * SQLAlchemy error is thrown, it doesn't actually delete the account
     * Should prompt a "You sure?"
-* user account names are case sensative
-
-## Post page
-* You can publish a post without content or a title
-
-## Flashes
-* They should disappear after 10 seconds
-
 
 # New feature wishlist
 ## Profile page
