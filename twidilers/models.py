@@ -16,9 +16,8 @@ class Account(db.Model): #The user accounts
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
   displayname:Mapped[str] = mapped_column(nullable=False)
-  posts:Mapped[list["Post"]] = relationship(back_populates="author")
+  posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
-  deleted:Mapped[bool] = mapped_column(nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp()
