@@ -7,11 +7,17 @@ Why does this page exist?
 # Bugs
 ## User accounts
 * user accounts can be created with the same username as a deleted account
-* You can't delete your account
+* Deleting account
+    * Not all posts are deleted after an account is deleted
+    * SQLAlchemy error is thrown, it doesn't actually delete the account
+    * Should prompt a "You sure?"
 * user account names are case sensative
 
 ## Post page
 * You can publish a post without content or a title
+
+## Flashes
+* They should disappear after 10 seconds
 
 
 # New feature wishlist
