@@ -6,10 +6,7 @@ Why does this page exist?
 
 # Bugs
 ## User accounts
-* user accounts can be created with the same username as a deleted account
 * Deleting account
-    * Not all posts are deleted after an account is deleted
-    * SQLAlchemy error is thrown, it doesn't actually delete the account
     * Should prompt a "You sure?"
 
 # New feature wishlist
@@ -48,6 +45,16 @@ Why does this page exist?
 ## nice to haves
 * tags for posts
 * ability to have line breaks in posts
+
+## thing
+Blogging system
+User page
+Chat room
+Finish twidilers hub website
+Finish docker and docker compose
+Fix gap in flashes
+Capitalize flashes
+tui
 
 
 # Frontend change wishlist
