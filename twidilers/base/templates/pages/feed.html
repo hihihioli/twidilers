@@ -2,7 +2,7 @@
 {% block title %}Feed{% endblock %}
 {% block content %}
 <h1 id="feedtitle">Your feed</h1>
-<a href="{{ url_for('.post') }}"><button  class="submit" id="createpost">Create a Post</button></a>
+<a href="{{ url_for('.write_post') }}"><button  class="submit" id="createpost">Create a Post</button></a>
 <div class="spacer"></div>
 {% if postlist() | length > 0 %}
 {% for post in postlist() %}
@@ -10,7 +10,10 @@
     <a href="{{ url_for('.profile',username=post.author.username) }}">
         <div class="auth-info">
             <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
-            <a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-auth">{{post.author.username}}</p></a>
+            <section class="pst-auths">
+            <u><a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-auth">{{post.author.displayname}}</p></a></u>
+            <a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-disp">@{{post.author.username}}</p></a>
+        </section>
         </div>
     </a>
     <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>

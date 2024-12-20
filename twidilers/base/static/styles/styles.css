@@ -120,6 +120,16 @@ Click generate until you get the loss under 3 */
     border-radius: 1000000px;
 }
 
+#display-name {
+    margin-bottom:0px;
+}
+
+#name-change {
+    height:50px;
+    position: relative;
+    top:1px;
+}
+
 .profile-div {
     padding: 20px 20px 0 20px;
     width: 565px;
@@ -407,6 +417,17 @@ a {
     color:var(--darkblue)
 }
 
+.pst-disp {
+    margin:3px 0 0 0;
+    color:var(--darkblue);
+    font-size: 10pt;
+}
+
+.pst-auths{
+    position: relative;
+    bottom:8px
+}
+
 .pst-title {
     margin-top:1px
 }
@@ -511,4 +532,9 @@ a {
     .pst-auth {
         color:var(--lightblue)
     }
+
+    .pst-disp {
+        color:var(--lightblue)
+    }
+
 }

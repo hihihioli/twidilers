@@ -11,7 +11,7 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import login_required #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
-from ..functions import findAccount #Custom functions, like save()
+from ..functions import findAccount,save #Custom functions, like save()
 
 # Make sure to use url_for('.feed') and not url_for('.page',page='feed')
 
@@ -40,11 +40,9 @@ def logout():
 @login_required
 def write_post():
     title = request.form.get('title')
-    author = session.get('username')
-    content = request.form.get('post-content') #What does the next line do?
-    decorators = ' '.join(value for value in [request.form.get('overline'),request.form.get('underline'),request.form.get('line-through'),request.form.get('wavy')] if value is not None)
+    content = request.form.get('post-content')
     date_utc = datetime.datetime.now(datetime.timezone.utc)
-    new_post = Post(title=title,content=content,date=date_utc,decorators=decorators,author=findAccount())
+    new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
     db.session.add(new_post)
     db.session.commit()
     return redirect(url_for('.page',page='feed'))
@@ -53,14 +51,13 @@ def write_post():
 def sign_up():
         #Handle sign up stuff here
         new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
-        display_name=request.form.get('display_name')
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
             flash('Please enter a username and password','error')
             return redirect(url_for('.page',page='sign_up'))
         if password1 == password2: #Checks if the passwords match
-            new_account = Account(username=new_username,password=password1,displayname=display_name)
+            new_account = Account(username=new_username,password=password1,displayname=new_username)
             db.session.add(new_account)
             try:
                 db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
@@ -77,7 +74,7 @@ def sign_up():
 @app.post('/settings') #trying to delete user
 @login_required
 def settings(): #Handles the forms
-    if 'delete' in request.form: #the user wants to delete their account
+    if 'delete' in request.form: #The user wants to delete their account
         account = findAccount()
         deleted = Account(username=f'{account.username}[deleted]',deleted=True,password='deleted')
         db.session.add(deleted)
@@ -88,7 +85,14 @@ def settings(): #Handles the forms
         db.session.delete(account)
         db.session.commit()
         flash('Successfully Deleted Account','success')
-        return redirect(url_for('.logout'))
+        return redirect(url_for('.logout')) #The user wants to change their display name
+    elif 'change-name' in request.form:
+        account = findAccount()
+        new_name = request.form.get('change-name')
+        account.displayname = new_name
+        save()
+        flash(f'Display Name Changed to {account.displayname}','success')
+        return redirect(url_for('.page',page='settings'))
     else: #The user wants to update their pfp
         account = findAccount()
         if 'file' in request.files:
