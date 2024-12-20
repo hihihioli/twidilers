@@ -81,12 +81,6 @@ def sign_up():
 def settings(): #Handles the forms
     if 'delete' in request.form: #The user wants to delete their account
         account = findAccount()
-        deleted = Account(username=f'{account.username}[deleted]',deleted=True,password='deleted',displayname='deleted')
-        db.session.add(deleted)
-        deleted = findAccount(f'{account.username}[deleted]')
-        for post in account.posts:
-            post.author = deleted
-        db.session.commit()
         db.session.delete(account)
         db.session.commit()
         flash('Successfully Deleted Account','success')
