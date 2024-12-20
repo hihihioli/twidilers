@@ -6,10 +6,7 @@ Why does this page exist?
 
 # Bugs
 ## User accounts
-* Login/signup pages can be accessed while logged in **fixed**
-* settings pages throws an error while logged out (should throw a 403) **fixed**
 * user accounts can be created with the same username as a deleted account
-* It throws an error when trying to submit a user profile image **fixed**
 * You can't delete your account
 * user account names are case sensative
 
@@ -53,6 +50,7 @@ Why does this page exist?
 ## nice to haves
 * tags for posts
 * ability to have line breaks in posts
+* 404 page
 
 
 # Frontend change wishlist
