@@ -22,7 +22,7 @@ def login():
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
     if account: #Checks if the given account exists
         if account.deleted: #checks if the account is a deleted placholder
-            flash("Deleted Account","error")
+            flash("Account is Deprecated","error")
             return redirect(url_for('.page',page='login'))
         if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
@@ -34,6 +34,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username',None) #remove username from session, effectively logging them out
+    flash('Successfully logged out','success')
     return redirect(url_for('.page',page='login'))
 
 @app.post('/post')
@@ -41,6 +42,10 @@ def logout():
 def write_post():
     title = request.form.get('title')
     content = request.form.get('post-content')
+    if not content:
+        content = 'No Content'
+    if not title:
+        title = 'No Title'
     date_utc = datetime.datetime.now(datetime.timezone.utc)
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
     db.session.add(new_post)

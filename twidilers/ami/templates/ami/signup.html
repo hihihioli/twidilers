@@ -5,78 +5,125 @@
 <form method="post" name="sign_form" id="sign_form" class="form_block">
     <!-- Div 1 (account details) s-->
     <div class="i-container" id="sign-div1">
-    <input type="text" placeholder="Create a Username" class="textbox" id="username" autocomplete="off">
-    <input type="password" placeholder="Create Password" class="textbox" id="password1" autocomplete="off">
-    <input type="password" placeholder="Confirm Password" class="textbox" id="password2" autocomplete="off"><br>
+        <input type="text" placeholder="Create a Username" class="textbox" id="username" autocomplete="off">
+        <input type="password" placeholder="Create Password" class="textbox" id="password1" autocomplete="off">
+        <input type="password" placeholder="Confirm Password" class="textbox" id="password2" autocomplete="off"><br>
     </div>
     <!-- Div 2 (instruments played) -->
     <div class="i-container" id="sign-div2" style="display:none">
         <h1 class="heading">Please select your instrument(s)</h1>
-        <input type="checkbox" id="piano" name="piano" value="piano">
-        <label for="piano">Piano</label>
-        <input type="checkbox" id="cello" name="cello" value="cello">
-        <label for="cello">Cello</label>
-        <input type="checkbox" id="violin" name="violin" value="violin">
-        <label for="violin">Violin</label>
-        <input type="checkbox" id="flute" name="flute" value="flute">
-        <label for="flute">Flute</label>
-        <input type="checkbox" id="trumpet" name="trumpet" value="trumpet">
-        <label for="trumpet">Trumpet</label>
-        <input type="checkbox" id="trombone" name="trombone" value="trombone">
-        <label for="trombone">Trombone</label>
-        <input type="checkbox" id="oboe" name="oboe" value="oboe">
-        <label for="oboe">Oboe</label>
-        <input type="checkbox" id="clarinet" name="clarinet" value="clarinet">
-        <label for="clarinet">Clarinet</label>
-        <input type="checkbox" id="guitar" name="guitar" value="guitar">
-        <label for="guitar">Guitar</label>
-        <input type="checkbox" id="banjo" name="banjo" value="banjo">
-        <label for="banjo">Banjo</label>
-        <input type="checkbox" id="ukelele" name="ukelele" value="ukelele">
-        <label for="ukelele">Ukelele</label>
-        <input type="checkbox" id="harmonica" name="harmonica" value="harmonica">
-        <label for="harmonica">Harmonica</label>
-        <input type="checkbox" id="handwhistle" name="handwhistle" value="handwhistle">
-        <label for="handwhistle">Hand whistle</label>
+        <section>
+            <input type="checkbox" id="piano" name="piano" value="piano">
+            <label for="piano">Piano</label>
+        </section>
+        <section>
+            <input type="checkbox" id="cello" name="cello" value="cello">
+            <label for="cello">Cello</label>
+        </section>
+        <section>
+            <input type="checkbox" id="violin" name="violin" value="violin">
+            <label for="violin">Violin</label>
+        </section>
+        <section>
+            <input type="checkbox" id="flute" name="flute" value="flute">
+            <label for="flute">Flute</label>
+        </section>
+        <section>
+            <input type="checkbox" id="trumpet" name="trumpet" value="trumpet">
+            <label for="trumpet">Trumpet</label>
+        </section>
+        <section>
+            <input type="checkbox" id="trombone" name="trombone" value="trombone">
+            <label for="trombone">Trombone</label>
+        </section>
+        <section>
+            <input type="checkbox" id="oboe" name="oboe" value="oboe">
+            <label for="oboe">Oboe</label>
+        </section>
+        <section>
+            <input type="checkbox" id="clarinet" name="clarinet" value="clarinet">
+            <label for="clarinet">Clarinet</label>
+        </section>
+        <section>
+            <input type="checkbox" id="guitar" name="guitar" value="guitar">
+            <label for="guitar">Guitar</label>
+        </section>
+        <section>
+            <input type="checkbox" id="banjo" name="banjo" value="banjo">
+            <label for="banjo">Banjo</label>
+        </section>
+        <section>
+            <input type="checkbox" id="ukelele" name="ukelele" value="ukelele">
+            <label for="ukelele">Ukelele</label>
+        </section>
+        <section>
+            <input type="checkbox" id="harmonica" name="harmonica" value="harmonica">
+            <label for="harmonica">Harmonica</label>
+        </section>
+        <section>
+            <input type="checkbox" id="handwhistle" name="handwhistle" value="handwhistle">
+            <label for="handwhistle">Hand whistle</label>
+        </section>
     </div>
-    <button type="button" class="submit" id="submit">Submit</button>
+    <div class="i-container" id="sign-div3" style="display:none">
+        <h1 class="heading">What are your favorite genres?</h1>
+        <section>
+            <input type="checkbox" id="rock" name="rock" value="rock">
+            <label for="rock">Rock</label>
+        </section>
+        <section>
+            <input type="checkbox" id="pop" name="pop" value="pop">
+            <label for="pop">Pop</label>
+        </section>
+        <section>
+            <input type="checkbox" id="hip-hop" name="hip-hop" value="hip-hop">
+            <label for="hip-hop">Hip-Hop</label>
+        </section>
+        <section>
+    </div>
+    <button type="button" class="submit" id="submit-button">Submit</button>
 </form>
 
 <script>
-    const submit = document.getElementById('submit')
-    const Div1  = document.getElementById('sign-div1')
-    const Div2  = document.getElementById('sign-div2')
-    const Div3  = document.getElementById('sign-div3')
+    window.onload = function() {
+    const submit = document.getElementById('submit-button')
+    const Div1 = document.getElementById('sign-div1')
+    const Div2 = document.getElementById('sign-div2')
+    const Div3 = document.getElementById('sign-div3')
     let instance = 1
-    submit.addEventListener('click',function(event) {
+    submit.addEventListener('click', function (event) {
         event.preventDefault()
         if (instance == 1) {
+            if (document.getElementById('username')?.value.trim() !== '' && document.getElementById('password1')?.value.trim() !== '' && document.getElementById('password2')?.value.trim() !== '') {
+                if (document.getElementById('password2')?.value === document.getElementById('password1')?.value) {
+                    Div1.style.filter = 'opacity(0)'
+                    setTimeout(function () {
+                        Div1.style.display = 'none'
+                        Div2.style.display = 'flex'
+                        Div2.style.flexDirection = 'column'
+                        Div2.style.filter = 'opacity(1)'
+                        instance = 2
+                    }, 800)
 
-        
-        if (document.getElementById('username')?.value.trim() !== '' && document.getElementById('password1')?.value.trim() !== '' && document.getElementById('password2')?.value.trim() !== '') {
-            if (document.getElementById('password2')?.value === document.getElementById('password1')?.value) {
-                Div1.style.filter = 'opacity(0)'
-            setTimeout(function() {
-                Div1.style.display = 'none'
-                Div2.style.display = 'block'
-                Div2.style.filter = 'opacity(1)'
-            },800)
-            
+                } else {
+                    alert('Your passwords do not match')
+                }
+
             } else {
-                alert('Your passwords do not match')
+                alert('Please ensure that the fields are not empty and that they do not only consist of spaces')
             }
-            
-        } else {
-            alert('Please ensure that the fields are not empty and that they do not only consist of spaces')
-        }
-    } else if (instance == 2) {
-        Div2.style.filter = 'opacity(0)'
-        setTimeout(function() {
+        } else if (instance == 2) {
+            Div2.style.filter = 'opacity(0)'
+            setTimeout(function () {
                 Div2.style.display = 'none'
                 Div3.style.display = 'block'
-                Div3.style.filter = 'opacity(1)' 
-            },800)
-    }
+                Div3.style.filter = 'opacity(1)'
+                instance = 3
+            }, 800)
+        } else if (instance == 3) {
+            document.sign_form.submit()
+        }
     })
+}
 </script>
 {% endblock %}

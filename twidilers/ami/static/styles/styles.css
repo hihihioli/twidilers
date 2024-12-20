@@ -80,7 +80,7 @@ button {
     transition: all 0.5s
 }
 
-#submit {
+#submit-button {
     width:148.5px;
     align-self: center;
     justify-self: center;
@@ -110,7 +110,8 @@ button {
     width:30%;
     justify-content: center;
     align-self:center;
-    transition: all 0.8s
+    transition: all 0.8s;
+    margin-bottom: 5px;
 }
 
 

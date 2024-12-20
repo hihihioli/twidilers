@@ -15,4 +15,4 @@ def signup():
     if request.method == 'GET':
         return render_template('ami/signup.html')
     if request.method == "POST":
-        pass
+        return redirect(url_for('.index'))
