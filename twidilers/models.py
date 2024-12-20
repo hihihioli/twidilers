@@ -15,6 +15,7 @@ class Account(db.Model): #The user accounts
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
+  displayname:Mapped[str] = mapped_column(nullable=False)
   posts:Mapped[list["Post"]] = relationship(back_populates="author")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   deleted:Mapped[bool] = mapped_column(nullable=True)

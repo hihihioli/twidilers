@@ -3,7 +3,8 @@
 {% block content %}
 <div class="profile-div" id="pfp-head">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-    <h1 name="prof-username" id="prof-username">@{{account.username}}</h1><br>
+    <h2 name="prof-username" id="prof-username">@{{account.username}}</h2>
+    <h3 name="prof-username" id="prof-username">Display name: {{account.displayname}}</h3>
 </div>
 <div>
     <h1>Recent Posts:</h1>

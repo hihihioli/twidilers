@@ -53,13 +53,14 @@ def write_post():
 def sign_up():
         #Handle sign up stuff here
         new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
+        display_name=request.form.get('display_name')
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
             flash('Please enter a username and password','error')
             return redirect(url_for('.page',page='sign_up'))
         if password1 == password2: #Checks if the passwords match
-            new_account = Account(username=new_username,password=password1)
+            new_account = Account(username=new_username,password=password1,displayname=display_name)
             db.session.add(new_account)
             try:
                 db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
