@@ -24,7 +24,6 @@ Why does this page exist?
 ## Settings page
 * Expanded submenus
     * Account Details
-        * Improved pfp upload dialog
         * Better user card look
         * User accounts should not accept emojis
     * Security
