@@ -124,14 +124,27 @@ Click generate until you get the loss under 3 */
     image-resolution: 46px;
 }
 
-#prof-username {
+#prof-disp {
     position: relative;
     right: 0;
-    margin: 10px 0 0 0;
+    margin: 1   0px 0 10px 0;
+}
+
+#prof-usrname {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.profile-auth {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 20px;
 }
 #pfp {
     width: 100px;
     border-radius: 1000000px;
+    float: left;
 }
 
 #display-name {
@@ -220,14 +233,9 @@ input[type="file"] {
     height: fit-content;
     flex-wrap:wrap;
 }
-
-#prof-password {
-    font-size:22pt;
-    margin-top:0px;
-}
-
-#prof-show-password {
-    width: fit-content;
+#auth-info {
+    height: 110px !important;
+    font-size: 1.2em;
 }
 
 /* Footer stuff here. #footer-div is the div for #footer*/
@@ -462,6 +470,7 @@ a {
     margin: 0 0 10px 0;
     width: 100%;
     cursor:pointer;
+    height: 100px;
 }
 
 .pst-auth-pfp {

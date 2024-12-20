@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}{{account.displayname}}'s profile{% endblock %}
 {% block content %}
-<div class="profile-div" id="pfp-head">
+<div class="profile-div" id="auth-info">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-    <h1 name="prof-username" id="prof-username">{{account.displayname}}</h1>
-    <h3 name="prof-username" id="prof-username">@{{account.username}}</h3>
+    <section class="profile-auth">
+        <h1 name="prof-username" id="prof-disp">{{account.displayname}}</h1>
+        <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
+    </section>
 </div>
 <div>
     <h1>Recent Posts:</h1>
