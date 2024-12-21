@@ -230,6 +230,11 @@ input[type="file"] {
     height: fit-content;
     flex-wrap:wrap;
 }
+
+#old-password {
+    margin-bottom:3px;
+}
+
 #auth-info {
     height: 100px !important;
     font-size: 1.2em;

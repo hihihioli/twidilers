@@ -81,13 +81,17 @@ def settings(): #Handles the forms
         db.session.commit()
         flash('Successfully Deleted Account','success')
         return redirect(url_for('.logout')) 
-    elif 'change-name' in request.form: #The user wants to change their display name
-        account = findAccount()
-        new_name = request.form.get('change-name')
-        account.displayname = new_name
-        save()
-        flash(f'Display Name Changed to {account.displayname}','success')
-        return redirect(url_for('.page',page='settings'))
+    elif 'new-password' in request.form: #The user wants to change their password
+            account = findAccount()
+            new_password = request.form.get('new-password')
+            old_password = request.form.get('old-password')
+            if account.check_password(old_password):
+                account.password = new_password
+                db.session.commit()
+                flash('Password changed successfully','success')
+            else:
+                flash('Current password is incorrect','error')
+            return redirect(url_for('.page',page='settings'))
     else: #The user wants to update their pfp
         account = findAccount()
         if 'file' in request.files:
@@ -118,17 +122,18 @@ def profile(username):
     return render_template('profile.html',account=account, posts=posts,owner=0)
 
 @app.post('/user/<username>/')
-def password(username):
-    if username == session.get('username'):
-        account = findAccount()
-        new_password = request.form.get('change-password')
-        account.password = new_password
-        db.session.commit()
-        flash('Password changed successfully','success')
-        return redirect(f'/user/{username}')
-    else:
-        flash('A desync error occured','error')
-        return redirect(f'/user/{username}')
+def displayname(username):
+    if 'change-name' in request.form: #The user wants to change their display name
+        if username == session.get('username'):
+            account = findAccount()
+            new_name = request.form.get('change-name')
+            account.displayname = new_name
+            save()
+            flash(f'Display Name Changed to {account.displayname}','success')
+            return redirect(url_for('.profile',username=username))
+        else:
+            flash('A desync error occured','error')
+            return redirect(url_for('.profile',username=username))
         
 
 @app.get('/user/<username>/pfp')
