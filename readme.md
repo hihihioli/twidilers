@@ -5,9 +5,7 @@ Why does this page exist?
 
 
 # Bugs
-## User accounts
-* Deleting account
-    * Should prompt a "You sure?"
+
 
 # New feature wishlist
 ## Profile page
@@ -15,6 +13,7 @@ Why does this page exist?
 * Metadata about user such as
     * Posts made
     * Date joined
+    * Maybe move password change to settings and display name change to profile
 
 ## Settings page
 * Expanded submenus

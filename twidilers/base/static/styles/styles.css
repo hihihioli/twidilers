@@ -125,7 +125,7 @@ Click generate until you get the loss under 3 */
 }
 
 #profileBtn {
-    margin-top:0px !important;;
+    margin-top:0px !important;
 }
 
 #usricon-nav-img {
@@ -150,6 +150,7 @@ Click generate until you get the loss under 3 */
     flex-direction: column;
     position: relative;
     left: 20px;
+    margin-top:24px
 }
 #pfp {
     width: 100px;
@@ -158,18 +159,13 @@ Click generate until you get the loss under 3 */
 }
 
 #display-name {
-    margin-bottom:0px;
+    margin:0px;
 }
 
 #name-change {
     height:50px;
     position: relative;
     top:1px;
-}
-
-.profile-div {
-    padding: 20px 20px 0 20px;
-    width: 565px;
 }
 
 /* Hide the default input */
@@ -211,6 +207,7 @@ input[type="file"] {
 #security-content {
     display: none;
 }
+
 #privacy-content {
     display: none;
 }
@@ -224,17 +221,26 @@ input[type="file"] {
     font-weight: 500;
     text-decoration: underline;
   }
+
 .profile-div {
     border-radius:15px;
-    padding: 20px;
+    padding: 15px 15px 15px 20px;
     width: 565px;
     margin: 20px 0;
     height: fit-content;
     flex-wrap:wrap;
 }
 #auth-info {
-    height: 110px !important;
+    height: 100px !important;
     font-size: 1.2em;
+}
+
+#pfp-head {
+    height:100px!important;
+}
+
+.div-heading {
+    margin-top:0px
 }
 
 /* Footer stuff here. #footer-div is the div for #footer*/
@@ -263,7 +269,7 @@ p #content {
     text-align: center;
 }
 
-/* For the checkpox system in the blog */
+/* For the checkpox system in the blog ** deprecated ** */
 #decorators {
     display:flexbox;
     vertical-align: middle;
@@ -287,7 +293,8 @@ a {
     padding: 8px;
     font-size: 12pt;
     text-align: center;
-    animation: disappear 0.75s ease forwards 10s
+    animation: disappear 0.75s ease forwards 10s;
+    margin-bottom:1px;
 }
 
 .flash.error {
@@ -469,7 +476,7 @@ a {
     margin: 0 0 10px 0;
     width: 100%;
     cursor:pointer;
-    height: 100px;
+    height: 45px;
 }
 
 .pst-auth-pfp {

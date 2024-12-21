@@ -21,8 +21,8 @@
         <!-- Header with profile picture and username -->
         <div class="profile-div" id="pfp-head">
             <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
-            <h1 name="prof-username" id="prof-username">{{account.displayname}}</h1>
-            <h3 name="dispaly-name" id="display-name">@{{account.username}}</h3>
+            <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
+            <h3 name="prof-username" id="prof-username">@{{account.username}}</h3>
         </div>
         <div class="profile-div">
             <form method="post" id="change-name-change">
@@ -49,8 +49,8 @@
     </div>
     <div id="security-content">
         <div class="profile-div">
-            <form method="post">
-                <button class="submit" id="prof-delete-account" name="delete">Delete Account</button>
+            <form id="delete-account" name="delete-account" method="post">
+                <button class="submit" id="delete" name="delete">Delete Account</button>
             </form> 
         </div>
     </div>
@@ -115,7 +115,16 @@
                 makeBold(privacyButton);
                 makeNormal(securityButton);
             }
-                       
+            // This script promts an 'Are you sure?' textbox when clicking the button to delete your account
+
+            const deleteButton = document.getElementById('delete')
+            deleteButton.addEventListener('click', function(event) {
+                event.preventDefault()
+                if (confirm('Are you sure you want to delete your account?') == true) {
+                    document.getElementById('delete-account').submit()
+                }
+            })
+
             // Submits the image when uploading a profile picture
             file = document.getElementById('file');
             file.addEventListener('change',() => {
@@ -123,5 +132,7 @@
                     document.getElementById('upload_pfp').submit();
                 }
             })</script>
+
+           
 
 {% endblock %}

@@ -4,10 +4,19 @@
 <div class="profile-div" id="auth-info">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
     <section class="profile-auth">
-        <h1 name="prof-username" id="prof-disp">{{account.displayname}}</h1>
+        <h1 name="prof-username" id="display-name">{{account.displayname}}</h1>
         <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
     </section>
 </div>
+{% if owner == 1 %}
+<div class="profile-div">
+        <form method="post" id="change-password-change">
+            <h3 class="div-heading">Change password</h3>
+            <input id="change-password" name="change-password" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
+            <button class="submit" id="password-change" name="password-change">Change Password</button>
+        </form>
+</div>
+{% endif %}
 <div>
     <h1>Recent Posts:</h1>
     {% for post in posts %}

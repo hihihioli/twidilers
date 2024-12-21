@@ -73,16 +73,15 @@ def sign_up():
         return redirect(url_for('.page',page='sign_up'))
 
 
-@app.post('/settings') #trying to delete user
-@login_required
+@app.post('/settings')
 def settings(): #Handles the forms
     if 'delete' in request.form: #The user wants to delete their account
         account = findAccount()
         db.session.delete(account)
         db.session.commit()
         flash('Successfully Deleted Account','success')
-        return redirect(url_for('.logout')) #The user wants to change their display name
-    elif 'change-name' in request.form:
+        return redirect(url_for('.logout')) 
+    elif 'change-name' in request.form: #The user wants to change their display name
         account = findAccount()
         new_name = request.form.get('change-name')
         account.displayname = new_name
@@ -108,13 +107,29 @@ def settings(): #Handles the forms
             flash('No File Selected','error')
         return redirect(url_for('.page',page='settings'))
 
-@app.get('/user/<username>/')
+@app.route('/user/<username>/')
 def profile(username):
     account = findAccount(username)
     if account is None:
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
-    return render_template('profile.html',account=account, posts=posts)
+    if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
+        return render_template('profile.html',account=account, posts=posts, owner=1)
+    return render_template('profile.html',account=account, posts=posts,owner=0)
+
+@app.post('/user/<username>/')
+def password(username):
+    if username == session.get('username'):
+        account = findAccount()
+        new_password = request.form.get('change-password')
+        account.password = new_password
+        db.session.commit()
+        flash('Password changed successfully','success')
+        return redirect(f'/user/{username}')
+    else:
+        flash('A desync error occured','error')
+        return redirect(f'/user/{username}')
+        
 
 @app.get('/user/<username>/pfp')
 def get_pfp(username):
