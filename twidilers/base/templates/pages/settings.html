@@ -49,12 +49,11 @@
             <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
         </div>        
         <!-- Delete account button -->
-
     </div>
     <div id="security-content">
         <div class="profile-div">
             <form id="delete-account" name="delete-account" method="post">
-                <button class="submit" id="delete" name="delete">Delete Account</button>
+                <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 
         </div>
     </div>
@@ -120,14 +119,16 @@
                 makeNormal(securityButton);
             }
             // This script promts an 'Are you sure?' textbox when clicking the button to delete your account
-
-            const deleteButton = document.getElementById('delete')
-            deleteButton.addEventListener('click', function(event) {
+                function checkDelete(event) {
                 event.preventDefault()
                 if (confirm('Are you sure you want to delete your account?') == true) {
+                    const hiddenInput = document.createElement('input'); //creates a hidden input so 'delete' is still in request.form (using submit() removes it for some reason)
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'delete';
+                    document.getElementById('delete-account').appendChild(hiddenInput);
                     document.getElementById('delete-account').submit()
                 }
-            })
+            }
 
             // Submits the image when uploading a profile picture
             file = document.getElementById('file');
