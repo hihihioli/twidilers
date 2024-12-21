@@ -1,6 +1,8 @@
 /.DS_Store
 /.env
 /venv
+/.venv
+/instance
 twidilers/__pycache__/
 twidilers/base/__pycache__
 .vscode/settings.json

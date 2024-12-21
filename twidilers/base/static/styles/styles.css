@@ -97,28 +97,36 @@ Click generate until you get the loss under 3 */
 }
 
 
-        /* Popup Menu */
-        .popup-menu {
-            display: none;
-            position: absolute;
-            background: #fff;
-            border: 1px solid #ddd;
-            width: 95px;
-            z-index: 1000;
-            padding: 10px;
-            border-radius: 10px;
-        }
+/* Popup Menu */
+.popup-menu {
+    display: none;
+    position:absolute;
+    left:65%;
+    top:67px;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ddd;
+    width: 95px;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
 
-        .popup-menu button {
-            display: block;
-            width: 100% !important;
-            padding: 10px 15px;
-            background: none;
-            border: none;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-        }
+.popup-menu button {
+    display: block;
+    width: 100% !important;
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#profileBtn {
+    margin-top:0px !important;;
+}
 
 #usricon-nav-img {
     width: 46px;
