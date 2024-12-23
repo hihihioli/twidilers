@@ -3,11 +3,9 @@
 
 # New feature wishlist
 ## Profile page
-* Edit button on your profile page that goes to the Public Information tab of the settings page
 * Metadata about user such as
     * Posts made
     * Date joined
-    * Maybe move password change to settings and display name change to profile
 
 ## Settings page
 * Expanded submenus
@@ -38,8 +36,9 @@
 ## nice to haves
 * tags for posts
 * ability to have line breaks in posts
+* 404 page working
 
-## thing
+# Major to-dos before launch
 Blogging system
 User page
 Chat room

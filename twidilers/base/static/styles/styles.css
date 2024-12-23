@@ -100,8 +100,8 @@ Click generate until you get the loss under 3 */
 /* Popup Menu */
 .popup-menu {
     display: none;
-    position:absolute;
-    left:65%;
+    position:fixed;
+    right:20px;
     top:67px;
     flex-direction: column;
     background: #fff;
