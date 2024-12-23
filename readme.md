@@ -1,11 +1,5 @@
-# Welcome to Twidilers
-You should be one of the three of us. Otherwise, why are you here?
-Github told me to add this but I don't know what to write here.
-Why does this page exist?
-
-
 # Bugs
-
+* It flashes "No File Selected" when trying to change display name
 
 # New feature wishlist
 ## Profile page
@@ -21,7 +15,6 @@ Why does this page exist?
         * Better user card look
         * User accounts should not accept emojis
     * Security
-        * Reset password
         * change email associated with account
         * see login history
     * Privacy
@@ -40,6 +33,7 @@ Why does this page exist?
 
 ## Login page
 * show password button
+* Require unique password (not the same as your username)
 
 ## nice to haves
 * tags for posts

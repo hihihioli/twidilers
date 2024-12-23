@@ -16,9 +16,10 @@
         h3 {
             margin: 0 0 20px 0;
         }
-    </style>
+    </style>        
+    <!-- Div with account details -->
+
     <div id="acct-dtl-content">
-        <!-- Header with profile picture and username -->
         <div class="profile-div" id="auth-info">
             <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
             <section class="profile-auth">
@@ -26,15 +27,14 @@
                 <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
             </section>
         </div>
+
         <div class="profile-div">
-            <form method="post" id="change-password-change">
-                <h3 class="div-heading">Change password</h3>
-                <input id="old-password" name="old-password" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="Current Password">
-                <input id="new-password" name="new-password" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="New Password">
-                <button class="submit" id="password-change" name="password-change">Change Password</button>
+            <form method="post" id="change-name-change">
+                <h3>Change display name</h3>
+                <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
+                <button class="submit" id="name-change" name="name-change">Change Name</button>
             </form>
-    </div>
-        
+        </div>
         <div class="profile-div">
             <h3>Upload profile picture</h3>
             <form method="post" enctype="multipart/form-data" id="upload_pfp">
@@ -44,13 +44,19 @@
                 <input type="file" id="file" name="file" accept="image/*">
             </form>
         </div>
-        <!-- Log out button -->
         <div class="profile-div">
             <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
         </div>        
-        <!-- Delete account button -->
     </div>
     <div id="security-content">
+        <div class="profile-div">
+            <form method="post" id="change-password-change">
+                <h3 class="div-heading">Change password</h3>
+                <input id="old-password" name="old-password" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="Current Password">
+                <input id="new-password" name="new-password" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="New Password">
+                <button class="submit" id="password-change" name="password-change">Change Password</button>
+            </form>
+        </div>
         <div class="profile-div">
             <form id="delete-account" name="delete-account" method="post">
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>

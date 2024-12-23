@@ -6,17 +6,12 @@
     <section class="profile-auth">
         <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
         <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
+        {% if owner == 1 %}
+        <a href="{{ url_for('.page',page='settings') }}"><button class="submit">Edit</button></a>
+{% endif %}
     </section>
 </div>
-{% if owner == 1 %}
-<div class="profile-div">
-    <form method="post" id="change-name-change">
-        <h3>Change display name</h3>
-        <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
-        <button class="submit" id="name-change" name="name-change">Change Name</button>
-    </form>
-</div>
-{% endif %}
+
 <div>
     <h1>Recent Posts:</h1>
     {% for post in posts %}
