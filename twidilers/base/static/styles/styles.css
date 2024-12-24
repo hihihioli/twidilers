@@ -157,6 +157,11 @@ Click generate until you get the loss under 3 */
     left: 20px;
     margin-top:24px
 }
+#follow-button {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+}
 #edit-profile {
     position: absolute;
     bottom:55px;
@@ -309,7 +314,7 @@ a {
 
 /* Flashes are the notices like "login successful" and stuff. */
 .flash {
-    width:100%;
+    width:580px;
     height: fit-content;
     border-radius: 5px;
     background: var(--darkishblue);
