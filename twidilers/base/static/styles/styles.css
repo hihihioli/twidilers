@@ -237,7 +237,6 @@ input[type="file"] {
     display: none;
 }
   .pf-mnu-btn {
-    border-radius: 10px;
     border: 0;
     cursor: pointer;
     background-color: inherit;

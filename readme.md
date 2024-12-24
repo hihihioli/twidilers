@@ -5,10 +5,10 @@
 
 
 # HIGH PRIORITY
-* Settings page
+* Make Settings page fully functional
 * Fix bugs
 * finish backend for hosting
-
+* Email integration
 
 
 # New feature wishlist
@@ -17,6 +17,7 @@
 * Notifications of mentions, replies to posts, etc
 * Email functionality (link email to account)
 * 404 page
+* Compress images to a smaller resolution when displaying profile pictures
 
 
 ## Profile page
@@ -33,7 +34,9 @@
     * Security
         * change email associated with account
         * see login history
-        * changing pwd should require verification code sent to email account
+        * changing pwd 
+            * should require verification code sent to email account
+            * Verify new password (Put it in twice like when signing up)
     * Privacy
         * make it possible to make your account page private
         * Change visability of posts to just people you follow
@@ -55,6 +58,8 @@
 
 ## Login page
 * show password button
+* When logging in with an old invalid password, flash "The password was changed recently"
+* Forgot password functionality
 
 
 ## Signup page
