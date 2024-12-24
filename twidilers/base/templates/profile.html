@@ -7,7 +7,7 @@
         <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
         <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
         {% if owner == 1 %}
-        <a href="{{ url_for('.page',page='settings') }}"><button class="submit">Edit</button></a>
+        <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
 {% endif %}
     </section>
 </div>

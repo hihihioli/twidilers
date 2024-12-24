@@ -1,5 +1,6 @@
 # Bugs
 * It flashes "No File Selected" when trying to change display name
+* It should flash "No content" when trynig to post without content (not letting you do it), with an "Are you sure?" prompt when posting without a title (titles are potional)
 
 # New feature wishlist
 ## Profile page
@@ -10,7 +11,6 @@
 ## Settings page
 * Expanded submenus
     * Account Details
-        * Better user card look
         * User accounts should not accept emojis
     * Security
         * change email associated with account
@@ -46,7 +46,6 @@ Finish twidilers hub website
 Finish docker and docker compose
 Fix gap in flashes
 Capitalize flashes
-tui
 
 
 # Frontend change wishlist

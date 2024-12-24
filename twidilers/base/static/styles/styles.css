@@ -157,6 +157,21 @@ Click generate until you get the loss under 3 */
     left: 20px;
     margin-top:24px
 }
+#edit-profile {
+    position: absolute;
+    bottom:55px;
+    right: 20px;
+    padding: 10px;
+    color: inherit;
+    transition:all 0.5s;
+    border-radius:5px;
+}
+#edit-profile:hover {
+    background-color:var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 10px;
+
+}
 #pfp {
     width: 100px;
     border-radius: 1000000px;
@@ -531,6 +546,10 @@ a {
         color: var(--lightblue);
         background-color: var(--darkblue);
         border: 3px solid var(--lightishblue);
+    }
+    #edit-profile:hover {
+        background-color:var(--lightblue);
+        color: var(--darkblue);
     }
 
     .popup-menu {
