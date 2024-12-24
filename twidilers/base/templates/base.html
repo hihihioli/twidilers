@@ -36,7 +36,7 @@
             <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
             <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
             <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
-            <a><button id="usricon-nav"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=account.username) }}"></button>
+            <a><button id="usricon-nav"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button>
     </a>
 
 
@@ -45,7 +45,7 @@
         <!-- Popup Menu -->
         <div class="popup-div">
             <div class="popup-menu" id="popupMenu">
-                <a href="{{ url_for('.profile',username=account.username) }}"><button id="profileBtn" href="{{ url_for('.logout') }}">Profile</button></a>
+                <a href="{{ url_for('.profile', username=session['username'])}}"><button id="profileBtn" href="{{ url_for('.logout') }}">Profile</button></a>
                 <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
                 <a href="{{ url_for('.logout') }}"><button id="logoutBtn">Log Out</button></a>
             </div> 
