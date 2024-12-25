@@ -1,0 +1,64 @@
+/* For login, signup, post.html and other forms  */
+
+/* This is variables. You can access them by doing var(--varname) instead of a color. */
+html {
+    --lightblue: #b8eef9;
+    --darkblue: #001554;
+    --darkishblue: #0a0a8d;
+    --lightishblue: #9eefff;
+    --maroonred: rgb(83, 23, 23);
+    --greenish: #4d7b9f;
+    --maroongreen: #003d00;
+}
+
+/* .input_form is the wrapper for the inputs and button. */
+.input_form {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--darkblue);
+}
+
+/* The textbox for password and username input */
+.textbox {
+    border-radius: 5px;
+    width:250px;
+    height:18px;
+    padding:13px;
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+    border: 3px solid var(--darkblue);
+
+}
+/* #content is the main content area. #post-content is the input form content area. */
+#post-content {
+    resize:vertical;
+    overflow-y: hidden;
+}
+#title, #post-content {
+    width: 470px;
+    border-radius: 10px;
+}
+#post-submit {
+    margin:0;
+    align-self:inherit !important;
+}
+@media only screen and (prefers-color-scheme: dark){
+    .input_form {
+        background-color: var(--darkishblue);
+        border: 3px solid var(--lightishblue);
+
+    }
+    .textbox {
+        color: var(--lightblue);
+        background-color: var(--darkblue);
+        border: 3px solid var(--lightishblue);
+    }
+    .textbox::placeholder {
+        color: var(--lightblue)
+    }
+}

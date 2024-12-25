@@ -1,0 +1,96 @@
+/* For individual posts and feed.html */
+#feedtitle {
+    float: left;
+    font-size: 3em;
+    margin: 20px 0;
+}
+#createpost {
+    float: right;
+    margin: 20px 0;
+}
+.spacer {
+    height: 100px;
+}
+/* Individual posts */
+.pst {
+    padding: 20px;
+    background-color: var(--lightishblue);
+    border-radius: 10px;
+    margin: 8px 0px;
+    height: fit-content;
+    inline-size: 565px;
+    overflow-wrap: break-word;
+}
+
+.pst-auth {
+    margin:10px 0 0 0;
+    color:var(--darkblue);
+    font-weight: bold;
+}
+
+.pst-disp {
+    margin:3px 0 0 0;
+    color:var(--darkblue);
+    font-size: 10pt;
+}
+
+.pst-auths{
+    position: relative;
+    bottom:8px;
+}
+
+.pst-title {
+    margin-top:1px
+}
+
+.pst-date {
+    margin: 0px
+}
+
+/* container for posts  */
+#pst-div {
+    display: flex;
+}
+.reactions {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+#blog_form {
+    width: 500px;
+    margin-bottom:1px;
+}
+
+
+.auth-info {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 10px 0;
+    width: 100%;
+    cursor:pointer;
+    height: 40px;
+}
+
+.pst-auth-pfp {
+    border-radius: 1000px;
+    width: 40px;
+}
+
+.pst-content {
+    margin-top:0px
+}
+@media only screen and (prefers-color-scheme: dark){
+    .pst {
+        background-color: var(--darkishblue);
+    }
+
+    .pst-auth {
+        color:var(--lightblue)
+    }
+
+    .pst-disp {
+        color:var(--lightblue)
+    }
+}

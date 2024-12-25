@@ -1,0 +1,52 @@
+/* For profile page and affiliates */
+.profile-auth {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 20px;
+    margin-top:24px
+}
+#follow-button {
+    position: absolute;
+    right: 20px;
+    bottom: 45px;
+}
+#edit-profile {
+    position: absolute;
+    bottom:55px;
+    right: 20px;
+    padding: 10px;
+    color: inherit;
+    transition:all 0.5s;
+    border-radius:5px;
+}
+#edit-profile:hover {
+    background-color:var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 10px;
+}
+#pfp {
+    width: 100px;
+    border-radius: 1000000px;
+    float: left;
+}
+
+#display-name {
+    margin:0px;
+}
+#prof-disp {
+    position: relative;
+    right: 0;
+    margin: 0px 0 10px 0;
+}
+
+#prof-usrname {
+    margin: 0;
+    margin-bottom: 10px;
+}
+@media only screen and (prefers-color-scheme: dark){
+    #edit-profile:hover {
+        background-color:var(--lightblue);
+        color: var(--darkblue);
+    }
+}

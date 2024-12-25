@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Sign Up{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/form.css') }}">
+{% endblock %}
 {% block content %}
 <h1 class="heading">Sign Up</h1>
 <form method="post" id="account_form" name="account_form" class="input_form"> <!--Form that submits to the @app.post for '/sign_up in routes.py'-->

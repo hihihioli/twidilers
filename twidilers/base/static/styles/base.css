@@ -96,13 +96,20 @@ Click generate until you get the loss under 3 */
     padding: 0;
     border-radius: 1000px;
 }
+#navbarbell {
+    padding: 0 !important;
+    font-size: 25px;
+    background-color:var(--darkblue) !important ;
+    width:46px !important;
+    margin:auto;
+}
 /* Container for Popup */
 .popup-div {
     position: relative; /* Ensure children use this as the anchor point */
     width: 600px;
 }
 
-/* Popup Menu */
+/* Popup Menu in base.html */
 .popup-menu {
     display: none; /* Hidden by default */
     position: absolute; /* Positioned relative to .popup-div */
@@ -129,137 +136,9 @@ Click generate until you get the loss under 3 */
     font-size: 14px;
 }
 
+/* profilebtn is in base.html in the navbar */
 #profileBtn {
     margin-top:0px !important;
-}
-
-#usricon-nav-img {
-    width: 46px;
-    border-radius: 1000px;
-    image-resolution: 46px;
-}
-
-#prof-disp {
-    position: relative;
-    right: 0;
-    margin: 0px 0 10px 0;
-}
-
-#prof-usrname {
-    margin: 0;
-    margin-bottom: 10px;
-}
-
-.profile-auth {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 20px;
-    margin-top:24px
-}
-#follow-button {
-    position: absolute;
-    right: 20px;
-    bottom: 45px;
-}
-#edit-profile {
-    position: absolute;
-    bottom:55px;
-    right: 20px;
-    padding: 10px;
-    color: inherit;
-    transition:all 0.5s;
-    border-radius:5px;
-}
-#edit-profile:hover {
-    background-color:var(--darkblue);
-    color: var(--lightblue);
-    border-radius: 10px;
-
-}
-#pfp {
-    width: 100px;
-    border-radius: 1000000px;
-    float: left;
-}
-
-#display-name {
-    margin:0px;
-}
-
-#name-change {
-    height:50px;
-    position: relative;
-    top:1px;
-}
-
-/* Hide the default input */
-input[type="file"] {
-    display: none;
-  }
-  
-  #acct-dtl-content {
-    display: block;
-    flex-direction: column;
-  }
-  #acct-dtl-btn {
-    font-weight: bold;
-  }
-  #acct-navbar {
-    display: flex;
-    flex-direction:row;
-    gap: 10px;
-    margin: 20px 0; 
-  }
-  /* Custom button */
-  .custom-file-upload {
-    display: inline-block;
-    width: auto ;
-    height: auto;
-    font-size: 11pt;
-    padding: 13px;
-    border-radius: 5px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    cursor: pointer;
-    border: 0;
-    align-self: center !important;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-  }
-#security-content {
-    display: none;
-}
-
-#privacy-content {
-    display: none;
-}
-  .pf-mnu-btn {
-    border: 0;
-    cursor: pointer;
-    background-color: inherit;
-    color: inherit;
-    font-size: 1em;
-    font-weight: 500;
-    text-decoration: underline;
-  }
-
-.profile-div {
-    border-radius:15px;
-    padding: 15px;
-    width: 565px;
-    margin: 20px 0;
-    height: fit-content;
-    flex-wrap:wrap;
-}
-#password-change {
-    margin-top:5px;
-}
-
-#old-password {
-    margin-bottom:3px;
 }
 
 #auth-info {
@@ -359,17 +238,6 @@ a {
     color: var(--darkblue);
 }
 
-/* The textbox for password and username input */
-.textbox {
-    border-radius: 5px;
-    width:250px;
-    height:18px;
-    padding:13px;
-    background-color: var(--lightblue);
-    color: var(--darkblue);
-    border: 3px solid var(--darkblue);
-
-}
 /* Placeholders are the preview text stuffs before you put your cursor in*/
 .textbox::placeholder {
     color: var(--darkblue);
@@ -413,7 +281,11 @@ a {
     cursor:pointer;
     transition: all 0.5s;
 }
-
+#usricon-nav-img {
+    width: 46px;
+    border-radius: 1000px;
+    image-resolution: 46px;
+}
 .card:hover {
     border-radius: 6px;
     box-shadow: 0 0 2px 0 var(--darkblue);
@@ -428,104 +300,6 @@ a {
 .vert {
     flex-direction: column !important;
 }
-
-
-/* This is the feed area. feed.html */
-/* container for posts  */
-#pst-div {
-    display: flex;
-}
-
-.reactions {
-    position:absolute;
-    bottom:0;
-    right:0;
-}
-
-/* #content is the main content area. #post-content is the input form content area. */
-#post-content {
-    resize:vertical;
-    overflow-y: hidden;
-}
-#title, #post-content {
-    width: 470px;
-    border-radius: 10px;
-}
-#post-submit {
-    margin:0;
-    align-self:inherit !important;
-}
-#createpost {
-    float: right;
-    margin: 20px 0;
-}
-#feedtitle {
-    float: left;
-    font-size: 3em;
-    margin: 20px 0;
-}
-.spacer {
-    height: 100px;
-}
-#blog_form {
-    width: 500px;
-    margin-bottom:1px;
-}
-/* Individual posts */
-.pst {
-    padding: 20px;
-    background-color: var(--lightishblue);
-    border-radius: 10px;
-    margin: 8px 0px;
-    height: fit-content;
-    inline-size: 565px;
-    overflow-wrap: break-word;
-}
-
-.pst-auth {
-    margin:10px 0 0 0;
-    color:var(--darkblue);
-    font-weight: bold;
-}
-
-.pst-disp {
-    margin:3px 0 0 0;
-    color:var(--darkblue);
-    font-size: 10pt;
-}
-
-.pst-auths{
-    position: relative;
-    bottom:8px;
-}
-
-.pst-title {
-    margin-top:1px
-}
-
-.pst-date {
-    margin: 0px
-}
-
-.auth-info {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    margin: 0 0 10px 0;
-    width: 100%;
-    cursor:pointer;
-    height: 40px;
-}
-
-.pst-auth-pfp {
-    border-radius: 1000px;
-    width: 40px;
-}
-
-.pst-content {
-    margin-top:0px
-}
-
 
 @media only screen and (prefers-color-scheme: dark) {
     /* Flips the color and background color from the base. */
@@ -552,17 +326,8 @@ a {
         filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
     }
 
-    .profile-div {
-        background-color:var(--darkishblue);
-    }
-    .textbox {
-        color: var(--lightblue);
-        background-color: var(--darkblue);
-        border: 3px solid var(--lightishblue);
-    }
-    #edit-profile:hover {
-        background-color:var(--lightblue);
-        color: var(--darkblue);
+    #navbarbell {
+        color: var(--lightblue) !important;
     }
 
     .popup-menu {
@@ -584,14 +349,6 @@ a {
         color: white !important;
         border: 3px solid var(--lightblue);
     }
-    .textbox::placeholder {
-        color: var(--lightblue)
-    }
-    .input_form {
-        background-color: var(--darkishblue);
-        border: 3px solid var(--lightishblue);
-
-    }
 
     .card {
         background-color: var(--lightblue);
@@ -601,16 +358,6 @@ a {
         box-shadow: 0 0 7px 0 var(--lightblue);
     }
 
-    .pst {
-        background-color: var(--darkishblue);
-    }
 
-    .pst-auth {
-        color:var(--lightblue)
-    }
-
-    .pst-disp {
-        color:var(--lightblue)
-    }
 
 }
