@@ -43,6 +43,7 @@ def write_post():
         content = 'No Content'
     if not title:
         title = 'No Title'
+    flash('Post successfully created','success')
     date_utc = datetime.datetime.now(datetime.timezone.utc)
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
     db.session.add(new_post)

@@ -13,7 +13,7 @@ from . import routes #the routes
 
 @app.errorhandler(404)
 def error404(error):
-        return f'An error occured: {error}', 404 #probably should change this later
+        return redirect(url_for('.page',page='404'))
 
 #The page handler for default pages
 #For templates do: url_for('.page',page='insert_page_here')

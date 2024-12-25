@@ -16,7 +16,6 @@
 ## General features
 * Notifications of mentions, replies to posts, etc
 * Email functionality
-* 404 page
 * Compress images to a smaller resolution when displaying profile pictures
 
 
@@ -51,9 +50,8 @@
 ## Feed
 * Reactions (reply, like/dislike) on posts
 * removal of titles (except for blog posts)
-* Hashtags for posts
-* Image upload for blogs/posts
-* Different feed for people you follow
+* Image upload for blogs
+* Different feed just for people you follow
 
 
 ## Login page

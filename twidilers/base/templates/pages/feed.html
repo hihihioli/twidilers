@@ -13,7 +13,7 @@
     <!-- Post author and profile picture -->
     <a href="{{ url_for('.profile',username=post.author.username) }}">
         <div class="auth-info">
-            <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
+            <img class="pst-auth-pfp" loading="lazy" src="{{ url_for('.get_pfp', username=post.author.username) }}">
             <section class="pst-auths">
                 <p class="pst-auth">{{post.author.displayname}}</p>
                 <p class="pst-disp">@{{post.author.username}}</p>              
@@ -25,6 +25,10 @@
         <div class="like">
             <i class="fa-solid fa-thumbs-up"></i>
         </div>
+        <!-- Doesn't work properly, but if the poster is the account logged in, an edit icon should be here-->
+        {% if owner == 1 %}
+            <a id="edit-post"><i class="fa-solid fa-pencil"></i></a>
+        {% endif %}
     </div>
     <!-- Post content -->
     <h2 class="pst-title">{{post.title}}</h3>
