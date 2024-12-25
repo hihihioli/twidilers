@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}Settings{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='/styles/post.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='/styles/settings.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='/styles/profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='/styles/form.css') }}">
+
+
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
     <!-- A submenu that shows different settings -->
     <div id="acct-navbar">
-        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="accountDetail()">Account Details</button>
+        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="accountDetail()">Profile Settings</button>
         <button class="pf-mnu-btn" id="security-btn" onclick="securityDetail()">Security</button>
         <button class="pf-mnu-btn" id="privacy-btn" onclick="privacyDetail()">Privacy</button>
 
@@ -15,6 +19,7 @@
     <style>
         .submit {
             margin: 0;
+            margin-top:10px;
         }
         h3 {
             margin: 0 0 20px 0;
@@ -59,6 +64,11 @@
                 <input id="new-password" name="new-password" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="New Password"><br>
                 <button class="submit" id="password-change" name="password-change">Change Password</button>
             </form>
+        </div>
+        <div class="profile-div">
+            <h3 class="div-heading">Change email</h3>
+            <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
+            <button class="submit" id="email-change" name="email-change">Send confirmation email to old account</button>
         </div>
         <div class="profile-div">
             <form id="delete-account" name="delete-account" method="post">
