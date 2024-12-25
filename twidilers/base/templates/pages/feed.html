@@ -7,22 +7,30 @@
 {% if postlist() | length > 0 %}
 {% for post in postlist() %}
 <div class="pst">
+    <!-- Post author and profile picture -->
     <a href="{{ url_for('.profile',username=post.author.username) }}">
         <div class="auth-info">
             <img class="pst-auth-pfp" src="{{ url_for('.get_pfp', username=post.author.username) }}">
             <section class="pst-auths">
-            <a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-auth">{{post.author.displayname}}</p></a>
-            <a href="{{ url_for('.profile',username=post.author.username) }}"><p class="pst-disp">@{{post.author.username}}</p></a>
-        </section>
+                <p class="pst-auth">{{post.author.displayname}}</p>
+                <p class="pst-disp">@{{post.author.username}}</p>              
+            </section>
         </div>
     </a>
-    <h2 class="pst-title" style="text-decoration:{{post.decorators}}">{{post.title}}</h3>
-    <p class="pst-content">{{post.content}}</p>
-    <p class="pst-date" id="date{{ loop.index0 }}">date</p>
-    <script>
-        const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
-            document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
-    </script>
+    <!-- Interactions go here. Not coded yet -->
+    <div class="reactions">
+        <div class="like">
+            <i class="fa-solid fa-thumbs-up"></i>
+        </div>
+    </div>
+    <!-- Post content -->
+    <h2 class="pst-title">{{post.title}}</h3>
+        <p class="pst-content">{{post.content}}</p>
+        <p class="pst-date" id="date{{ loop.index0 }}">date</p>
+        <script>
+            const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
+                document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
+        </script>
 </div>
 {% endfor %}
 {% else %}

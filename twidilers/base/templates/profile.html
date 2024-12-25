@@ -9,7 +9,9 @@
         {% if owner == 1 %}
             <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
         {% endif %}
-        <a id="follow-button"><button class="submit">Follow</button></a>
+        {% if owner == 0 %}
+            <a id="follow-button"><button class="submit">Follow</button></a>
+        {% endif %}
     </section>
 </div>
 

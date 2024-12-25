@@ -142,7 +142,7 @@ Click generate until you get the loss under 3 */
 #prof-disp {
     position: relative;
     right: 0;
-    margin: 1   0px 0 10px 0;
+    margin: 0px 0 10px 0;
 }
 
 #prof-usrname {
@@ -160,7 +160,7 @@ Click generate until you get the loss under 3 */
 #follow-button {
     position: absolute;
     right: 20px;
-    bottom: 0;
+    bottom: 45px;
 }
 #edit-profile {
     position: absolute;
@@ -248,11 +248,14 @@ input[type="file"] {
 
 .profile-div {
     border-radius:15px;
-    padding: 15px 15px 15px 20px;
+    padding: 15px;
     width: 565px;
     margin: 20px 0;
     height: fit-content;
     flex-wrap:wrap;
+}
+#password-change {
+    margin-top:5px;
 }
 
 #old-password {
@@ -433,6 +436,12 @@ a {
     display: flex;
 }
 
+.reactions {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
 /* #content is the main content area. #post-content is the input form content area. */
 #post-content {
     resize:vertical;
@@ -487,7 +496,7 @@ a {
 
 .pst-auths{
     position: relative;
-    bottom:8px
+    bottom:8px;
 }
 
 .pst-title {
@@ -505,7 +514,7 @@ a {
     margin: 0 0 10px 0;
     width: 100%;
     cursor:pointer;
-    height: 45px;
+    height: 40px;
 }
 
 .pst-auth-pfp {
