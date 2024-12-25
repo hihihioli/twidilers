@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}{{account.displayname}}'s profile{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='/styles/post.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='/styles/settings.css') }}">
+
+{% endblock %}
 {% block content %}
 <div class="profile-div" id="auth-info">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
