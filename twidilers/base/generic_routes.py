@@ -34,7 +34,7 @@ def page(page):
                 flash('You must be logged in to view this page','error')
                 return redirect(url_for('.page',page='login')) #Redirect if username isn't in the session
         if page in logout_protected and 'username' in session:
-                flash('Log out to view this page','error')
+                flash('You \'re already logged in','error')
                 return redirect(url_for('.page',page='index')) #Redirect if username isn't in the session
         try:
                 return render_template(f'pages/{page}.html')

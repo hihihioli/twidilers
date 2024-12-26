@@ -40,6 +40,7 @@ def write_post():
     title = request.form.get('title')
     content = request.form.get('post-content')
     if not content:
+        flash('You didn\'t write anything!','error')
         content = 'No Content'
     if not title:
         title = 'No Title'

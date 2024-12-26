@@ -17,6 +17,7 @@
 * Notifications of mentions, replies to posts, etc
 * Email functionality
 * Compress images to a smaller resolution when displaying profile pictures
+* Easy exporting of posts for a seperate mod dashboard (Done by Eamon in C)
 
 
 ## Profile page
