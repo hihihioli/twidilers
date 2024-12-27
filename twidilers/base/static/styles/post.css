@@ -20,6 +20,7 @@
     height: fit-content;
     inline-size: 565px;
     overflow-wrap: break-word;
+    display:relative !important;
 }
 
 .pst-auth {

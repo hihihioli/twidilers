@@ -99,7 +99,7 @@ def settings(): #Handles the forms
         if 'file' in request.files:
             try:
                 img = Image.open(request.files['file'])
-                img = ImageOps.fit(img,(512,512))
+                img = ImageOps.fit(img,(200,200))
                 temp_file = BytesIO()
                 img.save(temp_file, format="PNG")
                 account.photo = temp_file.getvalue()

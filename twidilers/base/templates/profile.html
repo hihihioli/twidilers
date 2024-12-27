@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 <div class="profile-div" id="auth-info">
-    <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
+    <img src="{{ url_for('.get_pfp',username=account.username) }}" loading="lazy" id="pfp">
     <section class="profile-auth">
         <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
         <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>

@@ -3,7 +3,6 @@
 
 <head>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/fontawesome.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('.static', filename='images/favicon.png', v=2) }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
     <title>{% block title %}{% endblock %} - Twidilers</title> <!-- The title of the tab depending on the current page. -->
@@ -14,6 +13,8 @@
     <meta name="author" content="dereena">
     <meta name="author" content="hihihioli">
     <meta name="author" content="wall03">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/fontawesome.css') }}">
+
     {% block head %}{% endblock %}
 </head>
 
@@ -39,12 +40,10 @@
                 <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
                 <!-- Notification bell. Not functional as of 12/25/24
                 We should make it hollow when there are zero notifications -->
-                    <a>
-                        <button id="navbarbell" title="Notification bell">
+                    <a><button id="navbarbell" title="Notification bell">
                             <i class="fa-solid fa-bell"></i>
-                            <div>
+                            <div id="notification-count">12</div>
 
-                            </div>
                         </button>
                     </a>
                 <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>

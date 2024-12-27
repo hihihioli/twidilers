@@ -97,11 +97,24 @@ Click generate until you get the loss under 3 */
     border-radius: 1000px;
 }
 #navbarbell {
+    position: relative;  /* Add this */
     padding: 0 !important;
     font-size: 25px;
-    background-color:var(--darkblue) !important ;
+    background-color:var(--darkblue) !important;
     width:46px !important;
     margin:auto;
+}
+
+#notification-count {
+    position: absolute;
+    bottom: -5px;         /* Adjust these values */
+    right: -5px;       /* to position the badge */
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+    border-radius: 1000px;
+    padding: 5px;
+    font-size: 10pt;
+    font-weight:500;
 }
 /* Container for Popup */
 .popup-div {
@@ -180,12 +193,6 @@ p #content {
     text-align: center;
 }
 
-/* For the checkpox system in the blog ** deprecated ** */
-#decorators {
-    display:flexbox;
-    vertical-align: middle;
-    align-items: center;
-}
 
 /* Classes are below */
 
