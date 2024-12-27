@@ -1,5 +1,5 @@
 # Bugs
-* Styling mostly doesn't work
+* You can visit profile page when not logged in
 
 
 # HIGH PRIORITY
@@ -48,7 +48,6 @@
 * removal of titles (except for blog posts)
 * Image upload for blogs
 * Different feed just for people you follow
-* Posts each have their own ID (Makes it easier for pages, linking to a specific post, etc)
 
 
 ## Login page
