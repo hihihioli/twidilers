@@ -39,11 +39,9 @@ def logout():
 def write_post():
     title = request.form.get('title')
     content = request.form.get('post-content')
-    if not content:
-        flash('You didn\'t write anything!','error')
-        content = 'No Content'
     if not title:
-        title = 'No Title'
+        flash('Posting requires a title','error')
+        return redirect(url_for('.page',page='post'))
     flash('Post successfully created','success')
     date_utc = datetime.datetime.now(datetime.timezone.utc)
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
@@ -95,6 +93,13 @@ def settings(): #Handles the forms
                 flash('Password changed successfully','success')
             else:
                 flash('Current password is incorrect','error')
+            return redirect(url_for('.page',page='settings'))
+    elif 'change-name' in request.form: #The user wants to change their display name
+            account = findAccount()
+            new_name = request.form.get('change-name')
+            account.displayname = new_name
+            save()
+            flash(f'Display Name Changed to {account.displayname}','success')
             return redirect(url_for('.page',page='settings'))
     else: #The user wants to update their pfp
         account = findAccount()
