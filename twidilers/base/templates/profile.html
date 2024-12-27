@@ -19,6 +19,7 @@
         {% if owner == 0 %}
             <a id="follow-button"><button class="submit">Follow</button></a>
         {% endif %}
+        <span name="prof-date" id="prof-date"></span>
     </section>
 </div>
 
@@ -32,6 +33,7 @@
         <script>
             const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
                 document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
+            document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ')
         </script>
     </div>
     {% endfor %}
