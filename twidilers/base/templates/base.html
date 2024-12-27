@@ -13,9 +13,9 @@
     <meta name="author" content="dereena">
     <meta name="author" content="hihihioli">
     <meta name="author" content="wall03">
-    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/fontawesome.css') }}">
 
     {% block head %}{% endblock %}
+
 </head>
 
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
@@ -93,6 +93,16 @@
             </section>
         {% endblock %}
     </div>
+    <!-- Fontawesome.css waits for everything else to be done. Otherwise it takes
+     like 6 times longer to load. -->
+    <script>
+        window.addEventListener('load', function() {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = "{{ url_for('.static', filename='styles/fontawesome.css') }}";
+            document.body.appendChild(link);
+        });
+    </script>
 </body>
 
 </html>
