@@ -11,7 +11,7 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import login_required #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
-from ..functions import findAccount,save, checkUsername#Custom functions, like save()
+from ..functions import findAccount,save,checkUsername#Custom functions, like save()
 
 # Make sure to use url_for('.feed') and not url_for('.page',page='feed')
 
@@ -128,7 +128,9 @@ def profile(username):
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
     if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
-        return render_template('profile.html',account=account, posts=posts, owner=1)
+        return render_template('profile.html',account=account, posts=posts, owner=1, date=account.userdata['joined']
+                               #datetime.datetime.fromtimestamp(int(account.userdata['joined']),datetime.timezone.utc)
+                               )
     return render_template('profile.html',account=account, posts=posts,owner=0)
 
 @app.post('/user/<username>/')

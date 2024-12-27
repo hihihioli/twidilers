@@ -155,7 +155,7 @@ Click generate until you get the loss under 3 */
 }
 
 #auth-info {
-    height: 100px !important;
+    height: fit-content;
     font-size: 1.2em;
 }
 

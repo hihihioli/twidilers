@@ -1,5 +1,4 @@
 # Bugs
-* It should flash "No content" when trynig to post without content (not letting you do it), with an "Are you sure?" prompt when posting without a title (titles are potional)
 * Styling mostly doesn't work
 
 
@@ -20,9 +19,6 @@
 
 
 ## Profile page
-* Metadata about user such as
-    * Posts made
-    * Date joined
 * Followers
     * See who they follow and who follows them in a seperate page
 
