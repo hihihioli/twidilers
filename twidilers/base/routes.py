@@ -55,6 +55,7 @@ def sign_up():
         new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
         if not checkUsername(new_username):
             flash("Only a-z,A-Z,0-9,_ Allowed","error")
+            return redirect(url_for('.page',page='sign_up'))
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
