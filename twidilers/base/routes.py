@@ -11,7 +11,7 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import login_required #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
-from ..functions import findAccount,save #Custom functions, like save()
+from ..functions import findAccount,save, checkUsername#Custom functions, like save()
 
 # Make sure to use url_for('.feed') and not url_for('.page',page='feed')
 
@@ -55,6 +55,8 @@ def write_post():
 def sign_up():
         #Handle sign up stuff here
         new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
+        if not checkUsername(new_username):
+            flash("Only a-z,A-Z,0-9,_ Allowed","error")
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
