@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <script type="module">
+        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+      </script>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('.static', filename='images/favicon.png', v=2) }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
@@ -13,6 +16,9 @@
     <meta name="author" content="dereena">
     <meta name="author" content="hihihioli">
     <meta name="author" content="wall03">
+    <meta name="view-transition" content="same-origin" />
+    <meta name="turbo-refresh-method" content="morph">
+    <meta name="turbo-refresh-scroll" content="preserve">
 
     {% block head %}{% endblock %}
 

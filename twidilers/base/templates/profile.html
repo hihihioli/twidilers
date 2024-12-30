@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}{{account.displayname}}'s profile{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('.static', filename='styles/profile.css') }}">
-<link rel="stylesheet" href="{{ url_for('.static', filename='styles/post.css') }}">
-<link rel="stylesheet" href="{{ url_for('.static', filename='styles/settings.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/profile.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/settings.css') }}">
 
 
 {% endblock %}

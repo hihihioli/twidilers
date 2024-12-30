@@ -1,3 +1,14 @@
+# Useful links
+## Dependencies
+Want to learn more about one of the dependencies we use? Look no further!
+* Turbo.js https://turbo.hotwired.dev/handbook/
+* Flask https://flask.palletsprojects.com/en/stable/
+
+## Good tutorial sources
+* https://blog.miguelgrinberg.com/category/Flask
+
+
+
 # Bugs
 * You can visit profile page when not logged in
 
@@ -12,15 +23,15 @@
 # New feature wishlist
 
 ## General features
-* Notifications of mentions, replies to posts, etc
-* Email functionality
-* Compress images to a smaller resolution when displaying profile pictures
-* Easy exporting of posts for a seperate mod dashboard (Done by Eamon in C)
+* Followers
+* Notifications
+* Email
+* API
 
 
 ## Profile page
 * Followers
-    * See who they follow and who follows them in a seperate page
+    * See who they follow and who follows them
 
 
 ## Settings page
@@ -30,7 +41,7 @@
     * Security
         * change email associated with account
         * Option to require email confirmation when logging in on a new device
-        * see login history
+        * see login history (Log logins on a file for the user)
         * changing pwd 
             * should require verification code sent to email account
             * Verify new password (Put it in twice like when signing up)

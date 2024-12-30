@@ -39,6 +39,14 @@ body {
     scroll-behavior:smooth;
 }
 
+/* Turbo.js styling */
+.turbo-progress-bar {
+    visibility: hidden;
+  }
+  html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-child {
+    animation: slide-to-right 0.5s ease-out;
+  }
+
 label {
     color:var(--darkblue)
 }
