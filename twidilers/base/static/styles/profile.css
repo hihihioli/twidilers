@@ -51,6 +51,7 @@
     margin: 20px 0;
     height: fit-content;
     flex-wrap:wrap;
+    background-color:var(--lightishblue);
 }
 /* Post styling stoled from post.css for better loading times */
 .pst {

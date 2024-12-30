@@ -101,4 +101,3 @@ Capitalize flashes
 # Frontend change wishlist
 * Updated flashes
 * Mobile version
-* better light mode
