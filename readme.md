@@ -14,7 +14,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # HIGH PRIORITY
-* Make Settings page fully functional
 * Fix bugs
 * finish backend for hosting
 * Email integration
@@ -34,7 +33,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Followers
 * Notifications
 * Email
-* API
+* New user setup process
 
 
 ## Profile page
