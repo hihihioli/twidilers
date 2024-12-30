@@ -18,6 +18,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Fix bugs
 * finish backend for hosting
 * Email integration
+    * Style the html after you submit
     * Make sure email is unique
     * Create account in "unverified" state until email link is clicked
         * see miguelgrinberg for useful secure email link generator
