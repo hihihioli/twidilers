@@ -6,9 +6,9 @@
     const welcome5 = document.getElementById('welcome-5');
     
     // sets the first page to be visible
-    welcome1.style.display = 'block';
+    welcome1.style.display = 'none';
     welcome2.style.display = 'none';
-    welcome3.style.display = 'none';
+    welcome3.style.display = 'block';
     welcome4.style.display = 'none';
     welcome5.style.display = 'none';
 
@@ -30,3 +30,6 @@
             document.getElementById('upload_pfp').submit();
         }
     })
+    function goAway(e) {
+        e.style.display = 'none';
+    }
