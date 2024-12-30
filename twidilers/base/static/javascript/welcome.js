@@ -6,9 +6,9 @@
     const welcome5 = document.getElementById('welcome-5');
     
     // sets the first page to be visible
-    welcome1.style.display = 'none';
+    welcome1.style.display = 'block';
     welcome2.style.display = 'none';
-    welcome3.style.display = 'block';
+    welcome3.style.display = 'none';
     welcome4.style.display = 'none';
     welcome5.style.display = 'none';
 
