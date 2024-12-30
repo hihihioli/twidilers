@@ -18,6 +18,13 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Fix bugs
 * finish backend for hosting
 * Email integration
+    * Make sure email is unique
+    * Create account in "unverified" state until email link is clicked
+        * see miguelgrinberg for useful secure email link generator
+    * Change email in settings
+        * Verification from both old and new emails are required
+    * When changing password, send an email to confirm the change
+    * Ability to get daily/weekly digests of notifications
 
 
 # New feature wishlist
