@@ -15,16 +15,16 @@
         <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
         {% if owner == 1 %}
             <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
-        {% endif %}
-        {% if owner == 0 %}
-            <a id="follow-button"><button class="submit">Follow</button></a>
+        {% else %}
+        <form method="post" id="follow-form" name="follow-form">
+            <button class="submit" id="follow-button" name="follow-button">Follow</button></a>
         {% endif %}
     </section>
 </div>
 <div class="profile-div">
     <h1 id="about-user">About {{account.displayname}}</h1>
+    <p>{{bio}}</p>
     <span name="prof-date" id="prof-date"></span>
-<p>{{account.userdata['bio']}}</p>
 </div>
 <div>
     <h1>Recent Posts:</h1>
@@ -36,11 +36,13 @@
         <script>
             const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
                 document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
-            document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ')
         </script>
     </div>
     {% endfor %}
 </div>
-
+<script>
+    window.onload = function() {
+        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ')}
+</script>
 
 {% endblock %}

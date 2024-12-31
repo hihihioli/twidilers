@@ -6,10 +6,19 @@ from .objects import db, bcrypt #our db objects
 
 #The model imports and data types
 from sqlalchemy.orm import Mapped, mapped_column,relationship
-from sqlalchemy import LargeBinary, DateTime, ForeignKey
+from sqlalchemy import LargeBinary, DateTime, ForeignKey,Column, Table,Integer
 from sqlalchemy.dialects.postgresql import JSONB
 
 import datetime #For the time
+
+#Many-to-Many relationship table for followers
+follow = Table(
+    'follow',
+    db.metadata,
+    Column('following_id', Integer, ForeignKey('accounts.id'),primary_key=True),
+    Column('follower_id', Integer, ForeignKey('accounts.id'),primary_key=True)
+)
+
 
 class Account(db.Model): #The user accounts
   __tablename__ = 'accounts'
@@ -20,8 +29,17 @@ class Account(db.Model): #The user accounts
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   userdata:Mapped[dict] = mapped_column(JSONB,default={
-      "joined": datetime.datetime.now(datetime.timezone.utc).timestamp() #The time the account was created
+      "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
+      "bio": 'A newly created account'
     })
+  #Making the table self-referential (it relates to other objects of the same class)
+  followers = relationship('Account', 
+    secondary = follow, #The association table the relationship is based on (above)
+    primaryjoin = (follow.c.following_id == id), #Connects the rows which have the following_id the same as the user id (getting the users that you are following)
+    secondaryjoin = (follow.c.follower_id == id), #Connects the rows which have the follower_id the same as the user id (getting the users that follow you)
+    backref = 'following' #something
+    )
+  
   
   @property
   def password(self):

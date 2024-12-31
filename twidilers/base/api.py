@@ -122,7 +122,7 @@ def settings(): #Handles the forms
         return redirect(url_for('.page',page='settings'))
     elif 'bio' in request.form: #The user wants to update their bio
         account = findAccount()
-        account.bio = request.form.get('bio')
+        account.userdata['bio'] = request.form.get('bio')
         db.session.commit()
         flash('Bio Updated Successfully','success')
         return redirect('/settings')
@@ -137,11 +137,11 @@ def profile(username):
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
     if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
-        return render_template('profile.html',account=account, posts=posts, owner=1, date=account.userdata['joined'])
-    return render_template('profile.html',account=account, posts=posts,owner=0,date=account.userdata['joined'])
+        owner=1
+    return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
 
 @app.post('/user/<username>/')
-def displayname(username):
+def profaction(username):
     if 'change-name' in request.form: #The user wants to change their display name
         if username == session.get('username'):
             account = findAccount()
@@ -151,8 +151,17 @@ def displayname(username):
             flash(f'Display Name Changed to {account.displayname}','success')
             return redirect(url_for('.profile',username=username))
         else:
-            flash('A desync error occured','error')
+            flash('A desync 1 error occured','error')
             return redirect(url_for('.profile',username=username))
+    elif 'follow-button' in request.form:
+        account = findAccount()
+        account.following.append(findAccount(username))
+        flash(f'You are now following {username}')
+        return redirect(url_for('.profile',username=username))
+    else:
+            flash('A desync 2 error occured','error')
+            return redirect(url_for('.profile',username=username))
+        
         
 
 @app.get('/user/<username>/pfp')
