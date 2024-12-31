@@ -42,6 +42,9 @@ def logout():
 def write_post():
     title = request.form.get('title')
     content = request.form.get('post-content')
+    if not content:
+        flash('Post cannot be empty','error')
+        return redirect(url_for('.page',page='post'))
     flash('Post successfully created','success')
     date_utc = datetime.datetime.now(datetime.timezone.utc)
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
@@ -68,6 +71,7 @@ def sign_up():
             return redirect(url_for('.page',page='sign_up'))
         password1=request.form.get('password1')
         password2=request.form.get('password2')
+        email=request.form.get('email')
         if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
             flash('Please enter a username and password','error')
             return redirect(url_for('.page',page='sign_up'))
@@ -79,6 +83,9 @@ def sign_up():
             except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
                 flash('Username already exists','error')
                 db.session.rollback()
+                return redirect(url_for('.page',page='sign_up'))
+            if password1 == new_username or password1 == email: # Makes sure password is secure
+                flash('Password cannot be the same as the username or email','error')
                 return redirect(url_for('.page',page='sign_up'))
             flash('User created successfully','success')
             return redirect(url_for('.page',page='login'))

@@ -22,8 +22,6 @@
             }
         } else if (content == '') {
             console.log('Content box is empty. Sending error message.');
-            alert('You need to write something in the content box!');
-            window.location.replace("{{ url_for('.page', page='post') }}");
         } else {
             document.blog_form.submit();
         }

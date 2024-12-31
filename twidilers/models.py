@@ -30,8 +30,8 @@ class Account(db.Model): #The user accounts
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
-      "bio": 'A newly created account'
-    })
+      "bio": 'No bio yet', 
+    })  
   #Making the table self-referential (it relates to other objects of the same class)
   followers = relationship('Account', 
     secondary = follow, #The association table the relationship is based on (above)
