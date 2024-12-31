@@ -64,13 +64,9 @@ import * as Turbo from "@hotwired/turbo"
             </div> 
         </div>           
         <script>
-            // Shows the user menu when the icon is clicked on
             const userButton = document.getElementById('usricon-nav');
             const userMenu = document.getElementById('popupMenu');
-    
-            userMenu.style.display = 'none';
-    
-            userButton.addEventListener('click', () => {
+                userButton.addEventListener('click', () => {
                 if (userMenu.style.display === 'none') {
                     userMenu.style.display = 'block';
                 } else {
@@ -99,9 +95,8 @@ import * as Turbo from "@hotwired/turbo"
             </section>
         {% endblock %}
     </div>
-    <!-- Fontawesome.css waits for everything else to be done. Otherwise it takes
-     like 6 times longer to load. -->
     <script>
+        // Adds fontawesome styles to the page once everything has loaded
         window.addEventListener('load', function() {
             var link = document.createElement('link');
             link.rel = 'stylesheet';
