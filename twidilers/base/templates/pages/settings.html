@@ -35,7 +35,13 @@
                 <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
             </section>
         </div>
-
+        <div class="profile-div">
+            <form method="post" id="profile-bio">
+                <h3>Edit bio</h3>
+                <input id="bio" name="bio" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters.">
+                <button class="submit" id="bio-change" name="bio-change">Change</button>
+            </form>
+        </div>
         <div class="profile-div">
             <form method="post" id="change-name-change">
                 <h3>Change display name</h3>
@@ -138,15 +144,15 @@
                 makeNormal(securityButton);
             }
             // This script promts an 'Are you sure?' textbox when clicking the button to delete your account
-                function checkDelete(event) {
-                event.preventDefault()
-                if (confirm('Are you sure you want to delete your account?') == true) {
-                    const hiddenInput = document.createElement('input'); //creates a hidden input so 'delete' is still in request.form (using submit() removes it for some reason)
-                    hiddenInput.type = 'hidden';
-                    hiddenInput.name = 'delete';
-                    document.getElementById('delete-account').appendChild(hiddenInput);
-                    document.getElementById('delete-account').submit()
-                }
+            function checkDelete(event) {
+                    event.preventDefault()
+                    if (confirm('Are you sure you want to delete your account?') == true) {
+                        const hiddenInput = document.createElement('input'); //creates a hidden input so 'delete' is still in request.form (using submit() removes it for some reason)
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'delete';
+                        document.getElementById('delete-account').appendChild(hiddenInput);
+                        document.getElementById('delete-account').submit()
+                    }
             }
 
             // Submits the image when uploading a profile picture

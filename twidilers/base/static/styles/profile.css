@@ -30,7 +30,9 @@
     border-radius: 1000000px;
     float: left;
 }
-
+#about-user {
+    margin:10px 0;
+}
 #display-name {
     margin:0px;
 }
@@ -39,7 +41,9 @@
     right: 0;
     margin: 0px 0 10px 0;
 }
-
+#prof-date {
+    font-size:1.2em;
+}
 #prof-usrname {
     margin: 0;
     margin-bottom: 10px;
@@ -51,6 +55,7 @@
     margin: 20px 0;
     height: fit-content;
     flex-wrap:wrap;
+    background-color:var(--lightishblue);
 }
 /* Post styling stoled from post.css for better loading times */
 .pst {

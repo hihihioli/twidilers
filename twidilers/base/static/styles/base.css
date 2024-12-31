@@ -136,12 +136,12 @@ Click generate until you get the loss under 3 */
     display: none; /* Hidden by default */
     position: absolute; /* Positioned relative to .popup-div */
     flex-direction: column;
-    border: 1px solid #ddd;
+    border: 2px solid var(--darkblue);
     width: 95px;
     z-index: 1000;
     padding: 10px;
     border-radius: 10px;
-    background-color: white; /* Ensure it contrasts with the background */
+    background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
 }
@@ -156,6 +156,8 @@ Click generate until you get the loss under 3 */
     text-align: left;
     cursor: pointer;
     font-size: 14px;
+    background-color:var(--darkblue);
+    color:var(--lightblue);
 }
 
 /* profilebtn is in base.html in the navbar */
@@ -348,6 +350,7 @@ a {
 
     .popup-menu {
         background-color: var(--darkishblue);
+        border:2px solid var(--lightblue);
     }
      
     #usricon-nav {
@@ -373,7 +376,23 @@ a {
     .card:hover {
         box-shadow: 0 0 7px 0 var(--lightblue);
     }
+}
 
-
-
+@media only screen and (width<605px){
+    body {
+        width:100%;
+        margin:0 5px;
+        font-size:20px;
+    }
+    .input_form {
+        width:100%;
+    }
+    #navbar {
+        font-size:20px;
+    }
+    #navbar button, .card {
+        height:60px;
+        padding: 20px 25px;
+        font-size:18px;
+    }
 }

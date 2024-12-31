@@ -11,10 +11,10 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * You can visit profile page when not logged in
+* new-user.html throws a "Method Not Allowed. The method is not allowed for the requested URL." when trying to submit a profile piture or while changing the display name
 
 
 # HIGH PRIORITY
-* Make Settings page fully functional
 * Fix bugs
 * finish backend for hosting
 * Email integration
@@ -34,7 +34,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Followers
 * Notifications
 * Email
-* API
+* New user setup process
 
 
 ## Profile page
@@ -74,11 +74,13 @@ Want to learn more about one of the dependencies we use? Look no further!
 * When logging in with an old invalid password, flash "The password was changed recently"
 * Forgot password functionality
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
+* Sign in with Google button
 
 
 ## Signup page
 * Require unique password (not the same as your username)
 * Require email account (send verification code to confirm)
+* Sign up with Google button
 
 
 ## Far out features
@@ -101,7 +103,6 @@ Capitalize flashes
 # Frontend change wishlist
 * Updated flashes
 * Mobile version
-* better light mode
 
 # Required environment variables(deployment)
 * FLASK_SECRET_KEY (is auto-generated if not present, but create if you want session persistence)
