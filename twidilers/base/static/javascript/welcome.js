@@ -1,29 +1,30 @@
-    // Gets the different pages of the welcome screen
-    const welcome1 = document.getElementById('welcome-1');
-    const welcome2 = document.getElementById('welcome-2');
-    const welcome3 = document.getElementById('welcome-3');
-    const welcome4 = document.getElementById('welcome-4');
-    const welcome5 = document.getElementById('welcome-5');
-    
-    // sets the first page to be visible
-    welcome1.style.display = 'block';
-    welcome2.style.display = 'none';
-    welcome3.style.display = 'none';
-    welcome4.style.display = 'none';
-    welcome5.style.display = 'none';
+// Get all welcome elements in an array
+const welcomes = [
+    document.getElementById('welcome-1'),
+    document.getElementById('welcome-2'),
+    document.getElementById('welcome-3'),
+    document.getElementById('welcome-4'),
+    document.getElementById('welcome-5'),
+];
 
-    // function to change the page
-    function nextPage(currentPage) {
-        if (currentPage == 1) {
-            welcome1.style.display = 'none';
-            welcome2.style.display = 'block';
-        } else if (currentPage == 2) {
-            welcome2.style.display = 'none';
-            welcome3.style.display = 'block';
-        } else if (currentPage == 3) {
-            redirect("{{ url_for('.pages', filename='index.html') }}")
-        }
+// Set the first page to be visible and the rest to be hidden
+welcomes.forEach((welcome, index) => {
+    welcome.style.display = index === 0 ? 'block' : 'none';
+});
+
+// Function to change the page
+function nextPage(currentPage) {
+    // Hide all pages
+    welcomes.forEach((welcome) => (welcome.style.display = 'none'));
+
+    if (currentPage < welcomes.length) {
+        // Show the specified page
+        welcomes[currentPage].style.display = 'block';
+    } else {
+        // Redirect if it's beyond the last page
+        redirect("{{ url_for('.pages', filename='index.html') }}");
     }
+}
     file = document.getElementById('file');
     file.addEventListener('change',() => {
         if(file.files.length > 0){
