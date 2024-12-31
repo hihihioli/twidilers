@@ -20,10 +20,12 @@ def login():
     username = request.form.get('username') #Retrieves the username and password from the form
     password = request.form.get('password')
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
-    if account: #Checks if the given account exists
+    if not account: #Checks if the given account exists
+        account = db.session.execute(db.select(Account).filter_by(displayname=username)).scalar()
+    if account:
         if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
-            session['username'] = username #Sets session data to be used on other pages
+            session['username'] = username.lower() #Sets session data to be used on other pages
             return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
@@ -52,6 +54,7 @@ def write_post():
 @app.post('/sign_up')
 def sign_up():
         #Handle sign up stuff here
+        display_name = request.form.get('username')
         new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
         if not checkUsername(new_username):
             flash("Only a-z,A-Z,0-9,_ Allowed","error")
@@ -62,7 +65,7 @@ def sign_up():
             flash('Please enter a username and password','error')
             return redirect(url_for('.page',page='sign_up'))
         if password1 == password2: #Checks if the passwords match
-            new_account = Account(username=new_username,password=password1,displayname=new_username)
+            new_account = Account(username=new_username,password=password1,displayname=display_name)
             db.session.add(new_account)
             try:
                 db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
@@ -122,8 +125,10 @@ def settings(): #Handles the forms
         account.bio = request.form.get('bio')
         db.session.commit()
         flash('Bio Updated Successfully','success')
+        return redirect('/settings')
     else: # We don't recognize the form. This is a catch all
         flash('Something went wrong','error')
+        return redirect('/settings')
 
 @app.route('/user/<username>/')
 def profile(username):
@@ -132,10 +137,8 @@ def profile(username):
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
     if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
-        return render_template('profile.html',account=account, posts=posts, owner=1, date=account.userdata['joined']
-                               #datetime.datetime.fromtimestamp(int(account.userdata['joined']),datetime.timezone.utc)
-                               )
-    return render_template('profile.html',account=account, posts=posts,owner=0)
+        return render_template('profile.html',account=account, posts=posts, owner=1, date=account.userdata['joined'])
+    return render_template('profile.html',account=account, posts=posts,owner=0,date=account.userdata['joined'])
 
 @app.post('/user/<username>/')
 def displayname(username):
