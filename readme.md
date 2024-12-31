@@ -74,11 +74,13 @@ Want to learn more about one of the dependencies we use? Look no further!
 * When logging in with an old invalid password, flash "The password was changed recently"
 * Forgot password functionality
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
+* Sign in with Google button
 
 
 ## Signup page
 * Require unique password (not the same as your username)
 * Require email account (send verification code to confirm)
+* Sign up with Google button
 
 
 ## Far out features
