@@ -56,10 +56,6 @@ def filter():
         session['filter'] = 1
     else:
         session['filter'] = 0
-    accounts = db.session.execute(db.select(Account).order_by(Account.username)).scalars()
-    for account in accounts:
-        print(account.following)
-        print(account.followers)
     return redirect(url_for('.page', page='feed'))
 
 @app.post('/sign_up')
@@ -133,7 +129,9 @@ def settings(): #Handles the forms
         return redirect(url_for('.page',page='settings'))
     elif 'bio' in request.form: #The user wants to update their bio
         account = findAccount()
-        account.userdata['bio'] = request.form.get('bio')
+        new_userdata = account.userdata.copy()  # Create a copy of the existing userdata
+        new_userdata['bio'] = request.form.get('bio')  # Update the bio field
+        account.userdata = new_userdata 
         db.session.commit()
         flash('Bio Updated Successfully','success')
         return redirect('/settings')
