@@ -8,6 +8,10 @@
     float: right;
     margin: 20px 0;
 }
+#filter-form {
+    height: fit-content;
+    width: fit-content;
+}
 .spacer {
     height: 100px;
 }

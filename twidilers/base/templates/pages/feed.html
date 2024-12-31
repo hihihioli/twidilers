@@ -6,9 +6,17 @@
 {% block content %}
 <h1 id="feedtitle">Your feed</h1>
 <a href="{{ url_for('.write_post') }}"><button  class="submit" id="createpost">Create a Post</button></a>
-<div class="spacer"></div>
+<form method="post" id="filter-form" name="filter-form">
+    {% if session['filter'] == 1 %}
+    <button id="filter-button" name="filter-button" class="submit">Filter: Following</button>
+    {% else %}
+    <button id="filter-button" name="filter-button" class="submit">Filter: All</button>
+    {% endif %}
+</form>
 {% if postlist() | length > 0 %}
+{% set account = findAccount() %}
 {% for post in postlist() %}
+{% if session['filter'] == 0 or post.author in account.following %}
 <div class="pst">
     <!-- Post author and profile picture -->
     <a href="{{ url_for('.profile',username=post.author.username) }}">
@@ -23,7 +31,7 @@
     <!-- Interactions go here. Not coded yet -->
     <div class="reactions">
         <div class="like">
-            <i class="fa-solid fa-thumbs-up"></i>
+            <!--<i class="fa-solid fa-thumbs-up"></i>-->
         </div>
         <!-- Doesn't work properly, but if the poster is the account logged in, an edit icon should be here-->
         {% if owner == 1 %}
@@ -39,7 +47,9 @@
                 document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
         </script>
 </div>
+{% endif %}
 {% endfor %}
+
 {% else %}
 <h2>Nothing here yet...</h2>
 {% endif %}
