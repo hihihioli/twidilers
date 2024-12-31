@@ -85,41 +85,45 @@ def settings(): #Handles the forms
         flash('Successfully Deleted Account','success')
         return redirect(url_for('.logout')) 
     elif 'new-password' in request.form: #The user wants to change their password
-            account = findAccount()
-            new_password = request.form.get('new-password')
-            old_password = request.form.get('old-password')
-            if account.check_password(old_password):
-                account.password = new_password
-                db.session.commit()
-                flash('Password changed successfully','success')
-            else:
-                flash('Current password is incorrect','error')
-            return redirect(url_for('.page',page='settings'))
-    elif 'change-name' in request.form: #The user wants to change their display name
-            account = findAccount()
-            new_name = request.form.get('change-name')
-            account.displayname = new_name
-            save()
-            flash(f'Display Name Changed to {account.displayname}','success')
-            return redirect(url_for('.page',page='settings'))
-    else: #The user wants to update their pfp
         account = findAccount()
-        if 'file' in request.files:
-            try:
-                img = Image.open(request.files['file'])
-                img = ImageOps.fit(img,(200,200))
-                temp_file = BytesIO()
-                img.save(temp_file, format="PNG")
-                account.photo = temp_file.getvalue()
-                db.session.commit()
-                flash('Updated Photo Successfully','success')
-            except UnidentifiedImageError:
-                flash('Unsupported Image Type','error')
-            except Exception as e:
-                flash(f'An Error Occured: {e}')
+        new_password = request.form.get('new-password')
+        old_password = request.form.get('old-password')
+        if account.check_password(old_password):
+            account.password = new_password
+            db.session.commit()
+            flash('Password changed successfully','success')
         else:
-            flash('No File Selected','error')
+            flash('Current password is incorrect','error')
         return redirect(url_for('.page',page='settings'))
+    elif 'change-name' in request.form: #The user wants to change their display name
+        account = findAccount()
+        new_name = request.form.get('change-name')
+        account.displayname = new_name
+        save()
+        flash(f'Display Name Changed to {account.displayname}','success')
+        return redirect(url_for('.page',page='settings'))
+    elif 'file' in request.files: #The user wants to update their pfp
+        account = findAccount()
+        try:
+            img = Image.open(request.files['file'])
+            img = ImageOps.fit(img,(200,200)) #sets the file resolution
+            temp_file = BytesIO()
+            img.save(temp_file, format="PNG")
+            account.photo = temp_file.getvalue()
+            db.session.commit()
+            flash('Updated Photo Successfully','success')
+        except UnidentifiedImageError:
+            flash('Unsupported Image Type','error')
+        except Exception as e:
+            flash(f'An Error Occured: {e}')
+        return redirect(url_for('.page',page='settings'))
+    elif 'bio' in request.form: #The user wants to update their bio
+        account = findAccount()
+        account.bio = request.form.get('bio')
+        db.session.commit()
+        flash('Bio Updated Successfully','success')
+    else: # We don't recognize the form. This is a catch all
+        flash('Something went wrong','error')
 
 @app.route('/user/<username>/')
 def profile(username):

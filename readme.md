@@ -12,6 +12,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 # Bugs
 * You can visit profile page when not logged in
 * new-user.html throws a "Method Not Allowed. The method is not allowed for the requested URL." when trying to submit a profile piture or while changing the display name
+* You cannot submit a bio
 
 
 # HIGH PRIORITY

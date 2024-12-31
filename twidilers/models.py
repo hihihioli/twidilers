@@ -20,7 +20,7 @@ class Account(db.Model): #The user accounts
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   userdata:Mapped[dict] = mapped_column(JSONB,default={
-      "joined": datetime.datetime.now(datetime.timezone.utc).timestamp()
+      "joined": datetime.datetime.now(datetime.timezone.utc).timestamp() #The time the account was created
     })
   
   @property
