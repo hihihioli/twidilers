@@ -12,6 +12,10 @@
     height: fit-content;
     width: fit-content;
 }
+#filter-button {
+    margin-top: 0px;
+}
+
 .spacer {
     height: 100px;
 }
