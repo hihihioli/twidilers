@@ -58,7 +58,16 @@ input[type="file"] {
     font-weight: 500;
     text-decoration: underline;
   }
-
+  #bio {
+    resize:vertical;
+    overflow-y: hidden;
+    width:530px;
+    height:36px;
+}
+#bio::placeholder{
+  position:absolute;
+  top:12px;
+}
 .profile-div {
     border-radius:15px;
     padding: 15px;

@@ -350,6 +350,7 @@ a {
 
     .popup-menu {
         background-color: var(--darkishblue);
+        border:2px solid var(--lightblue);
     }
      
     #usricon-nav {

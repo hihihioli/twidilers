@@ -12,7 +12,7 @@
     <div class="welcome-div" id="welcome-1">
         <h1>Welcome to Twidilers Hub!</h1>
             <p>You created an account with your username {{account.username}}. We need to set some things up before we continue.</p>
-            <button class="submit" onClick=nextPage(1)>Continue</button>
+            <button class="submit" onClick="nextPage(1)">Continue</button>
     </div>
     <div class="welcome-div" id="welcome-2">
         <h1>Let's get your display name</h1>
@@ -21,7 +21,7 @@
                 <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
                 <button class="submit" id="name-change" name="name-change" onClick=goAway(change-display)>Set name</button>
             </form>
-            <button onClick=nextPage(2) class="submit">Continue</button>
+            <button onClick="nextPage(2)" class="submit">Continue</button>
     </div>
     <div class="welcome-div" id="welcome-3">
         <h1>Show us your smile!</h1>
@@ -31,9 +31,9 @@
                     choose picture
                 </label>
                 <input type="file" id="file" name="file" accept="image/*">
-                <button class="submit" onClick=goAway(upload_pfp)>Upload</button>
+                <button class="submit" onClick="goAway(upload_pfp)">Upload</button>
             </form>
-            <button class="submit" id="pfp-submit" onClick=nextPage(3)>Continue</button>
+            <button class="submit" id="pfp-submit" onClick="nextPage(3)">Continue</button>
     </div>
 <script src="{{ url_for('.static', filename='/javascript/welcome.js') }}"></script>
 {% endblock %}
