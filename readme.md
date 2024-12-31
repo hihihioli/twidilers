@@ -13,6 +13,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * You can visit profile page when not logged in
 * new-user.html throws a "Method Not Allowed. The method is not allowed for the requested URL." when trying to submit a profile piture or while changing the display name
 * You cannot submit a bio
+* Profile.html is broken because bio isn't defined
 
 
 # HIGH PRIORITY
@@ -35,7 +36,10 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Followers
 * Notifications
 * Email
-* New user setup process
+
+## New user setup process
+* Add more pages
+* See bugs (You can't submit anything)
 
 
 ## Profile page
