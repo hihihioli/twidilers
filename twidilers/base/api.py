@@ -67,17 +67,18 @@ def filter():
 
 @app.post('/sign_up')
 def sign_up():
-        #Handle sign up stuff here
+        #Sets the variables to the form data
         display_name = request.form.get('username')
-        new_username=request.form.get('username').lower() #Gets username and passwords that were inputted into the form
+        new_username=request.form.get('username').lower()
         if not checkUsername(new_username):
             flash("Only a-z,A-Z,0-9,_ Allowed","error")
             return redirect(url_for('.page',page='sign_up'))
         password1=request.form.get('password1')
         password2=request.form.get('password2')
         email=request.form.get('email')
-        if not new_username or not password1 or not password2: #Makes sure that the username or password slots are not empty
-            flash('Please enter a username and password','error')
+        #Makes sure that the slots are not empty
+        if not new_username or not password1 or not password2 or not email: 
+            flash('Please enter a username, password, and email','error')
             return redirect(url_for('.page',page='sign_up'))
         if password1 == password2: #Checks if the passwords match
             new_account = Account(username=new_username,password=password1,displayname=display_name)
@@ -88,7 +89,8 @@ def sign_up():
                 flash('Username already exists','error')
                 db.session.rollback()
                 return redirect(url_for('.page',page='sign_up'))
-            if password1 == new_username or password1 == email: # Makes sure password is secure
+            # makes sure the user didn't do anything insecure with there password
+            if password1 == new_username or password1 == email:
                 flash('Password cannot be the same as the username or email','error')
                 return redirect(url_for('.page',page='sign_up'))
             flash('User created successfully','success')
@@ -98,7 +100,7 @@ def sign_up():
 
 
 @app.post('/settings')
-def settings(): #Handles the forms
+def settings(): #Handles the settings page
     if 'delete' in request.form: #The user wants to delete their account
         account = findAccount()
         db.session.delete(account)
