@@ -26,6 +26,7 @@ def login():
         if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
             flash('Login Successful!','success')
             session['username'] = username.lower() #Sets session data to be used on other pages
+            session['filter'] = 0
             return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
@@ -50,6 +51,19 @@ def write_post():
     db.session.add(new_post)
     db.session.commit()
     return redirect(url_for('.page',page='feed'))
+
+@app.post('/feed')
+@login_required
+def filter():
+    if session.get('filter') == 0:
+        session['filter'] = 1
+    else:
+        session['filter'] = 0
+    accounts = db.session.execute(db.select(Account).order_by(Account.username)).scalars()
+    for account in accounts:
+        print(account.following)
+        print(account.followers)
+    return redirect(url_for('.page', page='feed'))
 
 @app.post('/sign_up')
 def sign_up():
@@ -138,6 +152,8 @@ def profile(username):
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
     if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
         owner=1
+    else:
+        owner = 0
     return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
 
 @app.post('/user/<username>/')
@@ -156,6 +172,7 @@ def profaction(username):
     elif 'follow-button' in request.form:
         account = findAccount()
         account.following.append(findAccount(username))
+        db.session.commit()
         flash(f'You are now following {username}')
         return redirect(url_for('.profile',username=username))
     else:
