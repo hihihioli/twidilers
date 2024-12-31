@@ -1,4 +1,4 @@
-from ..database import *
+from ..objects import *
 from sqlalchemy.orm import Mapped, mapped_column,relationship
 from sqlalchemy import LargeBinary, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB

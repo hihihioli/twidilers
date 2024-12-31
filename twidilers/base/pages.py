@@ -8,7 +8,7 @@ from jinja2 import TemplateNotFound
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from . import context_processors #Import the context processors
-from . import routes #the routes
+from . import api #the routes
 #Moved custom routes to routes.py(routes like login)
 
 @app.errorhandler(404)

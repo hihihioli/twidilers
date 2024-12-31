@@ -102,3 +102,10 @@ Capitalize flashes
 * Updated flashes
 * Mobile version
 * better light mode
+
+# Required environment variables(deployment)
+* FLASK_SECRET_KEY (is auto-generated if not present, but create if you want session persistence)
+* FLASK_MAIL_SERVER (for which mail server to send messages from)
+* FLASK_MAIL_USERNAME (the username to log into the mail server)
+* FLASK_MAIL_PASSWORD (the password for that user)
+* FLASK_MAIL_DEFAULT_SENDER (what address to send messages from, e.g. 'noreply@twidilers.com')

@@ -18,9 +18,10 @@ def create_app():
     if not app.config['SECRET_KEY']:
         app.config['SECRET_KEY'] = str(uuid.uuid4())
 
-    from .database import db,bcrypt,models #Import the models from the models file and bcrypt object
+    from .objects import db,bcrypt,mail,models #Import the models from the models file and bcrypt object
     db.init_app(app)
     bcrypt.init_app(app)
+    #mail.init_app(app)
 
     with app.app_context(): #Creates the tables for each class and adds it to the database
         db.create_all()

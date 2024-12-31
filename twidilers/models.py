@@ -2,7 +2,7 @@
 This is where all of the database models are created.
 """
 
-from .database import db, bcrypt #our db objects
+from .objects import db, bcrypt #our db objects
 
 #The model imports and data types
 from sqlalchemy.orm import Mapped, mapped_column,relationship
