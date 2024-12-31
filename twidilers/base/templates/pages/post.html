@@ -6,7 +6,7 @@
 {% block content %}
 <h1 class="heading">Create a post</h1>
 <form method="post" id="blog_form" name="blog_form" class="input_form"> <!--Form that submits to the @app.post for '/sign_up in routes.py'-->
-    <input type="text" class="textbox" placeholder="Title" id="title" name="title" autocomplete="off" maxlength="50"/>
+    <input type="text" class="textbox" placeholder="Title. Not required" id="title" name="title" autocomplete="off" maxlength="50"/>
     <textarea type="text" class="textbox" placeholder="Content" id="post-content" name="post-content" autocomplete="off"></textarea>
     <button id="post-submit" type="submit" class="submit">Post</button>
 </form>
@@ -14,13 +14,18 @@
     const submitButton = document.getElementById('post-submit')
     submitButton.addEventListener('click', function(event) {
         event.preventDefault()
-        let content = document.getElementById('post-content').value
-        if (content == '') {
-            if (confirm('This post has no content! Are you sure you want to submit it?') == true) {
-                document.blog_form.submit()
+        let title = document.getElementById('title').value
+        if (title == '') {
+            if (confirm('This post has no title! Are you sure you want to submit it?') == true) {
+                document.blog_form.submit();
+                console.log('Title is empty. Sending anyway.')
             }
+        } else if (content == '') {
+            console.log('Content box is empty. Sending error message.');
+            alert('You need to write something in the content box!');
+            window.location.replace("{{ url_for('.page', page='post') }}");
         } else {
-            document.blog_form.submit()
+            document.blog_form.submit();
         }
     })
 </script>

@@ -42,9 +42,6 @@ def logout():
 def write_post():
     title = request.form.get('title')
     content = request.form.get('post-content')
-    if not title:
-        flash('Posting requires a title','error')
-        return redirect(url_for('.page',page='post'))
     flash('Post successfully created','success')
     date_utc = datetime.datetime.now(datetime.timezone.utc)
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
