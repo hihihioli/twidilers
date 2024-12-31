@@ -9,9 +9,9 @@
 {% set account = findAccount() %}
     <!-- A submenu that shows different settings -->
     <div id="acct-navbar">
-        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="accountDetail()">Profile Settings</button>
-        <button class="pf-mnu-btn" id="security-btn" onclick="securityDetail()">Security</button>
-        <button class="pf-mnu-btn" id="privacy-btn" onclick="privacyDetail()">Privacy</button>
+        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)">Profile Settings</button>
+        <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">Security</button>
+        <button class="pf-mnu-btn" id="privacy-btn" onclick="newPage(2)">Privacy</button>
 
     </div>
     <style>
@@ -33,6 +33,7 @@
                 <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
             </section>
         </div>
+        <!--
         <div class="profile-div">
             <form method="post" id="profile-bio-change">
                 <h3>Edit bio</h3>
@@ -40,6 +41,7 @@
                 <button class="submit" id="bio-change" name="bio-change">Change</button>
             </form>
         </div>
+    -->
         <div class="profile-div">
             <form method="post" id="change-name-form">
                 <h3>Change display name</h3>
