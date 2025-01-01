@@ -28,10 +28,11 @@ class Account(db.Model): #The user accounts
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
+  notifications:Mapped[list] = mapped_column(JSONB, default=list)
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
       "bio": 'No bio yet', 
-    })  
+    })
   #Making the table self-referential (it relates to other objects of the same class)
   followers = relationship('Account', 
     secondary = follow, #The association table the relationship is based on (above)

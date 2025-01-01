@@ -50,13 +50,16 @@ def write_post():
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
     db.session.add(new_post)
     db.session.commit()
+    account = findAccount()
+    for follower in account.followers:
+        follower.notifications.append(db.session.execute(db.select(Post).filter_by(title=title)).scalar())
     return redirect(url_for('.page',page='feed'))
 
 @app.post('/feed')
 @login_required
 def filter():
-    placeholder = 1
-    if placeholder:
+    filtered = request.form.get('filter-foll')
+    if filtered:
         session['filter'] = 1
         flash("You're now seeing only people you follow", 'success')
     else:
@@ -152,6 +155,7 @@ def settings(): #Handles the settings page
         return redirect('/settings')
 
 @app.route('/user/<username>/')
+@login_required
 def profile(username):
     account = findAccount(username)
     if account is None:
@@ -164,10 +168,11 @@ def profile(username):
     return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
 
 @app.post('/user/<username>/')
+@login_required
 def profaction(username):
+    account = findAccount()
     if 'change-name' in request.form: #The user wants to change their display name
         if username == session.get('username'):
-            account = findAccount()
             new_name = request.form.get('change-name')
             account.displayname = new_name
             save()
@@ -177,10 +182,14 @@ def profaction(username):
             flash('A desync 1 error occured','error')
             return redirect(url_for('.profile',username=username))
     elif 'follow-button' in request.form:
-        account = findAccount()
         account.following.append(findAccount(username))
         db.session.commit()
         flash(f'You are now following {username}')
+        return redirect(url_for('.profile',username=username))
+    elif 'unfollow-button' in request.form:
+        account.following.remove(findAccount(username))
+        db.session.commit()
+        flash(f'You are no longer following {username}')
         return redirect(url_for('.profile',username=username))
     else:
         flash('A desync 2 error occured','error')

@@ -9,7 +9,7 @@
     <a href="{{ url_for('.write_post') }}"><button class="submit" id="createpost">Create a Post</button></a>
     <button id="filter" onclick="flyOut('filter-form','filter')"><i class="fa-solid fa-filter"></i></button>
     <form method="post" id="filter-form" name="filter-form">
-        <input type="checkbox" id="filter-foll">Show only posts from people I follow</input>
+        <input type="checkbox" id="filter-foll" name="filter-foll">Show only posts from people I follow</input>
         <input type="hidden" id="secret-foll">
         <button id="submit-filter">Submit</button>
     </form>
