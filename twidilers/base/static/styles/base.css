@@ -185,6 +185,11 @@ Click generate until you get the loss under 3 */
     top:0;
     right:0;
     cursor: pointer;
+    border-radius:10px;
+}
+.notif-div button:hover {
+    background-color:#ee3355;
+    color:white;
 }
 /* the bell on the navbar */
 #navbarbell {
@@ -430,7 +435,7 @@ a {
     .notif-div {
         background-color:var(--darkblue);
         color:var(--lightblue);
-        border:3px solid var(--lightblue);
+        border:2px solid var(--lightblue);
     }
 }
 

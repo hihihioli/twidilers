@@ -5,13 +5,15 @@
 const settingsDivs = [
     accountInfo = document.getElementById('acct-dtl-content'),
     security = document.getElementById('security-content'),
-    privacy = document.getElementById('privacy-content')
+    privacy = document.getElementById('privacy-content'),
+    notif = document.getElementById('notif-content')
 ]
 
 const settingsButtons = [
     accountInfoButton = document.getElementById('acct-dtl-btn'),
     securityButton = document.getElementById('security-btn'),
-    privacyButton = document.getElementById('privacy-btn')
+    privacyButton = document.getElementById('privacy-btn'),
+    notifButton = document.getElementById('notif-btn')
 ]
 
 // Sets the first div to be shown and the rest to be hidden
