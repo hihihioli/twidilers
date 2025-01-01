@@ -56,7 +56,6 @@ Want to learn more about one of the dependencies we use? Look no further!
     * See who they follow and who follows them
 ### Settings page
 * Account Details
-    * Nit: Bio textbox text needs to be anchored to the top of the box
 * Security
     * change email associated with account
         * Sends verification code to old email, then to new email.
@@ -80,13 +79,12 @@ Want to learn more about one of the dependencies we use? Look no further!
 * notifications for blog posts
 * Titles on blogs only
 * Image upload
-* HTML for blogs
+* HTML for blogs (but safe)
 
 
 ## Email requirements
 ### Styling/frontend changes
-* Style "Email sent!" pages
-* Write email template for verification codes
+* All ready! Under /templates/email/
 ### User account creation changes
 * Create account in "unverified" state until email link is clicked
     * see miguelgrinberg for useful secure email link generator
@@ -110,8 +108,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Algorithmic feed that prefers newer posts by people you follow/interact with
     * Newness weight
     * Weight for the poster (Have you interacted with their posts recently (negetively or positively), do you follow them)
-* Blog posts (posts you can click on, segregated from main feed)
-    * Blog posts would accept raw HTML
 
 Blogging system
 Chat room

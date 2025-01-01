@@ -1,63 +1,84 @@
 {% extends 'base.html' %}
 {% block title %}Feed{% endblock %}
 {% block head %}
-<link rel="stylesheet"data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
-<link rel="stylesheet"data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/toggle.css') }}">
-
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/toggle.css') }}">
 {% endblock %}
+
 {% block content %}
-<div id="topfeed">
-    <h1 id="feedtitle">Your feed</h1>
-    <a href="{{ url_for('.write_post') }}"><button class="submit" id="createpost">Create a Post</button></a>
-    <button id="filter" onclick="flyOut('filter-form','filter')"><i class="fa-solid fa-filter"></i></button>
-    <form method="post" id="filter-form" name="filter-form">
-        <label class="switch">
-            <input type="checkbox" id="filter-foll" name="filter-foll"></input>
-            <span class="slider round"></span>
-        </label>
-        <p class="checkbox-label">Show only posts from people I follow</p>
-        <button id="submit-filter">Submit</button>
-    </form>
-</div>
+<main>
+    <div id="topfeed" role="region" aria-label="Feed controls">
+        <h1 id="feedtitle">Your feed</h1>
+        <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post">Create a Post</a>
+        
+        <button id="filter" 
+                onclick="flyOut('filter-form','filter')" 
+                aria-expanded="false"
+                aria-controls="filter-form"
+                aria-label="Toggle feed filters">
+            <i class="fa-solid fa-filter" aria-hidden="true"></i>
+            <span class="visually-hidden">Filter posts</span>
+        </button>
+
+        <form method="post" id="filter-form" name="filter-form" aria-label="Feed filter options">
+            <div class="filter-control">
+                <label class="switch" for="filter-foll">
+                    <input type="checkbox" 
+                           id="filter-foll" 
+                           name="filter-foll" 
+                           {% if session['filter'] == 1 %}checked{% endif %}
+                           aria-label="Show only followed users">
+                    <span class="slider round" aria-hidden="true"></span>
+                </label>
+                <span class="checkbox-label">Show only posts from people I follow</span>
+            </div>
+            <button id="submit-filter" type="submit" class="submit">Apply Filters</button>
+        </form>
+    </div>
+
+    {% if postlist() | length > 0 %}
+    <section aria-label="Posts feed" class="posts-container">
+        {% set account = findAccount() %}
+        {% for post in postlist() %}
+        {% if session['filter'] == 0 or post.author in account.following %}
+        <article class="pst" aria-labelledby="post-title-{{ loop.index }}">
+            <header>
+                <a href="{{ url_for('.profile',username=post.author.username) }}" 
+                   class="auth-info"
+                   aria-label="View {{ post.author.displayname }}'s profile">
+                    <img class="pst-auth-pfp" 
+                         loading="lazy" 
+                         src="{{ url_for('.get_pfp', username=post.author.username) }}"
+                         alt="Profile picture of {{ post.author.displayname }}">
+                    <div class="pst-auths">
+                        <p class="pst-auth">{{post.author.displayname}}</p>
+                        <p class="pst-disp">@{{post.author.username}}</p>              
+                    </div>
+                </a>
+            </header>
+
+            <div class="reactions" role="toolbar" aria-label="Post actions">
+                {% if owner == 1 %}
+                <button class="edit-post" aria-label="Edit post">
+                    <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+                    <span class="visually-hidden">Edit this post</span>
+                </button>
+                {% endif %}
+            </div>
+
+            <h2 class="pst-title" id="post-title-{{ loop.index }}">{{post.title}}</h2>
+            <p class="pst-content">{{post.content}}</p>
+            <time class="pst-date" id="date{{ loop.index0 }}" datetime="{{ post.date }}">
+                {{ post.date | format_date }}
+            </time>
+        </article>
+        {% endif %}
+        {% endfor %}
+    </section>
+    {% else %}
+    <p class="no-posts">No posts to display</p>
+    {% endif %}
+</main>
 <script src="{{ url_for('.static', filename='/javascript/flyout.js') }}">
 </script>
-{% if postlist() | length > 0 %}
-{% set account = findAccount() %}
-{% for post in postlist() %}
-{% if session['filter'] == 0 or post.author in account.following %}
-<div class="pst">
-    <!-- Post author and profile picture -->
-    <a href="{{ url_for('.profile',username=post.author.username) }}">
-        <div class="auth-info">
-            <img class="pst-auth-pfp" loading="lazy" src="{{ url_for('.get_pfp', username=post.author.username) }}">
-            <section class="pst-auths">
-                <p class="pst-auth">{{post.author.displayname}}</p>
-                <p class="pst-disp">@{{post.author.username}}</p>              
-            </section>
-        </div>
-    </a>
-    <!-- Interactions go here. Not coded yet -->
-    <div class="reactions">
-        <div class="like">
-            <!--<i class="fa-solid fa-thumbs-up"></i>-->
-        </div>
-        {% if owner == 1 %}
-            <a id="edit-post"><i class="fa-solid fa-pencil"></i></a>
-        {% endif %}
-    </div>
-    <!-- Post content -->
-    <h2 class="pst-title">{{post.title}}</h3>
-        <p class="pst-content">{{post.content}}</p>
-        <p class="pst-date" id="date{{ loop.index0 }}">date</p>
-        <script>
-            const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
-                document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
-        </script>
-</div>
-{% endif %}
-{% endfor %}
-
-{% else %}
-<h2>Nothing here yet...</h2>
-{% endif %}
 {% endblock %}

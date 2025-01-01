@@ -32,7 +32,21 @@ html {
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 3px solid var(--darkblue);
+    font-family:Arial, sans-serif;
+}
+/* Accessbility for screen readers. Don't ask*/
+.posts-container {
+    margin-top: 1rem;
+}
 
+.pst:focus-within {
+    outline: 2px solid #007bff;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }
 /* #content is the main content area. #post-content is the input form content area. */
 #post-content {

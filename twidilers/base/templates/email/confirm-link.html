@@ -1,0 +1,64 @@
+<style>
+.email-container {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+.email-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+}
+.header-title {
+    color: #333;
+}
+.email-content {
+    padding: 20px;
+}
+.verification-code {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    margin: 20px auto;
+    border-radius:1000px;
+    width:200px;
+    cursor:pointer;
+    border:3px solid black;
+}
+.code-text {
+    color: #007bff;
+    font-size: 20px;
+    margin:20px;
+}
+.email-footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color:black;
+}
+</style>
+<div class="email-container">
+    <div class="email-header">
+        <h1 class="header-title">Twidilers</h1>
+    </div>
+
+    <div class="email-content">
+        <h2>Confirmation link</h2>
+        <p>Hello!</p>
+        <p>Someone logged into your account in (GEODATA LINKED REGION BASED ON IP ADDRESS) wants to change your (EMAIL OR PASSWORD) associated with your account.</p>
+        <p>(OR LOGIN FROM NEW REGION) Someone is trying to log into your account in (REGION). Click the link below to confirm you are them.</p>
+        <a href="CHANGE_THIS_TO_VERIFICATION_URL">
+            <div class="verification-code">
+                <h4 class="code-text">Confirm</h4>
+            </div>
+        </a>
+        <p>This link will expire in 10 minutes. If you didn't request this verification link, please ignore this email.</p>
+        
+        <p>Best regards,<br>The Twidilers Team</p>
+    </div>
+
+    <div class="email-footer">
+        <p>Copyright Twidilers Incorporated 2025</p>
+    </div>
+</div>

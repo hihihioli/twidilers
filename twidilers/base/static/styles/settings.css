@@ -64,12 +64,19 @@ input[type="file"] {
   #bio {
     resize:vertical;
     overflow-y: hidden;
+    vertical-align:top;
     width:530px;
     height:36px;
 }
 #bio::placeholder{
   position:absolute;
   top:12px;
+}
+#post-content {
+  resize:vertical;
+  overflow-y: hidden;
+  height:36px !important;
+  width:530px !important;
 }
 .profile-div {
     border-radius:15px;

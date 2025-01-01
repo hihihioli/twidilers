@@ -7,14 +7,20 @@
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
-    <!-- A submenu that shows different settings -->
-    <div id="acct-navbar">
-        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)">Profile Settings</button>
-        <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">Security</button>
-        <button class="pf-mnu-btn" id="privacy-btn" onclick="newPage(2)">Privacy</button>
-        <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">Notification</button>
-
-    </div>
+    <nav id="acct-navbar" aria-label="Settings navigation">
+        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)" aria-current="page">
+            <span>Profile</span>
+        </button>
+        <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">
+            <span>Security</span>
+        </button>
+        <button class="pf-mnu-btn" id="privacy-btn" onclick="newPage(2)">
+            <span>Privacy</span>
+        </button>
+        <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
+            <span>Notification</span>
+        </button>
+    </nav>
     <style>
         .submit {
             margin: 0;
@@ -26,41 +32,66 @@
     </style>        
     <!-- Div with account details -->
 
-    <div id="acct-dtl-content">
-        <div class="profile-div" id="auth-info">
-            <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp">
+    <main id="acct-dtl-content">
+        <div class="profile-div" id="auth-info" role="region" aria-label="Profile overview">
+            <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
             <section class="profile-auth">
                 <h1 name="prof-username" id="display-name">{{account.displayname}}</h1>
-                <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
+                <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
             </section>
         </div>
-        <div class="profile-div">
-            <form method="post" id="profile-bio-change">
-                <h3>Edit bio</h3>
-                <input id="bio" name="bio" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters.">
-                <button class="submit" id="bio-change" name="bio-change">Change</button>
+        <div class="profile-div" role="region" aria-label="Bio settings">
+            <form method="post" id="profile-bio-change" lang="en">
+                <h3><label for="post-content">Edit bio</label></h3>
+                <textarea id="post-content" 
+                         class="textbox" 
+                         name="bio" 
+                         autocomplete="off"
+                         aria-label="Biography text" 
+                         maxlength="500" 
+                         placeholder="Write your bio here. Up to 500 characters."
+                         aria-describedby="bio-help"></textarea>
+                <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
+                <button type="submit" class="submit" id="bio-change" name="bio-change" aria-label="Update biography">
+                    Change Bio
+                </button>
             </form>
         </div>
-        <div class="profile-div">
-            <form method="post" id="change-name-form">
-                <h3>Change display name</h3>
-                <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
-                <button class="submit" id="name-change" name="name-change">Change Name</button>
+        <div class="profile-div" role="region" aria-label="Display name settings">
+            <form method="post" id="change-name-form" lang="en">
+                <h3><label for="change-name">Change display name</label></h3>
+                <input id="change-name" 
+                       name="change-name" 
+                       type="text" 
+                       class="textbox" 
+                       autocomplete="off"
+                       aria-label="New display name"
+                       maxlength="24" 
+                       placeholder="1-24 characters"
+                       aria-describedby="name-help">
+                <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
+                <button type="submit" class="submit" id="name-change" name="name-change">
+                    Update Display Name
+                </button>
             </form>
         </div>
-        <div class="profile-div">
+        <div class="profile-div" role="region" aria-label="Profile picture settings">
             <h3>Upload profile picture</h3>
-            <form method="post" enctype="multipart/form-data" id="upload_pfp">
-                <label for="file" class="custom-file-upload">
-                    choose picture
+            <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en">
+                <label for="file" class="custom-file-upload" role="button">
+                    Choose profile picture
                 </label>
-                <input type="file" id="file" name="file" accept="image/*">
+                <input type="file" 
+                       id="file" 
+                       name="file" 
+                       accept="image/*"
+                       aria-label="Select new profile picture">
             </form>
         </div>
         <div class="profile-div">
             <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
         </div>        
-    </div>
+    </main>
     <div id="security-content">
         <div class="profile-div">
             <form method="post" id="change-password-change">
