@@ -27,7 +27,7 @@ input[type="checkbox" i] {
 .pst {
     padding: 20px;
     background-color: var(--lightishblue);
-    border-radius: 10px;
+    border-radius: 15px;
     margin: 8px 0px;
     height: fit-content;
     inline-size: 565px;
@@ -53,7 +53,7 @@ input[type="checkbox" i] {
 }
 
 .pst-title {
-    margin-top:1px
+    margin:1px 0 10px 0;
 }
 
 .pst-date {
@@ -86,10 +86,18 @@ input[type="checkbox" i] {
     border:2px solid var(--lightblue);
     position:absolute;
     border-radius:13px;
-    height:60px;
+    height:82px;
     top:100px;
     z-index:1000;
+    width:270px;
     right:0;
+}
+.checkbox-label {
+    position:absolute;
+    top:0;
+    right:0;
+    width:200px;
+    margin:10px;
 }
 #check-text {
     float:right;
@@ -104,7 +112,7 @@ input[type="checkbox" i] {
     margin-top:20px;
     border:0;
     position:absolute;
-    top:17px;
+    top:38px;
     left:8px;
 }
 

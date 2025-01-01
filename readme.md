@@ -11,6 +11,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * new-user.html throws a "Method Not Allowed. The method is not allowed for the requested URL." when trying to submit a profile piture or while changing the display name
+* The default state is "following" for users. When you start out, you are following everyone
 
 
 # Do before deployment:
@@ -77,12 +78,15 @@ Want to learn more about one of the dependencies we use? Look no further!
 * 
 ### Blogs
 * notifications for blog posts
-* b
+* Titles on blogs only
+* Image upload
+* HTML for blogs
 
 
 ## Email requirements
 ### Styling/frontend changes
 * Style "Email sent!" pages
+* Write email template for verification codes
 ### User account creation changes
 * Create account in "unverified" state until email link is clicked
     * see miguelgrinberg for useful secure email link generator

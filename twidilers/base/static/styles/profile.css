@@ -4,7 +4,8 @@
     flex-direction: column;
     position: relative;
     left: 20px;
-    margin-top:24px
+    margin-top:24px;
+    height:75px;
 }
 #follow-button {
     position: absolute;
@@ -24,7 +25,7 @@
     background-color:var(--darkblue);
     color: var(--lightblue);
     border-radius: 10px;
-}
+} 
 #pfp {
     width: 100px;
     border-radius: 1000000px;
@@ -76,7 +77,7 @@
 }
 
 .pst-title {
-    margin-top:1px
+    margin:1px 0 10px 0;
 }
 
 .pst-date {

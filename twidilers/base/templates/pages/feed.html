@@ -2,6 +2,8 @@
 {% block title %}Feed{% endblock %}
 {% block head %}
 <link rel="stylesheet"data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
+<link rel="stylesheet"data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/toggle.css') }}">
+
 {% endblock %}
 {% block content %}
 <div id="topfeed">
@@ -9,14 +11,13 @@
     <a href="{{ url_for('.write_post') }}"><button class="submit" id="createpost">Create a Post</button></a>
     <button id="filter" onclick="flyOut('filter-form','filter')"><i class="fa-solid fa-filter"></i></button>
     <form method="post" id="filter-form" name="filter-form">
-        <input type="checkbox" id="filter-foll" name="filter-foll">Show only posts from people I follow</input>
-        <input type="hidden" id="secret-foll">
+        <label class="switch">
+            <input type="checkbox" id="filter-foll" name="filter-foll"></input>
+            <span class="slider round"></span>
+        </label>
+        <p class="checkbox-label">Show only posts from people I follow</p>
         <button id="submit-filter">Submit</button>
     </form>
-    <script>
-        check = document.getElementById('filter-foll');
-        secret = document.getElementById('secret-foll');
-    </script>
 </div>
 <script src="{{ url_for('.static', filename='/javascript/flyout.js') }}">
 </script>
@@ -40,7 +41,6 @@
         <div class="like">
             <!--<i class="fa-solid fa-thumbs-up"></i>-->
         </div>
-        <!-- Doesn't work properly, but if the poster is the account logged in, an edit icon should be here-->
         {% if owner == 1 %}
             <a id="edit-post"><i class="fa-solid fa-pencil"></i></a>
         {% endif %}
