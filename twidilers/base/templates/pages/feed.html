@@ -11,10 +11,17 @@
     <a href="{{ url_for('.write_post') }}"><button class="submit" id="createpost">Create a Post</button></a>
     <button id="filter" onclick="flyOut('filter-form','filter')"><i class="fa-solid fa-filter"></i></button>
     <form method="post" id="filter-form" name="filter-form">
+        {% if session['filter'] == 1 %}
+        <label class="switch">
+            <input type="checkbox" id="filter-foll" name="filter-foll" checked></input>
+            <span class="slider round"></span>
+        </label>
+        {% else %}
         <label class="switch">
             <input type="checkbox" id="filter-foll" name="filter-foll"></input>
             <span class="slider round"></span>
         </label>
+        {% endif %}
         <p class="checkbox-label">Show only posts from people I follow</p>
         <button id="submit-filter">Submit</button>
     </form>
