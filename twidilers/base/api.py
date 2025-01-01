@@ -2,7 +2,7 @@
 The file for routes that need extra processing, such as processing a login.
 """
 #Imports
-from flask import current_app, render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
+from flask import render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
 import sqlalchemy
 import datetime
 from io import BytesIO
@@ -12,22 +12,23 @@ from . import base as app #Blueprint imported as app so blueprint layer
 from .decorators import login_required #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
 from ..functions import findAccount,save,checkUsername#Custom functions, like save()
-
-# Make sure to use url_for('.feed') and not url_for('.page',page='feed')
+from .email import sendVerification #email functions
 
 @app.post('/login')
 def login():
-    username = request.form.get('username') #Retrieves the username and password from the form
+    username = request.form.get('username').lower() #Retrieves the username and password from the form
     password = request.form.get('password')
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
     if not account: #Checks if the given account exists
         account = db.session.execute(db.select(Account).filter_by(displayname=username)).scalar()
-    if account:
-        if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
-            flash('Login Successful!','success')
-            session['username'] = username.lower() #Sets session data to be used on other pages
-            session['filter'] = 0
-            return redirect(url_for('.page',page='index'))
+    if account.verified == False: #The account is unverified
+        flash('Please Verify Your Account','Error')
+        return redirect(url_for('.page',page='login'))
+    if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
+        flash('Login Successful!','success')
+        session['username'] = username #Sets session data to be used on other pages
+        session['filter'] = 0
+        return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
 
@@ -73,7 +74,7 @@ def sign_up():
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()
     if not checkUsername(new_username):
-        flash("Only a-z,A-Z,0-9,_ Allowed","error")
+        flash("Only a-z,0-9,_ Allowed","error")
         return redirect(url_for('.page',page='sign_up'))
     password1=request.form.get('password1')
     password2=request.form.get('password2')
@@ -82,26 +83,32 @@ def sign_up():
     if not new_username or not password1 or not password2 or not email: 
         flash('Please enter a username, password, and email','error')
         return redirect(url_for('.page',page='sign_up'))
-    if password1 == password2: #Checks if the passwords match
-        if len(password1) < 8: #Checks if the password is at least 8 characters long
-            flash('Password must be at least 8 characters long','error')
-            return redirect(url_for('.page',page='sign_up'))
-        new_account = Account(username=new_username,password=password1,displayname=display_name)
-        db.session.add(new_account)
-        try:
-            db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
-        except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
-            flash('Username already exists','error')
-            db.session.rollback()
-            return redirect(url_for('.page',page='sign_up'))
-        # makes sure the user didn't do anything insecure with there password
-        if password1 == new_username or password1 == email:
-            flash('Password cannot be the same as the username or email','error')
-            return redirect(url_for('.page',page='sign_up'))
-        flash('User created successfully','success')
-        return redirect(url_for('.page',page='login'))
-    flash('Passwords do not match','error')
-    return redirect(url_for('.page',page='sign_up'))
+    
+    if password1 != password2: #Checks if the passwords match
+        flash('Passwords do not match','error')
+        return redirect(url_for('.page',page='sign_up'))
+    
+    # makes sure the user didn't do anything insecure with there password
+    if password1 == new_username or password1 == email:
+        flash('Password cannot be the same as the username or email','error')
+        return redirect(url_for('.page',page='sign_up'))
+
+    if len(password1) < 8: #Checks if the password is at least 8 characters long
+        flash('Password must be at least 8 characters long','error')
+        return redirect(url_for('.page',page='sign_up'))
+    
+    new_account = Account(username=new_username,password=password1,displayname=display_name,email=email) #Create an unverified account placholder
+    db.session.add(new_account)
+
+    try:
+        db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
+    except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
+        flash('Username already exists','error')
+        db.session.rollback()
+        return redirect(url_for('.page',page='sign_up'))
+    
+    sendVerification(new_account) #Send the verification screen
+    return render_template('pages/sign_up.html',entered=True) #Show the welcome to twidilers screen
 
 
 @app.post('/settings')
@@ -220,3 +227,14 @@ def get_pfp(username):
 def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
     return render_template('postinfo.html',post=post)
+
+@app.get('/veify/<username>')
+def verify(username):
+    code = request.form.get('code')
+    user = findAccount(username)
+    if not user.verify(code):
+        flash('Invalid Code','error')
+        return redirect(url_for('.page',page='sign_up'))
+    db.session.commit()
+    flash('User Succesfully Verified','success')
+    return redirect(url_for('.page',page='login'))

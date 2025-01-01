@@ -13,7 +13,7 @@ from . import api #the routes
 
 @app.errorhandler(404)
 def error404(error):
-        return redirect(url_for('.page',page='404'))
+        return render_template('404.html')
 
 #The page handler for default pages
 #For templates do: url_for('.page',page='insert_page_here')

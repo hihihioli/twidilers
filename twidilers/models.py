@@ -10,6 +10,7 @@ from sqlalchemy import LargeBinary, DateTime, ForeignKey,Column, Table,Integer
 from sqlalchemy.dialects.postgresql import JSONB
 
 import datetime #For the time
+import random #To generate codes
 
 #Many-to-Many relationship table for followers
 follow = Table(
@@ -25,10 +26,13 @@ class Account(db.Model): #The user accounts
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=False)
   displayname:Mapped[str] = mapped_column(nullable=False)
+  email:Mapped[str] = mapped_column(nullable=False)
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
   notifications:Mapped[list] = mapped_column(JSONB, default=list)
+  verified:Mapped[bool] = mapped_column(default=False) #Wether they are verified or not
+  verification_code:Mapped[int] = mapped_column(nullable=True,default=random.randint(100000,999999)) #Their code to verify, if false
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
       "bio": 'No bio yet', 
@@ -41,6 +45,12 @@ class Account(db.Model): #The user accounts
     backref = 'following' #something
     )
   
+  def verify(self,code): #Function to verify a user
+    if code == self.verification_code: #If right code,
+      self.verified = True             #mark user as verified,
+      del self.verification_code       #delete the code, and
+      return True                      #return true to mark as complete.
+    return False #Return false if incorrect code
   
   @property
   def password(self):
