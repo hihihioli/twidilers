@@ -6,7 +6,6 @@
 import * as Turbo from "@hotwired/turbo"
 </script>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('.static', filename='images/favicon.png', v=2) }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
     <title>{% block title %}{% endblock %} - Twidilers</title> <!-- The title of the tab depending on the current page. -->
     <meta charset="UTF-8">
@@ -28,8 +27,8 @@ import * as Turbo from "@hotwired/turbo"
     <!-- The navbar. Also can be overridden if necessary. -->
     {% block nav %}
 
-    <div id="navbar">
-        <!-- If the user isn't logged in-->
+        <div id="navbar">
+            <!-- If the user isn't logged in-->
             {% if not session['username'] %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
                 <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
@@ -37,7 +36,7 @@ import * as Turbo from "@hotwired/turbo"
                 <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
                 <a href="{{ url_for('.page',page='sign_up') }}"><button>Sign up</button></a>
             {% endif %}
-        <!-- If the user is logged in it shows the following-->
+            <!-- If the user is logged in it shows the following-->
             {% if session['username'] %}
             {% set account = findAccount() %}
                 <!-- It finds the username of logged in person-->
@@ -46,15 +45,38 @@ import * as Turbo from "@hotwired/turbo"
                 <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
                 <!-- Notification bell. Not functional as of 12/25/24
                 We should make it hollow when there are zero notifications -->
-                    <a><button id="navbarbell" title="Notification bell">
-                            <i class="fa-solid fa-bell"></i>
-                            <div id="notification-count">12</div>
-
-                        </button>
-                    </a>
+                <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell"></i><div id="notification-count">12</div></button></a>
                 <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
             {% endif %}
-    </div>
+        </div>
+        <!-- Notification menu-->
+        <div class="popup-div" id="notif-popup">
+            <div class="popup-menu" class="notif-div">
+                <h2>Notifications</h2>
+                <button>Clear</button>
+                <!--We need to have a link to a specific post. postinfo.html.
+                this shoould be a 'for notifications in notifications' or whatever
+                I removed the curly brackets part so I didn't get an error because it's not coded yet -->
+                <a href="CHANGETHIS">
+                    <div class="notif-post">
+                        <div class="notif-title">notification.type</div> <!--ie New Post (because we can have different types later)-->
+                        <div class="notif-auth">notification.author</div>
+                        <div class="notif-content">notification.content</div><!--first line of text. overflow:hidden-->
+                    </div>
+                </a>
+            </div>
+        </div>
+        <script>
+            const notifButton = document.getElementById('navbarbell');
+            const notifMenu = document.getElementById('notif-popup');
+            notifButton.addEventListener('click', () => {
+            if (notifMenu.style.display === 'none') {
+                notifMenu.style.display = 'block';
+            } else {
+                notifMenu.style.display = 'none';
+            }
+            });        
+            </script>
         <!-- Popup Menu -->
         <div class="popup-div">
             <div class="popup-menu" id="popupMenu">
@@ -66,15 +88,15 @@ import * as Turbo from "@hotwired/turbo"
         <script>
             const userButton = document.getElementById('usricon-nav');
             const userMenu = document.getElementById('popupMenu');
-                userButton.addEventListener('click', () => {
-                if (userMenu.style.display === 'none') {
-                    userMenu.style.display = 'block';
-                } else {
-                    userMenu.style.display = 'none';
-                }
+            userButton.addEventListener('click', () => {
+            if (userMenu.style.display === 'none') {
+                userMenu.style.display = 'block';
+            } else {
+                userMenu.style.display = 'none';
+            }
             });
         </script>
-        {% endblock %}
+    {% endblock %}
     
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
     <div id="flashes">

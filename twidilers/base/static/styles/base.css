@@ -105,26 +105,7 @@ Click generate until you get the loss under 3 */
     padding: 0;
     border-radius: 1000px;
 }
-#navbarbell {
-    position: relative;  /* Add this */
-    padding: 0 !important;
-    font-size: 25px;
-    background-color:var(--darkblue) !important;
-    width:46px !important;
-    margin:auto;
-}
 
-#notification-count {
-    position: absolute;
-    bottom: -5px;         /* Adjust these values */
-    right: -5px;       /* to position the badge */
-    background-color: var(--lightblue);
-    color: var(--darkblue);
-    border-radius: 1000px;
-    padding: 5px;
-    font-size: 10pt;
-    font-weight:500;
-}
 /* Container for Popup */
 .popup-div {
     position: relative; /* Ensure children use this as the anchor point */
@@ -159,7 +140,35 @@ Click generate until you get the loss under 3 */
     background-color:var(--darkblue);
     color:var(--lightblue);
 }
+.notif-div {
+    width: 200px !important;
+}
+.notif-post {
+    overflow-y:scroll;
+    border-radius:10px;
+    background-color:var(--lightishblue);
+    color:var(--darkblue);
+}
+#navbarbell {
+    position: relative;  /* Add this */
+    padding: 0 !important;
+    font-size: 25px;
+    background-color:var(--darkblue) !important;
+    width:46px !important;
+    margin:auto;
+}
 
+#notification-count {
+    position: absolute;
+    bottom: -5px;         /* Adjust these values */
+    right: -5px;       /* to position the badge */
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+    border-radius: 1000px;
+    padding: 5px;
+    font-size: 10pt;
+    font-weight:500;
+}
 /* profilebtn is in base.html in the navbar */
 #profileBtn {
     margin-top:0px !important;
@@ -346,6 +355,10 @@ a {
 
     #navbarbell {
         color: var(--lightblue) !important;
+    }
+    .notif-post {
+        background-color:var(--darkishblue);
+        color:var(--lightblue);
     }
 
     .popup-menu {
