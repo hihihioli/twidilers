@@ -58,8 +58,8 @@ def write_post():
 @app.post('/feed')
 @login_required
 def filter():
-    placeholder = 1
-    if placeholder:
+    filtered = request.form.get('filter-foll')
+    if filtered:
         session['filter'] = 1
         flash("You're now seeing only people you follow", 'success')
     else:
@@ -170,9 +170,9 @@ def profile(username):
 @app.post('/user/<username>/')
 @login_required
 def profaction(username):
+    account = findAccount()
     if 'change-name' in request.form: #The user wants to change their display name
         if username == session.get('username'):
-            account = findAccount()
             new_name = request.form.get('change-name')
             account.displayname = new_name
             save()
@@ -182,10 +182,14 @@ def profaction(username):
             flash('A desync 1 error occured','error')
             return redirect(url_for('.profile',username=username))
     elif 'follow-button' in request.form:
-        account = findAccount()
         account.following.append(findAccount(username))
         db.session.commit()
         flash(f'You are now following {username}')
+        return redirect(url_for('.profile',username=username))
+    elif 'unfollow-button' in request.form:
+        account.following.remove(findAccount(username))
+        db.session.commit()
+        flash(f'You are no longer following {username}')
         return redirect(url_for('.profile',username=username))
     else:
         flash('A desync 2 error occured','error')

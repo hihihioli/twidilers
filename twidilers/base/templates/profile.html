@@ -16,8 +16,15 @@
         {% if owner == 1 %}
             <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
         {% else %}
+        {% if not account in findAccount().following %}
         <form method="post" id="follow-form" name="follow-form">
             <button class="submit" id="follow-button" name="follow-button">Follow</button></a>
+        </form>
+        {% else %}
+        <form method="post" id="unfollow-form" name="unfollow-form">
+            <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
+        </form>
+        {% endif %}
         {% endif %}
     </section>
 </div>
