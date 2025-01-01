@@ -7,7 +7,7 @@ function flyOut(mnu,btn) {
     const button = document.getElementById(btn);
     const menu = document.getElementById(mnu);
 
-    menu.style.display = 'none';
+    menu.style.display = 'block';
 
     button.addEventListener('click', () => {
         if (menu.style.display === 'none') {

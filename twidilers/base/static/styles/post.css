@@ -15,7 +15,11 @@
 #filter-button {
     margin-top: 0px;
 }
-
+input[type="checkbox" i] {
+    border:2px solid var(--lightblue);
+    background-color:var(--darkishblue);
+    padding:10px;
+}
 .spacer {
     height: 100px;
 }
@@ -77,7 +81,33 @@
 }
 #filter-form {
     display:none;
+    padding:10px;
+    background-color:var(--darkishblue);
+    border:2px solid var(--lightblue);
+    position:absolute;
+    border-radius:13px;
+    height:60px;
+    top:100px;
+    z-index:1000;
+    right:0;
 }
+#check-text {
+    float:right;
+    margin:0 0 0 10px;
+    height:fit-content;
+}
+#submit-filter {
+    background-color:var(--lightblue);
+    color:var(--darkblue);
+    border-radius:7px;
+    padding:10px;
+    margin-top:20px;
+    border:0;
+    position:absolute;
+    top:17px;
+    left:8px;
+}
+
 /* container for posts  */
 #pst-div {
     display: flex;
