@@ -154,6 +154,7 @@ Click generate until you get the loss under 3 */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
 }
+/* Individual notifications*/
 .notif-post {
     border-radius: 5px;
     background-color:var(--lightishblue);
@@ -185,6 +186,7 @@ Click generate until you get the loss under 3 */
     right:0;
     cursor: pointer;
 }
+/* the bell on the navbar */
 #navbarbell {
     position: relative; 
     padding: 0 !important;
@@ -193,7 +195,7 @@ Click generate until you get the loss under 3 */
     width:46px !important;
     margin:auto;
 }
-
+/* Number of notifications */
 #notification-count {
     position: absolute;
     bottom: -5px;
