@@ -55,7 +55,29 @@
 .pst-date {
     margin: 0px
 }
-
+#topfeed {
+    position:relative;
+    height:100px;
+}
+#filter {
+    font-size:26px;
+    padding: 10px;
+    border-radius:5px;
+    border:0;
+    background:none;
+    color:var(--lightblue);
+    cursor:pointer;
+    float:right;
+    margin:20px 20px 0 0;
+    width:50px;
+    transition:all 0.3s;
+}
+#filter:hover {
+    box-shadow: 0 0 10px var(--lightblue);
+}
+#filter-form {
+    display:none;
+}
 /* container for posts  */
 #pst-div {
     display: flex;

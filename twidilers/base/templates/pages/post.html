@@ -9,7 +9,7 @@
     <input type="text" class="textbox" placeholder="Title. Not required" id="title" name="title" autocomplete="off" maxlength="50"/>
     <textarea type="text" class="textbox" placeholder="Content" id="post-content" name="post-content" autocomplete="off"></textarea>
     <button id="post-submit" type="submit" class="submit">Post</button>
-</form>
+</form><!--
 <script>
     const submitButton = document.getElementById('post-submit')
     submitButton.addEventListener('click', function(event) {
@@ -20,12 +20,10 @@
                 document.blog_form.submit();
                 console.log('Title is empty. Sending anyway.')
             }
-        } else if (content == '') {
-            console.log('Content box is empty. Sending error message.');
         } else {
             document.blog_form.submit();
         }
     })
-</script>
+</script>-->
 
 {% endblock %}
