@@ -126,8 +126,6 @@ Click generate until you get the loss under 3 */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
 }
-
-
 .popup-menu button {
     display: block;
     width: 100% !important;
@@ -139,6 +137,9 @@ Click generate until you get the loss under 3 */
     font-size: 14px;
     background-color:var(--darkblue);
     color:var(--lightblue);
+}
+#notif-popup {
+    gap:10px;
 }
 .notif-div {
     width: 250px !important;
@@ -154,13 +155,14 @@ Click generate until you get the loss under 3 */
     top: 100%; /* Appears directly below the parent element */
 }
 .notif-post {
-    border-radius:10px;
+    border-radius: 5px;
     background-color:var(--lightishblue);
     color:var(--darkblue); 
     padding:13px; 
 }
 .popup-div h2 {
     margin:0;
+    margin-bottom:10px;
 }
 .notif-title {
     font-weight:bold;
@@ -170,7 +172,17 @@ Click generate until you get the loss under 3 */
 
 }
 .notif-content {
-    
+
+}
+.notif-div button {
+    border:0;
+    background:none;
+    padding:0;
+    color:var(--lightblue);
+    font-size:1em;
+    position:absolute;
+    top:13px;
+    right:13px;
 }
 #navbarbell {
     position: relative; 
