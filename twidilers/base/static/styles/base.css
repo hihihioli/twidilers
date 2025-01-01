@@ -177,12 +177,13 @@ Click generate until you get the loss under 3 */
 .notif-div button {
     border:0;
     background:none;
-    padding:0;
+    padding:13px;
     color:var(--lightblue);
     font-size:1em;
     position:absolute;
-    top:13px;
-    right:13px;
+    top:0;
+    right:0;
+    cursor: pointer;
 }
 #navbarbell {
     position: relative; 
