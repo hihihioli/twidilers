@@ -22,7 +22,6 @@ import * as Turbo from "@hotwired/turbo"
     {% block head %}{% endblock %}
 
 </head>
-
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
     <!-- The navbar. Also can be overridden if necessary. -->
     {% block nav %}
@@ -43,13 +42,17 @@ import * as Turbo from "@hotwired/turbo"
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img" title="Twidilers Home"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
                 <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
                 <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
-                <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell"></i><div id="notification-count">12</div></button></a>
+                <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell"></i>
+                    {% if account.notifications %}
+                    <div id="notification-count">{{ account.notifications | length}}</div>
+                    {% endif %}
+                </button></a>
                 <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
             {% endif %}
         </div>
         <!-- Notification menu-->
         <div class="popup-div" id="notif-popup">
-            <div class="popup-menu notif-div">
+            <div class="popup-menu notif-div" id="">
                 <h2>Notifications</h2>
                 <button>Clear</button>
                 <!--We need to have a link to a specific post. postinfo.html.

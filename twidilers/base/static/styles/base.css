@@ -146,7 +146,7 @@ Click generate until you get the loss under 3 */
 }
 /* inner wrapper*/
 .notif-div {
-    display: none; /* Hidden by default */
+    display:block;
     position: absolute; /* Positioned relative to .popup-div */
     flex-direction: column;
     border: 2px solid var(--darkblue);
