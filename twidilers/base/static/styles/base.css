@@ -140,16 +140,40 @@ Click generate until you get the loss under 3 */
     background-color:var(--darkblue);
     color:var(--lightblue);
 }
-.notif-div {
-    width: 200px !important;
-    display:block;
+/* outer wrapper*/
+#notif-popup {
+
 }
+/* inner wrapper*/
+.notif-div {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to .popup-div */
+    flex-direction: column;
+    border: 2px solid var(--darkblue);
+    width: 95px;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--lightblue);
+    right: 0;
+    top: 100%;
+}
+/* Individual notifications*/
 .notif-post {
     overflow-y:scroll;
-    border-radius:10px;
-    background-color:var(--lightishblue);
-    color:var(--darkblue);  
+    border-radius:5px;
+    display: block;
+    width: 100% !important;
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    background-color:var(--darkblue);
+    color:var(--lightblue);
 }
+/* the bell on the navbar */
 #navbarbell {
     position: relative; 
     padding: 0 !important;
@@ -158,7 +182,7 @@ Click generate until you get the loss under 3 */
     width:46px !important;
     margin:auto;
 }
-
+/* Number of notifications */
 #notification-count {
     position: absolute;
     bottom: -5px;
