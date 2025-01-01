@@ -49,6 +49,9 @@ input[type="file"] {
 #privacy-content {
     display: none;
 }
+#notif-content {
+  display:none;
+}
   .pf-mnu-btn {
     border: 0;
     cursor: pointer;

@@ -12,6 +12,7 @@
         <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)">Profile Settings</button>
         <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">Security</button>
         <button class="pf-mnu-btn" id="privacy-btn" onclick="newPage(2)">Privacy</button>
+        <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">Notification</button>
 
     </div>
     <style>
@@ -84,6 +85,17 @@
         <div class="profile-div">
             <h3>Profile page visibility</h3>
             <button class="submit">Visable to everyone</button>
+        </div>
+    </div>
+    <div id="notif-content">
+        <div class="profile-div">
+            <h3>Email notificatoins</h3>
+        </div>
+        <div class="profile-div">
+            <h3>Who you're getting notifications from</h3>
+        </div>
+        <div class="profile-div">
+            
         </div>
     </div>
         <script src="{{ url_for('.static', filename='/javascript/settings.js') }}"></script>

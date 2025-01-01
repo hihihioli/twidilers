@@ -126,8 +126,6 @@ Click generate until you get the loss under 3 */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
 }
-
-
 .popup-menu button {
     display: block;
     width: 100% !important;
@@ -140,13 +138,11 @@ Click generate until you get the loss under 3 */
     background-color:var(--darkblue);
     color:var(--lightblue);
 }
-/* outer wrapper*/
 #notif-popup {
-
+    gap:10px;
 }
-/* inner wrapper*/
 .notif-div {
-    display:block;
+    width: 250px !important;
     position: absolute; /* Positioned relative to .popup-div */
     flex-direction: column;
     border: 2px solid var(--darkblue);
@@ -154,24 +150,46 @@ Click generate until you get the loss under 3 */
     z-index: 1000;
     padding: 10px;
     border-radius: 10px;
-    background-color: var(--lightblue);
-    right: 0;
-    top: 100%;
+    background-color: var(--lightblue); /* Ensure it contrasts with the background */
+    right: 0; /* Aligns with the left of .popup-div */
+    top: 100%; /* Appears directly below the parent element */
 }
 /* Individual notifications*/
 .notif-post {
-    overflow-y:scroll;
-    border-radius:5px;
-    display: block;
-    width: 100% !important;
-    padding: 10px 15px;
-    background: none;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
-    background-color:var(--darkblue);
+    border-radius: 5px;
+    background-color:var(--lightishblue);
+    color:var(--darkblue); 
+    padding:13px; 
+}
+.popup-div h2 {
+    margin:0;
+    margin-bottom:10px;
+}
+.notif-title {
+    font-weight:bold;
+    font-size:1.2em;
+}
+.notif-auth {
+
+}
+.notif-content {
+
+}
+.notif-div button {
+    border:0;
+    background:none;
+    padding:13px;
     color:var(--lightblue);
+    font-size:1em;
+    position:absolute;
+    top:0;
+    right:0;
+    cursor: pointer;
+    border-radius:10px;
+}
+.notif-div button:hover {
+    background-color:#ee3355;
+    color:white;
 }
 /* the bell on the navbar */
 #navbarbell {
@@ -413,6 +431,11 @@ a {
     }
     .card:hover {
         box-shadow: 0 0 7px 0 var(--lightblue);
+    }
+    .notif-div {
+        background-color:var(--darkblue);
+        color:var(--lightblue);
+        border:2px solid var(--lightblue);
     }
 }
 

@@ -27,6 +27,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## General features
 * Notifications
 * Email
+* Blogs
 
 
 ## Frontend changes
@@ -75,9 +76,11 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 ## Feed
 * Reactions (reply, like/dislike) on posts
-* removal of titles (except for blog posts)
-* Image upload for blogs
-* Different feed just for people you follow
+### Regular posts
+* 
+### Blogs
+* notifications for blog posts
+* b
 
 
 ## Email requirements

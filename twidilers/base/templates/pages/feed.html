@@ -4,15 +4,20 @@
 <link rel="stylesheet"data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
 {% endblock %}
 {% block content %}
-<h1 id="feedtitle">Your feed</h1>
-<a href="{{ url_for('.write_post') }}"><button  class="submit" id="createpost">Create a Post</button></a>
-<form method="post" id="filter-form" name="filter-form">
-    {% if session['filter'] == 1 %}
-    <button id="filter-button" name="filter-button" class="submit">Filter: Following</button>
-    {% else %}
-    <button id="filter-button" name="filter-button" class="submit">Filter: All</button>
-    {% endif %}
-</form>
+<div id="topfeed">
+    <h1 id="feedtitle">Your feed</h1>
+    <a href="{{ url_for('.write_post') }}"><button class="submit" id="createpost">Create a Post</button></a>
+    <button id="filter" onclick="flyOut('filter-form','filter')"><i class="fa-solid fa-filter"></i></button>
+    <form method="post" id="filter-form" name="filter-form">
+        {% if session['filter'] == 1 %}
+        <button id="filter-button" name="filter-button" class="submit">Filter: Following</button>
+        {% else %}
+        <button id="filter-button" name="filter-button" class="submit">Filter: All</button>
+        {% endif %}
+    </form>
+</div>
+<script src="{{ url_for('.static', filename='/javascript/flyout.js') }}">
+</script>
 {% if postlist() | length > 0 %}
 {% set account = findAccount() %}
 {% for post in postlist() %}

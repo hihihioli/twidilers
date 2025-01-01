@@ -25,12 +25,14 @@ function nextPage(currentPage) {
         redirect("{{ url_for('.pages', filename='index.html') }}");
     }
 }
-    file = document.getElementById('file');
-    file.addEventListener('change',() => {
-        if(file.files.length > 0){
-            document.getElementById('upload_pfp').submit();
-        }
-    })
-    function goAway(e) {
-        e.style.display = 'none';
+// Uploading profile picture
+file = document.getElementById('file');
+file.addEventListener('change',() => {
+    if(file.files.length > 0){
+        document.getElementById('upload_pfp').submit();
     }
+})
+// hides element
+function goAway(e) {
+    e.style.display = 'none';
+}
