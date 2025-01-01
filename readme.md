@@ -56,7 +56,6 @@ Want to learn more about one of the dependencies we use? Look no further!
     * See who they follow and who follows them
 ### Settings page
 * Account Details
-    * Nit: Bio textbox text needs to be anchored to the top of the box
 * Security
     * change email associated with account
         * Sends verification code to old email, then to new email.

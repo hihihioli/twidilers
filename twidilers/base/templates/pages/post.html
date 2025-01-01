@@ -9,21 +9,6 @@
     <input type="text" class="textbox" placeholder="Title. Not required" id="title" name="title" autocomplete="off" maxlength="50"/>
     <textarea type="text" class="textbox" placeholder="Content" id="post-content" name="post-content" autocomplete="off"></textarea>
     <button id="post-submit" type="submit" class="submit">Post</button>
-</form><!--
-<script>
-    const submitButton = document.getElementById('post-submit')
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault()
-        let title = document.getElementById('title').value
-        if (title == '') {
-            if (confirm('This post has no title! Are you sure you want to submit it?') == true) {
-                document.blog_form.submit();
-                console.log('Title is empty. Sending anyway.')
-            }
-        } else {
-            document.blog_form.submit();
-        }
-    })
-</script>-->
+</form>
 
 {% endblock %}
