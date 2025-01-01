@@ -141,14 +141,36 @@ Click generate until you get the loss under 3 */
     color:var(--lightblue);
 }
 .notif-div {
-    width: 200px !important;
-    display:block;
+    width: 250px !important;
+    position: absolute; /* Positioned relative to .popup-div */
+    flex-direction: column;
+    border: 2px solid var(--darkblue);
+    width: 95px;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--lightblue); /* Ensure it contrasts with the background */
+    right: 0; /* Aligns with the left of .popup-div */
+    top: 100%; /* Appears directly below the parent element */
 }
 .notif-post {
-    overflow-y:scroll;
     border-radius:10px;
     background-color:var(--lightishblue);
-    color:var(--darkblue);  
+    color:var(--darkblue); 
+    padding:13px; 
+}
+.popup-div h2 {
+    margin:0;
+}
+.notif-title {
+    font-weight:bold;
+    font-size:1.2em;
+}
+.notif-auth {
+
+}
+.notif-content {
+    
 }
 #navbarbell {
     position: relative; 
@@ -389,6 +411,11 @@ a {
     }
     .card:hover {
         box-shadow: 0 0 7px 0 var(--lightblue);
+    }
+    .notif-div {
+        background-color:var(--darkblue);
+        color:var(--lightblue);
+        border:3px solid var(--lightblue);
     }
 }
 
