@@ -152,6 +152,7 @@ def settings(): #Handles the settings page
         return redirect('/settings')
 
 @app.route('/user/<username>/')
+@login_required
 def profile(username):
     account = findAccount(username)
     if account is None:
@@ -164,6 +165,7 @@ def profile(username):
     return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
 
 @app.post('/user/<username>/')
+@login_required
 def profaction(username):
     if 'change-name' in request.form: #The user wants to change their display name
         if username == session.get('username'):
