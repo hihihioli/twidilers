@@ -50,6 +50,9 @@ def write_post():
     new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
     db.session.add(new_post)
     db.session.commit()
+    account = findAccount()
+    for follower in account.followers:
+        follower.notifications.append(db.session.execute(db.select(Post).filter_by(title=title)).scalar())
     return redirect(url_for('.page',page='feed'))
 
 @app.post('/feed')
