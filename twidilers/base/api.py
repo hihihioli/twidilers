@@ -83,6 +83,9 @@ def sign_up():
         flash('Please enter a username, password, and email','error')
         return redirect(url_for('.page',page='sign_up'))
     if password1 == password2: #Checks if the passwords match
+        if len(password1) < 8: #Checks if the password is at least 8 characters long
+            flash('Password must be at least 8 characters long','error')
+            return redirect(url_for('.page',page='sign_up'))
         new_account = Account(username=new_username,password=password1,displayname=display_name)
         db.session.add(new_account)
         try:
@@ -113,12 +116,19 @@ def settings(): #Handles the settings page
         account = findAccount()
         new_password = request.form.get('new-password')
         old_password = request.form.get('old-password')
-        if account.check_password(old_password):
+        username = account.username
+        if not account.check_password(old_password): #Checks if the old password is correct
+            flash('Current password is incorrect','error')
+        elif new_password == username: # checks if the new password is the same as the username
+            flash('Password cannot be the same as the username','error')
+        elif len(new_password) < 8:
+            flash('Password must be at least 8 characters long','error')
+        elif new_password == old_password: #Checks if the new password is the same as the old password
+            flash('New password cannot be the same as the old password','error')
+        else:
             account.password = new_password
             db.session.commit()
             flash('Password changed successfully','success')
-        else:
-            flash('Current password is incorrect','error')
         return redirect(url_for('.page',page='settings'))
     elif 'change-name' in request.form: #The user wants to change their display name
         account = findAccount()
