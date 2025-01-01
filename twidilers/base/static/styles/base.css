@@ -142,15 +142,16 @@ Click generate until you get the loss under 3 */
 }
 .notif-div {
     width: 200px !important;
+    display:block;
 }
 .notif-post {
     overflow-y:scroll;
     border-radius:10px;
     background-color:var(--lightishblue);
-    color:var(--darkblue);
+    color:var(--darkblue);  
 }
 #navbarbell {
-    position: relative;  /* Add this */
+    position: relative; 
     padding: 0 !important;
     font-size: 25px;
     background-color:var(--darkblue) !important;
@@ -160,10 +161,10 @@ Click generate until you get the loss under 3 */
 
 #notification-count {
     position: absolute;
-    bottom: -5px;         /* Adjust these values */
-    right: -5px;       /* to position the badge */
-    background-color: var(--lightblue);
-    color: var(--darkblue);
+    bottom: -5px;
+    right: -5px;
+    background-color: #ee3355;
+    color: white;
     border-radius: 1000px;
     padding: 5px;
     font-size: 10pt;
