@@ -68,9 +68,11 @@
 
             <h2 class="pst-title" id="post-title-{{ loop.index }}">{{post.title}}</h2>
             <p class="pst-content">{{post.content}}</p>
-            <time class="pst-date" id="date{{ loop.index0 }}" datetime="{{ post.date }}">
-                {{ post.date | format_date }}
-            </time>
+            <p class="pst-date" id="date{{ loop.index0 }}">{{ loop.index0 }}</p>
+            <script>
+                const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
+                    document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
+            </script>
         </article>
         {% endif %}
         {% endfor %}
