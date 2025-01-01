@@ -9,12 +9,14 @@
     <a href="{{ url_for('.write_post') }}"><button class="submit" id="createpost">Create a Post</button></a>
     <button id="filter" onclick="flyOut('filter-form','filter')"><i class="fa-solid fa-filter"></i></button>
     <form method="post" id="filter-form" name="filter-form">
-        {% if session['filter'] == 1 %}
-        <button id="filter-button" name="filter-button" class="submit">Filter: Following</button>
-        {% else %}
-        <button id="filter-button" name="filter-button" class="submit">Filter: All</button>
-        {% endif %}
+        <input type="checkbox" id="filter-foll">Show only posts from people I follow</input>
+        <input type="hidden" id="secret-foll">
+        <button id="submit-filter">Submit</button>
     </form>
+    <script>
+        check = document.getElementById('filter-foll');
+        secret = document.getElementById('secret-foll');
+    </script>
 </div>
 <script src="{{ url_for('.static', filename='/javascript/flyout.js') }}">
 </script>

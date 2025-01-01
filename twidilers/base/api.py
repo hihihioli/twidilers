@@ -55,44 +55,47 @@ def write_post():
 @app.post('/feed')
 @login_required
 def filter():
-    if session.get('filter') == 0:
+    placeholder = 1
+    if placeholder:
         session['filter'] = 1
+        flash("You're now seeing only people you follow", 'success')
     else:
         session['filter'] = 0
+        flash("You're seeing everything now", 'success')
     return redirect(url_for('.page', page='feed'))
 
 @app.post('/sign_up')
 def sign_up():
-        #Sets the variables to the form data
-        display_name = request.form.get('username')
-        new_username=request.form.get('username').lower()
-        if not checkUsername(new_username):
-            flash("Only a-z,A-Z,0-9,_ Allowed","error")
-            return redirect(url_for('.page',page='sign_up'))
-        password1=request.form.get('password1')
-        password2=request.form.get('password2')
-        email=request.form.get('email')
-        #Makes sure that the slots are not empty
-        if not new_username or not password1 or not password2 or not email: 
-            flash('Please enter a username, password, and email','error')
-            return redirect(url_for('.page',page='sign_up'))
-        if password1 == password2: #Checks if the passwords match
-            new_account = Account(username=new_username,password=password1,displayname=display_name)
-            db.session.add(new_account)
-            try:
-                db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
-            except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
-                flash('Username already exists','error')
-                db.session.rollback()
-                return redirect(url_for('.page',page='sign_up'))
-            # makes sure the user didn't do anything insecure with there password
-            if password1 == new_username or password1 == email:
-                flash('Password cannot be the same as the username or email','error')
-                return redirect(url_for('.page',page='sign_up'))
-            flash('User created successfully','success')
-            return redirect(url_for('.page',page='login'))
-        flash('Passwords do not match','error')
+    #Sets the variables to the form data
+    display_name = request.form.get('username')
+    new_username=request.form.get('username').lower()
+    if not checkUsername(new_username):
+        flash("Only a-z,A-Z,0-9,_ Allowed","error")
         return redirect(url_for('.page',page='sign_up'))
+    password1=request.form.get('password1')
+    password2=request.form.get('password2')
+    email=request.form.get('email')
+    #Makes sure that the slots are not empty
+    if not new_username or not password1 or not password2 or not email: 
+        flash('Please enter a username, password, and email','error')
+        return redirect(url_for('.page',page='sign_up'))
+    if password1 == password2: #Checks if the passwords match
+        new_account = Account(username=new_username,password=password1,displayname=display_name)
+        db.session.add(new_account)
+        try:
+            db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
+        except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
+            flash('Username already exists','error')
+            db.session.rollback()
+            return redirect(url_for('.page',page='sign_up'))
+        # makes sure the user didn't do anything insecure with there password
+        if password1 == new_username or password1 == email:
+            flash('Password cannot be the same as the username or email','error')
+            return redirect(url_for('.page',page='sign_up'))
+        flash('User created successfully','success')
+        return redirect(url_for('.page',page='login'))
+    flash('Passwords do not match','error')
+    return redirect(url_for('.page',page='sign_up'))
 
 
 @app.post('/settings')
@@ -155,7 +158,7 @@ def profile(username):
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
     if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
-        owner=1
+        owner = 1
     else:
         owner = 0
     return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
@@ -180,8 +183,8 @@ def profaction(username):
         flash(f'You are now following {username}')
         return redirect(url_for('.profile',username=username))
     else:
-            flash('A desync 2 error occured','error')
-            return redirect(url_for('.profile',username=username))
+        flash('A desync 2 error occured','error')
+        return redirect(url_for('.profile',username=username))
         
         
 
