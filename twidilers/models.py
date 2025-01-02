@@ -46,9 +46,13 @@ class Account(db.Model): #The user accounts
     )
   
   def verify(self,code): #Function to verify a user
+    try:
+      code = int(code)
+    except:
+      return False
     if code == self.verification_code: #If right code,
       self.verified = True             #mark user as verified,
-      del self.verification_code       #delete the code, and
+      self.verification_code = None       #delete the code, and
       return True                      #return true to mark as complete.
     return False #Return false if incorrect code
   
