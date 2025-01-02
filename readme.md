@@ -46,8 +46,9 @@ Want to learn more about one of the dependencies we use? Look no further!
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
 * Sign in with Google button
 ### Sign up process
-* Require unique email account (send verification code to confirm)
-* Sign up with Google button
+* Require unique email account
+* Sign up with Google button (also verifies the acocunt)
+* Show password button
 
 
 ## User pages
