@@ -228,7 +228,7 @@ def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
     return render_template('postinfo.html',post=post)
 
-@app.get('/veify/<username>')
+@app.get('/verify/<username>')
 def verify(username):
     code = request.form.get('code')
     user = findAccount(username)
