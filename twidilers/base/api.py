@@ -21,6 +21,9 @@ def login():
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
     if not account: #Checks if the given account exists
         account = db.session.execute(db.select(Account).filter_by(displayname=username)).scalar()
+    if not account:
+        flash('Username or password is incorrect. Change account details or create an account','error')
+        return redirect(url_for('.page',page='login'))
     if account.verified == False: #The account is unverified
         flash('Please Verify Your Account','Error')
         return redirect(url_for('.page',page='login'))
@@ -46,14 +49,26 @@ def write_post():
     if not content:
         flash('Post cannot be empty','error')
         return redirect(url_for('.page',page='post'))
-    flash('Post successfully created','success')
+    account = findAccount()
     date_utc = datetime.datetime.now(datetime.timezone.utc)
-    new_post = Post(title=title,content=content,date=date_utc,author=findAccount())
+    new_post = Post(title=title,content=content,date=date_utc,author=account)
     db.session.add(new_post)
     db.session.commit()
-    account = findAccount()
+    print(account)
+    print(account.followers)
     for follower in account.followers:
-        follower.notifications.append(db.session.execute(db.select(Post).filter_by(title=title)).scalar())
+        new_notifications = account.notifications.copy()
+        data = {
+            "author":account.username,
+            "title":title,
+            "content":content,
+            "date":date_utc.timestamp()
+        }
+        new_notifications.append(data)
+        follower.notifications = new_notifications
+        db.session.commit()
+        print(follower.notifications)
+    flash('Post successfully created','success')
     return redirect(url_for('.page',page='feed'))
 
 @app.post('/feed')
@@ -67,6 +82,18 @@ def filter():
         session['filter'] = 0
         flash("You're seeing everything now", 'success')
     return redirect(url_for('.page', page='feed'))
+
+@app.post('/clear')
+@login_required
+def clear():
+    data = request.get_json()
+    account = findAccount()
+    account.notifications = []
+    db.session.commit()
+    response = {
+        "recieved_data": data
+    }
+    return jsonify(response)
 
 @app.post('/sign_up')
 def sign_up():

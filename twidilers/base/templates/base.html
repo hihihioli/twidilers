@@ -54,17 +54,30 @@ import * as Turbo from "@hotwired/turbo"
         <div class="popup-div" id="notif-popup">
             <div class="notif-div">
                 <h2>Notifications</h2>
-                <button>Clear</button>
-                <!--We need to have a link to a specific post. postinfo.html.
-                this shoould be a 'for notifications in notifications' or whatever
-                I removed the curly brackets part so I didn't get an error because it's not coded yet -->
-                <a href="CHANGETHIS">
+                
+                <button onclick="clearNotifs()">Clear</button>
+                <div id="notif-div-0">
+                {% if session['username'] %}
+                {% if account.notifications %}
+                    {% for notif in account.notifications %}
                     <div class="notif-post">
-                        <div class="notif-title">notification.type</div> <!--ie New Post (because we can have different types later)-->
-                        <div class="notif-auth">notification.author</div>
-                        <div class="notif-content">notification.content</div><!--first line of text. overflow:hidden-->
+                        <div class="notif-auth">@{{notif['author']}}</div>
+                        <div class="notif-title">{{notif['title']}}</div>
+                        <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
+                        <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
                     </div>
-                </a>
+                    <script>
+                        const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
+                            document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
+                    </script>
+                    {% endfor %}
+                
+                {% else %}
+                <script>document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'
+            </script>
+                {% endif %}
+                {% endif %}
+            </div>
             </div>
         </div>
         <script>
@@ -110,6 +123,31 @@ import * as Turbo from "@hotwired/turbo"
             link.href = "{{ url_for('.static', filename='styles/fontawesome.css') }}";
             document.body.appendChild(link);
         });
+
+        function clearNotifs() { //The function to clear 
+            {% if session['username'] %}
+            {% set account = findAccount() %}
+            data = [
+                {% for notif in account.notifications %}
+                [`{{notif['content']}}`,
+                "{{notif['author']}}",]
+                {% endfor %}
+        ]
+            fetch("{{url_for('.clear')}}", {
+                method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'
+            })
+            {% else %}
+            alert('Y no logged in?')
+            {% endif %}
+            }
     </script>
 </body>
 

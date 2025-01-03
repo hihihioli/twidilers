@@ -10,21 +10,17 @@ userMenu.style.display = 'none';
 notifButton.addEventListener('click', () => {
 if (notifMenu.style.display === 'none') {
     notifMenu.style.display = 'flex';
-    console.log("I'm showing the menu!");
     userMenu.style.display = 'none';
 } else {
     notifMenu.style.display = 'none';
-    console.log("I'm hiding the menu!");
 }
 });  
 
 userButton.addEventListener('click', () => {
 if (userMenu.style.display === 'none') {
     userMenu.style.display = 'block';
-    console.log("I'm showing the menu!");
     notifMenu.style.display = 'none';
 } else {
     userMenu.style.display = 'none';
-    console.log("I'm hiding the menu!");
 }
 });
