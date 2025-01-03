@@ -29,7 +29,7 @@ class Account(db.Model): #The user accounts
   email:Mapped[str] = mapped_column(nullable=False)
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
-  password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=False) #Store the password hash instead of plaintext
+  password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=True) #Store the password hash instead of plaintext
   notifications:Mapped[list] = mapped_column(JSONB, default=list)
   verified:Mapped[bool] = mapped_column(default=False) #Wether they are verified or not
   verification_code:Mapped[int] = mapped_column(nullable=True,default=random.randint(100000,999999)) #Their code to verify, if false
@@ -52,7 +52,7 @@ class Account(db.Model): #The user accounts
       return False
     if code == self.verification_code: #If right code,
       self.verified = True             #mark user as verified,
-      self.verification_code = None       #delete the code, and
+      self.verification_code = None    #delete the code, and
       return True                      #return true to mark as complete.
     return False #Return false if incorrect code
   

@@ -18,7 +18,9 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Fix bugs
 * finish backend for hosting
 * Email integration (See below)
-
+* Set google oAuth to deployment(https://console.cloud.google.com/apis/credentials?authuser=6&project=twidilers&supportedpurview=project)
+    * Change uri to twidilers.com
+* Change github oAuth uri to twidilers.com(https://github.com/settings/applications/2831103)
 
 # New feature wishlist
 ## General features
