@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Welcome!{% endblock %}
+{% block head %}
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+{% endblock %}
+{% block content %}
+{% set account = findAccount() %}
+    <div class="welcome-div">
+        <h1>Your account is all setup!</h1>
+        <form method="post" >
+            <button class="submit" name="welcome5">Go to your profile</button>
+        </form>
+        </div>
+    {% endblock %}
