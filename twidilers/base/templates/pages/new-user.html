@@ -4,6 +4,7 @@
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/toggle.css') }}">
 
 {% endblock %}
 {% block content %}
@@ -12,18 +13,47 @@
     <div class="welcome-div" id="welcome-1">
         <h1>Welcome to Twidilers Hub!</h1>
             <p>You created an account with your username {{account.username}}. We need to set some things up before we continue.</p>
-            <button class="submit" onClick="nextPage(1)">Continue</button>
+            <button class="submit" onclick="nextPage(1)">Continue</button>
     </div>
     <div class="welcome-div" id="welcome-2">
+        <h1>Agree to our privacy policy and terms of service</h1>
+            <form method="post" id="terms-agree">
+                <div class="filter-control">
+                    <label class="switch" for="filter-foll">
+                        <input type="checkbox" 
+                               id="pp" 
+                               required="required"
+                               name="Agree to privacy policy" 
+                               aria-label="Agree to privacy policy">
+                        <span class="slider round" aria-hidden="true"></span>
+                    </label>
+                    <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='privacy')}}">privacy policy</a></span>
+                </div>
+                <div class="filter-control">
+                    <label class="switch" for="filter-foll">
+                        <input type="checkbox" 
+                               id="tos" 
+                               required="required"
+                               name="Agree to terms of service" 
+                               aria-label="Agree to terms of service">
+                        <span class="slider round" aria-hidden="true"></span>
+                    </label>
+                    <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='terms')}}">terms of service</a></span>
+                </div>                     
+            <button class="submit" type="submit" onclick="goAway('terms-agree')">I agree</button>
+            </form>
+        <button class="submit" id="pfp-submit" onclick="nextPage(4)">Continue</button>
+    </div>
+    <div class="welcome-div" id="welcome-3">
         <h1>Let's get your display name</h1>
             <h2>Your username: {{account.username}}</h2>
             <form method="post" id="change-display">
                 <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
-                <button class="submit" id="name-change" name="name-change" onClick=goAway(change-display)>Set name</button>
+                <button class="submit" id="name-change" name="name-change" onclick="goAway('change-display')">Set name</button>
             </form>
-            <button onClick="nextPage(2)" class="submit">Continue</button>
+        <button onclick="nextPage(2)" class="submit">Continue</button>
     </div>
-    <div class="welcome-div" id="welcome-3">
+    <div class="welcome-div" id="welcome-4">
         <h1>Show us your smile!</h1>
             <h2>Set up a profile picture</h2>
             <form method="post" enctype="multipart/form-data" id="upload_pfp">
@@ -31,18 +61,19 @@
                     choose picture
                 </label>
                 <input type="file" id="file" name="file" accept="image/*">
-                <button class="submit" onClick="goAway(upload_pfp)">Upload</button>
+                <button class="submit" onclick="goAway(upload_pfp)">Upload</button>
             </form>
-            <button class="submit" id="pfp-submit" onClick="nextPage(3)">Continue</button>
+        <button class="submit" id="pfp-submit" onclick="nextPage(3)">Continue</button>
     </div>
-    <div class="welcome-div" id="welcome-4">
+    <div class="welcome-div" id="welcome-5">
         <h1>Tell us about yourself</h1>
             <h2>Write a short bio</h2>
             <form method="post" enctype="multipart/form-data" id="profile-bio-change">
-                <input type="text" id="bio-change" name="bio-change" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters.">
+                <input type="text" id="bio-change" name="bio-change" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters." >
                 <button class="submit" onClick="goAway(profile-bio-change)">Upload</button>
             </form>
-            <button class="submit" id="pfp-submit" onClick="nextPage(4)">Continue</button>
+        <button class="submit" id="pfp-submit" onClick="nextPage(4)">Continue</button>
     </div>
+
 <script src="{{ url_for('.static', filename='/javascript/welcome.js') }}"></script>
 {% endblock %}
