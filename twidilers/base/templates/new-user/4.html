@@ -1,3 +1,13 @@
+
+{% extends 'base.html' %}
+{% block title %}Welcome!{% endblock %}
+{% block head %}
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+{% endblock %}
+{% block content %}
+{% set account = findAccount() %}
 <div class="welcome-div" id="welcome-4">
     <h1>Tell us about yourself</h1>
         <h2>Write a short bio</h2>
@@ -6,3 +16,5 @@
             <button class="submit" name="welcome4">Upload</button>
         </form>
 </div>
+    <script src="{{ url_for('.static', filename='/javascript/welcome.js') }}"></script>
+    {% endblock %}
