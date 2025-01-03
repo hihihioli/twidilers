@@ -21,9 +21,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # New feature wishlist
-* Change email button on settings page
-
-
 ## General features
 * Notifications
 * Email
@@ -76,6 +73,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 ## Feed
 * Reactions (reply, like/dislike) on posts
+* Mention users via username. Sends notification
 ### Regular posts
 * 
 ### Blogs

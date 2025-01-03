@@ -13,6 +13,10 @@
     <input type="password" class="textbox" placeholder="Confirm Password" id="password2" name="password2"/>
     <button id="submit" type="submit" class="submit">Send email verification</button>
 </form>
+<h4>Already have an account? <a href="{{ url_for('.page', page='login')}}">Sign in.</a></h4>
+<button type="button" class="google-sign-in-button" >Sign in with Google</button>
+<button type="button" class="github-sign-in-button" >Sign in with Github</button>
+
 {% else %}
     <div class="input_form">
         <h2>Thanks for signing up!</h2>
@@ -20,7 +24,4 @@
         <a href="{{url_for('.page',page='login')}}"><button class="submit">Return to login</button></a>
     </div>
 {% endif %}
-    <button type="button" class="google-sign-in-button" >
-        Sign in with Google
-    </button>
 {% endblock %}
