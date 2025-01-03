@@ -44,9 +44,9 @@
     </div>
 
     <div class="email-content">
-        <h2>Welcome to Twidilers, USERNAME!</h2>
+        <h2>Welcome to Twidilers, {{ username }}!</h2>
         <p>Your account is activated and fully set up. Here's a link to your profile for future refrence</p>
-        <a href="CHANGE_THIS_TO_PROFILE_URL">
+        <a href="{{ url_for('.profile', username=username,_external=True) }}">
             <div class="verification-code">
                 <h4 class="code-text">My Profile</h4>
             </div>

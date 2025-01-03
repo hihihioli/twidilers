@@ -29,7 +29,6 @@ def login():
     if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
         flash('Login Successful!','success')
         session['username'] = username #Sets session data to be used on other pages
-        session['filter'] = 0
         return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
@@ -37,6 +36,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username',None) #remove username from session, effectively logging them out
+    session['filter'] = 0
     flash('Successfully logged out','success')
     return redirect(url_for('.page',page='login'))
 
@@ -224,11 +224,12 @@ def verify(username):
         return redirect(url_for('.page',page='sign-up'))
     db.session.commit()
     flash('User Succesfully Verified','success')
-    return redirect(url_for('.page',page='login'))
+    session['username'] = username #log them in
+    return redirect(url_for('.new_user')) #bring them to the new user page
 
 @app.get('/new-user')
 @login_required
-def get_new_user():
+def new_user():
     account = findAccount()
     if account.setup:
         flash("You've Already Set Up Your Account",'error')
@@ -237,7 +238,7 @@ def get_new_user():
 
 @login_required
 @app.post('/new-user')
-def new_user():
+def post_new_user():
     account = findAccount()
     if account.setup:
         flash("You've Already Set Up Your Account",'error')
