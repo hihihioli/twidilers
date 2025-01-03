@@ -94,34 +94,34 @@ def clear():
     }
     return jsonify(response)
 
-@app.post('/sign_up')
+@app.post('/sign-up')
 def sign_up():
     #Sets the variables to the form data
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()
     if not checkUsername(new_username):
         flash("Only a-z,0-9,_ Allowed","error")
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
     password1=request.form.get('password1')
     password2=request.form.get('password2')
     email=request.form.get('email')
     #Makes sure that the slots are not empty
     if not new_username or not password1 or not password2 or not email: 
         flash('Please enter a username, password, and email','error')
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
     
     if password1 != password2: #Checks if the passwords match
         flash('Passwords do not match','error')
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
     
     # makes sure the user didn't do anything insecure with there password
     if password1 == new_username or password1 == email:
         flash('Password cannot be the same as the username or email','error')
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
 
     if len(password1) < 8: #Checks if the password is at least 8 characters long
         flash('Password must be at least 8 characters long','error')
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
     
     new_account = Account(username=new_username,password=password1,displayname=display_name,email=email) #Create an unverified account placholder
     db.session.add(new_account)
@@ -131,10 +131,10 @@ def sign_up():
     except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
         flash('Username already exists','error')
         db.session.rollback()
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
     
     sendVerification(new_account) #Send the verification screen
-    return render_template('pages/sign_up.html',entered=True) #Show the welcome to twidilers screen
+    return render_template('pages/sign-up.html',entered=True) #Show the welcome to twidilers screen
 
 
 @app.post('/settings')
@@ -221,7 +221,20 @@ def verify(username):
     user = findAccount(username)
     if not user.verify(code):
         flash('Invalid Code','error')
-        return redirect(url_for('.page',page='sign_up'))
+        return redirect(url_for('.page',page='sign-up'))
     db.session.commit()
     flash('User Succesfully Verified','success')
     return redirect(url_for('.page',page='login'))
+
+@app.get('/new-user')
+@login_required
+def get_new_user():
+    account = findAccount()
+    if account.setup:
+        flash("You've Already Set Up Your Account",'error')
+        return redirect(url_for('.page',page='index'))
+    return render_template('new-user.html')
+
+@app.post('/new-user')
+def new_user():
+    pass
