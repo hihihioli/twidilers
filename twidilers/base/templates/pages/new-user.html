@@ -40,18 +40,16 @@
                     </label>
                     <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='terms')}}">terms of service</a></span>
                 </div>                     
-            <button class="submit" type="submit" onclick="goAway('terms-agree')">I agree</button>
+            <button class="submit" type="submit" onclick="nextPage(3)">I agree</button>
             </form>
-        <button class="submit" id="pfp-submit" onclick="nextPage(4)">Continue</button>
     </div>
     <div class="welcome-div" id="welcome-3">
         <h1>Let's get your display name</h1>
             <h2>Your username: {{account.username}}</h2>
             <form method="post" id="change-display">
                 <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
-                <button class="submit" id="name-change" name="name-change" onclick="goAway('change-display')">Set name</button>
+                <button class="submit" id="name-change" name="name-change" onclick="nextPage(4)">Continue</button>
             </form>
-        <button onclick="nextPage(2)" class="submit">Continue</button>
     </div>
     <div class="welcome-div" id="welcome-4">
         <h1>Show us your smile!</h1>
@@ -63,7 +61,7 @@
                 <input type="file" id="file" name="file" accept="image/*">
                 <button class="submit" onclick="goAway(upload_pfp)">Upload</button>
             </form>
-        <button class="submit" id="pfp-submit" onclick="nextPage(3)">Continue</button>
+        <button class="submit" id="pfp-submit" onclick="nextPage(5)">Continue</button>
     </div>
     <div class="welcome-div" id="welcome-5">
         <h1>Tell us about yourself</h1>
@@ -72,7 +70,7 @@
                 <input type="text" id="bio-change" name="bio-change" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters." >
                 <button class="submit" onClick="goAway(profile-bio-change)">Upload</button>
             </form>
-        <button class="submit" id="pfp-submit" onClick="nextPage(4)">Continue</button>
+        <button class="submit" id="pfp-submit" onclick="nextPage(5)">Continue</button>
     </div>
 
 <script src="{{ url_for('.static', filename='/javascript/welcome.js') }}"></script>

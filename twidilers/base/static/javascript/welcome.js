@@ -1,5 +1,7 @@
 // Get all welcome elements in an array
 const welcomes = [
+    document.getElementById('welcome-0'),
+    document.getElementById('welcome-1'),
     document.getElementById('welcome-1'),
     document.getElementById('welcome-2'),
     document.getElementById('welcome-3'),
@@ -17,12 +19,14 @@ function nextPage(currentPage) {
     // Hide all pages
     welcomes.forEach((welcome) => (welcome.style.display = 'none'));
 
-    if (currentPage < welcomes.length) {
+    if (currentPage < welcomes.length && currentPage !== 1) {
         // Show the specified page
         welcomes[currentPage].style.display = 'block';
+    } else if (currentPage === 1) {
+        // If it's the set username page, only show if account is OAuth created
     } else {
         // Redirect if it's beyond the last page
-        redirect("{{ url_for('.pages', filename='index.html') }}");
+        redirect("{{ url_for('.profile', username=findAccount()) }}");
     }
 }
 // Uploading profile picture
@@ -33,6 +37,7 @@ file.addEventListener('change',() => {
     }
 })
 // hides element
-function goAway(e) {
-    e.style.display = 'none';
+function goAway(e,s) {
+    e.style.display = 'none'; // Hides element
+    s.style.display = 'block'; // Shows success message
 }
