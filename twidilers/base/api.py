@@ -5,13 +5,12 @@ The file for routes that need extra processing, such as processing a login.
 from flask import render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
 import sqlalchemy
 import datetime
-from io import BytesIO
-from PIL import Image, ImageOps, UnidentifiedImageError
+
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
 from .decorators import login_required #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
-from ..functions import findAccount,save,checkUsername#Custom functions, like save()
+from ..functions import * #Custom functions, like save()
 from .email import sendVerification #email functions
 
 @app.post('/login')
@@ -141,58 +140,19 @@ def sign_up():
 @app.post('/settings')
 def settings(): #Handles the settings page
     if 'delete' in request.form: #The user wants to delete their account
-        account = findAccount()
-        db.session.delete(account)
-        db.session.commit()
-        flash('Successfully Deleted Account','success')
+        deleteAccount()
         return redirect(url_for('.logout')) 
     elif 'new-password' in request.form: #The user wants to change their password
-        account = findAccount()
-        new_password = request.form.get('new-password')
-        old_password = request.form.get('old-password')
-        username = account.username
-        if not account.check_password(old_password): #Checks if the old password is correct
-            flash('Current password is incorrect','error')
-        elif new_password == username: # checks if the new password is the same as the username
-            flash('Password cannot be the same as the username','error')
-        elif len(new_password) < 8:
-            flash('Password must be at least 8 characters long','error')
-        elif new_password == old_password: #Checks if the new password is the same as the old password
-            flash('New password cannot be the same as the old password','error')
-        else:
-            account.password = new_password
-            db.session.commit()
-            flash('Password changed successfully','success')
+        newPassword(request)
         return redirect(url_for('.page',page='settings'))
     elif 'change-name' in request.form: #The user wants to change their display name
-        account = findAccount()
-        new_name = request.form.get('change-name')
-        account.displayname = new_name
-        save()
-        flash(f'Display Name Changed to {account.displayname}','success')
+        changeDisplay(request)
         return redirect(url_for('.page',page='settings'))
     elif 'file' in request.files: #The user wants to update their pfp
-        account = findAccount()
-        try:
-            img = Image.open(request.files['file'])
-            img = ImageOps.fit(img,(200,200)) #sets the file resolution
-            temp_file = BytesIO()
-            img.save(temp_file, format="PNG")
-            account.photo = temp_file.getvalue()
-            db.session.commit()
-            flash('Updated Photo Successfully','success')
-        except UnidentifiedImageError:
-            flash('Unsupported Image Type','error')
-        except Exception as e:
-            flash(f'An Error Occured: {e}')
+        changePFP(request)
         return redirect(url_for('.page',page='settings'))
     elif 'bio' in request.form: #The user wants to update their bio
-        account = findAccount()
-        new_userdata = account.userdata.copy()  # Create a copy of the existing userdata
-        new_userdata['bio'] = request.form.get('bio')  # Update the bio field
-        account.userdata = new_userdata 
-        db.session.commit()
-        flash('Bio Updated Successfully','success')
+        changeBio(request)
         return redirect('/settings')
     else: # We don't recognize the form. This is a catch all
         flash('Something went wrong','error')
