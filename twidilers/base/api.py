@@ -259,9 +259,9 @@ def new_user():
         return render_template('new-user/4.html')
     if 'welcome4' in request.form:
         changeBio(request)
-        account.setup = True
         db.session.commit()
         return render_template('new-user/5.html')
     if 'welcome5' in request.form:
+        account.setup = True
         flash('Account Setup Complete','success')
         return redirect(url_for('.profile',username=account.username))
