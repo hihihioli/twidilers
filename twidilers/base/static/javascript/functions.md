@@ -1,4 +1,4 @@
-Here's a brief overview of the files and what they do as of New Year's Eve 2024.
+Here's a brief overview of the files and what they do as of 1/2/25
 
 Many of these functions are similar because I just made them to show different divs.
 
@@ -6,6 +6,8 @@ Many of these functions are similar because I just made them to show different d
 # base.js
 This here is kind of a special case. It's expanded flyout.js because there are two flyouts. Normally, this wouldn't be an issue, but because there are two popup menus that overlap, both of them need to be hidden. I didn't feel like putting this in flyout.js so gave it it's own file
 
+# fontawesome.js
+Basic script called at the end of base.html that loads fontawesome.css only once the page is fully loaded. Fontawesome.css can slow the page load times by up to 10x. Deferred calling helps mitigate it but a longer term solution would be to just load svgs of fontawesome icons.
 
 # flyout.js
 It's a function called flyOut with the inputs being the flyout and the flyout button. It listens for a button click and then shows the flyout. This is useful for things like filters or something that doesn't warrent it's own page but also can't be shown all the time.
