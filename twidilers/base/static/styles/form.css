@@ -65,7 +65,7 @@ a:focus-visible {
     .input_form {
         background-color: var(--darkishblue);
         border: 3px solid var(--lightishblue);
-
+        color:var(--lightblue);
     }
     .textbox {
         color: var(--lightblue);

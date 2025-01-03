@@ -14,11 +14,13 @@
     <button id="submit" type="submit" class="submit">Send email verification</button>
 </form>
 {% else %}
-    <!-- Style This -->
     <div class="input_form">
         <h2>Thanks for signing up!</h2>
         <p>Check your email to confirm your email address and start the setup process.</p>
         <a href="{{url_for('.page',page='login')}}"><button class="submit">Return to login</button></a>
     </div>
 {% endif %}
+    <button type="button" class="google-sign-in-button" >
+        Sign in with Google
+    </button>
 {% endblock %}
