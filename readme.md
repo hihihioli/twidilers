@@ -21,6 +21,8 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # New feature wishlist
+* Change email button on settings page
+
 
 ## General features
 * Notifications
