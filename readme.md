@@ -38,18 +38,14 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 ## User accounts
 ### New user setup process
-* Add more pages
-* bugs (You can't submit anything)
+* Add skip button for non-required actions (update pfp and bio)
 ### Login process
-* show password button
-* When logging in with an old invalid password, flash "The password was changed recently"
 * Forgot password functionality
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
 * Sign in with Google button
 ### Sign up process
 * Require unique email account
 * Sign up with Google button (also verifies the acocunt)
-* Show password button
 
 
 ## User pages
