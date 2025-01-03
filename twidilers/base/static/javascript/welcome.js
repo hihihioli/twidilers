@@ -4,7 +4,7 @@ const welcomes = [
     document.getElementById('welcome-2'),
     document.getElementById('welcome-3'),
     document.getElementById('welcome-4'),
-
+    document.getElementById('welcome-5'),
 ];
 
 // Set the first page to be visible and the rest to be hidden

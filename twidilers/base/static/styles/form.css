@@ -19,7 +19,7 @@ html {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     color: var(--darkblue);
 }
 
@@ -36,6 +36,9 @@ html {
 }
 p .input_form, h2 .input_form {
     margin:10px 0;
+}
+h4 {
+    font-weight:normal;
 }
 /* Accessbility for screen readers. Don't ask*/
 .posts-container {
