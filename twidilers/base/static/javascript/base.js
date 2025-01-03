@@ -37,10 +37,10 @@ function clearNotifs() { //The function to clear notifications
         ]
         fetch("{{url_for('.clear')}}", { // fetches clear function in api.py
             method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
         .then(data => {
