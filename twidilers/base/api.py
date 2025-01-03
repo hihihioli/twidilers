@@ -233,8 +233,35 @@ def get_new_user():
     if account.setup:
         flash("You've Already Set Up Your Account",'error')
         return redirect(url_for('.page',page='index'))
-    return render_template('new-user.html')
+    return render_template('new-user/0.html')
 
+@login_required
 @app.post('/new-user')
 def new_user():
-    pass
+    account = findAccount()
+    if account.setup:
+        flash("You've Already Set Up Your Account",'error')
+        return redirect(url_for('.page',page='index'))
+    if 'welcome0' in request.form:
+        return render_template('new-user/1.html')
+    if 'welcome1' in request.form:
+        if account.is_oauth:
+            return render_template('new-user/oauth.html')
+        return render_template('new-user/2.html')
+    if 'oauth' in request.form:
+        changeUsername(request)
+        return render_template('new-user/2.html')
+    if 'welcome2' in request.form:
+        changeDisplay(request)
+        return render_template('new-user/3.html')
+    if 'welcome3' in request.form:
+        changePFP(request)
+        return render_template('new-user/4.html')
+    if 'welcome4' in request.form:
+        changeBio(request)
+        account.setup = True
+        db.session.commit()
+        return render_template('new-user/5.html')
+    if 'welcome5' in request.form:
+        flash('Account Setup Complete','success')
+        return redirect(url_for('.profile',username=account.username))

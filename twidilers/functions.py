@@ -53,10 +53,18 @@ def newPassword(request):
 
 def changeDisplay(request):
     account = findAccount()
-    new_name = request.form.get('change-name')
+    new_name = request.form.get('displayname')
     account.displayname = new_name
     db.session.commit()
     flash(f'Display Name Changed to {account.displayname}','success')
+
+def changeUsername(request):
+    account = findAccount()
+    new_name = request.form.get('username')
+    account.username = new_name
+    db.session.commit()
+    flash(f'Username Changed to {account.displayname}','success')
+
 
 def changePFP(request):
     account = findAccount()
