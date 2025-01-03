@@ -10,7 +10,11 @@
     <input type="password" class="textbox" placeholder="Enter Password" id="password" name="password"/>
     <button id="submit" type="submit" class="submit" class="submitwide">Log In</button>
 </form>
-<button type="button" class="google-sign-in-button"><i ></i>Sign in with Google</button>
-<button type="button" class="github-sign-in-button">Sign in with Github</button>
-
+<div class="other-signup">
+    <h4>Don't have account? <a href="{{ url_for('.page', page='sign_up')}}">Sign up.</a></h4>
+</div>
+<div class="other-signup">
+    <button type="button" class="google-sign-in-button"><i class="fa-brands fa-google"></i><div class="signin-txt">Log in with Google</div></button><br>
+    <button type="button" class="github-sign-in-button"><i class="fa-brands fa-github"></i><div class="signin-txt">Log in with Github</div></button>
+</div>
 {% endblock %}

@@ -34,6 +34,9 @@ html {
     border: 3px solid var(--darkblue);
     font-family:Arial, sans-serif;
 }
+p .input_form, h2 .input_form {
+    margin:10px 0;
+}
 /* Accessbility for screen readers. Don't ask*/
 .posts-container {
     margin-top: 1rem;
@@ -61,12 +64,29 @@ a:focus-visible {
     margin:0;
     align-self:inherit !important;
 }
+.fa-brands {
+    margin:0 12px 0 0;
+    font-size:20px;
+}
+.signin-txt {
+    float:right;
+}
+.other-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    flex-direction:column;
+}
+a .other-signup {
+    font-weight:bold;
+}
 /* Google sign in button stolen shamelessly from stack overflow */
 .google-sign-in-button, .github-sign-in-button {
     cursor: pointer;
     transition: background-color .3s, box-shadow .3s;
         
-    padding: 12px 16px 12px 42px;
+    padding: 12px;
     border: none;
     border-radius: 3px;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
@@ -82,10 +102,6 @@ a:focus-visible {
 }
 
 .google-sign-in-button:hover, .github-sign-in-button:hover {
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
-}
-
-.google-sign-in-button:active, .github-sign-in-button:hover {
     background-color: #eeeeee;
     outline: none;
     box-shadow: 

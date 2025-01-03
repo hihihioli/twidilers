@@ -13,10 +13,13 @@
     <input type="password" class="textbox" placeholder="Confirm Password" id="password2" name="password2"/>
     <button id="submit" type="submit" class="submit">Send email verification</button>
 </form>
-<h4>Already have an account? <a href="{{ url_for('.page', page='login')}}">Sign in.</a></h4>
-<button type="button" class="google-sign-in-button" >Sign in with Google</button>
-<button type="button" class="github-sign-in-button" >Sign in with Github</button>
-
+<div class="other-signup">
+    <h4>Already have an account? <a href="{{ url_for('.page', page='login')}}">Sign in.</a></h4>
+</div>
+<div class="other-signup">
+    <button type="button" class="google-sign-in-button"><i class="fa-brands fa-google"></i><div class="signin-txt">Sign up with Google</div></button><br>
+    <button type="button" class="github-sign-in-button"><i class="fa-brands fa-github"></i><div class="signin-txt">Sign up with Github</div></button>
+</div>
 {% else %}
     <div class="input_form">
         <h2>Thanks for signing up!</h2>

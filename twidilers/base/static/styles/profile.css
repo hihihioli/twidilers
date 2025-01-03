@@ -48,6 +48,8 @@
 #prof-usrname {
     margin: 0;
     margin-bottom: 10px;
+    font-size:1.1em;
+    font-weight:normal;
 }
 .profile-div {
     border-radius:15px;
