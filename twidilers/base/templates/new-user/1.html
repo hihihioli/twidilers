@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Welcome!{% endblock %}
+{% block head %}
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/toggle.css') }}">
+
+{% endblock %}
+{% block content %}
+{% set account = findAccount() %}
+    <div class="welcome-div" id="welcome-2">
+        <h1>Agree to our privacy policy and terms of service</h1>
+            <form method="post" id="terms-agree">
+                <div class="filter-control">
+                    <label class="switch" for="filter-foll">
+                        <input type="checkbox" 
+                               id="pp" 
+                               required="required"
+                               name="Agree to privacy policy" 
+                               aria-label="Agree to privacy policy">
+                        <span class="slider round" aria-hidden="true"></span>
+                    </label>
+                    <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='privacy')}}">privacy policy</a></span>
+                </div>
+                <div class="filter-control">
+                    <label class="switch" for="filter-foll">
+                        <input type="checkbox" 
+                               id="tos" 
+                               required="required"
+                               name="Agree to terms of service" 
+                               aria-label="Agree to terms of service">
+                        <span class="slider round" aria-hidden="true"></span>
+                    </label>
+                    <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='terms')}}">terms of service</a></span>
+                </div>                     
+                <button class="submit" type="submit" name="welcome1">I agree</button>
+            </form>
+    </div>
+    <script src="{{ url_for('.static', filename='/javascript/welcome.js') }}"></script>
+    {% endblock %}
