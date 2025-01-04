@@ -3,6 +3,8 @@
 Want to learn more about one of the dependencies we use? Look no further!
 * Turbo.js https://turbo.hotwired.dev/handbook/
 * Flask https://flask.palletsprojects.com/en/stable/
+* Google Oauth https://console.cloud.google.com/apis/credentials?authuser=6&project=twidilers&supportedpurview=project 
+* Github Oauth https://github.com/settings/applications/2831103 
 
 ## Good tutorial sources
 * https://blog.miguelgrinberg.com/category/Flask
@@ -16,11 +18,12 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Do before deployment:
 * Fix bugs
-* finish backend for hosting
 * Email integration (See below)
-* Set google oAuth to deployment(https://console.cloud.google.com/apis/credentials?authuser=6&project=twidilers&supportedpurview=project)
-    * Change uri to twidilers.com
-* Change github oAuth uri to twidilers.com(https://github.com/settings/applications/2831103)
+* Mod tools.
+* Oauth
+    * Set google oAuth to deployment (see above for link)
+        * Change uri to twidilers.com
+    * Change github oAuth uri to twidilers.com
 
 # New feature wishlist
 ## General features
@@ -46,6 +49,10 @@ Want to learn more about one of the dependencies we use? Look no further!
 ### Sign up process
 * Require unique email account
 * Sign up with Google button (also verifies the acocunt)
+
+
+## Moderation tools
+While it doesn't have to be advanced right now, we need to have the ability to ban users/IP addresses and delete offending posts (If someone posts something illegal, we would have to delete the whole database). Report system optional.
 
 
 ## User pages

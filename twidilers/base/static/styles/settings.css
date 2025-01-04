@@ -77,6 +77,7 @@ input[type="file"] {
   overflow-y: hidden;
   height:36px !important;
   width:530px !important;
+  border-radius:5px;
 }
 .profile-div {
     border-radius:15px;

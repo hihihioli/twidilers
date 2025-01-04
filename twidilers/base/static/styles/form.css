@@ -58,9 +58,12 @@ a:focus-visible {
 #post-content {
     resize:vertical;
     overflow-y: hidden;
+    border-radius:5px;
 }
 #title, #post-content {
     width: 470px;
+}
+#title {
     border-radius: 10px;
 }
 #post-submit {
