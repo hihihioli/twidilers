@@ -1,16 +1,17 @@
-{% extends 'base.html' %}
-{% block title %}Welcome!{% endblock %}
-{% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-{% endblock %}
-{% block content %}
-{% set account = findAccount() %}
-    <div class="welcome-div" id="welcome-0">
-        <h1>Welcome to Twidilers Hub!</h1>
-        <p>You created an account with your username {{account.username}}. We need to set some things up before we continue.</p>
-        <form method="post" id="welcome-0-form">
-            <button class="submit" type="submit" name="welcome0">Continue</button>
-        </form>
-    </div>
-{% endblock %}
+<html>
+    <head>
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
+    </head>
+    <body>
+        {% set account = findAccount() %}
+        <div class="welcome-div" id="welcome-0">
+            <h1>Welcome to Twidilers Hub!</h1>
+            <p>You created an account with your username {{account.username}}. We need to set some things up before we continue.</p>
+            <form method="post" id="welcome-0-form">
+                <button class="submit" type="submit" name="welcome0">Continue</button>
+            </form>
+        </div>
+    </body>
+</html>

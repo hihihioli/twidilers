@@ -175,17 +175,7 @@ def profile(username):
 @login_required
 def profaction(username):
     account = findAccount()
-    if 'change-name' in request.form: #The user wants to change their display name
-        if username == session.get('username'):
-            new_name = request.form.get('change-name')
-            account.displayname = new_name
-            save()
-            flash(f'Display Name Changed to {account.displayname}','success')
-            return redirect(url_for('.profile',username=username))
-        else:
-            flash('A desync 1 error occured','error')
-            return redirect(url_for('.profile',username=username))
-    elif 'follow-button' in request.form:
+    if 'follow-button' in request.form:
         account.following.append(findAccount(username))
         db.session.commit()
         flash(f'You are now following {username}')
@@ -227,11 +217,11 @@ def verify(username):
     session['username'] = username #log them in
     return redirect(url_for('.new_user')) #bring them to the new user page
 
-@app.get('/new-user')
+@app.get('/new-user') # User requests /new-user
 @login_required
 def new_user():
     account = findAccount()
-    if account.setup:
+    if account.setup: # If the account is set up already
         flash("You've Already Set Up Your Account",'error')
         return redirect(url_for('.page',page='index'))
     return render_template('new-user/0.html')
@@ -243,26 +233,26 @@ def post_new_user():
     if account.setup:
         flash("You've Already Set Up Your Account",'error')
         return redirect(url_for('.page',page='index'))
-    if 'welcome0' in request.form:
+    if 'welcome0' in request.form: # First page doesn't submit information
         return render_template('new-user/1.html')
-    if 'welcome1' in request.form:
-        if account.is_oauth:
+    if 'welcome1' in request.form: # welcome 1 is privacy policy
+        if account.is_oauth: # If the account is created with oauth, go to oauth page
             return render_template('new-user/oauth.html')
         return render_template('new-user/2.html')
-    if 'oauth' in request.form:
+    if 'oauth' in request.form: # If the user is oauth, they need to set a username
         changeUsername(request)
         return render_template('new-user/2.html')
-    if 'welcome2' in request.form:
+    if 'welcome2' in request.form: # welcome 2 is display name change
         changeDisplay(request)
         return render_template('new-user/3.html')
-    if 'welcome3' in request.form:
+    if 'welcome3' in request.form: # welcome 3 is pfp change
         changePFP(request)
         return render_template('new-user/4.html')
-    if 'welcome4' in request.form:
+    if 'welcome4' in request.form: # welcome 4 is bio change
         changeBio(request)
         db.session.commit()
         return render_template('new-user/5.html')
-    if 'welcome5' in request.form:
+    if 'welcome5' in request.form: # Welcome 5 is success page.
         account.setup = True
         flash('Account Setup Complete','success')
         return redirect(url_for('.profile',username=account.username))
