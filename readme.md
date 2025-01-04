@@ -27,7 +27,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # New feature wishlist
 ## General features
-* Notifications
 * Email
 * Blogs
 
@@ -35,8 +34,8 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## Frontend changes
 * Mobile version
 * Improved loading times
-* Accessibility for people with screen readers
 * Updated flash styling
+* light mode
 
 
 ## User accounts
