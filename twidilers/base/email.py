@@ -14,3 +14,11 @@ def sendVerification(user): #Send a verification code
     msg.html = render_template('emails/new-verification.html',code=user.verification_code,link=url_for('.verify',username=user.username,_external=True))
 
     mail.send(msg)
+
+def sendWelcome(user): #Send a welcome email
+    email = user.email
+    msg = Message(subject="Welcome to Twidilers!")
+    msg.add_recipient(email)
+    msg.html = render_template('emails/welcome.html',username=user.username)
+
+    mail.send(msg)
