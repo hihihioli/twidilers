@@ -1,19 +1,17 @@
-{% extends 'base.html' %}
-{% block title %}Welcome!{% endblock %}
-{% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/toggle.css') }}">
-
-{% endblock %}
-{% block content %}
-{% set account = findAccount() %}
-    <div class="welcome-div" id="welcome-2">
-        <h1>Agree to our privacy policy and terms of service</h1>
+<html>
+    <head>
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+    </head>
+    <body>
+    {% set account = findAccount() %}
+        <div class="welcome-div" id="welcome-1">
+            <h1>Agree to our privacy policy and terms of service</h1>
             <form method="post" id="terms-agree">
                 <h2>By clicking "Agree" you are agreeing to the <a href="{{ url_for('.page', page='privacy')}}">privacy policy</a> and our <a href="{{ url_for('.page', page='tos')}}">terms of service.</a></h2>                    
                 <button class="submit" type="submit" name="welcome1">I agree</button>
             </form>
-    </div>
-    {% endblock %}
+        </div>
+    </body>
+</html>

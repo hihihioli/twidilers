@@ -1,18 +1,18 @@
-{% extends 'base.html' %}
-{% block title %}Welcome!{% endblock %}
-{% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
-{% endblock %}
-{% block content %}
-{% set account = findAccount() %}
-<div class="welcome-div" id="welcome-3">
-    <h1>Let's get your display name</h1>
-        <h2>Your username: {{account.username}}</h2>
-        <form method="post" id="change-display">
-            <input id="change-name" name="displayname" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters" value="{{account.username}}">
-            <button class="submit" id="name-change" name="welcome2">Continue</button>
-        </form>
-</div>
-    {% endblock %}
+<html>
+    <head>
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+    </head>
+    <body>
+        {% set account = findAccount() %}
+        <div class="welcome-div" id="welcome-3">
+            <h1>Let's get your display name</h1>
+                <h2>Your username: {{account.username}}</h2>
+                <form method="post" id="change-display">
+                    <input id="change-name" name="displayname" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters" value="{{account.username}}">
+                    <button class="submit" id="name-change" name="welcome2">Continue</button>
+                </form>
+        </div>
+    </body>
+</html>

@@ -1,16 +1,18 @@
-{% extends 'base.html' %}
-{% block title %}Welcome!{% endblock %}
-{% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
-{% endblock %}
-{% block content %}
-{% set account = findAccount() %}
-    <!-- Setup username for users with Oauth-->
-    <form method="post" id="welcome-1-form">
-        <input name="username">
-        <label for="username">Choose a username</label>
-        <button class="submit" type="submit" name="oauth">Continue</button>
-    </form>
-{% endblock %}
+<html>
+    <head>
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+    </head>
+    <body>
+    {% set account = findAccount() %}
+        <div class="welcome-div" id="welcome-oauth">
+        <!-- Setup username for users with Oauth-->
+        <form method="post" id="welcome-1-form">
+            <input name="username">
+            <label for="username">Choose a username</label>
+            <button class="submit" type="submit" name="oauth">Continue</button>
+        </form>
+        </div>
+    </body>
+</html>
