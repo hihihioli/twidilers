@@ -36,6 +36,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## User accounts
 ### New user setup process
 * Add skip button for non-required actions (update pfp and bio)
+* User 404 page when not fully setup
 ### Login process
 * Forgot password functionality
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
