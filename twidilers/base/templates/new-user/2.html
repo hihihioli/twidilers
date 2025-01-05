@@ -11,7 +11,7 @@
     <h1>Let's get your display name</h1>
         <h2>Your username: {{account.username}}</h2>
         <form method="post" id="change-display">
-            <input id="change-name" name="displayname" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
+            <input id="change-name" name="displayname" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters" value="{{account.username}}">
             <button class="submit" id="name-change" name="welcome2">Continue</button>
         </form>
 </div>

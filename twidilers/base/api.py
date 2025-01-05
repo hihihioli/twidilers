@@ -226,7 +226,6 @@ def new_user():
         return redirect(url_for('.page',page='index'))
     return render_template('new-user/0.html')
 
-@login_required
 @app.post('/new-user')
 def post_new_user():
     account = findAccount()
