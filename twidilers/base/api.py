@@ -175,18 +175,18 @@ def profile(username):
 @login_required
 def profaction(username):
     account = findAccount()
-    if 'follow-button' in request.form:
+    if 'follow-button' in request.form: #The user is trying to follow the profile with the name in the username variable
         account.following.append(findAccount(username))
         db.session.commit()
         flash(f'You are now following {username}')
         return redirect(url_for('.profile',username=username))
-    elif 'unfollow-button' in request.form:
+    elif 'unfollow-button' in request.form: #The user is trying to unfollow the user
         account.following.remove(findAccount(username))
         db.session.commit()
         flash(f'You are no longer following {username}')
         return redirect(url_for('.profile',username=username))
     else:
-        flash('A desync 2 error occured','error')
+        flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
         
         
