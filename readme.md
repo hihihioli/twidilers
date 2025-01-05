@@ -9,12 +9,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## Good tutorial sources
 * https://blog.miguelgrinberg.com/category/Flask
 
-
-
 # Bugs
-* new-user.html throws a "Method Not Allowed. The method is not allowed for the requested URL." when trying to submit a profile piture or while changing the display name
-* The default state is "following" for users. When you start out, you are following everyone
-
 
 # Do before deployment:
 * Fix bugs
