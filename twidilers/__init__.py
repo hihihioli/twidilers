@@ -27,9 +27,14 @@ def create_app():
             'client_secret': app.config.get('GOOGLE_CLIENT_SECRET'),
             'authorize_url': 'https://accounts.google.com/o/oauth2/auth',
             'token_url': 'https://accounts.google.com/o/oauth2/token',
-            'userinfo': {
+            'email': {
                 'url': 'https://www.googleapis.com/oauth2/v3/userinfo',
                 'email': lambda json: json['email'],
+            },
+            'userdata': {
+                'url': 'https://www.googleapis.com/oauth2/v3/userinfo',
+                'picture': lambda json: json['picture'],
+                'name': lambda json: json['name'],
             },
             'scopes': ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
         },
@@ -41,9 +46,14 @@ def create_app():
             'client_secret': app.config.get('GITHUB_CLIENT_SECRET'),
             'authorize_url': 'https://github.com/login/oauth/authorize',
             'token_url': 'https://github.com/login/oauth/access_token',
-            'userinfo': {
+            'email': {
                 'url': 'https://api.github.com/user/emails',
                 'email': lambda json: json[0]['email'],
+            },
+            'userdata': {
+                'url': 'https://api.github.com/user',
+                'picture': lambda json: json['avatar_url'],
+                'name': lambda json: json['login'],
             },
             'scopes': ['user:email'],
         },

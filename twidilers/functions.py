@@ -65,6 +65,7 @@ def changeDisplay(request):
 def changeUsername(request):
     account = findAccount()
     new_name = request.form.get('username')
+    session['username'] = new_name
     account.username = new_name
     db.session.commit()
     flash(f'Username Changed to {account.displayname}','success')

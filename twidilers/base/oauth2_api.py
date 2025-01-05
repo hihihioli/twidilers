@@ -78,17 +78,25 @@ def oauth2_callback(provider):
         abort(401)
 
     # use the access token to get the user's email address
-    response = requests.get(provider_data['userinfo']['url'], headers={
+    response = requests.get(provider_data['email']['url'], headers={
         'Authorization': 'Bearer ' + oauth2_token,
         'Accept': 'application/json',
     })
     if response.status_code != 200:
         abort(401)
-    email = provider_data['userinfo']['email'](response.json())
     print(response.json())
+    email = provider_data['email']['email'](response.json())
     account = findAccountByEmail(email)
+
     if account is None:
-        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True)
+        response = requests.get(provider_data['userdata']['url'], headers={
+            'Authorization': 'Bearer ' + oauth2_token,
+            'Accept': 'application/json',
+        })
+        name = provider_data['userdata']['name'](response.json())
+        picture = requests.get(provider_data['userdata']['picture'](response.json())).content
+        print(picture)
+        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=picture)
         db.session.add(account)
         db.session.commit()
         session['username'] = account.username
