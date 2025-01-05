@@ -2,7 +2,9 @@
     <head>
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+
     </head>
     <body>
     {% set account = findAccount() %}

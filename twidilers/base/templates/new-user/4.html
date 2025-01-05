@@ -2,7 +2,9 @@
     <head>
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
+
     </head>
     <body>
     {% set account = findAccount() %}
@@ -10,7 +12,7 @@
             <h1>Tell us about yourself</h1>
                 <h2>Write a short bio</h2>
                 <form method="post" enctype="multipart/form-data" id="profile-bio-change">
-                    <input type="text" id="bio-change" name="bio" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters." >
+                    <input type="text" id="bio" name="bio" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters." >
                     <button class="submit" name="welcome4">Upload</button>
                 </form>
         </div>
