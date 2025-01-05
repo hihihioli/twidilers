@@ -17,6 +17,10 @@ def findAccount(username=None): #Finds an account that matches a given username 
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar()
     return account
 
+def findAccountByEmail(email): #Finds an account that matches a given email
+    account = db.session.execute(db.select(Account).filter_by(email=email)).scalar()
+    return account
+
 def checkUsername(input):
     # Define the pattern for allowed characters
     pattern = r'^[a-zA-Z0-9_]+$'

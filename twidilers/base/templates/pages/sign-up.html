@@ -17,8 +17,8 @@
     <h4>Already have an account? <a href="{{ url_for('.page', page='login')}}">Sign in.</a></h4>
 </div>
 <div class="other-signup">
-    <button type="button" class="google-sign-in-button"><i class="fa-brands fa-google"></i><div class="signin-txt">Sign up with Google</div></button><br>
-    <button type="button" class="github-sign-in-button"><i class="fa-brands fa-github"></i><div class="signin-txt">Sign up with Github</div></button>
+    <a href="{{ url_for('.oauth2_authorize',provider='google') }}"><button type="button" class="google-sign-in-button"><i class="fa-brands fa-google"></i><div class="signin-txt">Sign up with Google</div></button></a><br>
+    <a href="{{ url_for('.oauth2_authorize',provider='github') }}"><button type="button" class="github-sign-in-button"><i class="fa-brands fa-github"></i><div class="signin-txt">Sign up with Github</div></button></a>
 </div>
 {% else %}
     <div class="input_form">

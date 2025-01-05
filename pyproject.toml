@@ -9,6 +9,7 @@ dependencies = [
     "pillow",
     "gunicorn",
     "Flask-Mail",
+    "requests",
 ]
 version='1.0'
 description='A wonderful website'
