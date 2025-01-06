@@ -4,6 +4,7 @@
 {% block head %}
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/dashboard.css') }}">
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/post.css') }}">
 
 {% endblock %}
 {% block content %}
@@ -25,9 +26,22 @@
                     <button class="submit" name="ban" value="{{ user.id }}">Ban</button>
                     <button class="submit" name="unban" value="{{ user.id }}">Unban</button>
                     <!-- Hides posts from others but doesn't tell the user they are banned -->
-                    <button class="submit" name="shadowban" value="{{ user.id }}">Shadowban</button>
+                    <button class="submit" name="shadowban" value="{{ user.id }}" title="Hides posts from others but doesn't tell the user they are banned">Shadowban</button>
                 </form>
             </div>
+        {% endfor %}
+    <h1>Reported posts</h1>
+        {% for post.reported in  posts %}
+            <div class="post">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                <p>{{ post.author }}</p>
+                <p>{{ post.reportnum }}</p>
+                <form method="post">
+                    <button class="submit" name="delete" value="{{ post.id }}">Delete</button>
+                    <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post">Mark as good</button>
+                    <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts">Ban user</button>
+                </form>
         {% endfor %}
     <h1>All posts</h1>
         {% for post in posts %}
@@ -37,6 +51,8 @@
                 <p>{{ post.author }}</p>
                 <form method="post">
                     <button class="submit" name="delete" value="{{ post.id }}">Delete</button>
+                    <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post">Mark as good</button>
+                    <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts">Ban user</button>
                 </form>
             </div>
         {% endfor %}
