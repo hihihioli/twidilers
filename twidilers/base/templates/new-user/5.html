@@ -1,24 +1,11 @@
-<html>
-    <head>
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
-    </head>
-    <body>    <div id="flashes">
-        {% block flashes %}
-            {% for category, message in get_flashed_messages(with_categories=true) %}
-                <div class="flash {{ category }}">
-                    <span>{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endblock %}</div>
-        <div class="welcome-div" id="welcome-5">
+{% extends 'new-user/new-user.html' %}
+    {% block content %}<div class="welcome-div" id="welcome-5">
             <h1>Your account is all setup!</h1>
             <form method="post" >
                 <button class="submit" name="welcome5">Go to your profile</button>
             </form>
         </div>
-        <progress id="progress" value="5" max="5"></progress>
-
-    </body>
-</html>
+{% endblock %}
+{% block skip %}{% endblock %}
+{% block pagenumber %}5{% endblock %}
+{% block pn %}5{% endblock %}

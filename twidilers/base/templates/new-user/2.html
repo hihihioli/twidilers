@@ -1,18 +1,5 @@
-<html>
-    <head>
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
-    </head>    <div id="flashes">
-        {% block flashes %}
-            {% for category, message in get_flashed_messages(with_categories=true) %}
-                <div class="flash {{ category }}">
-                    <span>{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endblock %}</div>
-    <body>
-        {% set account = findAccount() %}
+{% extends 'new-user/new-user.html' %}
+    {% block content %}{% set account = findAccount() %}
         <div class="welcome-div" id="welcome-3">
             <h1>Let's get your display name</h1>
                 <h2>Your username: {{account.username}}</h2>
@@ -21,6 +8,6 @@
                     <button class="submit" id="name-change" name="welcome2">Continue</button>
                 </form>
         </div>
-        <progress id="progress" value="2" max="5"></progress>
-    </body>
-</html>
+{% endblock %}
+{% block pagenumber %}2{% endblock %}
+{% block pn %}2{% endblock %}

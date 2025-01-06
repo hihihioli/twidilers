@@ -50,7 +50,7 @@
                          aria-label="Biography text" 
                          maxlength="500" 
                          placeholder="Write your bio here. Up to 500 characters."
-                         aria-describedby="bio-help"></textarea>
+                         aria-describedby="bio-help">{{ account.userdata['bio'] }}</textarea>
                 <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
                 <button type="submit" class="submit" id="bio-change" name="bio-change" aria-label="Update biography">
                     Change Bio
@@ -60,7 +60,7 @@
         <div class="profile-div" role="region" aria-label="Display name settings">
             <form method="post" id="change-name-form" lang="en">
                 <h3><label for="change-name">Change display name</label></h3>
-                <input id="change-name" 
+                <textarea id="change-name" 
                        name="displayname" 
                        type="text" 
                        class="textbox" 
@@ -68,7 +68,7 @@
                        aria-label="New display name"
                        maxlength="24" 
                        placeholder="1-24 characters"
-                       aria-describedby="name-help">
+                       aria-describedby="name-help">{{ account.displayname }}</textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
                 <button type="submit" class="submit" id="name-change" name="name-change">
                     Update Display Name
