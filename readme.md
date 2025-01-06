@@ -86,6 +86,10 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 * HTML for blogs (but safe)
 
 
+## Verification codes
+* JWT / JWE for security
+
+
 ## Email requirements
 ### Styling/frontend changes
 * All ready! Under /templates/email/

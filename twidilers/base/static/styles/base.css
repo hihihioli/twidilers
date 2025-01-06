@@ -121,7 +121,6 @@ Click generate until you get the loss under 3 */
     position: relative; /* Ensure children use this as the anchor point */
     width: 600px;
 }
-
 /* Popup Menu in base.html */
 .popup-menu {
     display: none; /* Hidden by default */
@@ -274,7 +273,8 @@ p #content {
 /* Classes are below */
 
 a {
-    text-decoration: none;
+    color: var(--darkishblue);
+    font-weight:600;
 }
 
 /* Flashes are the notices like "login successful" and stuff. */
@@ -347,6 +347,8 @@ a {
     align-self: center !important;
     transition: all 0.3s;
     margin: 10px auto 0 auto;
+    text-decoration:none !important;
+    font-weight:normal !important;
 }
 
 .submitwide {
@@ -450,6 +452,9 @@ a {
         background-color:var(--darkblue);
         color:var(--lightblue);
         border:2px solid var(--lightblue);
+    }
+    a {
+        color: var(--lightishblue);
     }
 }
 
