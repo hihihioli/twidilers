@@ -33,6 +33,7 @@ def login():
     if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
         flash('Login Successful!','success')
         session['username'] = username #Sets session data to be used on other pages
+        session['filter'] = 0
         return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
@@ -77,14 +78,22 @@ def write_post():
 @app.post('/feed')
 @login_required
 def filter():
-    filtered = request.form.get('filter-foll')
-    if filtered:
-        session['filter'] = 1
-        flash("You're now seeing only people you follow", 'success')
+    if "delete-post" in request.form:
+        post_id = request.form.get('post-id')
+        post = db.session.execute(db.get_or_404(post_id)).scalar()
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post Deleted','success')
+        return redirect(url_for('.page',page='feed'))
     else:
-        session['filter'] = 0
-        flash("You're seeing everything now", 'success')
-    return redirect(url_for('.page', page='feed'))
+        filtered = request.form.get('filter-foll')
+        if filtered:
+            session['filter'] = 1
+            flash("You're now seeing only people you follow", 'success')
+        else:
+            session['filter'] = 0
+            flash("You're seeing everything now", 'success')
+        return redirect(url_for('.page', page='feed'))
 
 @app.post('/clear')
 @login_required
@@ -209,16 +218,15 @@ def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
     return render_template('postinfo.html',post=post)
 
-@app.get('/verify/<username>')
-def verify(username):
-    code = request.args.get('code')
-    user = findAccount(username)
-    if not user.verify(code):
+@app.get('/verify/<token>')
+def verify(token):
+    user = Account.verify_reset_password_token(token)
+    if not user:
         flash('Invalid Code','error')
         return redirect(url_for('.page',page='sign-up'))
     db.session.commit()
     flash('Email Succesfully Verified','success')
-    session['username'] = username #log them in
+    session['username'] = user.username #log them in
     return redirect(url_for('.new_user')) #bring them to the new user page
 
 @app.get('/new-user') # User requests /new-user

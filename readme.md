@@ -11,9 +11,10 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # Bugs
+* typeError occures when changing the password of a github account
 
 # Do before deployment:
-* Fix bugs (DONE!)
+* Fix bugs 
 * Email integration (DONE!)
 * Mod tools (dashboard.html)
 * Oauth

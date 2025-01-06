@@ -40,7 +40,7 @@
     <section aria-label="Posts feed" class="posts-container">
         {% set account = findAccount() %}
         {% for post in postlist() %}
-        {% if session['filter'] == 0 or post.author in account.following %}
+        {% if session['filter'] == 0 or post.author in account.following or post.author == account %}
         <article class="pst" aria-labelledby="post-title-{{ loop.index }}">
             <header>
                 <a href="{{ url_for('.profile',username=post.author.username) }}" 
@@ -50,11 +50,21 @@
                          loading="lazy" 
                          src="{{ url_for('.get_pfp', username=post.author.username) }}"
                          alt="Profile picture of {{ post.author.displayname }}">
+                         
                     <div class="pst-auths">
                         <p class="pst-auth">{{post.author.displayname}}</p>
                         <p class="pst-disp">@{{post.author.username}}</p>              
                     </div>
                 </a>
+                {% if post.author == account %}
+                <form method="post" class="delete-post">
+                    <input type="hidden" name="post-id" value="{{ post.id }}">
+                    <button type="submit" class="delete-post" id="delete-post" name="delete-post">
+                        <input type="hidden" name="post-id" value="{{ post.id }}">
+                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                        <span class="visually-hidden">Delete this post</span>
+                    </button>
+                {% endif %}
             </header>
 
             <div class="reactions" role="toolbar" aria-label="Post actions">
