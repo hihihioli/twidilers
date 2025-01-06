@@ -213,7 +213,7 @@ def verify(username):
         flash('Invalid Code','error')
         return redirect(url_for('.page',page='sign-up'))
     db.session.commit()
-    flash('User Succesfully Verified','success')
+    flash('Email Succesfully Verified','success')
     session['username'] = username #log them in
     return redirect(url_for('.new_user')) #bring them to the new user page
 
