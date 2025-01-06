@@ -247,7 +247,8 @@ def post_new_user():
     for arg in request.form:
         if arg.startswith('skip'):
             flash('Skipped','success')
-            return render_template(f'new-user/{arg[4]}.html')
+            print(arg)
+            return render_template(f'new-user/{int(arg[4])+1}.html')
     if 'welcome0' in request.form: # First page doesn't submit information
         return render_template('new-user/1.html')
     if 'welcome1' in request.form: # welcome 1 is privacy policy
