@@ -24,9 +24,6 @@ import * as Turbo from "@hotwired/turbo"
     <meta name="turbo-refresh-scroll" content="preserve">
 </head>
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
-    <!-- The navbar. Also can be overridden if necessary. -->
-
-    
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
     <div id="flashes">
         {% block flashes %}
@@ -38,8 +35,16 @@ import * as Turbo from "@hotwired/turbo"
         {% endblock %}</div>
     <!-- The main content of the page goes in a div with id content. -->
     <div id="content">{% block content %}{% endblock %}</div>
+    {% block skip %}
+        <div id="skip">
+            <form method="post">
+                <button name="skip{% block pn %}{% endblock %}">Skip</button>
+            </form>
+        </div>
+    {% endblock %}
     <!-- The footer has a default but can be overridden. -->
-    <div></div>
+    <progress id="progress" value="{% block pagenumber %}{% endblock %}" max="5"></progress>
+
 </body>
 
 </html>

@@ -24,6 +24,9 @@ input[type="file"] {
     gap: 10px;
     margin: 20px 0; 
   }
+  #change-name {
+    width:530px;
+  }
   /* Custom button */
   .custom-file-upload {
     display: inline-block;

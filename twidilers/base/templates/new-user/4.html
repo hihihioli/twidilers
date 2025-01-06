@@ -1,20 +1,5 @@
-<html>
-    <head>
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
-
-    </head>    <div id="flashes">
-        {% block flashes %}
-            {% for category, message in get_flashed_messages(with_categories=true) %}
-                <div class="flash {{ category }}">
-                    <span>{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endblock %}</div>
-    <body>
-    {% set account = findAccount() %}
+{% extends 'new-user/new-user.html' %}
+    {% block content %}{% set account = findAccount() %}
         <div class="welcome-div" id="welcome-4">
             <h1>Tell us about yourself</h1>
                 <h2>Write a short bio</h2>
@@ -23,7 +8,6 @@
                     <button class="submit" name="welcome4">Upload</button>
                 </form>
         </div>
-        <progress id="progress" value="4" max="5"></progress>
-
-    </body>
-</html>
+{% endblock %}
+{% block pagenumber %}4{% endblock %}
+{% block pn %}4{% endblock %}
