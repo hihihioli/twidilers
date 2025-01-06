@@ -3,7 +3,14 @@
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
         <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
-    </head>
+    </head>    <div id="flashes">
+        {% block flashes %}
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+                <div class="flash {{ category }}">
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endblock %}</div>
     <body>
     {% set account = findAccount() %}
         <div class="welcome-div" id="welcome-1">

@@ -310,28 +310,7 @@ a {
     margin: 25px auto 20px auto;
 }
 
-/* .input_form is the wrapper for the inputs and button. */
-.input_form {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 25px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    color: var(--darkblue);
-}
 
-/* Placeholders are the preview text stuffs before you put your cursor in*/
-.textbox::placeholder {
-    color: var(--darkblue);
-    font-size: 11pt;
-}
-/* focus is what it looks like when you click on the textbox */
-.textbox:focus {
-    outline: none;
-    box-shadow: 0px 0px 10px var(--darkblue);
-}
 
 /* The submit button. */
 .submit {
