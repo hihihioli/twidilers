@@ -100,7 +100,7 @@ import * as Turbo from "@hotwired/turbo"
     <div id="footer-div">
         {% block footer %}
             <section id="footer">
-                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright 2025</p></b>
+                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright <span id="year"></span></p></b>
             </section>
         {% endblock %}
     </div>
@@ -113,6 +113,8 @@ import * as Turbo from "@hotwired/turbo"
         link.href = "{{ url_for('.static', filename='styles/fontawesome.css') }}";
         document.body.appendChild(link);
     });
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+
     </script>
 </body>
 

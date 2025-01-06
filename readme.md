@@ -9,6 +9,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## Good tutorial sources
 * https://blog.miguelgrinberg.com/category/Flask
 
+
 # Bugs
 
 # Do before deployment:
@@ -21,6 +22,7 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Change github oAuth uri to twidilers.com
 * Forgot password button
     * Code can be generated and set as users verification code
+
 
 # New feature wishlist
 ## General features
