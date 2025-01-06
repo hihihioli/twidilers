@@ -12,17 +12,18 @@ Want to learn more about one of the dependencies we use? Look no further!
 # Bugs
 
 # Do before deployment:
-* Fix bugs
-* Email integration (See below)
-* Mod tools.
+* Fix bugs (DONE!)
+* Email integration (DONE!)
+* Mod tools (dashboard.html)
 * Oauth
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
+* Forgot password button
+    * Code can be generated and set as users verification code
 
 # New feature wishlist
 ## General features
-* Email
 * Blogs
 
 

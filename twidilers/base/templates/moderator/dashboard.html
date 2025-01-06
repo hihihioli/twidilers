@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
-{% if account.isMod = true %}
+{% if account.is_mod = true %}
     <h1>Welcome to the moderator dashboard, {{ account.username }}</h1>
     <p>Here you can manage the site and users.</p>
     <h1>User dashboard</h1>
