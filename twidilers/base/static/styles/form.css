@@ -44,8 +44,18 @@ h4 {
 .posts-container {
     margin-top: 1rem;
 }
+/*autofilled boxes*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--lightblue) inset;
+    -webkit-text-fill-color: inherit;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 input:-internal-autofill-selected {
-    background-color:var(--lightblue)!important;
+    background-color: var(--lightblue);
 }
 .pst:focus-within {
     outline: 2px solid #007bff;
@@ -89,40 +99,11 @@ a:focus-visible {
 a .other-signup {
     font-weight:bold;
 }
-/* Google sign in button stolen shamelessly from stack overflow */
-.google-sign-in-button, .github-sign-in-button {
-    cursor: pointer;
-    transition: background-color .3s, box-shadow .3s;
-        
-    padding: 12px;
-    border: none;
-    border-radius: 3px;
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-    
-    color: #757575;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: "Segoe UI",Arial,"Helvetica Neue",sans-serif;
-    
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: 12px 11px;
-}
-
-.google-sign-in-button:hover, .github-sign-in-button:hover {
-    background-color: #eeeeee;
-    outline: none;
-    box-shadow: 
-    0 -1px 0 rgba(0, 0, 0, .04),
-    0 2px 4px rgba(0, 0, 0, .25),
-    0 0 0 3px #c8dafc;
-}
 
 
 @media only screen and (prefers-color-scheme: dark){
     .input_form {
         background-color: var(--darkishblue);
-        border: 3px solid var(--lightishblue);
         color:var(--lightblue);
     }
     .textbox {
@@ -133,4 +114,16 @@ a .other-signup {
     .textbox::placeholder {
         color: var(--lightblue)
     }
+    input:-internal-autofill-selected {
+        background-color: var(--darkblue) !important;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px var(--darkblue) inset !important;
+        -webkit-text-fill-color: var(--lightblue);
+        transition: background-color 5000s ease-in-out 0s;
+    }
+        
 }

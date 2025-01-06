@@ -7,7 +7,7 @@
 {% block content %}
 <h1 class="heading">Log In</h1>
 <form method="post" id="login_form" name="login_form" class="input_form"> <!--Form that submits to the @app.post for '/login in routes.py'-->
-    <input type="text" class="textbox" placeholder="Enter Username" id="username" name="username" autocomplete="off"/>
+  <input type="text" class="textbox" placeholder="Enter Username" id="username" name="username" autocomplete="off"/>
     <input type="password" autocomplete="current-password" class="textbox" placeholder="Enter Password" id="password" name="password"/>
     <button id="submit" type="submit" class="submit" class="submitwide">Log In</button>
 </form>
@@ -16,7 +16,7 @@
 </div>
 <div class="other-signup">
     <a href="{{ url_for('.oauth2_authorize',provider='google') }}">
-    <button class="gsi-material-button" style="width:200px"> <!--Google sign in button-->
+      <button class="gsi-material-button" style="width:200px"> <!--Google sign in button-->
         <div class="gsi-material-button-state"></div>
         <div class="gsi-material-button-content-wrapper">
           <div class="gsi-material-button-icon">
@@ -32,9 +32,9 @@
           <span style="display: none;">Sign in with Google</span>
         </div>
       </button>
-      </a>
+    </a>
       <br>
-      <a href="{{ url_for('.oauth2_authorize',provider='github') }}">
+    <a href="{{ url_for('.oauth2_authorize',provider='github') }}">
       <button class="gsi-material-button" style="width:200px"> <!--Github sign in button-->
         <div class="gsi-material-button-state"></div>
         <div class="gsi-material-button-content-wrapper">
@@ -45,6 +45,6 @@
           <span style="display: none;">Sign in with Github</span>
         </div>
       </button>    
-      </a>
+    </a>
 </div>
 {% endblock %}
