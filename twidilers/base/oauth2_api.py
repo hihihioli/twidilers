@@ -99,9 +99,7 @@ def oauth2_callback(provider):
         account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=picture)
         db.session.add(account)
         db.session.commit()
-        session['username'] = account.username
-        return redirect(url_for('.new_user'))
-
+        flash('Account Created','success')
 
     session['username'] = account.username
     return redirect(url_for('.page', page='index'))
