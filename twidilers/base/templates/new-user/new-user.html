@@ -1,76 +1,45 @@
-{% extends 'base.html' %}
-{% block title %}Welcome!{% endblock %}
-{% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/toggle.css') }}">
+<!doctype html>
+<html lang="en">
 
-{% endblock %}
-{% block content %}
-{% set account = findAccount() %}
-<!-- This page will be redirected to after a user clicks on the email verification link -->
-    <div class="welcome-div" id="welcome-1">
-        <h1>Welcome to Twidilers Hub!</h1>
-            <p>You created an account with your username {{account.username}}. We need to set some things up before we continue.</p>
-            <button class="submit" onclick="nextPage(1)">Continue</button>
-    </div>
-    <div class="welcome-div" id="welcome-2">
-        <h1>Agree to our privacy policy and terms of service</h1>
-            <form method="post" id="terms-agree">
-                <div class="filter-control">
-                    <label class="switch" for="filter-foll">
-                        <input type="checkbox" 
-                               id="pp" 
-                               required="required"
-                               name="Agree to privacy policy" 
-                               aria-label="Agree to privacy policy">
-                        <span class="slider round" aria-hidden="true"></span>
-                    </label>
-                    <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='privacy')}}">privacy policy</a></span>
+<head>
+    <script type="module">
+import * as Turbo from "@hotwired/turbo"
+</script>
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/welcome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/settings.css') }}">
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
+    <title>Setup new user - Twidilers</title> <!-- The title of the tab depending on the current page. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A wonderful website">
+    <meta name="keywords" content="HTML, CSS, Python">
+    <meta name="author" content="dereena">
+    <meta name="author" content="hihihioli">
+    <meta name="author" content="wall03">
+    <meta name="view-transition" content="same-origin" />
+    <meta name="turbo-refresh-method" content="morph">
+    <meta name="turbo-refresh-scroll" content="preserve">
+</head>
+<body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
+    <!-- The navbar. Also can be overridden if necessary. -->
+
+    
+    <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
+    <div id="flashes">
+        {% block flashes %}
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+                <div class="flash {{ category }}">
+                    <span>{{ message }}</span>
                 </div>
-                <div class="filter-control">
-                    <label class="switch" for="filter-foll">
-                        <input type="checkbox" 
-                               id="tos" 
-                               required="required"
-                               name="Agree to terms of service" 
-                               aria-label="Agree to terms of service">
-                        <span class="slider round" aria-hidden="true"></span>
-                    </label>
-                    <span class="checkbox-label">Agree to <a href="{{ url_for('.page', page='terms')}}">terms of service</a></span>
-                </div>                     
-            <button class="submit" type="submit" onclick="nextPage(3)">I agree</button>
-            </form>
-    </div>
-    <div class="welcome-div" id="welcome-3">
-        <h1>Let's get your display name</h1>
-            <h2>Your username: {{account.username}}</h2>
-            <form method="post" id="change-display">
-                <input id="change-name" name="change-name" type="text" class="textbox" autocomplete="off" autocapitalize="off" maxlength="24" placeholder="1-24 characters">
-                <button class="submit" id="name-change" name="name-change" onclick="nextPage(4)">Continue</button>
-            </form>
-    </div>
-    <div class="welcome-div" id="welcome-4">
-        <h1>Show us your smile!</h1>
-            <h2>Set up a profile picture</h2>
-            <form method="post" enctype="multipart/form-data" id="upload_pfp">
-                <label for="file" class="custom-file-upload">
-                    choose picture
-                </label>
-                <input type="file" id="file" name="file" accept="image/*">
-                <button class="submit" onclick="goAway(upload_pfp)">Upload</button>
-            </form>
-        <button class="submit" id="pfp-submit" onclick="nextPage(5)">Continue</button>
-    </div>
-    <div class="welcome-div" id="welcome-5">
-        <h1>Tell us about yourself</h1>
-            <h2>Write a short bio</h2>
-            <form method="post" enctype="multipart/form-data" id="profile-bio-change">
-                <input type="text" id="bio-change" name="bio-change" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters." >
-                <button class="submit" onClick="goAway(profile-bio-change)">Upload</button>
-            </form>
-        <button class="submit" id="pfp-submit" onclick="nextPage(5)">Continue</button>
-    </div>
+            {% endfor %}
+        {% endblock %}</div>
+    <!-- The main content of the page goes in a div with id content. -->
+    <div id="content">{% block content %}{% endblock %}</div>
+    <!-- The footer has a default but can be overridden. -->
+    <div></div>
+</body>
 
-<script src="{{ url_for('.static', filename='/javascript/welcome.js') }}"></script>
+</html>
