@@ -27,7 +27,8 @@ def login():
         flash('Please Verify Your Account','Error')
         return redirect(url_for('.page',page='login'))
     if account.setup == False: #The account is not set up
-        flash('Please Set Up Your Account','Error')
+        flash('Please Set Up Your Account')
+        session['username'] = username #Sets session data to be used on other pages
         return redirect(url_for('.new_user'))
     if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
         flash('Login Successful!','success')
