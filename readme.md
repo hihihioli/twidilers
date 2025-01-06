@@ -12,6 +12,9 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * typeError occures when changing the password of a github account
+* Notifications
+    * Can't clear
+    * Only one per person(Maybe one overall)
 
 # Do before deployment:
 * Fix bugs 

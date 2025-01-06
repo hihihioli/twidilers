@@ -93,3 +93,10 @@ def changeBio(request):
     account.userdata = new_userdata 
     db.session.commit()
     flash('Bio Updated Successfully','success')
+
+def formatImage(image_bytes):
+    img = Image.open(BytesIO(image_bytes))
+    img = ImageOps.fit(img,(200,200)) #sets the file resolution
+    temp_file = BytesIO()
+    img.save(temp_file, format="PNG")
+    return temp_file.getvalue()

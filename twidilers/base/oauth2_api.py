@@ -5,7 +5,7 @@ The oauth2 routes. Taken from https://blog.miguelgrinberg.com/post/oauth-authent
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer
 from .decorators import login_prohibited
-from ..functions import findAccountByEmail
+from ..functions import findAccountByEmail,formatImage
 from ..models import Account
 from ..objects import db
 
@@ -96,7 +96,7 @@ def oauth2_callback(provider):
         name = provider_data['userdata']['name'](response.json())
         picture = requests.get(provider_data['userdata']['picture'](response.json())).content
         print(picture)
-        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=picture)
+        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=formatImage(picture))
         db.session.add(account)
         db.session.commit()
         flash('Account Created','success')
