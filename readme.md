@@ -9,20 +9,24 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## Good tutorial sources
 * https://blog.miguelgrinberg.com/category/Flask
 
+
 # Bugs
+* typeError occures when changing the password of a github account
 
 # Do before deployment:
-* Fix bugs
-* Email integration (See below)
-* Mod tools.
+* Fix bugs 
+* Email integration (DONE!)
+* Mod tools (dashboard.html)
 * Oauth
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
+* Forgot password button
+    * Code can be generated and set as users verification code
+
 
 # New feature wishlist
 ## General features
-* Email
 * Blogs
 
 
@@ -83,6 +87,10 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 * Titles on blogs only
 * Image upload
 * HTML for blogs (but safe)
+
+
+## Verification codes
+* JWT / JWE for security
 
 
 ## Email requirements

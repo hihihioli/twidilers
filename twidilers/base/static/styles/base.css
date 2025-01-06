@@ -121,7 +121,6 @@ Click generate until you get the loss under 3 */
     position: relative; /* Ensure children use this as the anchor point */
     width: 600px;
 }
-
 /* Popup Menu in base.html */
 .popup-menu {
     display: none; /* Hidden by default */
@@ -274,7 +273,8 @@ p #content {
 /* Classes are below */
 
 a {
-    text-decoration: none;
+    color: var(--darkishblue);
+    font-weight:600;
 }
 
 /* Flashes are the notices like "login successful" and stuff. */
@@ -310,28 +310,7 @@ a {
     margin: 25px auto 20px auto;
 }
 
-/* .input_form is the wrapper for the inputs and button. */
-.input_form {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 25px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    color: var(--darkblue);
-}
 
-/* Placeholders are the preview text stuffs before you put your cursor in*/
-.textbox::placeholder {
-    color: var(--darkblue);
-    font-size: 11pt;
-}
-/* focus is what it looks like when you click on the textbox */
-.textbox:focus {
-    outline: none;
-    box-shadow: 0px 0px 10px var(--darkblue);
-}
 
 /* The submit button. */
 .submit {
@@ -347,6 +326,8 @@ a {
     align-self: center !important;
     transition: all 0.3s;
     margin: 10px auto 0 auto;
+    text-decoration:none !important;
+    font-weight:normal !important;
 }
 
 .submitwide {
@@ -450,6 +431,9 @@ a {
         background-color:var(--darkblue);
         color:var(--lightblue);
         border:2px solid var(--lightblue);
+    }
+    a {
+        color: var(--lightishblue);
     }
 }
 
