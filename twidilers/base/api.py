@@ -205,16 +205,15 @@ def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
     return render_template('postinfo.html',post=post)
 
-@app.get('/verify/<username>')
-def verify(username):
-    code = request.args.get('code')
-    user = findAccount(username)
-    if not user.verify(code):
+@app.get('/verify/<token>')
+def verify(token):
+    user = Account.verify_reset_password_token(token)
+    if not user:
         flash('Invalid Code','error')
         return redirect(url_for('.page',page='sign-up'))
     db.session.commit()
     flash('Email Succesfully Verified','success')
-    session['username'] = username #log them in
+    session['username'] = user.username #log them in
     return redirect(url_for('.new_user')) #bring them to the new user page
 
 @app.get('/new-user') # User requests /new-user
