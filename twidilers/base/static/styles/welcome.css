@@ -1,0 +1,35 @@
+#imagePreview {
+    width:100px;
+    border-radius:100%;
+    position:absolute;
+    top:0;
+    right:0;
+}
+#img-container {
+    position:relative;
+    width:100px;
+    margin:0 0 0 auto;
+    height:100px;
+    display:block;
+    float:right;
+}
+
+#titleImg {
+    float:left;
+}
+#titleImg h1 {
+    margin-top:20px;
+}
+
+#upload_pfp {
+    width:600px;
+    margin: 130px 0 0 0;
+}
+
+.custom-file-upload {
+    border: 3px solid var(--lightblue) !important;
+}
+
+#flashes {
+    margin: 10px 0;
+}

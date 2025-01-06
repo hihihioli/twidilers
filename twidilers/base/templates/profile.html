@@ -16,15 +16,15 @@
         {% if owner == 1 %}
             <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
         {% else %}
-        {% if not account in findAccount().following %}
-        <form method="post" id="follow-form" name="follow-form">
-            <button class="submit" id="follow-button" name="follow-button">Follow</button></a>
-        </form>
-        {% else %}
-        <form method="post" id="unfollow-form" name="unfollow-form">
-            <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
-        </form>
-        {% endif %}
+            {% if not account in findAccount().following %}
+                <form method="post" id="follow-form" name="follow-form">
+                    <button class="submit" id="follow-button" name="follow-button">Follow</button></a>
+                </form>
+            {% else %}
+                <form method="post" id="unfollow-form" name="unfollow-form">
+                    <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
+                </form>
+            {% endif %}
         {% endif %}
     </section>
 </div>
@@ -36,20 +36,21 @@
 <div>
     <h1>Recent Posts:</h1>
     {% for post in posts %}
-    <div class="pst">
-        <h2 class="pst-title">{{post.title}}</h3>
-        <p class="pst-content">{{post.content}}</p>
-        <p class="pst-date" id="date{{ loop.index0 }}">date</p>
-        <script>
-            const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
-                document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
-        </script>
-    </div>
+        <div class="pst">
+            <h2 class="pst-title">{{post.title}}</h3>
+            <p class="pst-content">{{post.content}}</p>
+            <p class="pst-date" id="date{{ loop.index0 }}">date</p>
+            <script>
+                const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
+                    document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
+            </script>
+        </div>
     {% endfor %}
 </div>
 <script>
     window.onload = function() {
-        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ')}
+        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ')
+    }
 </script>
 
 {% endblock %}
