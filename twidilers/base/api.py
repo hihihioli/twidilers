@@ -244,6 +244,10 @@ def post_new_user():
     if account.setup:
         flash("You've Already Set Up Your Account",'error')
         return redirect(url_for('.page',page='index'))
+    for arg in request.form:
+        if arg.startswith('skip'):
+            flash('Skipped','success')
+            return render_template(f'new-user/{arg[4]}.html')
     if 'welcome0' in request.form: # First page doesn't submit information
         return render_template('new-user/1.html')
     if 'welcome1' in request.form: # welcome 1 is privacy policy

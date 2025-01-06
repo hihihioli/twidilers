@@ -29,7 +29,7 @@ class Account(db.Model): #The user accounts
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=True)
   displayname:Mapped[str] = mapped_column(nullable=True)
-  email:Mapped[str] = mapped_column(nullable=False)
+  email:Mapped[str] = mapped_column(nullable=False,unique=True)
   is_mod:Mapped[bool] = mapped_column(default=False) #If they are a moderator
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
