@@ -56,25 +56,35 @@
                         <p class="pst-disp">@{{post.author.username}}</p>              
                     </div>
                 </a>
+                <div class="pst-reactions">
                 {% if post.author == account %}
-                <form method="post">
-                    <input type="hidden" name="post-id" value="{{ post.id }}">
-                    <button type="submit" class="delete-post" id="delete-post" name="delete-post">
-                        <input type="hidden" name="post-id" value="{{ post.id }}">
-                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                        <span class="visually-hidden">Delete this post</span>
-                    </button>
+                    <form method="post">
+                        <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
+                            <input type="hidden" name="post-id" value="{{ post.id }}">
+                            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                            <span class="visually-hidden">Delete this post</span>
+                        </button>
+                    </form>
+                    <form method="post">
+                        <button type="submit"  class="pst-react-but" id="edit-post" name="edit-post" title="Delete Post">
+                            <input type="hidden" name="post-id" value="{{ post.id }}">
+                            <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+                            <span class="visually-hidden">Edit post</span>
+                        </button>
+                    </form>
+                {% else %}
+                    <form method="post">
+                        <button type="submit" class="pst-react-but" id="like-post" name="like-post" title="Like Post">
+                            <input type="hidden" name="post-id" value="{{ post.id }}">
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                            <span class="visually-hidden">Like this post</span>
+                        </button>
+                    </form>
                 {% endif %}
+                </div>
             </header>
 
-            <div class="reactions" role="toolbar" aria-label="Post actions">
-                {% if owner == 1 %}
-                <button class="edit-post" aria-label="Edit post">
-                    <i class="fa-solid fa-pencil" aria-hidden="true"></i>
-                    <span class="visually-hidden">Edit this post</span>
-                </button>
-                {% endif %}
-            </div>
+
 
             <h2 class="pst-title" id="post-title-{{ loop.index }}">{{post.title}}</h2>
             <p class="pst-content">{{post.content}}</p>

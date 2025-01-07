@@ -84,7 +84,7 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 
 
 ## Feed
-* Reactions (reply, like/dislike) on posts
+* Reactions (reply, like/dislike) on posts (FRONTEND DONE!)
 * Mention users via username. Sends notification
 ### Regular posts
 * 
@@ -94,9 +94,6 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 * Image upload
 * HTML for blogs (but safe)
 
-
-## Verification codes
-* JWT / JWE for security (DONE)
 
 
 ## Email requirements
