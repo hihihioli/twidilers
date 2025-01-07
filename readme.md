@@ -17,6 +17,7 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Only one per person(Maybe one overall)
 * bio styling in new-user
 * new-user, when submitting pfp but not choosing a file, you get a 'unsupported file type'. you can't go back to the previus step
+* Account isn't actually verified after going through verification setup
 
 
 # Do before deployment:
