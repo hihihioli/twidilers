@@ -28,15 +28,14 @@ import * as Turbo from "@hotwired/turbo"
         <div id="navbar">
             {% if not session['username'] %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-                <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
+                <a href="/ami/"><button>Amalie</button></a>
                 <a href="{{ url_for('.page',page='about') }}"><button>About us</button></a>
                 <a href="{{ url_for('.page',page='login') }}"><button>Log in</button></a>
                 <a href="{{ url_for('.page',page='sign-up') }}"><button>Sign up</button></a>
-            {% endif %}
-            {% if session['username'] %}
+            {% else %}
             {% set account = findAccount() %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img" title="Twidilers Home"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-                <a href="{{ url_for('ami.index') }}"><button>Amalie</button></a>
+                <a href="/ami/"><button>Amalie</button></a>
                 <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
                 <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell"></i>
                     {% if account.notifications %}
@@ -83,6 +82,34 @@ import * as Turbo from "@hotwired/turbo"
             </div> 
         </div>           
         <script src="{{ url_for('.static', filename='/javascript/base.js') }}"></script>
+        <script>
+            // Notification handler
+            function clearNotifs() { //The function to clear notifications
+                {% if session['username'] %}
+                    {% set account = findAccount() %}
+                    data = [
+                        {% for notif in account.notifications %}
+                        [`{{notif['content']}}`,
+                        "{{notif['author']}}",],
+                        {% endfor %}
+                    ]
+                    fetch("{{url_for('.clear')}}", { // fetches clear function in api.py
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'
+                        document.getElementById('notification-count').remove()
+                    })
+                {% else %}
+                    alert('Y no logged in?')
+                {% endif %}
+        }
+        </script>
     {% endblock %}
     
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->

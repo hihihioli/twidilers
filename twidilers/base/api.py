@@ -58,7 +58,7 @@ def write_post():
     print(account)
     print(account.followers)
     for follower in account.followers:
-        new_notifications = account.notifications.copy()
+        new_notifications = follower.notifications.copy()
         data = {
             "author":account.username,
             "title":title,
@@ -77,7 +77,7 @@ def write_post():
 def filter():
     if "delete-post" in request.form:
         post_id = request.form.get('post-id')
-        post = db.session.execute(db.get_or_404(post_id)).scalar()
+        post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         db.session.delete(post)
         db.session.commit()
         flash('Post Deleted','success')
@@ -139,7 +139,7 @@ def sign_up():
     try:
         db.session.commit()               #I am using db.session.commit() instead of save() because I want to handle this error separately
     except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
-        flash('Username already exists','error')
+        flash('Account already exists','error')
         db.session.rollback()
         return redirect(url_for('.page',page='sign-up'))
     

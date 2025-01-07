@@ -31,8 +31,10 @@ def checkUsername(input) -> bool:
     else:
         return False
 
-def deleteAccount():
-    account = findAccount()
+def deleteAccount(username=None):
+    if username is None:
+        username = session.get('username')
+    account = findAccount(username)
     db.session.delete(account)
     db.session.commit()
     flash('Successfully Deleted Account','success')
