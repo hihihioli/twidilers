@@ -67,6 +67,7 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 * Followers
     * See who they follow and who follows them
 ### Settings page
+* Refactor into different pages
 * Account Details
 * Security
     * change email associated with account
