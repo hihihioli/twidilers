@@ -3,6 +3,7 @@ const userButton = document.getElementById('usricon-nav');
 const userMenu = document.getElementById('popupMenu');
 const notifButton = document.getElementById('navbarbell');
 const notifMenu = document.getElementById('notif-popup');
+const filterMenu = document.getElementById('filter-form');
 
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
@@ -20,6 +21,7 @@ userButton.addEventListener('click', () => {
 if (userMenu.style.display === 'none') {
     userMenu.style.display = 'block';
     notifMenu.style.display = 'none';
+    filterMenu.style.display = 'none';
 } else {
     userMenu.style.display = 'none';
 }
