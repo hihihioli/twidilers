@@ -35,6 +35,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 # New feature wishlist
 ## General features
 * Blogs
+* Use Flask-Login(backend)
 
 
 ## Frontend changes
