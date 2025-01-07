@@ -33,6 +33,7 @@ input[type="checkbox" i] {
     inline-size: 565px;
     overflow-wrap: break-word;
     display:relative !important;
+    position:relative;
 }
 
 .pst-auth {
@@ -91,6 +92,23 @@ input[type="checkbox" i] {
     z-index:1000;
     width:270px;
     right:0;
+}
+.delete-post {
+    background-color:var(--darkblue);
+    border:2px solid var(--lightblue);
+    border-radius: 3px;
+    color:var(--lightblue); 
+    padding:10px;
+    cursor:pointer;
+    position:absolute;
+    right:20px;
+    top:20px;
+    width:36px;
+    transition:0.3s all;
+    height:36px;
+}
+.delete-post:hover {
+    box-shadow:0 0 3px var(--lightblue);
 }
 .checkbox-label {
     position:absolute;

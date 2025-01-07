@@ -19,7 +19,7 @@
             <i class="fa-solid fa-filter" aria-hidden="true"></i>
             <span class="visually-hidden">Filter posts</span>
         </button>
-
+ 
         <form method="post" id="filter-form" name="filter-form" aria-label="Feed filter options">
             <div class="filter-control">
                 <label class="switch" for="filter-foll">
@@ -57,7 +57,7 @@
                     </div>
                 </a>
                 {% if post.author == account %}
-                <form method="post" class="delete-post">
+                <form method="post">
                     <input type="hidden" name="post-id" value="{{ post.id }}">
                     <button type="submit" class="delete-post" id="delete-post" name="delete-post">
                         <input type="hidden" name="post-id" value="{{ post.id }}">
