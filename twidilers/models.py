@@ -50,26 +50,15 @@ class Account(db.Model): #The user accounts
     backref = 'following' #something
     )
   
-  def verify(self,code): #Function to verify a user
-    try:
-      code = int(code)
-    except:
-      return False
-    if code == self.verification_code: #If right code,
-      self.verified = True             #mark user as verified,
-      self.verification_code = None    #delete the code, and
-      return True                      #return true to mark as complete.
-    return False #Return false if incorrect code
-  
   @property
   def password(self):
     raise AttributeError("Password cannot be retrieved.") #Prevent trying to directly access the password.
   
   @password.setter
-  def password(self,plain_password): #This will be called when setting the password
+  def password(self,plain_password:str): #This will be called when setting the password
     self.password_hash = bcrypt.generate_password_hash(plain_password) #hash the password then store it in a binary object
 
-  def check_password(self,plain_password): #Returns a bool on whether the passwords match
+  def check_password(self,plain_password:str): #Returns a bool on whether the passwords match
     return bcrypt.check_password_hash(self.password_hash, plain_password) #Check them
   
   def __repr__(self): #When printing, what to return
@@ -80,7 +69,7 @@ class Account(db.Model): #The user accounts
             {'verify': self.id, 'exp': time() + expires_in},
             current_app.config['SECRET_KEY'], algorithm='HS256')
   @staticmethod
-  def verify_reset_password_token(token):
+  def verify_reset_password_token(token:str):
       try:
           print(token)
           id = jwt.decode(token, current_app.config['SECRET_KEY'],

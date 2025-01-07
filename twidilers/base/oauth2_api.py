@@ -8,9 +8,10 @@ from .decorators import login_prohibited
 from ..functions import findAccountByEmail,formatImage
 from ..models import Account
 from ..objects import db
+from .email import sendWelcome
 
 #Imports
-from flask import current_app, redirect, url_for, session, abort, request, flash
+from flask import current_app, redirect, url_for, session, abort, request, flash,Response
 from urllib.parse import urlencode
 import secrets
 import requests
@@ -101,11 +102,13 @@ def oauth2_callback(provider):
         db.session.add(account)
         db.session.commit()
         flash('Account Created','success')
+        sendWelcome(account)
+        
 
     session['username'] = account.username
     return redirect(url_for('.page', page='index'))
 
-def redirectToProvider(provider):
+def redirectToProvider(provider:str) -> Response:
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
     if provider_data is None:
         abort(404)

@@ -4,6 +4,7 @@
 
 // btn supplies the input button id while mnu supplies the content id
 function flyOut(mnu,btn) {
+    const userMenu = document.getElementById('popupMenu');
     const button = document.getElementById(btn);
     const menu = document.getElementById(mnu);
 
@@ -12,6 +13,7 @@ function flyOut(mnu,btn) {
     button.addEventListener('click', () => {
         if (menu.style.display === 'none') {
             menu.style.display = 'block';
+            userMenu.style.display = 'none';
         } else {
             menu.style.display = 'none';
         }
