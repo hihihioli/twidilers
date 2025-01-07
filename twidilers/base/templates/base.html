@@ -83,6 +83,34 @@ import * as Turbo from "@hotwired/turbo"
             </div> 
         </div>           
         <script src="{{ url_for('.static', filename='/javascript/base.js') }}"></script>
+        <script>
+            // Notification handler
+            function clearNotifs() { //The function to clear notifications
+                {% if session['username'] %}
+                    {% set account = findAccount() %}
+                    data = [
+                        {% for notif in account.notifications %}
+                        [`{{notif['content']}}`,
+                        "{{notif['author']}}",],
+                        {% endfor %}
+                    ]
+                    fetch("{{url_for('.clear')}}", { // fetches clear function in api.py
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'
+                        document.getElementById('notification-count').remove()
+                    })
+                {% else %}
+                    alert('Y no logged in?')
+                {% endif %}
+        }
+        </script>
     {% endblock %}
     
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->

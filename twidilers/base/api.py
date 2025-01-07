@@ -61,7 +61,7 @@ def write_post():
     print(account)
     print(account.followers)
     for follower in account.followers:
-        new_notifications = account.notifications.copy()
+        new_notifications = follower.notifications.copy()
         data = {
             "author":account.username,
             "title":title,
@@ -80,7 +80,7 @@ def write_post():
 def filter():
     if "delete-post" in request.form:
         post_id = request.form.get('post-id')
-        post = db.session.execute(db.get_or_404(post_id)).scalar()
+        post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         db.session.delete(post)
         db.session.commit()
         flash('Post Deleted','success')
