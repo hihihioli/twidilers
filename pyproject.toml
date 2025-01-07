@@ -10,6 +10,7 @@ dependencies = [
     "gunicorn",
     "Flask-Mail",
     "requests",
+    "PyJWT",
 ]
 version='1.0'
 description='A wonderful website'

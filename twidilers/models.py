@@ -9,8 +9,11 @@ from sqlalchemy.orm import Mapped, mapped_column,relationship
 from sqlalchemy import LargeBinary, DateTime, ForeignKey,Column, Table,Integer
 from sqlalchemy.dialects.postgresql import JSONB
 
-import datetime #For the time
+from flask import current_app
+import datetime #For the datetime
+from time import time #For the time
 import random #To generate codes
+import jwt #For the tokens
 
 #Many-to-Many relationship table for followers
 follow = Table(
@@ -26,14 +29,13 @@ class Account(db.Model): #The user accounts
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
   username:Mapped[str] = mapped_column(unique=True,nullable=True)
   displayname:Mapped[str] = mapped_column(nullable=True)
-  email:Mapped[str] = mapped_column(nullable=False)
+  email:Mapped[str] = mapped_column(nullable=False,unique=True)
   is_mod:Mapped[bool] = mapped_column(default=False) #If they are a moderator
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=True) #Store the password hash instead of plaintext
   notifications:Mapped[list] = mapped_column(JSONB, default=list)
   verified:Mapped[bool] = mapped_column(default=False) #Wether they are verified or not
-  verification_code:Mapped[int] = mapped_column(nullable=True,default=random.randint(100000,999999)) #Their code to verify, if false
   setup:Mapped[bool] = mapped_column(default=False) #If they have set up their account
   is_oauth:Mapped[bool] = mapped_column(default=False) #If they are an oauth user
   userdata:Mapped[dict] = mapped_column(JSONB,default={
@@ -72,6 +74,21 @@ class Account(db.Model): #The user accounts
   
   def __repr__(self): #When printing, what to return
     return f'username={self.username},id={self.id}'
+  
+  def get_verify_token(self, expires_in=600): #Get a token for verifying email
+        return jwt.encode(
+            {'verify': self.id, 'exp': time() + expires_in},
+            current_app.config['SECRET_KEY'], algorithm='HS256')
+  @staticmethod
+  def verify_reset_password_token(token):
+      try:
+          print(token)
+          id = jwt.decode(token, current_app.config['SECRET_KEY'],
+                          algorithms=['HS256'])['verify']
+      except:
+          return
+      return db.session.get(Account, id)
+  
   
 class Post(db.Model): #The posts(linked to accounts)
   __tablename__ = 'posts'

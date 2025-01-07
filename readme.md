@@ -12,6 +12,12 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * typeError occures when changing the password of a github account
+* Notifications
+    * Can't clear
+    * Only one per person(Maybe one overall)
+* bio styling in new-user
+* new-user, when submitting pfp but not choosing a file, you get a 'unsupported file type'. you can't go back to the previus step
+
 
 # Do before deployment:
 * Fix bugs 
@@ -23,11 +29,13 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Change github oAuth uri to twidilers.com
 * Forgot password button
     * Code can be generated and set as users verification code
+* Support@twidilers.com + in footer
 
 
 # New feature wishlist
 ## General features
 * Blogs
+* Use Flask-Login(backend)
 
 
 ## Frontend changes
@@ -39,17 +47,13 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 ## User accounts
 ### New user setup process
-* Add skip button for non-required actions (update pfp and bio)
 * User 404 page when not fully setup
-* Preview pfp before submitting
+* Ability to resend verification link
 ### Login process
 * Forgot password functionality
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
-* Able to log in with either username or password
-### Sign up process
-* Require unique email account
+* Able to log in with either username or email
 ### Oauth feature requests
-* Pull user data from Github and Google
 
 
 ## Moderation tools
@@ -71,7 +75,7 @@ While it doesn't have to be advanced right now, we need to have the ability to b
         * should require verification code sent to email account
         * Verify new password (Put it in twice like when signing up)
 * Privacy
-    * Visability settings for posts and profile page (Set to followers only, trusted accounts, or public)
+    * Visability settings for posts and profile page (Set to followers or public)
 * Notifications
     * Which notifications are sent to email
     * Change what things to be notified on
@@ -90,15 +94,14 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 
 
 ## Verification codes
-* JWT / JWE for security
+* JWT / JWE for security (DONE)
 
 
 ## Email requirements
 ### Styling/frontend changes
 * All ready! Under /templates/email/
 ### User account creation changes
-* Create account in "unverified" state until email link is clicked
-    * see miguelgrinberg for useful secure email link generator
+* Ability to resend verification link
 ### When we'd send emails
 * When changing user settings (like a password, email address)
 * When creating an account

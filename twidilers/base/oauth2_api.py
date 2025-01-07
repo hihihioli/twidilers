@@ -5,7 +5,7 @@ The oauth2 routes. Taken from https://blog.miguelgrinberg.com/post/oauth-authent
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer
 from .decorators import login_prohibited
-from ..functions import findAccountByEmail
+from ..functions import findAccountByEmail,formatImage
 from ..models import Account
 from ..objects import db
 
@@ -56,12 +56,12 @@ def oauth2_callback(provider):
     # make sure that the state parameter matches the one we created in the
     # authorization request
     if request.args['state'] != session.get('oauth2_state'):
-        abort(401)
+        return redirectToProvider(provider)
 
     # make sure that the authorization code is present
     if 'code' not in request.args:
-        abort(401)
-
+        return redirectToProvider(provider)
+    
     # exchange the authorization code for an access token
     response = requests.post(provider_data['token_url'], data={
         'client_id': provider_data['client_id'],
@@ -72,19 +72,20 @@ def oauth2_callback(provider):
                                 _external=True),
     }, headers={'Accept': 'application/json'})
     if response.status_code != 200:
-        abort(401)
+        return redirectToProvider(provider)
     oauth2_token = response.json().get('access_token')
     if not oauth2_token:
-        abort(401)
+        return redirectToProvider(provider)
 
     # use the access token to get the user's email address
     response = requests.get(provider_data['email']['url'], headers={
         'Authorization': 'Bearer ' + oauth2_token,
         'Accept': 'application/json',
     })
+
     if response.status_code != 200:
+        provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
         abort(401)
-    print(response.json())
     email = provider_data['email']['email'](response.json())
     account = findAccountByEmail(email)
 
@@ -96,10 +97,31 @@ def oauth2_callback(provider):
         name = provider_data['userdata']['name'](response.json())
         picture = requests.get(provider_data['userdata']['picture'](response.json())).content
         print(picture)
-        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=picture)
+        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=formatImage(picture))
         db.session.add(account)
         db.session.commit()
         flash('Account Created','success')
 
     session['username'] = account.username
     return redirect(url_for('.page', page='index'))
+
+def redirectToProvider(provider):
+    provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
+    if provider_data is None:
+        abort(404)
+
+    # generate a random string for the state parameter
+    session['oauth2_state'] = secrets.token_urlsafe(16)
+
+    # create a query string with all the OAuth2 parameters
+    qs = urlencode({
+        'client_id': provider_data['client_id'],
+        'redirect_uri': url_for('.oauth2_callback', provider=provider,
+                                _external=True),
+        'response_type': 'code',
+        'scope': ' '.join(provider_data['scopes']),
+        'state': session['oauth2_state'],
+    })
+
+    # redirect the user to the OAuth2 provider authorization URL
+    return redirect(provider_data['authorize_url'] + '?' + qs)

@@ -24,12 +24,9 @@ def login():
         flash('Username or password is incorrect. Change account details or create an account','error')
         return redirect(url_for('.page',page='login'))
     if account.verified == False: #The account is unverified
-        flash('Please Verify Your Account','Error')
+        flash('Please Verify Your Account(Verification Code Sent)','error')
+        sendVerification(account)
         return redirect(url_for('.page',page='login'))
-    if account.setup == False: #The account is not set up
-        flash('Please Set Up Your Account')
-        session['username'] = username #Sets session data to be used on other pages
-        return redirect(url_for('.new_user'))
     if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
         flash('Login Successful!','success')
         session['username'] = username #Sets session data to be used on other pages
@@ -218,16 +215,15 @@ def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
     return render_template('postinfo.html',post=post)
 
-@app.get('/verify/<username>')
-def verify(username):
-    code = request.args.get('code')
-    user = findAccount(username)
-    if not user.verify(code):
+@app.get('/verify/<token>')
+def verify(token):
+    user = Account.verify_reset_password_token(token)
+    if not user:
         flash('Invalid Code','error')
         return redirect(url_for('.page',page='sign-up'))
     db.session.commit()
     flash('Email Succesfully Verified','success')
-    session['username'] = username #log them in
+    session['username'] = user.username #log them in
     return redirect(url_for('.new_user')) #bring them to the new user page
 
 @app.get('/new-user') # User requests /new-user
@@ -245,6 +241,11 @@ def post_new_user():
     if account.setup:
         flash("You've Already Set Up Your Account",'error')
         return redirect(url_for('.page',page='index'))
+    for arg in request.form:
+        if arg.startswith('skip'):
+            flash('Skipped','success')
+            print(arg)
+            return render_template(f'new-user/{int(arg[4])+1}.html')
     if 'welcome0' in request.form: # First page doesn't submit information
         return render_template('new-user/1.html')
     if 'welcome1' in request.form: # welcome 1 is privacy policy

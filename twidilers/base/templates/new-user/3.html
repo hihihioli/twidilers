@@ -1,30 +1,38 @@
-<html>
-    <head>
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/settings.css') }}">
-
-    </head>    <div id="flashes">
-        {% block flashes %}
-            {% for category, message in get_flashed_messages(with_categories=true) %}
-                <div class="flash {{ category }}">
-                    <span>{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endblock %}</div>
-    <body>
-    {% set account = findAccount() %}
+{% extends 'new-user/new-user.html' %}
+    {% block content %}{% set account = findAccount() %}
         <div class="welcome-div" id="welcome-4">
-            <h1>Show us your smile!</h1>
-            <h2>Set up a profile picture</h2>
+            <div id="img-container">
+                <img id="imagePreview" src="{{ url_for('.static', filename='images/default_user.png')}}" alt="profile picture">
+            </div>
+            <div id="titleImg">
+                <h1>Show us your smile!</h1>
+                <h2>Set up a profile picture</h2>
+            </div>
             <form method="post" enctype="multipart/form-data" id="upload_pfp">
                 <label for="file" class="custom-file-upload">
                     choose picture
                 </label>
+
                 <input type="file" id="file" name="file" accept="image/*">
                 <button class="submit" id="pfp-submit" name="welcome3">Continue</button>
             </form>
+
         </div>
-    </body>
-</html>
+        <script>
+            // IMage preview befofre upload
+            document.getElementById('upload_pfp').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('imagePreview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        </script>
+{% endblock %}
+{% block pagenumber %}3{% endblock %}
+{% block pn %}3{% endblock %}

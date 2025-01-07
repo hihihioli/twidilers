@@ -1,18 +1,5 @@
-<html>
-    <head>
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/welcome.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-        <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/base.css') }}">
-    </head>
-    <div id="flashes">
-        {% block flashes %}
-            {% for category, message in get_flashed_messages(with_categories=true) %}
-                <div class="flash {{ category }}">
-                    <span>{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endblock %}</div>
-    <body>
+{% extends 'new-user/new-user.html' %}
+    {% block content %}
         {% set account = findAccount() %}
         <div class="welcome-div" id="welcome-0">
             <h1>Welcome to Twidilers Hub!</h1>
@@ -21,5 +8,6 @@
                 <button class="submit" type="submit" name="welcome0">Continue</button>
             </form>
         </div>
-    </body>
-</html>
+    {% endblock %}
+{% block pagenumber %}0{% endblock %}
+{% block pn %}0{% endblock %}

@@ -59,6 +59,7 @@
     height: fit-content;
     flex-wrap:wrap;
     background-color:var(--lightishblue);
+    overflow-wrap: break-word;
 }
 /* Post styling stoled from post.css for better loading times */
 .pst {
