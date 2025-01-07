@@ -18,6 +18,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * bio styling in new-user
 * new-user, when submitting pfp but not choosing a file, you get a 'unsupported file type'. you can't go back to the previus step
 * Account isn't actually verified after going through verification setup
+* Trying to sign in with google and requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /oauth2/v3/userinfo (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f9ad29dd6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
 
 
 # Do before deployment:
