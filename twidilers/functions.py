@@ -1,5 +1,5 @@
 from .models import Account,db
-from flask import session,flash
+from flask import session,flash,Request
 import re #for regular expressions
 from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
@@ -11,17 +11,17 @@ def save():
         db.session.rollback()
         print(f'An error occured: {e}')
         
-def findAccount(username=None): #Finds an account that matches a given username that defaults to the session username
+def findAccount(username=None) -> Account|None: #Finds an account that matches a given username that defaults to the session username
     if username is None:
         username = session.get('username')
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar()
     return account
 
-def findAccountByEmail(email): #Finds an account that matches a given email
+def findAccountByEmail(email) -> Account|None: #Finds an account that matches a given email
     account = db.session.execute(db.select(Account).filter_by(email=email)).scalar()
     return account
 
-def checkUsername(input):
+def checkUsername(input) -> bool:
     # Define the pattern for allowed characters
     pattern = r'^[a-zA-Z0-9_]+$'
     
@@ -37,7 +37,7 @@ def deleteAccount():
     db.session.commit()
     flash('Successfully Deleted Account','success')
 
-def newPassword(request):
+def newPassword(request:Request):
     account = findAccount()
     new_password = request.form.get('new-password')
     old_password = request.form.get('old-password')
@@ -55,14 +55,14 @@ def newPassword(request):
         db.session.commit()
         flash('Password changed successfully','success')
 
-def changeDisplay(request):
+def changeDisplay(request:Request):
     account = findAccount()
     new_name = request.form.get('displayname')
     account.displayname = new_name
     db.session.commit()
     flash(f'Display Name Changed to {account.displayname}','success')
 
-def changeUsername(request):
+def changeUsername(request:Request):
     account = findAccount()
     new_name = request.form.get('username')
     session['username'] = new_name
@@ -71,7 +71,7 @@ def changeUsername(request):
     flash(f'Username Changed to {account.displayname}','success')
 
 
-def changePFP(request):
+def changePFP(request:Request):
     account = findAccount()
     try:
         img = Image.open(request.files['file'])
@@ -86,7 +86,7 @@ def changePFP(request):
     except Exception as e:
         flash(f'An Error Occured: {e}')
 
-def changeBio(request):
+def changeBio(request:Request):
     account = findAccount()
     new_userdata = account.userdata.copy()  # Create a copy of the existing userdata
     new_userdata['bio'] = request.form.get('bio')  # Update the bio field
@@ -94,7 +94,7 @@ def changeBio(request):
     db.session.commit()
     flash('Bio Updated Successfully','success')
 
-def formatImage(image_bytes):
+def formatImage(image_bytes:bytes) -> bytes:
     img = Image.open(BytesIO(image_bytes))
     img = ImageOps.fit(img,(200,200)) #sets the file resolution
     temp_file = BytesIO()
