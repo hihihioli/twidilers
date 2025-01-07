@@ -24,12 +24,9 @@ def login():
         flash('Username or password is incorrect. Change account details or create an account','error')
         return redirect(url_for('.page',page='login'))
     if account.verified == False: #The account is unverified
-        flash('Please Verify Your Account','Error')
+        flash('Please Verify Your Account(Verification Code Sent)','error')
+        sendVerification(account)
         return redirect(url_for('.page',page='login'))
-    if account.setup == False: #The account is not set up
-        flash('Please Set Up Your Account')
-        session['username'] = username #Sets session data to be used on other pages
-        return redirect(url_for('.new_user'))
     if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
         flash('Login Successful!','success')
         session['username'] = username #Sets session data to be used on other pages
