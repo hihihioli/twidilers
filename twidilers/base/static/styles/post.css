@@ -33,6 +33,9 @@ input[type="checkbox" i] {
     inline-size: 565px;
     overflow-wrap: break-word;
     display:relative !important;
+    position:relative;
+    text-decoration:unset !important;
+
 }
 
 .pst-auth {
@@ -45,6 +48,7 @@ input[type="checkbox" i] {
     margin:3px 0 0 0;
     color:var(--darkblue);
     font-size: 10pt;
+    font-weight:normal;
 }
 
 .pst-auths{
@@ -78,6 +82,7 @@ input[type="checkbox" i] {
 }
 #filter:hover {
     box-shadow: 0 0 10px var(--lightblue);
+    color:var(--darkblue);
 }
 #filter-form {
     display:none;
@@ -91,6 +96,30 @@ input[type="checkbox" i] {
     z-index:1000;
     width:270px;
     right:0;
+}
+.pst-reactions {
+    position:absolute;
+    right:20px;
+    top:20px;
+    display:flex;
+    flex-direction:row-reverse;
+    gap:10px;
+    padding:0;
+}
+.pst-react-but {
+    background-color:var(--darkblue);
+    border:2px solid var(--lightblue);
+    border-radius: 3px;
+    color:var(--lightblue); 
+    padding:10px;
+    cursor:pointer;
+
+    width:36px;
+    transition:0.3s all;
+    height:36px;
+}
+.pst-react-but:hover {
+    box-shadow:0 0 3px var(--lightblue);
 }
 .checkbox-label {
     position:absolute;
