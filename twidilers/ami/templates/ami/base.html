@@ -15,9 +15,14 @@
 <body>
     <div id="navbar">
         {% block navbar %}
-        <a href="{{url_for('.index')}}"><button>Home</button></a>
-        <a href="{{url_for('.login')}}"><button>Log In</button></a>
-        <a href="{{url_for('.signup')}}"><button>Begin your adventure!</button></a>
+        <a href="{{url_for('.page', page='index')}}"><button>Home</button></a>
+        {% if not session['username'] %}
+        <a href="{{url_for('.page', page='login')}}"><button>Log In</button></a>
+        <a href="{{url_for('.sign_up')}}"><button>Begin your adventure!</button></a>
+        {% else %}
+        <a href="{{url_for('.browse')}}"><button>Browse</button></a>
+        <a href="{{url_for('.logout')}}"><button>Log Out</button></a>
+        {% endif %}
         {% endblock %}
     </div>
     <div id="flashes">
