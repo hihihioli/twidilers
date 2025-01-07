@@ -1,0 +1,76 @@
+{% extends 'ami/base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block main %}
+<h1 class="heading">Sign Up</h1>
+<form method="post" name="sign_form" id="sign_form" class="form_block">
+    <!-- Div 1 (account details) s-->
+    <div class="i-container" id="sign-div1">
+        <input type="text" placeholder="Create a Username" class="textbox" id="username" name="username" autocomplete="off">
+        <input type="password" placeholder="Create Password" class="textbox" id="password1" name="password1" autocomplete="off">
+        <input type="password" placeholder="Confirm Password" class="textbox" id="password2" autocomplete="off" name="password2"><br>
+    </div>
+    <!-- Div 2 (instruments played) -->
+    <div class="i-container" id="sign-div2" style="display:none">
+        <h1 class="heading">Please select your instrument(s)</h1>
+        {% for instrument in instruments %}
+        <section>
+            <input type="checkbox" id="{{instrument}}" name="insts" value="{{instrument}}">
+            <label for="{{instrument}}">{{instrument.capitalize()}}</label>
+        </section>
+        {% endfor %}
+    </div>
+    <div class="i-container" id="sign-div3" style="display:none">
+        <h1 class="heading">Please select your favorite music genres</h1>
+        {% for genre in genres %}
+        <section>
+            <input type="checkbox" id="{{genre}}" name="gens" value="{{genre}}">
+            <label for="{{genre}}">{{genre.capitalize()}}</label>
+        </section>
+        {% endfor %}
+    </div>
+    <button type="button" class="submit" id="submit-button">Submit</button>
+</form>
+
+<script>
+    window.onload = function() {
+    const submit = document.getElementById('submit-button')
+    const Div1 = document.getElementById('sign-div1')
+    const Div2 = document.getElementById('sign-div2')
+    const Div3 = document.getElementById('sign-div3')
+    let instance = 1
+    submit.addEventListener('click', function (event) {
+        event.preventDefault()
+        if (instance == 1) {
+            if (document.getElementById('username')?.value.trim() !== '' && document.getElementById('password1')?.value.trim() !== '' && document.getElementById('password2')?.value.trim() !== '') {
+                if (document.getElementById('password2')?.value === document.getElementById('password1')?.value) {
+                    Div1.style.filter = 'opacity(0)'
+                    setTimeout(function () {
+                        Div1.style.display = 'none'
+                        Div2.style.display = 'flex'
+                        Div2.style.flexDirection = 'column'
+                        Div2.style.filter = 'opacity(1)'
+                        instance = 2
+                    }, 800)
+
+                } else {
+                    alert('Your passwords do not match')
+                }
+
+            } else {
+                alert('Please ensure that the fields are not empty and that they do not only consist of spaces')
+            }
+        } else if (instance == 2) {
+            Div2.style.filter = 'opacity(0)'
+            setTimeout(function () {
+                Div2.style.display = 'none'
+                Div3.style.display = 'block'
+                Div3.style.filter = 'opacity(1)'
+                instance = 3
+            }, 800)
+        } else if (instance == 3) {
+            document.sign_form.submit()
+        }
+    })
+}
+</script>
+{% endblock %}

@@ -18,4 +18,4 @@ bcrypt = Bcrypt() #Create a bcrypt object for hashing the passwords.
 mail = Mail() #Creates a mail object for sending emails
 
 from . import models #Import the models before initializing the database
-
+from .ami import models

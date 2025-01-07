@@ -71,7 +71,7 @@ def create_app():
     app.register_blueprint(base) #Register the base blueprint at root prefix
     
     from .ami import ami #Import the base blueprint
-    app.register_blueprint(ami,url_prefix='/ami/',name='ami') #Register the base blueprint at root prefix
+    app.register_blueprint(ami,url_prefix='/ami/') #Register the base blueprint at root prefix
     
     return app #Return the app to the runtime
 
