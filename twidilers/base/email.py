@@ -30,6 +30,14 @@ def sendWelcome(user:Account) -> None: #Send a welcome email
     email = user.email
     msg = Message(subject="Welcome to Twidilers!")
     msg.add_recipient(email)
-    msg.html = render_template('emails/welcome.html',username=user.username)
+    msg.html = render_template('emails/welcome.html',username=user.displayname)
+
+    Thread(target=sendAsyncEmail, args=(current_app.app_context(), msg)).start()
+
+def sendResetPassword(user:Account) -> None: #Send a verification code
+    email = user.email
+    msg = Message(subject="Reset Password For twidilers.com")
+    msg.add_recipient(email)
+    msg.html = render_template('emails/new-password.html',link=url_for('.reset_password_token',token=user.get_reset_password_token(),_external=True),user=user)
 
     Thread(target=sendAsyncEmail, args=(current_app.app_context(), msg)).start()

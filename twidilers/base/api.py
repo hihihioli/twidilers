@@ -11,7 +11,7 @@ from . import base as app #Blueprint imported as app so blueprint layer
 from .decorators import login_required #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
 from ..functions import * #Custom functions, like save()
-from .email import sendVerification #email functions
+from .email import sendVerification,sendWelcome,sendResetPassword #email functions
 
 @app.post('/login')
 def login():
@@ -164,6 +164,10 @@ def settings(): #Handles the settings page
     elif 'bio' in request.form: #The user wants to update their bio
         changeBio(request)
         return redirect('/settings')
+    elif 'password-change' in request.form: #The user wants to change their display name
+        sendResetPassword(findAccount())
+        flash('Password Reset Email Sent','success')
+        return redirect(url_for('.page',page='settings'))
     else: # We don't recognize the form. This is a catch all
         flash('Something went wrong','error')
         return redirect('/settings')
@@ -217,10 +221,11 @@ def post(post_id):
 
 @app.get('/verify/<token>')
 def verify(token):
-    user = Account.verify_reset_password_token(token)
+    user = Account.verify_verify_email_token(token)
     if not user:
         flash('Invalid Code','error')
         return redirect(url_for('.page',page='sign-up'))
+    user.verified = True
     db.session.commit()
     flash('Email Succesfully Verified','success')
     session['username'] = user.username #log them in
@@ -269,3 +274,27 @@ def post_new_user():
         account.setup = True
         flash('Account Setup Complete','success')
         return redirect(url_for('.profile',username=account.username))
+    
+@app.route('/reset-password/<token>',methods=['GET','POST'])
+def reset_password_token(token):
+    user = Account.verify_reset_password_token(token)
+    if not user:
+        flash('Invalid Code','error')
+        return redirect(url_for('.page',page='sign-up'))
+    session['username'] = user.username #log them in
+    if request.method == 'GET':
+        return render_template('password-reset.html') #bring them to the reset password page
+    else:
+        new_password = request.form.get('new-password')
+        if not new_password: 
+            flash('Please enter a password','error')
+            return redirect(request.referrer) #Send the user back where they came from
+        
+        if len(new_password) < 8: #Checks if the password is at least 8 characters long
+            flash('Password must be at least 8 characters long','error')
+            return redirect(request.referrer) #Send the user back where they came from
+        
+        user.password = new_password
+        db.session.commit()
+        flash('Password Changed','success')
+        return redirect(url_for('.page',page='settings'))

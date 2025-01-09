@@ -69,15 +69,27 @@ class Account(db.Model): #The user accounts
             {'verify': self.id, 'exp': time() + expires_in},
             current_app.config['SECRET_KEY'], algorithm='HS256')
   @staticmethod
-  def verify_reset_password_token(token:str):
+  def verify_verify_email_token(token:str):
       try:
-          print(token)
           id = jwt.decode(token, current_app.config['SECRET_KEY'],
                           algorithms=['HS256'])['verify']
       except:
           return
       return db.session.get(Account, id)
   
+  def get_reset_password_token(self, expires_in=600): #Get a token for resetting password
+     return jwt.encode(
+         {'reset': self.id, 'exp': time() + expires_in},
+         current_app.config['SECRET_KEY'], algorithm='HS256')
+  
+  @staticmethod
+  def verify_reset_password_token(token:str):
+      try:
+          id = jwt.decode(token, current_app.config['SECRET_KEY'],
+                          algorithms=['HS256'])['reset']
+      except:
+          return
+      return db.session.get(Account, id)
   
 class Post(db.Model): #The posts(linked to accounts)
   __tablename__ = 'posts'
