@@ -298,3 +298,7 @@ def reset_password_token(token):
         db.session.commit()
         flash('Password Changed','success')
         return redirect(url_for('.page',page='settings'))
+    
+@app.get('/admin/dashboard')
+def admin_dashboard():
+    pass
