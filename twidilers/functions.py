@@ -42,7 +42,7 @@ def deleteAccount(username=None):
 def newPassword(request:Request):
     account = findAccount()
     new_password = request.form.get('new-password')
-    old_password = request.form.get('old-password')
+    old_password = request.form.get('old-password',None)
     username = account.username
     if not account.check_password(old_password): #Checks if the old password is correct
         flash('Current password is incorrect','error')
