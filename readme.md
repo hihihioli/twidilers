@@ -11,24 +11,19 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # Bugs
-* typeError occures when changing the password of a github account
 * bio styling in new-user
-* new-user, when submitting pfp but not choosing a file, you get a 'unsupported file type'. you can't go back to the previus step
-* Account isn't actually verified after going through verification setup
 * Trying to sign in with google and requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /oauth2/v3/userinfo (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f9ad29dd6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
 
 
 # Do before deployment:
 * Fix bugs 
-* Email integration (DONE!)
 * Mod tools (dashboard.html)
 * Oauth
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
-* Forgot password button
-    * Code can be generated and set as users verification code
 * Support@twidilers.com + in footer
+* Add one-time username change for oauth users
 
 
 # New feature wishlist
