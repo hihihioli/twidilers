@@ -1,62 +1,65 @@
-<!--NO BACKEND WORK WAS PUT INTO THIS-->
-{extends 'base.html' %}
-{% block title %}Moderator Dashboard{% endblock %}
-{% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/dashboard.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/post.css') }}">
-
-{% endblock %}
-{% block content %}
-{% set account = findAccount() %}
-{% if account.is_mod = true %}
+{% extends 'base.html' %}
+    {% block title %}Moderator Dashboard{% endblock %}
+    {% block head %}
+    <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/dashboard.css') }}">
+    <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+    <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/post.css') }}">
+    {% endblock %}
+    {% block content %}
+    {% set account = findAccount() %}
     <h1>Welcome to the moderator dashboard, {{ account.username }}</h1>
-    <p>Here you can manage the site and users.</p>
+        <p>Here you can manage the site and users.</p>
     <h1>User dashboard</h1>
+        <!--
         <h2>Search for a user</h2>
             <form method="post">
                 <input type="text" name="username" placeholder="Username">
                 <button class="submit" name="search">Search</button>
             </form>
+        -->
         {% for user in users %}
-            <div class="user">
+            <div class="admin-user">
                 <h2>{{ user.username }}</h2>
                 <p>{{ user.email }}</p>
-                <form method="post">
-                    <button class="submit" name="ban" value="{{ user.id }}">Ban</button>
-                    <button class="submit" name="unban" value="{{ user.id }}">Unban</button>
-                    <!-- Hides posts from others but doesn't tell the user they are banned -->
-                    <button class="submit" name="shadowban" value="{{ user.id }}" title="Hides posts from others but doesn't tell the user they are banned">Shadowban</button>
-                </form>
+                <div class="pst-reactions">
+                    <form method="post">
+                        <button class="submit" name="ban" value="{{ user.id }}">Ban</button>
+                        <button class="submit" name="unban" value="{{ user.id }}">Unban</button>
+                        <!-- Hides posts from others but doesn't tell the user they are banned -->
+                        <button class="submit" name="shadowban" value="{{ user.id }}" title="Hides posts from others but doesn't tell the user they are banned">Shadowban</button>
+                    </form>
+                </div>
+                <a href="{{ url_for('.profile',username=user.username) }}">Go to profile</a>
             </div>
         {% endfor %}
-    <h1>Reported posts</h1>
-        {% for post.reported in  posts %}
-            <div class="post">
-                <h2>{{ post.title }}</h2>
-                <p>{{ post.content }}</p>
-                <p>{{ post.author }}</p>
-                <p>{{ post.reportnum }}</p>
-                <form method="post">
-                    <button class="submit" name="delete" value="{{ post.id }}">Delete</button>
-                    <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post">Mark as good</button>
-                    <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts">Ban user</button>
-                </form>
-        {% endfor %}
+        <!--
+            <h1>Reported posts</h1>
+                {% for post.reported in  posts %}
+                    <div class="post">
+                        <h2>{{ post.title }}</h2>
+                        <p>{{ post.content }}</p>
+                        <p>{{ post.author }}</p>
+                        <p>{{ post.reportnum }}</p>
+                        <form method="post">
+                            <button class="submit" name="delete" value="{{ post.id }}">Delete</button>
+                            <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post">Mark as good</button>
+                            <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts">Ban user</button>
+                        </form>
+                {% endfor %}
+            -->
     <h1>All posts</h1>
         {% for post in posts %}
-            <div class="post">
+            <div class="admin-post">
                 <h2>{{ post.title }}</h2>
                 <p>{{ post.content }}</p>
                 <p>{{ post.author }}</p>
-                <form method="post">
-                    <button class="submit" name="delete" value="{{ post.id }}">Delete</button>
-                    <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post">Mark as good</button>
-                    <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts">Ban user</button>
-                </form>
+                <div class="pst-reactions">
+                    <form method="post">
+                        <button class="submit" name="delete" value="{{ post.id }}">Delete</button>
+                        <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post">Mark as good</button>
+                        <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts">Ban user</button>
+                    </form>
+                </div>
             </div>
         {% endfor %}
-{% else %}
-    <h2>This should return a 404</h2>
-{% endif %}
-{% endblock %}
+    {% endblock %}
