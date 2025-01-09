@@ -53,7 +53,14 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: inherit;
     transition: background-color 5000s ease-in-out 0s;
 }
-
+#post-submit {
+    transition:0.7s all !important;
+}
+#post-submit:hover {
+    border-radius:50px;
+    background-color:var(--lightblue);
+    color:var(--darkblue) !important;
+}
 input:-internal-autofill-selected {
     background-color: var(--lightblue);
 }
@@ -74,9 +81,6 @@ a:focus-visible {
 }
 #title, #post-content {
     width: 470px;
-}
-#title {
-    border-radius: 10px;
 }
 #post-submit {
     margin:0;
