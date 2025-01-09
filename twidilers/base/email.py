@@ -22,7 +22,7 @@ def sendVerification(user:Account) -> None: #Send a verification code
     email = user.email
     msg = Message(subject="Verification Code For twidilers.com")
     msg.add_recipient(email)
-    msg.html = render_template('emails/new-verification.html',link=url_for('.verify',token=user.get_verify_token(),_external=True))
+    msg.html = render_template('emails/new-verification.html',link=url_for('.verify',token=user.get_verify_token(),_external=True),username=user.username)
 
     Thread(target=sendAsyncEmail, args=(current_app.app_context(), msg)).start()
 
