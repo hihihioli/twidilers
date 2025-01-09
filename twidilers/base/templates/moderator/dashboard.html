@@ -20,13 +20,10 @@
         {% for user in users %}
             <div class="admin-user">
                 <h2>{{ user.username }}</h2>
-                <p>{{ user.email }}</p>
+                <h3>{{ user.displayname }}</h3>
                 <div class="pst-reactions">
                     <form method="post">
                         <button class="submit" name="ban" value="{{ user.id }}">Ban</button>
-                        <button class="submit" name="unban" value="{{ user.id }}">Unban</button>
-                        <!-- Hides posts from others but doesn't tell the user they are banned -->
-                        <button class="submit" name="shadowban" value="{{ user.id }}" title="Hides posts from others but doesn't tell the user they are banned">Shadowban</button>
                     </form>
                 </div>
                 <a href="{{ url_for('.profile',username=user.username) }}">Go to profile</a>

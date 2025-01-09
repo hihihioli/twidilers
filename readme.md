@@ -15,8 +15,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # Bugs
-* bio styling in new-user
-* Trying to sign in with google and requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /oauth2/v3/userinfo (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f9ad29dd6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
 
 
 # Do before deployment:
