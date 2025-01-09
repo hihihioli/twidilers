@@ -10,6 +10,10 @@ Want to learn more about one of the dependencies we use? Look no further!
 * https://blog.miguelgrinberg.com/category/Flask
 
 
+# Currently working on:
+## Dashboard
+
+
 # Bugs
 * bio styling in new-user
 * Trying to sign in with google and requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.googleapis.com', port=443): Max retries exceeded with url: /oauth2/v3/userinfo (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f9ad29dd6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
@@ -22,7 +26,7 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
-* Support@twidilers.com + in footer
+* Support@twidilers.com in footer and emails
 * Add one-time username change for oauth users
 
 
@@ -92,8 +96,6 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 ## Email requirements
 ### Styling/frontend changes
 * All ready! Under /templates/email/
-### User account creation changes
-* Ability to resend verification link
 ### When we'd send emails
 * When changing user settings (like a password, email address)
 * When creating an account
