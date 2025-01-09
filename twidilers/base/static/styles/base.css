@@ -209,7 +209,7 @@ Click generate until you get the loss under 3 */
     position: relative; 
     padding: 0 !important;
     font-size: 25px;
-    background-color:var(--darkblue) !important;
+    background-color:var(--lightblue);
     width:46px !important;
     margin:auto;
 }
@@ -393,6 +393,7 @@ a {
 
     #navbarbell {
         color: var(--lightblue) !important;
+        background-color:var(--darkblue)!important;
     }
     .notif-post {
         background-color:var(--darkishblue);

@@ -127,6 +127,7 @@ input[type="checkbox" i] {
     right:0;
     width:200px;
     margin:10px;
+    color:var(--lightblue);
 }
 #check-text {
     float:right;
@@ -190,5 +191,8 @@ input[type="checkbox" i] {
 
     .pst-disp {
         color:var(--lightblue)
+    }
+    .checkbox-label {
+        color:var(--darkblue);
     }
 }
