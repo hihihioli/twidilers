@@ -30,7 +30,6 @@ class Account(db.Model): #The user accounts
   username:Mapped[str] = mapped_column(unique=True,nullable=True)
   displayname:Mapped[str] = mapped_column(nullable=True)
   email:Mapped[str] = mapped_column(nullable=False,unique=True)
-  is_mod:Mapped[bool] = mapped_column(default=False) #If they are a moderator
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=True) #Store the password hash instead of plaintext
