@@ -8,7 +8,7 @@ import datetime
 
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
-from .decorators import login_required #The custom decorators
+from .decorators import * #The custom decorators
 from ..models import Account,Post,db #Database models, like Account
 from ..functions import * #Custom functions, like save()
 from .email import sendVerification,sendWelcome,sendResetPassword #email functions
@@ -300,5 +300,7 @@ def reset_password_token(token):
         return redirect(url_for('.page',page='settings'))
     
 @app.get('/admin/dashboard')
+@admin_required
 def admin_dashboard():
-    pass
+    userlist = db.session.execute(db.select(Account)).scalars()
+    return render_template('moderator/dashboard.html',userlist=userlist)
