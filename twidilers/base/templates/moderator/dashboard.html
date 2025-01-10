@@ -18,7 +18,7 @@
             </form>
         -->
         {% for user in users %}
-            <div class="admin-user">
+            <div class="admin-user pst">
                 <h2>{{ user.username }}</h2>
                 <h3>{{ user.displayname }}</h3>
                 <div class="pst-reactions">
@@ -46,7 +46,7 @@
             -->
     <h1>All posts</h1>
         {% for post in posts %}
-            <div class="admin-post">
+            <div class="admin-post pst">
                 <h2>{{ post.title }}</h2>
                 <p>{{ post.content }}</p>
                 <p>{{ post.author }}</p>
