@@ -82,7 +82,7 @@ def filter():
         db.session.commit()
         flash('Post Deleted','success')
         return redirect(url_for('.page',page='feed'))
-    else:
+    elif "filter-foll" in request.form:
         filtered = request.form.get('filter-foll')
         if filtered:
             session['filter'] = 1
