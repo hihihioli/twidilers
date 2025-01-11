@@ -28,7 +28,7 @@
             </div>
         {% endfor %}
     <h1>All posts</h1>
-        {% for post in posts %}
+        {% for post in postlist() %}
             <div class="admin-post pst">
                 <div class="pst-auths">
                     <p class="pst-auth">{{post.author.displayname}}</p>

@@ -300,7 +300,6 @@ def reset_password_token(token):
         return redirect(url_for('.page',page='settings'))
     
 @app.get('/admin/dashboard')
-@admin_required
 def admin_dashboard():
     userlist = db.session.execute(db.select(Account)).scalars()
     return render_template('moderator/dashboard.html',userlist=userlist)
