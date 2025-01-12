@@ -7,6 +7,8 @@ from flask import Flask, session
 from dotenv import load_dotenv
 import os
 import uuid
+import ast
+
 
 
 def create_app():
@@ -18,6 +20,11 @@ def create_app():
     #Some config stuff
     if not app.config['SECRET_KEY']: #set secret key if not set
         app.config['SECRET_KEY'] = str(uuid.uuid4())
+
+    try: #Try to format the default sender as a tuple
+        app.config['MAIL_DEFAULT_SENDER'] = ast.literal_eval(app.config['MAIL_DEFAULT_SENDER'])
+    except: #if it fails
+        print('You can put the default sender in tuple form, such as: ("Sender","address@example.com")')
 
     app.config['OAUTH2_PROVIDERS'] = {
         # Google OAuth 2.0 documentation:
