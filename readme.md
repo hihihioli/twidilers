@@ -21,6 +21,8 @@ Want to learn more about one of the dependencies we use? Look no further!
 # Do before deployment:
 * Fix bugs 
 * Mod tools (dashboard.html)
+    * Ability to ban user
+    * Delete postsrea
 * Oauth
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
@@ -33,6 +35,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 ## General features
 * Blogs
 * Use Flask-Login(backend)
+* reCAPTCHA?
 
 
 ## Frontend changes
