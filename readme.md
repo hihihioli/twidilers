@@ -62,8 +62,7 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 
 ## User pages
 ### Profile page
-* Followers
-    * See who they follow and who follows them
+* Follower count
 ### Settings page
 * Refactor into different pages
 * Account Details
