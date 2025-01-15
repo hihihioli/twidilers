@@ -60,7 +60,7 @@
                     {% if post.author == account %}
                         <form method="post" id="delete-post-form{{ loop.index }}">
                             <button type="button" onclick="deletePost({{ loop.index }})" class="pst-react-but" id="delete-post{{ loop.index }}" name="delete-post" title="Delete Post">
-                                <input type="hidden" name="post-id" value="{{ post.id }}">
+                                <input type="hidden" name="delete-post-id" value="{{ post.id }}">
                                 <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                 <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
                             </button>

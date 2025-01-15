@@ -75,8 +75,8 @@ def write_post():
 @app.post('/feed')
 @login_required
 def filter():
-    if "('post-id', '4')" in request.form:
-        post_id = request.form.get('post-id')
+    if "delete-post-id" in request.form:
+        post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         db.session.delete(post)
         db.session.commit()
