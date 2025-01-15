@@ -31,7 +31,7 @@ def sendWelcome(user:Account) -> None: #Send a welcome email
     email = user.email
     msg = Message(subject="Welcome to Twidilers!")
     msg.add_recipient(email)
-    msg.html = render_template('emails/welcome.html',username=user.displayname)
+    msg.html = render_template('emails/welcome.html',username=user.displayname,link=url_for('.profile',username=user.username,_external=True))
 
     Thread(target=sendAsyncEmail, args=(current_app.app_context(), msg)).start()
 
