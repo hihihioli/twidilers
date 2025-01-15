@@ -75,7 +75,7 @@ def write_post():
 @app.post('/feed')
 @login_required
 def filter():
-    if "delete-post" in request.form:
+    if "('post-id', '4')" in request.form:
         post_id = request.form.get('post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         db.session.delete(post)
@@ -91,6 +91,8 @@ def filter():
             session['filter'] = 0
             flash("You're seeing everything now", 'success')
         return redirect(url_for('.page', page='feed'))
+    flash(f'{request.form}','error')
+    return redirect(url_for('.page',page='feed'))
 
 @app.post('/clear')
 @login_required

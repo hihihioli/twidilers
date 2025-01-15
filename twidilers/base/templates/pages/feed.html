@@ -41,7 +41,7 @@
         {% set account = findAccount() %}
         {% for post in postlist() %}
         {% if session['filter'] == 0 or post.author in account.following or post.author == account %}
-        <article class="pst" aria-labelledby="post-title-{{ loop.index }}">
+        <article class="pst" aria-labelledby="post-title-{{ loop.index }}" id="post{{ loop.index }}">
             <header>
                 <a href="{{ url_for('.profile',username=post.author.username) }}" 
                    class="auth-info"
@@ -56,14 +56,15 @@
                         <p class="pst-disp">@{{post.author.username}}</p>              
                     </div>
                 </a>
-                <div class="pst-reactions">
+                <div class="pst-reactions" id="pst-reactions{{ loop.index }}">
                     {% if post.author == account %}
-                        <form method="post">
-                            <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
+                        <form method="post" id="delete-post-form{{ loop.index }}">
+                            <button type="button" onclick="deletePost({{ loop.index }})" class="pst-react-but" id="delete-post{{ loop.index }}" name="delete-post" title="Delete Post">
                                 <input type="hidden" name="post-id" value="{{ post.id }}">
                                 <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                                <span class="visually-hidden">Delete this post</span>
+                                <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
                             </button>
+                            <input type="submit" class="visually-hidden" id="delete-post-submit{{ loop.index }}">
                         </form>
                         <!--
                         <form method="post">
@@ -91,6 +92,27 @@
             <p class="pst-content">{{post.content}}</p>
             <p class="pst-date" id="date{{ loop.index0 }}">{{ loop.index0 }}</p>
             <script>
+                function sleep(time) {
+                    return new Promise((resolve) => setTimeout(resolve, time));
+                }
+
+                function deletePost(postid) {
+                    var deletePostButton = document.getElementById(`delete-post${postid}`);
+                    var deletePostContainer = document.getElementById(`pst-reactions${postid}`);
+                    var form = document.getElementById(`delete-post-form${postid}`);
+                    var postContainer = document.getElementById(`post${postid}`);
+                    var deletePostSubmit = document.getElementById(`delete-post-submit${postid}`);
+
+                    deletePostButton.style = "width:100%;height:100%;font-size:1.5em;"; // trashcan button
+                    deletePostContainer.style = "width:100%;height:100%;top:0;right:0;"; // trashcan container
+                    form.style = "width:100%;height:100%;"; // form inside container
+
+                    sleep(500).then(() => {
+                        postContainer.style = "height:0;"; // hide post
+                        console.log("Attempting to submit the form...");
+                        form.submit();
+                    });
+                }
                 const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
                     document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
             </script>
