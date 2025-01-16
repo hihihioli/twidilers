@@ -10,7 +10,11 @@
     <script>
         // Fetches JSON for feed
         async function getData() {
+            const postContainer = document.getElementById('post-container');
             const url = "{{ url_for('.get_posts') }}";
+
+            postContainer.innerHTML = "<p>Loading...</p>";
+
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -18,8 +22,10 @@
                 }
                 feed = await response.json();
                 console.log(json);
+                writePosts(feed);
             } catch (error) {
                 console.error(error.message);
+                postContainer.innerHTML = "<p>Failed to load posts.</p>";
             }
         }
         </script>
@@ -51,8 +57,11 @@
             </div>
             <button id="submit-filter" type="submit" class="submit">Apply Filters</button>
         </form>
+        <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed">
+            <button id="refresh" type="button" onclick="getData()" class="submit">Refresh</button>
+        </form>
     </div>
-    <section aria-label="Posts feed" class="posts-container">
+    <section aria-label="Posts feed" class="posts-container" id="post-container">
         {% set account = findAccount() %}
         {% for post in postlist() %}
             {% if session['filter'] == 0 or post.author in account.following or post.author == account %}

@@ -1,45 +1,47 @@
-for (let i = 0; i < feed.length; i++) {
-    document.write(
-        `<div class='pst' id=${feed[i].id}>`
-        + `<header>
-            <a href="{{ url_for('.profile',username=${feed[i].username}) }}" 
-            class="auth-info"
-            aria-label="View ${feed[i].username}'s profile">
-            <img class="pst-auth-pfp" 
-                loading="lazy" 
-                src="{{ url_for('.get_pfp', username=${feed[i].username}) }}"
-                alt="Profile picture of ${feed[i].displayname}">
-            <div class="pst-auths">
-                <p class="pst-auth">${feed[i].displayname}</p>
-                <p class="pst-disp">@${feed[i].username}</p>              
+function writePosts(feed) {
+    for (let i = 0; i < feed.length; i++) {
+        document.write(
+            `<div class='pst' id=${feed[i].id}>`
+            + `<header>
+                <a href="{{ url_for('.profile',username=${feed[i].username}) }}" 
+                class="auth-info"
+                aria-label="View ${feed[i].username}'s profile">
+                <img class="pst-auth-pfp" 
+                    loading="lazy" 
+                    src="{{ url_for('.get_pfp', username=${feed[i].username}) }}"
+                    alt="Profile picture of ${feed[i].displayname}">
+                <div class="pst-auths">
+                    <p class="pst-auth">${feed[i].displayname}</p>
+                    <p class="pst-disp">@${feed[i].username}</p>              
+                </div>
+                </a>`
+            + `<div class="pst-reactions" id="pst-reactions${i}">
+                {% if post.author == account %}
+                    <form method="post" id="delete-post-form${i}">
+                        <button type="button" onclick="deletePost(${i})" class="pst-react-but" id="delete-post${i}" name="delete-post" title="Delete Post">
+                            <input type="hidden" name="delete-post-id" value="${i}">
+                            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                            <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
+                        </button>
+                        <input type="submit" class="visually-hidden" id="delete-post-submit${i}">
+                    </form>
+                {% else %}
+                    <form method="post">
+                        <button type="submit" class="pst-react-but" id="like-post" name="like-post" title="Like Post">
+                            <input type="hidden" name="post-id" value="${i}">
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                            <span class="visually-hidden">Like this post</span>
+                        </button>
+                    </form>
+                {% endif %}
             </div>
-            </a>`
-        + `<div class="pst-reactions" id="pst-reactions${i}">
-            {% if post.author == account %}
-                <form method="post" id="delete-post-form${i}">
-                    <button type="button" onclick="deletePost(${i})" class="pst-react-but" id="delete-post${i}" name="delete-post" title="Delete Post">
-                        <input type="hidden" name="delete-post-id" value="${i}">
-                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                        <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
-                    </button>
-                    <input type="submit" class="visually-hidden" id="delete-post-submit${i}">
-                </form>
-            {% else %}
-                <form method="post">
-                    <button type="submit" class="pst-react-but" id="like-post" name="like-post" title="Like Post">
-                        <input type="hidden" name="post-id" value="${i}">
-                        <i class="fa-solid fa-heart" aria-hidden="true"></i>
-                        <span class="visually-hidden">Like this post</span>
-                    </button>
-                </form>
-            {% endif %}
-        </div>
-        </header>`
-        + `<h2 class='pst-title' id='post-title-${i}'>${feed[i].title}</h2>`
-        + `<p class='pst-content'>${feed[i].content}</p>`
-        + `<p class'pst-date' id='date${i}'>${feed[i].date}</p>`
-        + `</div>`
-    );
+            </header>`
+            + `<h2 class='pst-title' id='post-title-${i}'>${feed[i].title}</h2>`
+            + `<p class='pst-content'>${feed[i].content}</p>`
+            + `<p class'pst-date' id='date${i}'>${feed[i].date}</p>`
+            + `</div>`
+        );
+    }
 }
 
 
