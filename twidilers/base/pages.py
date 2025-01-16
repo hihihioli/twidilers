@@ -9,6 +9,7 @@ from jinja2 import TemplateNotFound
 from . import base as app #Blueprint imported as app so blueprint layer 
 from . import context_processors #Import the context processors
 from . import api #the routes
+from . import user_api #the routes
 from . import oauth2_api #the routes for oauth2
 #Moved custom routes to routes.py(routes like login)
 

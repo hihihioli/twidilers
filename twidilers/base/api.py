@@ -204,18 +204,7 @@ def profaction(username):
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
-        
-        
-
-@app.get('/user/<username>/pfp')
-def get_pfp(username):
-    account = findAccount(username)
-    account if account else abort(404)
-    if account.photo:
-        return send_file(BytesIO(account.photo),download_name=f'{username}_pfp.png')
-    else:
-        return send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
-    
+            
 @app.get('/post/<post_id>')
 def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
