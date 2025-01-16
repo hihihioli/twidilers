@@ -20,23 +20,65 @@ async function getData() {
 }
 
 var firstPage = feed.length - 10;
+usernames = [];
+
+// finds user based on uuid in json
+async function findUsername(uuid) {
+    const url = "{{ url_for('get_users') }}";  
+    try {
+        const response = await fetch(url);  // Fetch data from the endpoint
+        const userdata = await response.json();  // Parse response as JSON
+
+        // Iterate through userdata array
+        for (let i = 0; i < userdata.length; i++) {
+            if (uuid === userdata[i].uuid) {
+                userInfo = [
+                    userdata[i].username,
+                    userdata[i].displayname,
+                ]
+                return findUserId(userInfo);  // finds other user data and returns it
+            }
+        }
+        return null;  // Return null if user with UUID is not found
+    } catch (error) {
+        console.error('Error fetching or parsing data:', error);
+        throw error;  // Throw error for handling at higher level
+    }
+}
+
+// extension of previous function. different because async
+function findUserData(usrinfo) {
+    const userName = usrinfo[0];
+    const displayName = usrinfo[1];
+    const userPFP = `{{ url_for('.get_pfp', username=${username})}}`
+    const userPage = `{{ url_for('.profile', username=${username})}}`
+    
+    var everything = [
+        username = userName,
+        displayname = displayName,
+        userpfp = userPFP,
+        userpage = userPage,
+    ]
+    return everything;
+}
 
 // Writes post 
 function writePosts(feed) {
     for (let i = feed.length; i < firstPage; i-=1) {
+        var authorData = findUsername(feed[i].uuid)
         document.write(
             `<div class='pst' id=${feed[i].id}>`
             + `<header>
-                <a href="{{ url_for('.profile',username=${feed[i].username}) }}" 
+                <a href="${authorData.userpage}" 
                 class="auth-info"
-                aria-label="View ${feed[i].username}'s profile">
+                aria-label="View ${authorData.displayname}'s profile">
                 <img class="pst-auth-pfp" 
                     loading="lazy" 
-                    src="{{ url_for('.get_pfp', username=${feed[i].username}) }}"
-                    alt="Profile picture of ${feed[i].displayname}">
+                    src="${authorData.userpfp}"
+                    alt="Profile picture of ${authorData.username}">
                 <div class="pst-auths">
-                    <p class="pst-auth">${feed[i].displayname}</p>
-                    <p class="pst-disp">@${feed[i].username}</p>              
+                    <p class="pst-auth">${authorData.displayname}</p>
+                    <p class="pst-disp">@${authorData.username}</p>              
                 </div>
                 </a>`
             + `<div class="pst-reactions" id="pst-reactions${i}">
@@ -73,6 +115,7 @@ function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+// delete post animation
 async function deletePost(postid) {
     var deletePostButton = document.getElementById(`delete-post${postid}`);
     var deletePostContainer = document.getElementById(`pst-reactions${postid}`);
@@ -115,5 +158,6 @@ async function deletePost(postid) {
     form.submit();
 }
 
-const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
-    document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
+// not used for date anymore
+//const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
+    //document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
