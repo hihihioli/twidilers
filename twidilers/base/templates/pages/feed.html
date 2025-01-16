@@ -7,6 +7,23 @@
 
 {% block content %}
 <main>
+    <script>
+        // Fetches JSON for feed
+        async function getData() {
+            const url = "{{ url_for('.get_posts') }}";
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                feed = await response.json();
+                console.log(json);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+        </script>
+
     <div id="topfeed" role="region" aria-label="Feed controls">
         <h1 id="feedtitle">Your feed</h1>
         <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post">Create a Post</a>
@@ -35,116 +52,23 @@
             <button id="submit-filter" type="submit" class="submit">Apply Filters</button>
         </form>
     </div>
-
-    {% if postlist() | length > 0 %}
     <section aria-label="Posts feed" class="posts-container">
         {% set account = findAccount() %}
         {% for post in postlist() %}
-        {% if session['filter'] == 0 or post.author in account.following or post.author == account %}
-        <article class="pst" aria-labelledby="post-title-{{ loop.index }}" id="post{{ loop.index }}">
-            <header>
-                <a href="{{ url_for('.profile',username=post.author.username) }}" 
-                   class="auth-info"
-                   aria-label="View {{ post.author.displayname }}'s profile">
-                    <img class="pst-auth-pfp" 
-                         loading="lazy" 
-                         src="{{ url_for('.get_pfp', username=post.author.username) }}"
-                         alt="Profile picture of {{ post.author.displayname }}">
-                         
-                    <div class="pst-auths">
-                        <p class="pst-auth">{{post.author.displayname}}</p>
-                        <p class="pst-disp">@{{post.author.username}}</p>              
-                    </div>
-                </a>
-                <div class="pst-reactions" id="pst-reactions{{ loop.index }}">
-                    {% if post.author == account %}
-                        <form method="post" id="delete-post-form{{ loop.index }}">
-                            <button type="button" onclick="deletePost({{ loop.index }})" class="pst-react-but" id="delete-post{{ loop.index }}" name="delete-post" title="Delete Post">
-                                <input type="hidden" name="delete-post-id" value="{{ post.id }}">
-                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                                <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
-                            </button>
-                            <input type="submit" class="visually-hidden" id="delete-post-submit{{ loop.index }}">
-                        </form>
-                        <!--
-                        <form method="post">
-                            <button type="submit"  class="pst-react-but" id="edit-post" name="edit-post" title="Delete Post">
-                                <input type="hidden" name="post-id" value="{{ post.id }}">
-                                <i class="fa-solid fa-pencil" aria-hidden="true"></i>
-                                <span class="visually-hidden">Edit post</span>
-                            </button>
-                        </form> -->
-                    {% else %}
-                        <form method="post">
-                            <button type="submit" class="pst-react-but" id="like-post" name="like-post" title="Like Post">
-                                <input type="hidden" name="post-id" value="{{ post.id }}">
-                                <i class="fa-solid fa-heart" aria-hidden="true"></i>
-                                <span class="visually-hidden">Like this post</span>
-                            </button>
-                        </form>
-                    {% endif %}
-                </div>
-            </header>
+            {% if session['filter'] == 0 or post.author in account.following or post.author == account %}
+            <article class="pst" aria-labelledby="post-title-{{ loop.index }}" id="post{{ loop.index }}">
+                <header>
 
-
-
-            <h2 class="pst-title" id="post-title-{{ loop.index }}">{{post.title}}</h2>
-            <p class="pst-content">{{post.content}}</p>
-            <p class="pst-date" id="date{{ loop.index0 }}">{{ loop.index0 }}</p>
-            <script>
-                function sleep(time) {
-                    return new Promise((resolve) => setTimeout(resolve, time));
-                }
-
-                async function deletePost(postid) {
-                    const deletePostButton = document.getElementById(`delete-post${postid}`);
-                    const deletePostContainer = document.getElementById(`pst-reactions${postid}`);
-                    const form = document.getElementById(`delete-post-form${postid}`);
-                    const postContainer = document.getElementById(`post${postid}`);
-
-                    // Start with expanding the trashcan to cover the entire post container
-                    deletePostContainer.style.width = "100%";
-                    form.style.width = "100%";
-                    deletePostContainer.style.height = "100%";
-                    form.style.height = "100%";
-                    deletePostContainer.style.top = "0";
-                    form.style.top = "0";
-                    deletePostContainer.style.right = "0";
-                    form.style.right = "0";
-
-                    deletePostButton.style.transition = "all 0.5s ease";
-                    deletePostButton.style.width = "100%";
-                    deletePostButton.style.fontSize = "1.5em";
-
-                    await sleep(500);
-
-                    // Expand the trashcan vertically
-                    deletePostButton.style.height = "100%";
-
-                    await sleep(500);
-
-                    // Collapse the post container until it disappears
-                    postContainer.style.transition = "all 0.4s ease";
-                    postContainer.style.height = "0";
-                    postContainer.style.overflow = "hidden";
-
-                    form.style.transition = "all 0.5s ease";
-                    form.style.height = "0";
-                    deletePostButton.style.fontSize = "0";
-
-                    await sleep(500);
-
-                    // Submit the form
-                    console.log("Attempting to submit the form...");
-                    form.submit();
-                }
-
-                const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
-                    document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
-            </script>
-        </article>
+                </header>
+                <h2 class="pst-title" id="post-title-{{ loop.index }}">{{post.title}}</h2>
+                <p class="pst-content">{{post.content}}</p>
+                <p class="pst-date" id="date{{ loop.index0 }}">{{ loop.index0 }}</p>
+                
+            </article>
         {% endif %}
-        {% endfor %}
+    {% endfor %}
+        <script src="{{ url_for('.static', filename='/javascript/feed.js') }}">
+        </script>
     </section>
     {% else %}
     <p class="no-posts">No posts to display</p>
