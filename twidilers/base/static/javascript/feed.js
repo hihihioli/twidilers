@@ -1,5 +1,29 @@
+// Fetches JSON for feed
+async function getData() {
+    const postContainer = document.getElementById('post-container');
+    const url = "{{ url_for('.get_posts') }}";
+
+    postContainer.innerHTML = "<p>Loading...</p>";
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        feed = await response.json();
+        console.log(json);
+        writePosts(feed);
+    } catch (error) {
+        console.error(error.message);
+        postContainer.innerHTML = "<p>Failed to load posts.</p>";
+    }
+}
+
+var firstPage = feed.length - 10;
+
+// Writes post 
 function writePosts(feed) {
-    for (let i = 0; i < feed.length; i++) {
+    for (let i = feed.length; i < firstPage; i-=1) {
         document.write(
             `<div class='pst' id=${feed[i].id}>`
             + `<header>

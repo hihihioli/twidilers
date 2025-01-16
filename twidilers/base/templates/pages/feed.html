@@ -8,26 +8,7 @@
 {% block content %}
 <main>
     <script>
-        // Fetches JSON for feed
-        async function getData() {
-            const postContainer = document.getElementById('post-container');
-            const url = "{{ url_for('.get_posts') }}";
 
-            postContainer.innerHTML = "<p>Loading...</p>";
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-                feed = await response.json();
-                console.log(json);
-                writePosts(feed);
-            } catch (error) {
-                console.error(error.message);
-                postContainer.innerHTML = "<p>Failed to load posts.</p>";
-            }
-        }
         </script>
 
     <div id="topfeed" role="region" aria-label="Feed controls">
