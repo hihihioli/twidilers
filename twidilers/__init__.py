@@ -66,10 +66,11 @@ def create_app():
         },
     }
 
-    from .objects import db,bcrypt,mail,models #Import the models from the models file and bcrypt object and the mail object
+    from .objects import db,bcrypt,mail,migrate,models #Import the models from the models file and bcrypt object and the mail object
     db.init_app(app)
     bcrypt.init_app(app)
     mail.init_app(app)
+    migrate.init_app(app)
 
     with app.app_context(): #Creates the tables for each class and adds it to the database
         db.create_all()

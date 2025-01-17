@@ -2,7 +2,7 @@
 services:
   web: #the website
     build: . #Build current directory
-    command: ["gunicorn","-w","12","-b","0.0.0.0:5000","twidilers:create_app()"] #Run the flask developer command
+    command: ["gunicorn","-w","12","-b","0.0.0.0:5000","twidilers:create_app()"] 
     environment:
       - FLASK_SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/db #The url for the database in the flask app
       - FLASK_MAIL_SERVER=${FLASK_MAIL_SERVER}

@@ -12,6 +12,7 @@ dependencies = [
     "requests",
     "PyJWT",
     "ua-parser[regex]",
+    "flask-migrate",
 ]
 version='1.0'
 description='A wonderful website'
