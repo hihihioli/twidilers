@@ -18,7 +18,7 @@ class Base(DeclarativeBase): #the base class(https://docs.sqlalchemy.org/en/20/o
 db = SQLAlchemy(model_class=Base) #Create the db object
 bcrypt = Bcrypt() #Create a bcrypt object for hashing the passwords.
 mail = Mail() #Creates a mail object for sending emails
-migrate = Migrate(db=db)
+migrate = Migrate()
 
 from . import models #Import the models before initializing the database
 from .ami import models

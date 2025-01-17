@@ -70,10 +70,7 @@ def create_app():
     db.init_app(app)
     bcrypt.init_app(app)
     mail.init_app(app)
-    migrate.init_app(app)
-
-    with app.app_context(): #Creates the tables for each class and adds it to the database
-        db.create_all()
+    migrate.init_app(app,db)
     
     from .base import base #Import the base blueprint
     app.register_blueprint(base) #Register the base blueprint at root prefix

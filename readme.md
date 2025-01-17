@@ -29,8 +29,15 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Change github oAuth uri to twidilers.com
 * Support@twidilers.com in footer and emails
 * Add one-time username change for oauth users
-* flask-migrate
 
+# How does flask-migrate work?
+## To update your database
+* Don't "Delete pData"
+* Instead run: docker compose exec web flask --app 'twidilers:create_app()' db upgrade
+## When modifying the db models
+* Don't just edit the models then try to upgrade. You need a migration script.
+* To generate a migration script: docker compose exec web flask --app 'twidilers:create_app()' db migrate -m "Migration Message Here"
+* THEN upgrade your db
 
 # New feature wishlist
 ## General features
