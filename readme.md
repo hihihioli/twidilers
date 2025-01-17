@@ -29,6 +29,7 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Change github oAuth uri to twidilers.com
 * Support@twidilers.com in footer and emails
 * Add one-time username change for oauth users
+* flask-migrate
 
 
 # New feature wishlist
