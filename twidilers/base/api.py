@@ -157,8 +157,11 @@ def settings(): #Handles the settings page
     elif 'new-password' in request.form: #The user wants to change their password
         newPassword(request)
         return redirect(url_for('.page',page='settings'))
-    elif 'change-name' in request.form: #The user wants to change their display name
+    elif 'name-change' in request.form: #The user wants to change their display name
         changeDisplay(request)
+        return redirect(url_for('.page',page='settings'))
+    elif 'username-change' in request.form: #The user wants to change their display name
+        changeUsername(request)
         return redirect(url_for('.page',page='settings'))
     elif 'file' in request.files: #The user wants to update their pfp
         changePFP(request)
@@ -171,7 +174,7 @@ def settings(): #Handles the settings page
         flash('Password Reset Email Sent','success')
         return redirect(url_for('.page',page='settings'))
     else: # We don't recognize the form. This is a catch all
-        flash('Something went wrong','error')
+        flash('Form Not Recognized','error')
         return redirect('/settings')
 
 @app.route('/user/<username>/')
@@ -248,9 +251,6 @@ def post_new_user():
         if account.is_oauth: # If the account is created with oauth, go to oauth page
             return render_template('new-user/oauth.html')
         return render_template('new-user/2.html')
-    if 'oauth' in request.form: # If the user is oauth, they need to set a username
-        changeUsername(request)
-        return render_template('new-user/2.html')
     if 'welcome2' in request.form: # welcome 2 is display name change
         changeDisplay(request)
         return render_template('new-user/3.html')
@@ -263,6 +263,7 @@ def post_new_user():
         return render_template('new-user/5.html')
     if 'welcome5' in request.form: # Welcome 5 is success page.
         account.setup = True
+        sendWelcome(account)
         flash('Account Setup Complete','success')
         return redirect(url_for('.profile',username=account.username))
     

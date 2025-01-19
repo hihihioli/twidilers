@@ -25,7 +25,7 @@ import * as Turbo from "@hotwired/turbo"
 </head>
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
     <!-- Flashes. Gives every flash a div with class flash and a custom category. -->
-    <div id="flashes">
+    <div id="flashes" style="display:none">
         {% block flashes %}
             {% for category, message in get_flashed_messages(with_categories=true) %}
                 <div class="flash {{ category }}">

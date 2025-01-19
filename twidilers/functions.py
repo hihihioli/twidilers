@@ -3,6 +3,7 @@ from flask import session,flash,Request
 import re #for regular expressions
 from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
+import sqlalchemy
 
 def save():
     try:
@@ -67,10 +68,16 @@ def changeDisplay(request:Request):
 def changeUsername(request:Request):
     account = findAccount()
     new_name = request.form.get('username')
-    session['username'] = new_name
     account.username = new_name
-    db.session.commit()
-    flash(f'Username Changed to {account.displayname}','success')
+    account.setup = True
+    try:
+        db.session.commit()
+        flash(f'Username Changed to {account.username}','success')
+        session['username'] = new_name
+    except sqlalchemy.exc.IntegrityError: #Instead of catching all errors and hiding them, i am catching integrity and then sending the rest to debugger
+        flash('Username already taken','error')
+        db.session.rollback()
+
 
 
 def changePFP(request:Request):

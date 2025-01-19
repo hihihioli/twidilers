@@ -39,7 +39,7 @@ class Account(db.Model): #The user accounts
   is_oauth:Mapped[bool] = mapped_column(default=False) #If they are an oauth user
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
-      "bio": 'No bio yet', 
+      "bio": '', 
     })
   #Making the table self-referential (it relates to other objects of the same class)
   followers = relationship('Account', 

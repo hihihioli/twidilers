@@ -5,7 +5,7 @@ The oauth2 routes. Taken from https://blog.miguelgrinberg.com/post/oauth-authent
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer
 from .decorators import login_prohibited
-from ..functions import findAccountByEmail,formatImage
+from ..functions import findAccountByEmail,findAccount, formatImage
 from ..models import Account
 from ..objects import db
 from .email import sendWelcome
@@ -15,7 +15,8 @@ from flask import current_app, redirect, url_for, session, abort, request, flash
 from urllib.parse import urlencode
 import secrets
 import requests
-import uuid
+import random
+from random_username.generate import generate_username
 
 @app.route('/authorize/<provider>') #Redirect the user to the OAuth2 provider authorization URL
 @login_prohibited
@@ -97,16 +98,23 @@ def oauth2_callback(provider):
         })
         name = provider_data['userdata']['name'](response.json())
         picture = requests.get(provider_data['userdata']['picture'](response.json())).content
-        print(picture)
-        account = Account(email=email,verified=True,username=str(uuid.uuid4()),is_oauth=True,displayname=name,photo=formatImage(picture))
+        username = genUsername()
+        account = Account(email=email,verified=True,username=username,is_oauth=True,displayname=name,photo=formatImage(picture))
         db.session.add(account)
         db.session.commit()
-        flash('Account Created','success')
+        flash('You Have a One-Time Username Change In Settings','success')
         sendWelcome(account)
         
 
     session['username'] = account.username
     return redirect(url_for('.page', page='index'))
+
+def genUsername(username=""):
+    if not username:
+        username = generate_username()[0]
+    if findAccount(username):
+        return genUsername(username + str(random.randint(0,9)))
+    return username
 
 def redirectToProvider(provider:str) -> Response:
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
