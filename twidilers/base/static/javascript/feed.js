@@ -1,114 +1,104 @@
 // Fetches JSON for feed
-async function getData() {
+async function fetchPosts() {
     const postContainer = document.getElementById('post-container');
-    const url = "{{ url_for('.get_posts') }}";
+    const postsUrl = "{{ url_for('.get_posts') }}";
+    const usersUrl = "{{ url_for('.get_users') }}";
 
     postContainer.innerHTML = "<p>Loading...</p>";
 
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+        // Fetch posts
+        const postsResponse = await fetch(postsUrl);
+        if (!postsResponse.ok) {
+            throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
         }
-        feed = await response.json();
-        console.log(json);
-        writePosts(feed);
+        const feed = await postsResponse.json();
+
+        // Fetch users
+        const usersResponse = await fetch(usersUrl);
+        if (!usersResponse.ok) {
+            throw new Error(`Users fetch failed with status: ${usersResponse.status}`);
+        }
+        const users = await usersResponse.json();
+
+        postContainer.innerHTML = ""; // Clear loading message
+        renderPosts(feed, users, postContainer);
     } catch (error) {
         console.error(error.message);
         postContainer.innerHTML = "<p>Failed to load posts.</p>";
     }
 }
 
-var firstPage = feed.length - 10;
-usernames = [];
 
-// finds user based on uuid in json
-async function findUsername(uuid) {
-    const url = "{{ url_for('get_users') }}";  
-    try {
-        const response = await fetch(url);  // Fetch data from the endpoint
-        const userdata = await response.json();  // Parse response as JSON
+// Renders posts into HTML
+function renderPosts(posts, users, container) {
+    posts.forEach(post => {
+        const author = users.find(user => user.id === post.author_id);
 
-        // Iterate through userdata array
-        for (let i = 0; i < userdata.length; i++) {
-            if (uuid === userdata[i].uuid) {
-                userInfo = [
-                    userdata[i].username,
-                    userdata[i].displayname,
-                ]
-                return findUserId(userInfo);  // finds other user data and returns it
-            }
-        }
-        return null;  // Return null if user with UUID is not found
-    } catch (error) {
-        console.error('Error fetching or parsing data:', error);
-        throw error;  // Throw error for handling at higher level
-    }
-}
-
-// extension of previous function. different because async
-function findUserData(usrinfo) {
-    const userName = usrinfo[0];
-    const displayName = usrinfo[1];
-    const userPFP = `{{ url_for('.get_pfp', username=${username})}}`
-    const userPage = `{{ url_for('.profile', username=${username})}}`
-    
-    var everything = [
-        username = userName,
-        displayname = displayName,
-        userpfp = userPFP,
-        userpage = userPage,
-    ]
-    return everything;
-}
-
-// Writes post 
-function writePosts(feed) {
-    for (let i = feed.length; i < firstPage; i-=1) {
-        var authorData = findUsername(feed[i].uuid)
-        document.write(
-            `<div class='pst' id=${feed[i].id}>`
-            + `<header>
-                <a href="${authorData.userpage}" 
+        if (author) {
+            const postHTML = `
+            <div class='pst' id=${post.id}>
+            <header>
+                <a href="${author.profile_link}" 
                 class="auth-info"
-                aria-label="View ${authorData.displayname}'s profile">
+                aria-label="View ${author.displayname}'s profile">
                 <img class="pst-auth-pfp" 
                     loading="lazy" 
-                    src="${authorData.userpfp}"
-                    alt="Profile picture of ${authorData.username}">
+                    src="${author.photo_url}"
+                    alt="Profile picture of ${author.displayname}">
                 <div class="pst-auths">
-                    <p class="pst-auth">${authorData.displayname}</p>
-                    <p class="pst-disp">@${authorData.username}</p>              
+                    <p class="pst-auth">${author.displayname}</p>
+                    <p class="pst-disp">@${author.username}</p>              
                 </div>
-                </a>`
-            + `<div class="pst-reactions" id="pst-reactions${i}">
+                </a>
+            <div class="pst-reactions" id="pst-reactions${post.id}">
                 {% if post.author == account %}
-                    <form method="post" id="delete-post-form${i}">
-                        <button type="button" onclick="deletePost(${i})" class="pst-react-but" id="delete-post${i}" name="delete-post" title="Delete Post">
-                            <input type="hidden" name="delete-post-id" value="${i}">
+                    <form method="post" id="delete-post-form${post.id}">
+                        <button type="button" onclick="deletePost(${post.id})" class="pst-react-but" id="delete-post${post.id}" name="delete-post" title="Delete Post">
+                            <input type="hidden" name="delete-post-id" value="${post.id}">
                             <i class="fa-solid fa-trash" aria-hidden="true"></i>
                             <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
                         </button>
-                        <input type="submit" class="visually-hidden" id="delete-post-submit${i}">
+                        <input type="submit" class="visually-hidden" id="delete-post-submit${post.id}">
                     </form>
                 {% else %}
                     <form method="post">
                         <button type="submit" class="pst-react-but" id="like-post" name="like-post" title="Like Post">
-                            <input type="hidden" name="post-id" value="${i}">
+                            <input type="hidden" name="post-id" value="${post.id}">
                             <i class="fa-solid fa-heart" aria-hidden="true"></i>
                             <span class="visually-hidden">Like this post</span>
                         </button>
                     </form>
                 {% endif %}
             </div>
-            </header>`
-            + `<h2 class='pst-title' id='post-title-${i}'>${feed[i].title}</h2>`
-            + `<p class='pst-content'>${feed[i].content}</p>`
-            + `<p class'pst-date' id='date${i}'>${feed[i].date}</p>`
-            + `</div>`
+            </header>
+            <h2 class='pst-title' id='post-title-${post.id}'>${post.title}</h2>
+            <p class='pst-content'>${post.content}</p>
+            <p class'pst-date' id='date${post.id}'>${post.date}</p>
+            </div>`;
+            container.innerHTML += postHTML;
+        } else {
+            console.warn(`Author not found for post ID: ${post.id}`);
+        }
+    });
+}
+
+
+// Writes post 
+function writePosts(feed) {
+    for (let i = feed.length; i < firstPage; i-=1) {
+        var authorData = findUsername(feed[i].uuid)
+        document.write(
+            
         );
     }
 }
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    fetchPosts();
+});
+
+
 
 
 function sleep(time) {

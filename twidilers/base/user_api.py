@@ -30,7 +30,8 @@ def userapi(username):
         'verified': account.verified,
         'setup': account.setup,
         'is_oauth': account.is_oauth,
-        'userdata': account.userdata
+        'userdata': account.userdata,
+        'profile_link': url_for('.profile',username=account.username)
      })
 
 @app.get('/api/user/<username>/pfp')
