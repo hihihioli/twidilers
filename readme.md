@@ -16,19 +16,22 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * unstyled password input form when changing password
+* Feed JS is kind of broken
+    * Readd filter functionality
+    * fix Jinja rendering
 
 
 # Do before deployment:
 * Fix bugs 
 * Mod tools (dashboard.html)
     * Ability to ban user
-    * Delete postsrea
+    * Delete posts
 * Oauth
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
 * Support@twidilers.com in footer and emails
-* Add one-time username change for oauth users
+
 
 # How does flask-migrate work?
 ## To update your database

@@ -42,9 +42,12 @@
     <section aria-label="Posts feed" class="posts-container">
         {% set account = findAccount() %}
         {% if session['filter'] == 0 or post.author in account.following or post.author == account %}
-                <div id="post-container"></div>
+                <div id="post-container">
+                    <p>Huh. Your browser might not have JavaScript</p>
+                </div>
         {% endif %}
         <script src="{{ url_for('.static', filename='javascript/feed.js') }}">
+            
         </script>
     </section>
 </main>

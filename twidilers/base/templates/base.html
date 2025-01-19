@@ -2,9 +2,6 @@
 <html lang="en">
 
 <head>
-    <script type="module">
-import * as Turbo from "@hotwired/turbo"
-</script>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
     <title>{% block title %}{% endblock %} - Twidilers</title> <!-- The title of the tab depending on the current page. -->
@@ -16,8 +13,6 @@ import * as Turbo from "@hotwired/turbo"
     <meta name="author" content="hihihioli">
     <meta name="author" content="wall03">
     <meta name="view-transition" content="same-origin" />
-    <meta name="turbo-refresh-method" content="morph">
-    <meta name="turbo-refresh-scroll" content="preserve">
 
     {% block head %}{% endblock %}
 

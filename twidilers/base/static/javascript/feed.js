@@ -1,8 +1,8 @@
 // Fetches JSON for feed
 async function fetchPosts() {
     const postContainer = document.getElementById('post-container');
-    const postsUrl = "{{ url_for(‘.all_posts’) }}";
-    const usersUrl = "{{ url_for(‘.all_users) }}";
+    const postsUrl = "../../api/feed/all";
+    const usersUrl = "../../api/users/all";
 
     postContainer.innerHTML = "<p>Loading...</p>";
 
@@ -83,16 +83,6 @@ function renderPosts(posts, users, container) {
     });
 }
 
-
-// Writes post 
-function writePosts(feed) {
-    for (let i = feed.length; i < firstPage; i-=1) {
-        var authorData = findUsername(feed[i].uuid)
-        document.write(
-            
-        );
-    }
-}
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     fetchPosts();
@@ -106,6 +96,7 @@ function sleep(time) {
 }
 
 // delete post animation
+/*
 async function deletePost(postid) {
     var deletePostButton = document.getElementById(`delete-post${postid}`);
     var deletePostContainer = document.getElementById(`pst-reactions${postid}`);
@@ -147,7 +138,7 @@ async function deletePost(postid) {
     console.log("Attempting to submit the form...");
     form.submit();
 }
-
+*/
 // not used for date anymore
 //const date{{ loop.index0 }} = new Date({{ post.date.timestamp()*1000 }})
     //document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ loop.index0 }}.toLocaleString();
