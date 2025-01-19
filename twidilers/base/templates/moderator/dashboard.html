@@ -16,7 +16,7 @@
                 <button class="submit" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         <h2>All users</h2>
-        {% for user in users %}
+        {% for user in userlist %}
             <div class="admin-user pst">
                 <h2>{{ user.username }}</h2>
                 <h3>{{ user.displayname }}</h3>

@@ -67,7 +67,7 @@ input[type="checkbox" i] {
     position:relative;
     height:100px;
 }
-#filter {
+.filter {
     font-size:26px;
     padding: 10px;
     border-radius:5px;
