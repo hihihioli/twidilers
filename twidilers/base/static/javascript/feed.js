@@ -1,8 +1,8 @@
 // Fetches JSON for feed
 async function fetchPosts() {
     const postContainer = document.getElementById('post-container');
-    const postsUrl = "{{ url_for('.get_posts') }}";
-    const usersUrl = "{{ url_for('.get_users') }}";
+    const postsUrl = "{{ url_for(‘.all_posts’) }}";
+    const usersUrl = "{{ url_for(‘.all_users) }}";
 
     postContainer.innerHTML = "<p>Loading...</p>";
 

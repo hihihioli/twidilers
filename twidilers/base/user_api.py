@@ -34,6 +34,21 @@ def userapi(username):
         'profile_link': url_for('.profile',username=account.username)
      })
 
+@app.get('/api/users/all')
+def all_users():
+    userlist:list[Account] = list(db.session.execute(db.select(Account).order_by(desc(Account.id))).scalars())
+    return flask.jsonify(list({
+        'id': account.id,
+        'username': account.username,
+        'displayname': account.displayname,
+        'photo_url': url_for('.get_pfp',username=account.username),
+        'verified': account.verified,
+        'setup': account.setup,
+        'is_oauth': account.is_oauth,
+        'userdata': account.userdata,
+        'profile_link': url_for('.profile',username=account.username)
+    } for account in userlist))
+
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
     account = findAccount(username)

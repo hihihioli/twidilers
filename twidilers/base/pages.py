@@ -15,7 +15,7 @@ from . import oauth2_api #the routes for oauth2
 
 @app.errorhandler(404)
 def error404(error):
-        return render_template('404.html')
+        return render_template('404.html'),404
 
 #The page handler for default pages
 #For templates do: url_for('.page',page='insert_page_here')
