@@ -12,8 +12,7 @@
         <h1 id="feedtitle">Your feed</h1>
         <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post">Create a Post</a>
         <button class="filter" 
-                onclick="fetchPosts(
-                    '/user/{{account.username}}')" 
+                onclick="flyOut('filter-form','filter')" 
                 aria-expanded="false"
                 aria-controls="filter-form"
                 aria-label="Toggle feed filters">
@@ -32,7 +31,7 @@
                 </label>
                 <span class="checkbox-label">Show only posts from people I follow</span>
             </div>
-            <button id="submit-filter" type="submit" class="submit">Apply Filters</button>
+            <button id="submit-filter" onclick="fetchPosts('user/{{account.username}}')" class="submit">Apply Filters</button>
         </form>
         <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed">
             <button id="refresh" type="button" onclick="fetchPosts('all')" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
