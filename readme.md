@@ -23,6 +23,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Do before deployment:
 * Fix bugs 
+* Finish feed.js
 * Mod tools (dashboard.html)
     * Ability to ban user
     * Delete posts
@@ -95,8 +96,9 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 ## Feed
 * Reactions (reply, like/dislike) on posts (FRONTEND DONE!)
 * Mention users via username. Sends notification
-### Regular posts
-* 
+### Content Delivery Systen !!
+* Add follower filter
+* Add reactions based on if you own the post
 ### Blogs
 * notifications for blog posts
 * Titles on blogs only

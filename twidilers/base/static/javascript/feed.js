@@ -1,10 +1,9 @@
+let amountOfPostsRendered = 0;
 // Fetches JSON for feed
 async function fetchPosts() {
     const postContainer = document.getElementById('post-container');
     const postsUrl = "../../api/feed/all";
     const usersUrl = "../../api/users/all";
-
-    postContainer.innerHTML = "<p>Loading...</p>";
 
     try {
         // Fetch posts
@@ -13,7 +12,9 @@ async function fetchPosts() {
             throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
         }
         const feed = await postsResponse.json();
-
+        if (amountOfPostsRendered === feed.length) {
+            return; // Doesn't reload if there aren't any new posts
+        }
         // Fetch users
         const usersResponse = await fetch(usersUrl);
         if (!usersResponse.ok) {
@@ -21,60 +22,45 @@ async function fetchPosts() {
         }
         const users = await usersResponse.json();
 
+        const newPosts = feed.slice(amountOfPostsRendered);
+        if (newPosts.length > 0) {
+            renderPosts(newPosts, users, postContainer); // Render only new posts
+            amountOfPostsRendered = feed.length; // Update the counter
+        }
+        
         postContainer.innerHTML = ""; // Clear loading message
         renderPosts(feed, users, postContainer);
+        amountOfPostsRendered = feed.length;
     } catch (error) {
         console.error(error.message);
         postContainer.innerHTML = "<p>Failed to load posts.</p>";
     }
 }
 
-
 // Renders posts into HTML
-function renderPosts(posts, users, container) {
+function renderPosts(posts, users, container, amount) {
     posts.forEach(post => {
         const author = users.find(user => user.id === post.author_id);
-
         if (author) {
             const postHTML = `
             <div class='pst' id=${post.id}>
-            <header>
-                <a href="${author.profile_link}" 
-                class="auth-info"
-                aria-label="View ${author.displayname}'s profile">
-                <img class="pst-auth-pfp" 
-                    loading="lazy" 
-                    src="${author.photo_url}"
-                    alt="Profile picture of ${author.displayname}">
-                <div class="pst-auths">
-                    <p class="pst-auth">${author.displayname}</p>
-                    <p class="pst-disp">@${author.username}</p>              
-                </div>
-                </a>
-            <div class="pst-reactions" id="pst-reactions${post.id}">
-                {% if post.author == account %}
-                    <form method="post" id="delete-post-form${post.id}">
-                        <button type="button" onclick="deletePost(${post.id})" class="pst-react-but" id="delete-post${post.id}" name="delete-post" title="Delete Post">
-                            <input type="hidden" name="delete-post-id" value="${post.id}">
-                            <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                            <span class="visually-hidden" id="thingy" name="thingy">Delete this post</span>
-                        </button>
-                        <input type="submit" class="visually-hidden" id="delete-post-submit${post.id}">
-                    </form>
-                {% else %}
-                    <form method="post">
-                        <button type="submit" class="pst-react-but" id="like-post" name="like-post" title="Like Post">
-                            <input type="hidden" name="post-id" value="${post.id}">
-                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
-                            <span class="visually-hidden">Like this post</span>
-                        </button>
-                    </form>
-                {% endif %}
-            </div>
-            </header>
-            <h2 class='pst-title' id='post-title-${post.id}'>${post.title}</h2>
-            <p class='pst-content'>${post.content}</p>
-            <p class'pst-date' id='date${post.id}'>${post.date}</p>
+                <header>
+                    <a href="${author.profile_link}" 
+                    class="auth-info"
+                    aria-label="View ${author.displayname}'s profile">
+                    <img class="pst-auth-pfp" 
+                        loading="lazy" 
+                        src="${author.photo_url}"
+                        alt="Profile picture of ${author.displayname}">
+                    <div class="pst-auths">
+                        <p class="pst-auth">${author.displayname}</p>
+                        <p class="pst-disp">@${author.username}</p>              
+                    </div>
+                    </a>
+                </header>
+                <h2 class='pst-title' id='post-title-${post.id}'>${post.title}</h2>
+                    <p class='pst-content'>${post.content}</p>
+                    <div class'pst-date' id='date${post.id}'>${post.date}</div>
             </div>`;
             container.innerHTML += postHTML;
         } else {
@@ -87,9 +73,7 @@ function renderPosts(posts, users, container) {
 document.addEventListener('DOMContentLoaded', () => {
     fetchPosts();
 });
-
-
-
+        
 
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
