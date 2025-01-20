@@ -12,14 +12,14 @@
         <h1 id="feedtitle">Your feed</h1>
         <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post">Create a Post</a>
         <button class="filter" 
-                onclick="flyOut('filter-form','filter')" 
+                onclick="flyOut('filter-form')" 
                 aria-expanded="false"
                 aria-controls="filter-form"
                 aria-label="Toggle feed filters">
             <i class="fa-solid fa-filter" aria-hidden="true"></i>
             <span class="visually-hidden">Filter posts</span>
         </button>
-        <form method="post" id="filter-form" name="filter-form" aria-label="Feed filter options">
+        <form method="post" id="filter-form" style="display:none;" name="filter-form" aria-label="Feed filter options">
             <div class="filter-control">
                 <label class="switch" for="filter-foll">
                     <input type="checkbox" 
@@ -38,12 +38,9 @@
         </form>
     </div>
     <section aria-label="Posts feed" class="posts-container">
-        {% set account = findAccount() %}
-        {% if session['filter'] == 0 or post.author in account.following or post.author == account %}
-                <div id="post-container">
-                    <p>Huh. Your browser might not have JavaScript</p>
-                </div>
-        {% endif %}
+        <div id="post-container">
+            <p>Huh. Your browser might not have JavaScript</p>
+        </div>
         <script src="{{ url_for('.static', filename='javascript/feed.js')}}"></script>
     </section>
 </main>
