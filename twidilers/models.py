@@ -46,7 +46,7 @@ class Account(db.Model): #The user accounts
     secondary = follow, #The association table the relationship is based on (above)
     primaryjoin = (follow.c.following_id == id), #Connects the rows which have the following_id the same as the user id (getting the users that you are following)
     secondaryjoin = (follow.c.follower_id == id), #Connects the rows which have the follower_id the same as the user id (getting the users that follow you)
-    backref = 'following' #something
+    backref = 'following' #something #very useful comment
     )
   
   @property

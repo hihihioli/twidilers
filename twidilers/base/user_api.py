@@ -49,6 +49,26 @@ def all_users():
         'profile_link': url_for('.profile',username=account.username)
     } for account in userlist))
 
+@app.route('/api/feed/user/<username>')
+def followingapi(username):
+    account = findAccount(username)
+    followed_posts = (
+        db.session.query(Post)
+        .join(Account, account == Post.user_id)  # Join the Account table to access the followers relationship
+        .filter(Account.id.in_([user.id for user in account.following]))
+        .order_by(desc(Post.id))
+        .all()
+    )
+    return flask.jsonify(list({
+        'id': post.id,
+        'author_id': post.author_id,
+        'author_url': url_for('.userapi', username=post.author.username, _external=True),
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+    } for post in followed_posts))
+
+
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
     account = findAccount(username)
