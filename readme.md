@@ -16,6 +16,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * unstyled password input form when changing password
+* bio unstyled for new user
 * Feed JS is kind of broken
     * Readd filter functionality
     * fix Jinja rendering
