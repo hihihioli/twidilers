@@ -22,8 +22,26 @@
                 </form>
             {% else %}
                 <form method="post" id="unfollow-form" name="unfollow-form">
-                    <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
+                    <button class="submit" id="follow-button" name="unfollow-button">Following</button></a>
                 </form>
+                <script>
+                    const followButton = document.getElementById('follow-button');
+                    function sleep(time) {
+                        return new Promise((resolve) => setTimeout(resolve, time));
+                    }
+                    // Change text to "Unfollow" on hover
+                    followButton.addEventListener('mouseover', function () {
+                        sleep(100);
+                        followButton.innerHTML = "Unfollow";
+                    });
+
+                    // Revert text to original when the mouse leaves the button
+                    followButton.addEventListener('mouseout', function () {
+                        sleep(100);
+                        followButton.innerHTML = "Following";
+                    });
+
+                </script>
             {% endif %}
         {% endif %}
     </section>

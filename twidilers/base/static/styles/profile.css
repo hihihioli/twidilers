@@ -37,6 +37,10 @@
 #display-name {
     margin:0px;
 }
+#follow-button {
+    width:100px;
+    transition:0.5s all !important;
+}
 #prof-disp {
     position: relative;
     right: 0;

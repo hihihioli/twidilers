@@ -22,16 +22,10 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # Do before deployment:
-* Fix bugs 
-* Finish feed.js
-* Mod tools (dashboard.html)
-    * Ability to ban user
-    * Delete posts
 * Oauth
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
-* Support@twidilers.com in footer and emails
 
 
 # How does flask-migrate work?

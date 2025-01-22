@@ -1,41 +1,56 @@
-let amountOfPostsRendered = 0;
-// Fetches JSON for feed
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+let loadedPages = []
 async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
+    const loadingScreen = document.getElementById('loading-screen');
     const postsUrl = `../../api/feed/${user}`;
     const usersUrl = "../../api/users/all";
 
+    // Show loading screen
+    postContainer.style.display = "none"; // Hide posts temporarily
+    loadingScreen.style.display = "flex";
+    const minimumLoadingTime = sleep(500); // Ensure at least 0.7s loading
+
     try {
-        // Fetch posts
-        const postsResponse = await fetch(postsUrl);
+        // Fetch posts and users simultaneously
+        const [postsResponse, usersResponse] = await Promise.all([fetch(postsUrl), fetch(usersUrl)]);
+        
         if (!postsResponse.ok) {
             throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
         }
-        const feed = await postsResponse.json();
-        if (amountOfPostsRendered === feed.length) {
-            return; // Doesn't reload if there aren't any new posts
-        }
-        // Fetch users
-        const usersResponse = await fetch(usersUrl);
         if (!usersResponse.ok) {
             throw new Error(`Users fetch failed with status: ${usersResponse.status}`);
         }
-        const users = await usersResponse.json();
 
-        const newPosts = feed.slice(amountOfPostsRendered);
-        if (newPosts.length > 0) {
-            renderPosts(newPosts, users, postContainer); // Render only new posts
-            amountOfPostsRendered = feed.length; // Update the counter
+        const [feed, users] = await Promise.all([postsResponse.json(), usersResponse.json()]);
+
+        if (loadedPages === feed) {
+            return;
         }
-        
-        postContainer.innerHTML = ""; // Clear loading message
-        renderPosts(feed, users, postContainer);
-        amountOfPostsRendered = feed.length;
+
+        if (feed.length === 0) {
+            postContainer.innerHTML = "<p>No posts.</p>";
+            loadedPages = [];
+        } else {
+            postContainer.innerHTML = ""
+            loadedPages = feed;
+            renderPosts(feed, users, postContainer);
+        }
     } catch (error) {
         console.error(error.message);
         postContainer.innerHTML = "<p>Failed to load posts.</p>";
+    } finally {
+        // Wait for minimum loading time before hiding the loading screen
+        await minimumLoadingTime;
+        loadingScreen.style.display = "none"; // Hide loading animation
+        postContainer.style.display = "block"; // Show posts
     }
 }
+
 
 // Renders posts into HTML
 function renderPosts(posts, users, container, amount) {
@@ -75,9 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
         
 
-function sleep(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-}
 
 // delete post animation
 /*

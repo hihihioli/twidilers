@@ -188,6 +188,11 @@ Click generate until you get the loss under 3 */
 .notif-date {
 /* Nothing in here yet */
 }
+#notif-div-0 {
+    display:flex;
+    gap:10px;
+    flex-direction:column;
+}
 .notif-div button {
     border:0;
     background:none;
@@ -224,6 +229,7 @@ Click generate until you get the loss under 3 */
     padding: 5px;
     font-size: 10pt;
     font-weight:500;
+    width:12px;
 }
 /* profilebtn is in base.html in the navbar */
 #profileBtn {
