@@ -10,13 +10,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * https://blog.miguelgrinberg.com/category/Flask
 
 
-# Currently working on:
-## Dashboard
-
-
 # Bugs
-* unstyled password input form when changing password
-* bio unstyled for new user
 * Feed JS is kind of broken
     * Readd filter functionality
     * fix Jinja rendering
@@ -27,6 +21,7 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
+* TOS and PP
 
 
 # How does flask-migrate work?
@@ -38,18 +33,19 @@ Want to learn more about one of the dependencies we use? Look no further!
 * To generate a migration script: docker compose exec web flask --app 'twidilers:create_app()' db migrate -m "Migration Message Here"
 * THEN upgrade your db
 
-# New feature wishlist
-## General features
-* Blogs
+# Cool general feature stuffs
+* Refactor 
 * Use Flask-Login(backend)
 * reCAPTCHA?
 
 
-## Frontend changes
-* Mobile version
-* Improved loading times
-* Updated flash styling
-* light mode
+# Refactor
+## APIs
+### Settings API
+* Eamon here, I want to be able to have settings pages as different pages with a Jinja template. Oliver says that that is 'too hard' and 'would require backend work' so I'm putting it here
+### Feed API
+* For handling large quantities of posts, backend should help with pagination in API
+
 
 
 ## User accounts
@@ -64,42 +60,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 ## Moderation tools
-While it doesn't have to be advanced right now, we need to have the ability to ban users/IP addresses and delete offending posts (If someone posts something illegal, we would have to delete the whole database). Report system optional.
-
-
-## User pages
-### Profile page
-* Follower count
-### Settings page
-* Refactor into different pages
-* Account Details
-* Security
-    * change email associated with account
-        * Sends verification code to old email, then to new email.
-    * Option to require email confirmation when logging in on a new device (2FA)
-    * see login history (Log logins on a file for the user)
-    * changing pwd 
-        * should require verification code sent to email account
-        * Verify new password (Put it in twice like when signing up)
-* Privacy
-    * Visability settings for posts and profile page (Set to followers or public)
-* Notifications
-    * Which notifications are sent to email
-    * Change what things to be notified on
-
-
-## Feed
-* Reactions (reply, like/dislike) on posts (FRONTEND DONE!)
-* Mention users via username. Sends notification
-### Content Delivery Systen !!
-* Add follower filter
-* Add reactions based on if you own the post
-### Blogs
-* notifications for blog posts
-* Titles on blogs only
-* Image upload
-* HTML for blogs (but safe)
-
+Ability for admin03 to delete user accounts and posts
 
 
 ## Email requirements
@@ -125,8 +86,3 @@ While it doesn't have to be advanced right now, we need to have the ability to b
 * Algorithmic feed that prefers newer posts by people you follow/interact with
     * Newness weight
     * Weight for the poster (Have you interacted with their posts recently (negetively or positively), do you follow them)
-
-Blogging system
-Chat room
-Fix gap in flashes
-Capitalize flashes

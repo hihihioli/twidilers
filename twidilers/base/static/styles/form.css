@@ -23,6 +23,10 @@ html {
     color: var(--darkblue);
 }
 
+.input_form p {
+    padding:5px;
+}
+
 /* The textbox for password and username input */
 .textbox {
     border-radius: 5px;
