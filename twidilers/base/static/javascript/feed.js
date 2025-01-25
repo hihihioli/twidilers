@@ -13,7 +13,7 @@ async function fetchPosts(user) {
     // Show loading screen
     postContainer.style.display = "none"; // Hide posts temporarily
     loadingScreen.style.display = "flex";
-    const minimumLoadingTime = sleep(500); // Ensure at least 0.7s loading
+    const minimumLoadingTime = sleep(200); // Ensure at least 0.7s loading
 
     try {
         // Fetch posts and users simultaneously

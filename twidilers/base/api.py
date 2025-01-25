@@ -183,7 +183,7 @@ def profile(username):
     account = findAccount(username)
     if account is None:
         abort(404)
-    posts = sorted(account.posts, key=lambda c: c.date, reverse=True)[:3]
+    posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
     if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
         owner = 1
     else:
@@ -204,6 +204,14 @@ def profaction(username):
         db.session.commit()
         flash(f'You are no longer following {username}')
         return redirect(url_for('.profile',username=username))
+    if "delete-post" in request.form:
+        post_id = request.form.get('delete-post-id')
+        post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post Deleted','success')
+        posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
+        return render_template('profile.html',account=findAccount(), posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))

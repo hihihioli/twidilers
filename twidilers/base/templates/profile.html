@@ -56,18 +56,29 @@
     {% for post in posts %}
         <div class="pst">
             <h2 class="pst-title">{{post.title}}</h3>
-            <p class="pst-content">{{post.content}}</p>
-            <p class="pst-date" id="date{{ loop.index0 }}">date</p>
+                <p class="pst-content">{{post.content}}</p>
+                <p class="pst-date" id="date{{ loop.index0 }}">date</p>
             <script>
                 const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
                     document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
             </script>
+            <div class="pst-reactions">
+                {% if post.author == account %}
+                    <form method="post">
+                        <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
+                            <input type="hidden" name="delete-post-id" value="{{ post.id }}">
+                            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                            <span class="visually-hidden">Delete this post</span>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
         </div>
     {% endfor %}
 </div>
 <script>
     window.onload = function() {
-        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ')
+        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ');
     }
 </script>
 
