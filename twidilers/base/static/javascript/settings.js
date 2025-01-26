@@ -1,6 +1,6 @@
 
 // This script hides/shows divs if menu bars are clicked.
-
+console.log("I know this page sucks. Will fix when given the go ahead from Oli");
 // It fetches the IDs of the divs so it can hide them
 const settingsDivs = [
     accountInfo = document.getElementById('acct-dtl-content'),

@@ -46,7 +46,7 @@
     </section>
 </div>
 <div class="profile-div">
-    <h1 id="about-user">About {{account.displayname}}</h1>
+    <h2 id="about-user">About {{account.displayname}}</h2>
     <p>{{bio}}</p>
     <span name="prof-date" id="prof-date"></span>
 </div>
@@ -56,7 +56,7 @@
         <div class="pst">
             <h2 class="pst-title">{{post.title}}</h3>
                 <p class="pst-content">{{post.content}}</p>
-                <p class="pst-date" id="date{{ loop.index0 }}">date</p>
+                <p class="pst-date" id="date{{ loop.index0 }}">error</p>
             <script>
                 const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
                     document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();

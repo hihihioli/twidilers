@@ -41,24 +41,24 @@
             </section>
         </div>
         {% if not account.setup and account.is_oauth %}
-        <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
-            <form method="post" id="change-username-form" lang="en">
-                <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
-                <input id="change-name" 
-                       name="username" 
-                       type="text" 
-                       class="textbox" 
-                       autocomplete="off"
-                       aria-label="New display name"
-                       maxlength="24" 
-                       placeholder="1-24 characters"
-                       aria-describedby="name-help"></input>
-                <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
-                <button type="submit" class="submit" id="username-change" name="username-change">
-                    Update Username
-                </button>
-            </form>
-        </div>
+            <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
+                <form method="post" id="change-username-form" lang="en">
+                    <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
+                    <input id="change-name" 
+                        name="username" 
+                        type="text" 
+                        class="textbox" 
+                        autocomplete="off"
+                        aria-label="New display name"
+                        maxlength="24" 
+                        placeholder="1-24 characters"
+                        aria-describedby="name-help"></input>
+                    <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
+                    <button type="submit" class="submit" id="username-change" name="username-change">
+                        Update Username
+                    </button>
+                </form>
+            </div>
         {% endif %}
         <div class="profile-div" role="region" aria-label="Bio settings">
             <form method="post" id="profile-bio-change" lang="en">

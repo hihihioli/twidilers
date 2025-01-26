@@ -12,23 +12,31 @@
     <h1>User dashboard</h1>
         <h2>Search for a user</h2>
             <form method="post">
-                <input type="text" class="textbox" name="username" placeholder="Username">
+                <input type="text" class="textbox" name="username" placeholder="Username" autocomplete="off">
                 <button class="submit" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         <h2>All users</h2>
         {% for user in userlist %}
             <div class="admin-user pst">
-                <h2>{{ user.username }}</h2>
-                <h3>{{ user.displayname }}</h3>
+                <a href="{{ url_for('.profile',username=user.username) }}" class="auth-info">
+                    <img class="pst-auth-pfp" 
+                    loading="lazy" 
+                    src="{{ url_for('.get_pfp', username=user.username) }}"
+                    alt="Profile picture of {{ user.displayname }}">
+                        
+                    <div class="pst-auths">
+                        <p class="pst-auth">{{user.displayname}}</p>
+                        <p class="pst-disp">@{{user.username}}</p>              
+                    </div>
+                </a>
                 <div class="pst-reactions">
                     <form method="post">
                         <button class="submit" name="ban" value="{{ user.id }}">Ban</button>
                     </form>
                 </div>
-                <a href="{{ url_for('.profile',username=user.username) }}">Go to profile</a>
             </div>
         {% endfor %}
-    <h1>All posts</h1>
+    <h1>Post Dashboard</h1>
         {% for post in postlist() %}
             <div class="admin-post pst">
                 <a href="{{ url_for('.profile',username=post.author.username) }}" class="auth-info">
@@ -46,8 +54,13 @@
                 <p>{{ post.content }}</p>
                 <div class="pst-reactions">
                     <form method="post">
-                        <button class="submit" name="delete" value="{{ post.id }}"><i class="fa-solid fa-trash"></i></button>
+                        <button class="submit" name="delete-post"><i class="fa-solid fa-trash"></i></button>
+                        <input type="hidden" name="post-id" value="{{ post.id }}">
+                    </form>
+                    <form method="post">
                         <button class="submit" name="markgood" value="{{ post.id }}" title="Hides post from moderators because it's a good post"><i class="fa-solid fa-check"></i></button>
+                    </form>
+                    <form method="post">
                         <button class="submit" name="banuser" value="{{ post.author }}" title="Bans the user who made the post and deletes all posts"><i class="fa-solid fa-ban"></i></button>
                     </form>
                 </div>
