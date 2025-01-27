@@ -42,9 +42,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 # Refactor
 ## APIs
 ### Settings API
-* Eamon here, I want to be able to have settings pages as different pages with a Jinja template. Oliver says that that is 'too hard' and 'would require backend work' so I'm putting it here
-### Feed API
-* For handling large quantities of posts, backend should help with pagination in API
+* Maybe at some point. A bit of a PITA
 
 
 
@@ -57,10 +55,13 @@ Want to learn more about one of the dependencies we use? Look no further!
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
 * Able to log in with either username or email
 ### Oauth feature requests
+* 
+### User API
+* User-side API which allows users to post from outside of Twidilers.com (Would be cool to get some bots setup to make it look like there is activity)
 
 
 ## Moderation tools
-Ability for admin03 to delete user accounts and posts
+Ability for admin03 to ban user accounts
 
 
 ## Email requirements

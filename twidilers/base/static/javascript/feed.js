@@ -1,7 +1,6 @@
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
-
 let currentPage = 1;
 let loadedPages = []
 

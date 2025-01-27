@@ -9,7 +9,7 @@ from sqlalchemy import desc
 
 @app.route('/api/feed/all/<int:page>', methods=['GET'])
 def all_posts(page):
-    POSTS_PER_PAGE = 5
+    POSTS_PER_PAGE = 15
     offset = (page - 1) * POSTS_PER_PAGE
     postlist = (
         db.session.execute(

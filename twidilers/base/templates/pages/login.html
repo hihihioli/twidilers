@@ -11,10 +11,12 @@
     <input type="password" autocomplete="current-password" class="textbox" placeholder="Enter Password" id="password" name="password"/>
     <button id="submit" type="submit" class="submit" class="submitwide">Log In</button>
 </form>
-<div class="other-signup">
-    <h4>Don't have account? <a href="{{ url_for('.page', page='sign-up')}}">Sign up</a></h4>
+
+<div class="separator">
+  <span>or</span>
 </div>
 <div class="other-signup">
+  
     <a href="{{ url_for('.oauth2_authorize',provider='google') }}">
       <button class="gsi-material-button" style="width:200px"> <!--Google sign in button-->
         <div class="gsi-material-button-state"></div>

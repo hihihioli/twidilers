@@ -13,7 +13,7 @@ html {
 
 /* .input_form is the wrapper for the inputs and button. */
 .input_form {
-    width: fit-content;
+    width: 280.8px;
     margin: 0 auto;
     padding: 25px;
     border-radius: 20px;
@@ -44,6 +44,25 @@ p .input_form, h2 .input_form {
 h4 {
     font-weight:normal;
 }
+.separator {
+    display: flex;
+    align-items: center;
+    margin: 20px auto 20px auto;
+    width:330px;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--lightblue); /* Line color */
+}
+
+.separator span {
+    padding: 0 10px; /* Space around the "or" text */
+    font-weight: bold; /* Make "or" stand out */
+}
 /* Accessbility for screen readers. Don't ask*/
 .posts-container {
     margin-top: 1rem;
@@ -64,6 +83,9 @@ input:-webkit-autofill:active {
     border-radius:50px;
     background-color:var(--lightblue);
     color:var(--darkblue) !important;
+}
+#submit {
+    width:100% !important;
 }
 input:-internal-autofill-selected {
     background-color: var(--lightblue);
@@ -101,7 +123,7 @@ a:focus-visible {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px auto;
+    margin: 0 auto;
     flex-direction:column;
 }
 a .other-signup {

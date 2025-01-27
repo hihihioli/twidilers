@@ -14,9 +14,10 @@
     <input type="password" class="textbox" placeholder="Confirm Password" id="password2" name="password2"/>
     <button id="submit" type="submit" class="submit">Send email verification</button>
 </form>
-<div class="other-signup">
-    <h4>Already have an account? <a href="{{ url_for('.page', page='login')}}">Sign in.</a></h4>
+<div class="separator">
+  <span>or</span>
 </div>
+
 <div class="other-signup">
     <a href="{{ url_for('.oauth2_authorize',provider='google') }}">
         <button class="gsi-material-button" style="width:200px"> <!--Google sign in button-->
