@@ -37,7 +37,7 @@
             </form>
         -->
         <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed">
-            <button id="refresh" type="button" onclick="fetchPosts('all')" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
+            <button id="refresh" type="button" onclick="fetchPosts('all',currentPage)" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
         </form>
     </div>
     <section aria-label="Posts feed" class="posts-container">
@@ -47,6 +47,11 @@
         </div>
         <script src="{{ url_for('.static', filename='javascript/feed.js')}}"></script>
     </section>
+    <div id="bottomfeed" role="region" aria-label="Feed controls">
+        <button id="more" onclick="oldPosts('all')" class="submit" aria-label="Load more posts"><</button>
+
+        <button id="less" onclick="newPosts('all')" class="submit" aria-label="Load more posts">></button>
+    </div>
 </main>
 <script src="{{ url_for('.static', filename='javascript/flyout.js') }}">
 </script>

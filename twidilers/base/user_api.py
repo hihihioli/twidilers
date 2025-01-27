@@ -7,17 +7,30 @@ from ..functions import * #Custom functions, like save()
 import flask
 from sqlalchemy import desc
 
-@app.route('/api/feed/all')
-def all_posts():
-    postlist:list[Account] = list(db.session.execute(db.select(Post).order_by(desc(Post.id))).scalars())
-    return flask.jsonify(list({
-        'id': post.id,
-        'author_id': post.author_id,
-        'author_url': url_for('.userapi',username=post.author.username,_external=True),
-        'title': post.title,
-        'content': post.content,
-        'date': post.date,
-    } for post in postlist))
+@app.route('/api/feed/all/<int:page>', methods=['GET'])
+def all_posts(page):
+    POSTS_PER_PAGE = 5
+    offset = (page - 1) * POSTS_PER_PAGE
+    postlist = (
+        db.session.execute(
+            db.select(Post)
+            .order_by(desc(Post.id))
+            .limit(POSTS_PER_PAGE)
+            .offset(offset)
+        ).scalars()
+    )
+    response = [
+        {
+            'id': post.id,
+            'author_id': post.author_id,
+            'author_url': url_for('.userapi', username=post.author.username, _external=True),
+            'title': post.title,
+            'content': post.content,
+            'date': post.date,
+        }
+        for post in postlist
+    ]
+    return flask.jsonify(response)
 
 @app.route('/api/user/<username>')
 def userapi(username):

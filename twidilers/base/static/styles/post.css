@@ -68,6 +68,26 @@ input[type="checkbox" i] {
     position:relative;
     height:100px;
 }
+#bottomfeed {
+    width: 100%;
+    margin: auto;
+    position: relative; /* Position for absolute children */
+}
+
+#more {
+    position: absolute;
+    left: 20px; /* Adjust this value as needed */
+}
+
+#less {
+    position: absolute;
+    right: 20px; /* Adjust this value as needed */
+}
+
+#bottomfeed button {
+    width: 50px;
+    height: 50px;
+}
 .filter {
     font-size:26px;
     padding: 10px;

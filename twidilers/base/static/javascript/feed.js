@@ -2,12 +2,13 @@ function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-
+let currentPage = 1;
 let loadedPages = []
+
 async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
     const loadingScreen = document.getElementById('loading-screen');
-    const postsUrl = `../../api/feed/${user}`;
+    const postsUrl = `../../api/feed/${user}/${currentPage}`;
     const usersUrl = "../../api/users/all";
 
     // Show loading screen
@@ -29,6 +30,7 @@ async function fetchPosts(user) {
         const [feed, users] = await Promise.all([postsResponse.json(), usersResponse.json()]);
 
         if (loadedPages === feed) {
+            console.log("No new posts to load.");
             return;
         }
 
@@ -82,6 +84,16 @@ function renderPosts(posts, users, container, amount) {
             console.warn(`Author not found for post ID: ${post.id}`);
         }
     });
+}
+
+function oldPosts(user) {
+    currentPage++;
+    fetchPosts(user);
+}
+
+function newPosts(user) {
+    currentPage -= 1;
+    fetchPosts(user);
 }
 
 // Initialize
