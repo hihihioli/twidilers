@@ -91,6 +91,10 @@ function oldPosts(user) {
 }
 
 function newPosts(user) {
+    if (currentPage === 1) {
+        console.log("Already at the newest posts.");
+        return 0;
+    }
     currentPage -= 1;
     fetchPosts(user);
 }
