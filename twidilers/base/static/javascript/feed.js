@@ -8,38 +8,37 @@ async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
     const loadingScreen = document.getElementById('loading-screen');
     const postsUrl = `../../api/feed/${user}/${currentPage}`;
-    const usersUrl = "../../api/users/all";
 
     // Show loading screen
     postContainer.style.display = "none"; // Hide posts temporarily
     loadingScreen.style.display = "flex";
-    const minimumLoadingTime = sleep(200); // Ensure at least 0.7s loading
+
+    // Ensure at least 0.2s loading
+    const minimumLoadingTime = sleep(200);
 
     try {
-        // Fetch posts and users simultaneously
-        const [postsResponse, usersResponse] = await Promise.all([fetch(postsUrl), fetch(usersUrl)]);
+        // Fetch posts
+        const postsResponse = await fetch(postsUrl);
         
         if (!postsResponse.ok) {
             throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
         }
-        if (!usersResponse.ok) {
-            throw new Error(`Users fetch failed with status: ${usersResponse.status}`);
-        }
+        
+        const feed = await postsResponse.json(); // Get the JSON from the response
 
-        const [feed, users] = await Promise.all([postsResponse.json(), usersResponse.json()]);
-
-        if (loadedPages === feed) {
+        // Compare loadedPages with feed
+        if (JSON.stringify(loadedPages) === JSON.stringify(feed)) {
             console.log("No new posts to load.");
-            return;
+            return; // If the feed is the same as the loaded pages, return
         }
 
         if (feed.length === 0) {
             postContainer.innerHTML = "<p>No posts.</p>";
             loadedPages = [];
         } else {
-            postContainer.innerHTML = ""
-            loadedPages = feed;
-            renderPosts(feed, users, postContainer);
+            postContainer.innerHTML = ""; // Clear existing posts
+            loadedPages = feed; // Update loadedPages with the latest feed
+            await renderPosts(feed, postContainer); // Ensure renderPosts is awaited
         }
     } catch (error) {
         console.error(error.message);
@@ -54,35 +53,48 @@ async function fetchPosts(user) {
 
 
 // Renders posts into HTML
-function renderPosts(posts, users, container, amount) {
-    posts.forEach(post => {
-        const author = users.find(user => user.id === post.author_id);
-        if (author) {
-            const postHTML = `
-            <div class='pst' id=${post.id}>
-                <header>
-                    <a href="${author.profile_link}" 
-                    class="auth-info"
-                    aria-label="View ${author.displayname}'s profile">
-                    <img class="pst-auth-pfp" 
-                        loading="lazy" 
-                        src="${author.photo_url}"
-                        alt="Profile picture of ${author.displayname}">
-                    <div class="pst-auths">
-                        <p class="pst-auth">${author.displayname}</p>
-                        <p class="pst-disp">@${author.username}</p>              
-                    </div>
-                    </a>
-                </header>
-                <h2 class='pst-title' id='post-title-${post.id}'>${post.title}</h2>
+// Renders posts into HTML
+async function renderPosts(posts, container) {
+    for (const post of posts) {
+        if (post.author_url) {  // Check if author_url exists
+            try {
+                const response = await fetch(post.author_url);  // Fetch author data using the URL
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const author = await response.json();  // Parse the response as JSON
+
+                // Construct the HTML for the post
+                const postHTML = `
+                <div class='pst' id=${post.id}>
+                    <header>
+                        <a href="${author.profile_link}" 
+                        class="auth-info"
+                        aria-label="View ${author.displayname}'s profile">
+                        <img class="pst-auth-pfp" 
+                            loading="lazy" 
+                            src="${author.photo_url}"
+                            alt="Profile picture of ${author.displayname}">
+                        <div class="pst-auths">
+                            <p class="pst-auth">${author.displayname}</p>
+                            <p class="pst-disp">@${author.username}</p>              
+                        </div>
+                        </a>
+                    </header>
+                    <h2 class='pst-title' id='post-title-${post.id}'>${post.title}</h2>  <!-- Fallback for empty title -->
                     <p class='pst-content'>${post.content}</p>
-                    <div class'pst-date' id='date${post.id}'>${post.date}</div>
-            </div>`;
-            container.innerHTML += postHTML;
+                    <div class='pst-date' id='date${post.id}'>${post.date}</div>
+                </div>`;
+                
+                container.innerHTML += postHTML;  // Append the constructed HTML to the container
+
+            } catch (error) {
+                console.error(`Failed to fetch author data for post ID: ${post.id}`, error);
+            }
         } else {
-            console.warn(`Author not found for post ID: ${post.id}`);
+            console.warn(`Author URL not found for post ID: ${post.id}`);
         }
-    });
+    }
 }
 
 function oldPosts(user) {
