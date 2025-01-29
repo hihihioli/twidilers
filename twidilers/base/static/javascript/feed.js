@@ -88,6 +88,8 @@ async function renderPosts(posts, container) {
                     author = await response.json();  // Parse the response as JSON
                     sessionStorage.setItem(post.author_url, JSON.stringify(author)); // Cache the author data in sessionStorage
                 }
+
+                // If the poster is the logged in user, add the delete button
                 if (currentUser.username === author.username) {
                     reactions = `
                         <form method="post">

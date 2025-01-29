@@ -84,7 +84,10 @@ def followingapi(username):
 @app.route('/api/currentuser/')
 def current_user():
     account = session.get('username')
-    return flask.jsonify({"username": account})
+    return flask.jsonify({
+        "username": account,
+        "filter": session['filter']
+    })
 
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
