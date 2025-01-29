@@ -55,7 +55,7 @@ async function fetchPosts(user) {
 var currentUser = "";
 async function fetchCurrentUser() {
     try {
-        const response = await fetch('../../api/currentuser');
+        const response = await fetch('../../api/currentuser/');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -68,18 +68,27 @@ async function fetchCurrentUser() {
 }
 
 // Renders posts into HTML
+const authorCache = new Map(); // Create a cache for author data
+
 async function renderPosts(posts, container) {
     for (const post of posts) {
         var reactions = "";
         if (post.author_url) {  // Check if author_url exists
             try {
-                reactions = ``
-                const response = await fetch(post.author_url);  // Fetch author data using the URL
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                let author;
+
+                // Check if the author data is already cached
+                if (authorCache.has(post.author_url)) {
+                    author = authorCache.get(post.author_url); // Get cached author data
+                } else {
+                    const response = await fetch(post.author_url);  // Fetch author data using the URL
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    author = await response.json();  // Parse the response as JSON
+                    authorCache.set(post.author_url, author); // Cache the author data
                 }
-                const currentUser = await fetchCurrentUser();
-                const author = await response.json();  // Parse the response as JSON
+
                 if (currentUser.username === author.username) {
                     reactions = `
                         <form method="post">
@@ -91,6 +100,7 @@ async function renderPosts(posts, container) {
                         </form>
                     `;
                 }
+
                 // Construct the HTML for the post
                 const postHTML = `
                 <div class='pst' id=${post.id}>
