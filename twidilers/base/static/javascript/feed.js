@@ -31,7 +31,7 @@ async function fetchPosts(user) {
             console.log("No new posts to load.");
             return; // If the feed is the same as the loaded pages, return
         }
-
+        fetchCurrentUser();
         if (feed.length === 0) {
             postContainer.innerHTML = "<p>No posts.</p>";
             loadedPages = [];
@@ -51,19 +51,46 @@ async function fetchPosts(user) {
     }
 }
 
+// Establishes currentUser and fetches it upon page initialization
+var currentUser = "";
+async function fetchCurrentUser() {
+    try {
+        const response = await fetch('../../api/currentuser');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const user = await response.json();
+        currentUser = user;
+        return user;
+    } catch (error) {
+        console.error('Failed to fetch current user:', error);
+    }
+}
 
-// Renders posts into HTML
 // Renders posts into HTML
 async function renderPosts(posts, container) {
     for (const post of posts) {
+        var reactions = "";
         if (post.author_url) {  // Check if author_url exists
             try {
+                reactions = ``
                 const response = await fetch(post.author_url);  // Fetch author data using the URL
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                const currentUser = await fetchCurrentUser();
                 const author = await response.json();  // Parse the response as JSON
-
+                if (currentUser.username === author.username) {
+                    reactions = `
+                        <form method="post">
+                            <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
+                                <input type="hidden" name="delete-post-id" value="${post.id}">
+                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                <span class="visually-hidden">Delete this post</span>
+                            </button>
+                        </form>
+                    `;
+                }
                 // Construct the HTML for the post
                 const postHTML = `
                 <div class='pst' id=${post.id}>
@@ -80,6 +107,9 @@ async function renderPosts(posts, container) {
                             <p class="pst-disp">@${author.username}</p>              
                         </div>
                         </a>
+                        <div class="pst-reactions">
+                            ${reactions}
+                        </div>
                     </header>
                     <h2 class='pst-title' id='post-title-${post.id}'>${post.title}</h2>  <!-- Fallback for empty title -->
                     <p class='pst-content'>${post.content}</p>
@@ -97,11 +127,13 @@ async function renderPosts(posts, container) {
     }
 }
 
+// Go to older pages
 function oldPosts(user) {
     currentPage++;
     fetchPosts(user);
 }
 
+// go to newer pages
 function newPosts(user) {
     if (currentPage === 1) {
         console.log("Already at the newest posts.");

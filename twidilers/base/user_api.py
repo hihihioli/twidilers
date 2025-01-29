@@ -81,6 +81,10 @@ def followingapi(username):
         'date': post.date,
     } for post in followed_posts))
 
+@app.route('/api/currentuser/')
+def current_user():
+    account = session.get('username')
+    return flask.jsonify({"username": account})
 
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
