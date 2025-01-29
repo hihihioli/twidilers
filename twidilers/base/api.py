@@ -106,6 +106,24 @@ def clear():
     }
     return jsonify(response)
 
+@app.post('/send-reset-link')
+def send_reset_link():
+    email = request.form.get('email')
+    if not email:
+        flash('Please enter an email', 'error')
+        return redirect(url_for('.page', page='send-reset-link'))
+    account = findAccountByEmail(email)
+    if not account:
+        flash('Email sent if account exists', 'success')  # Corrected spelling
+        return redirect(url_for('.page', page='send-reset-link'))
+    try:
+        sendResetPassword(account)
+        flash('Password Reset Email Sent', 'success')
+    except Exception as e:
+        flash('An error occurred while sending the email.', 'error')  # Added error handling
+    
+    return redirect(url_for('.page', page='login'))
+
 @app.post('/sign-up')
 def sign_up():
     #Sets the variables to the form data

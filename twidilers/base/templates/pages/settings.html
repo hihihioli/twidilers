@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Settings{% endblock %}
 {% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='/styles/settings.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='/styles/profile.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='/styles/form.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/settings.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/profile.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/form.css') }}">
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
@@ -18,7 +18,7 @@
             <span>Privacy</span>
         </button>
         <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
-            <span>Notification</span>
+            <span>Notification (BETA)</span>
         </button>
     </nav>
     <style>
@@ -139,16 +139,12 @@
     </div>
     <div id="notif-content">
         <div class="profile-div">
-            <h3>Email notificatoins</h3>
+            <h3>Under construction! Check back later</h3>
         </div>
         <div class="profile-div">
-            <h3>Who you're getting notifications from</h3>
-        </div>
-        <div class="profile-div">
-            
         </div>
     </div>
-        <script src="{{ url_for('.static', filename='/javascript/settings.js') }}"></script>
+        <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
 
            
 

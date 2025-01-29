@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Reset password{% endblock %}
+{% block head %}
+<link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
+{% endblock %}
+{% block content %}
+<h1 class="heading">Send reset password link</h1>
+<form method="post" id="login_form" name="new_password" class="input_form"> 
+    <input type="email" class="textbox" placeholder="Enter Email" id="email" name="email" autocomplete="email"/>
+    <button id="submit" type="submit" class="submit" class="submitwide">Send link</button>
+</form>
+
+
+{% endblock %}

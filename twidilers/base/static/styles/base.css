@@ -197,13 +197,14 @@ Click generate until you get the loss under 3 */
     border:0;
     background:none;
     padding:13px;
-    color:var(--lightblue);
+    color:var(--darkblue);
     font-size:1em;
     position:absolute;
     top:0;
     right:0;
     cursor: pointer;
-    border-radius:10px;
+    border-radius:8px;
+    transition:all 0.2s;
 }
 .notif-div button:hover {
     background-color:#ee3355;
@@ -374,7 +375,9 @@ a {
 
 @media only screen and (prefers-color-scheme: dark) {
     /* Flips the color and background color from the base. */
-
+    .notif-div button {
+        color: var(--lightblue);
+    }
     body {
         color: var(--lightblue);
         background-color: var(--darkblue);

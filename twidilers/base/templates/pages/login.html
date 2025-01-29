@@ -10,6 +10,7 @@
   <input type="text" class="textbox" placeholder="Enter Username" id="username" name="username" autocomplete="off"/>
     <input type="password" autocomplete="current-password" class="textbox" placeholder="Enter Password" id="password" name="password"/>
     <button id="submit" type="submit" class="submit" class="submitwide">Log In</button>
+    <a href="{{ url_for('.page',page='send-reset-link') }}" style="margin:10px 0 0 0;font-weight:bold;">Forgot password?</a>
 </form>
 
 <div class="separator">

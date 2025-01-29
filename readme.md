@@ -12,8 +12,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Bugs
 * Feed JS is kind of broken
-    * Readd filter functionality
-    * fix Jinja rendering
+    * Re-add filter functionality
 
 
 # Do before deployment:
@@ -21,7 +20,7 @@ Want to learn more about one of the dependencies we use? Look no further!
     * Set google oAuth to deployment (see above for link)
         * Change uri to twidilers.com
     * Change github oAuth uri to twidilers.com
-* TOS and PP
+* TOS and PP (legally probably required. GPT?)
 
 
 # How does flask-migrate work?
@@ -34,15 +33,12 @@ Want to learn more about one of the dependencies we use? Look no further!
 * THEN upgrade your db
 
 # Cool general feature stuffs
-* Refactor 
-* Use Flask-Login(backend)
 * reCAPTCHA?
 
 
 # Refactor
-## APIs
-### Settings API
-* Maybe at some point. A bit of a PITA
+## Settings
+* Redo settings into different templates
 
 
 
@@ -55,13 +51,13 @@ Want to learn more about one of the dependencies we use? Look no further!
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
 * Able to log in with either username or email
 ### Oauth feature requests
-* 
+* passkeys?
 ### User API
 * User-side API which allows users to post from outside of Twidilers.com (Would be cool to get some bots setup to make it look like there is activity)
 
 
 ## Moderation tools
-Ability for admin03 to ban user accounts
+Ability for admin03 to ban/delete user accounts
 
 
 ## Email requirements

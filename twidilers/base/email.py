@@ -35,7 +35,7 @@ def sendWelcome(user:Account) -> None: #Send a welcome email
 
     Thread(target=sendAsyncEmail, args=(current_app.app_context(), msg)).start()
 
-def sendResetPassword(user:Account) -> None: #Send a verification code
+def sendResetPassword(user:Account) -> None: #Send a verification code. If none are provided, it will use sesison data
     email = user.email
     msg = Message(subject="Reset Password For twidilers.com")
     msg.add_recipient(email)

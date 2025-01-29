@@ -25,6 +25,7 @@ html {
 
 .input_form p {
     padding:5px;
+    margin:0;
 }
 
 /* The textbox for password and username input */
