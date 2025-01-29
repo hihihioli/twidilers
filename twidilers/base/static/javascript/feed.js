@@ -67,9 +67,8 @@ async function fetchCurrentUser() {
     }
 }
 
-// Renders posts into HTML
-const authorCache = new Map(); // Create a cache for author data
 
+// Renders posts into HTML
 async function renderPosts(posts, container) {
     for (const post of posts) {
         var reactions = "";
@@ -77,18 +76,18 @@ async function renderPosts(posts, container) {
             try {
                 let author;
 
-                // Check if the author data is already cached
-                if (authorCache.has(post.author_url)) {
-                    author = authorCache.get(post.author_url); // Get cached author data
+                // Check if the author data is already cached in sessionStorage
+                const cachedAuthor = sessionStorage.getItem(post.author_url);
+                if (cachedAuthor) {
+                    author = JSON.parse(cachedAuthor); // Parse the cached JSON to an object
                 } else {
                     const response = await fetch(post.author_url);  // Fetch author data using the URL
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     author = await response.json();  // Parse the response as JSON
-                    authorCache.set(post.author_url, author); // Cache the author data
+                    sessionStorage.setItem(post.author_url, JSON.stringify(author)); // Cache the author data in sessionStorage
                 }
-
                 if (currentUser.username === author.username) {
                     reactions = `
                         <form method="post">
