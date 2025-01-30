@@ -156,6 +156,12 @@ input[type="checkbox" i] {
     margin:0 0 0 10px;
     height:fit-content;
 }
+#more:disabled, #less:disabled {
+    background:gray;
+    color:white;
+    cursor:not-allowed;
+    border:0;
+}
 #submit-filter {
     background-color:var(--lightblue);
     color:var(--darkblue);

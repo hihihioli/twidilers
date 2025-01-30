@@ -6,7 +6,8 @@ let currentPage = (function() {
     return parseInt(urlParams.get('page')) || 1; // Default to page 1
 })();
 let loadedPages = [];
-
+const moreButton = document.getElementById('more');
+const lessButton = document.getElementById('less');
 
 async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
@@ -27,9 +28,6 @@ async function fetchPosts(user) {
             throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
         }
         const feed = await postsResponse.json(); // Get the JSON from the response
-        
-        // Checks logged in user
-        fetchCurrentUser();
 
         // Check if the feed is empty
         if (feed.length === 0) {
@@ -161,6 +159,7 @@ function newPosts(user) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    fetchCurrentUser();
     fetchPosts('all');
 });
         
