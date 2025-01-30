@@ -1,8 +1,12 @@
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
-let currentPage = 1;
-let loadedPages = []
+let currentPage = (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get('page')) || 1; // Default to page 1
+})();
+let loadedPages = [];
+
 
 async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
@@ -19,15 +23,15 @@ async function fetchPosts(user) {
     try {
         // Fetch posts
         const postsResponse = await fetch(postsUrl);
-        
         if (!postsResponse.ok) {
             throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
         }
-        
         const feed = await postsResponse.json(); // Get the JSON from the response
-
-
+        
+        // Checks logged in user
         fetchCurrentUser();
+
+        // Check if the feed is empty
         if (feed.length === 0) {
             postContainer.innerHTML = "<p>No posts.</p>";
             loadedPages = [];
@@ -37,7 +41,7 @@ async function fetchPosts(user) {
         } else {
             postContainer.innerHTML = ""; // Clear existing posts
             loadedPages = feed; // Update loadedPages with the latest feed
-            await renderPosts(feed, postContainer); // Ensure renderPosts is awaited
+            await renderPosts(feed, postContainer); //  Render posts
         }
     } catch (error) {
         console.error(error.message);
@@ -45,6 +49,8 @@ async function fetchPosts(user) {
     } finally {
         // Wait for minimum loading time before hiding the loading screen
         await minimumLoadingTime;
+        const baseUrl = window.location.pathname;
+        window.history.pushState({page: currentPage}, '', `${baseUrl}?page=${currentPage}`);      
         loadingScreen.style.display = "none"; // Hide loading animation
         postContainer.style.display = "block"; // Show posts
     }
