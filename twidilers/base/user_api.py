@@ -86,7 +86,6 @@ def current_user():
     account = session.get('username')
     return flask.jsonify({
         "username": account,
-        "filter": session['filter']
     })
 
 @app.get('/api/user/<username>/pfp')

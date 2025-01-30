@@ -26,15 +26,14 @@ async function fetchPosts(user) {
         
         const feed = await postsResponse.json(); // Get the JSON from the response
 
-        // Compare loadedPages with feed
-        if (JSON.stringify(loadedPages) === JSON.stringify(feed)) {
-            console.log("No new posts to load.");
-            return; // If the feed is the same as the loaded pages, return
-        }
+
         fetchCurrentUser();
         if (feed.length === 0) {
             postContainer.innerHTML = "<p>No posts.</p>";
             loadedPages = [];
+        } else if (JSON.stringify(loadedPages) === JSON.stringify(feed)) {
+            console.log("No new posts to load.");
+            return; // If the feed is the same as the loaded pages, return
         } else {
             postContainer.innerHTML = ""; // Clear existing posts
             loadedPages = feed; // Update loadedPages with the latest feed
