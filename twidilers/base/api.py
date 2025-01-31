@@ -75,9 +75,13 @@ def write_post():
 @app.post('/feed')
 @login_required
 def feed():
+    user = findAccount()
     if "delete-post-id" in request.form:
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+        if post.author != user:
+            flash('You cannot delete a post that is not yours','error')
+            return redirect(url_for('.page',page='feed'))
         db.session.delete(post)
         db.session.commit()
         flash('Post Deleted','success')

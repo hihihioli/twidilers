@@ -1,13 +1,15 @@
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
+
+// Sets current page based on Browser URL.
 let currentPage = (function() {
     const urlParams = new URLSearchParams(window.location.search);
     return parseInt(urlParams.get('page')) || 1; // Default to page 1
 })();
+
+
 let loadedPages = [];
-const moreButton = document.getElementById('more');
-const lessButton = document.getElementById('less');
 
 async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
@@ -140,7 +142,8 @@ async function renderPosts(posts, container) {
         }
     }
 }
-
+const moreButton = document.getElementById('more');
+const lessButton = document.getElementById('less');
 // Go to older pages
 function oldPosts(user) {
     currentPage++;

@@ -159,7 +159,7 @@ input[type="checkbox" i] {
 #more:disabled, #less:disabled {
     background:gray;
     color:white;
-    cursor:not-allowed;
+    cursor:not-allowed;`
     border:0;
 }
 #submit-filter {
