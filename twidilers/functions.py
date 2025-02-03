@@ -1,4 +1,4 @@
-from .models import Account,db
+from .models import Account,db,Post
 from flask import session,flash,Request
 import re #for regular expressions
 from io import BytesIO
@@ -78,7 +78,9 @@ def changeUsername(request:Request):
         flash('Username already taken','error')
         db.session.rollback()
 
-
+def findPost(post_id) -> Post|None:
+    post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+    return post
 
 def changePFP(request:Request):
     account = findAccount()

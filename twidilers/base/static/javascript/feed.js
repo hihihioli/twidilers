@@ -72,11 +72,31 @@ async function fetchCurrentUser() {
     }
 }
 
+/*
+async function checkLike(postId) {
+    try {
+        const response = await fetch(`../../api/post/${postId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const liked = await response.json();
+        if (liked.like_count === 0) {
+            document.getElementById(`like-count-${postId}`).style.display = "none";
+        }
+        return liked;
+    } catch (error) {
+        console.error('Failed to check if post is liked:', error);
+    }
+}*/
 
 // Renders posts into HTML
 async function renderPosts(posts, container) {
     for (const post of posts) {
-        var reactions = "";
+
+        var reactions = ``;
+        if (likes.liked === true) {
+            document.getElementById(`like-post-${post.id}`).style.color = "red";
+        }
         if (post.author_url) {  // Check if author_url exists
             try {
                 let author;

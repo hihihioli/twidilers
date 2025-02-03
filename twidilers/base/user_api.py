@@ -88,6 +88,27 @@ def current_user():
         "username": account,
     })
 
+@app.route('/api/post/<int:post_id>')
+def get_post(post_id):
+    user = findAccount()
+    liked = False
+    post = findPost(post_id)
+    if not post:
+        flask.abort(404)
+    if user in post.likes:
+        liked = True
+    return flask.jsonify({
+        'id': post.id,
+        'author_id': post.author_id,
+        'author_url': url_for('.userapi', username=post.author.username, _external=True),
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+        'like_count':post.like_count,
+        'likes':post.likes,
+        'liked':liked
+    })
+
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
     account = findAccount(username)
