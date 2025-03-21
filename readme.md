@@ -11,7 +11,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 
 # Bugs
-* Feed JS is kind of broken
+* __Feed JS is kind of broken__
     * Re-add filter functionality
 
 
