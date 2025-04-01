@@ -37,7 +37,11 @@ input[type="checkbox" i] {
     text-decoration:unset !important;
     transition:all 2s;
 }
-
+.disabled {
+    cursor: not-allowed;
+    background-color: gray !important;
+    color: white !important;
+}
 .pst-auth {
     margin:10px 0 0 0;
     color:var(--darkblue);

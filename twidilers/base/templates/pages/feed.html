@@ -52,6 +52,7 @@
         <button id="more" onclick="oldPosts('all')" class="submit" aria-label="Load more posts"><</button>
         <span id="middle">15 posts per page.</span>
         <button id="less" onclick="newPosts('all')" class="submit" aria-label="Load more posts">></button>
+        <button id="latest" onclick="latestPosts('all')" class="submit" aria-label="Load latest posts">Latest</button>
     </div>
 </main>
 <script src="{{ url_for('.static', filename='javascript/flyout.js') }}">

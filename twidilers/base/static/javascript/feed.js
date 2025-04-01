@@ -162,22 +162,38 @@ async function renderPosts(posts, container) {
         }
     }
 }
-const moreButton = document.getElementById('more');
-const lessButton = document.getElementById('less');
+const moreButton = document.getElementById('more'); //olderposts
+const lessButton = document.getElementById('less'); //newerposts
 // Go to older pages
 function oldPosts(user) {
     currentPage++;
     fetchPosts(user);
 }
 
+function alreadyAtLatestPost(){
+    lessButton.classList.add('disabled');
+}
+
 // go to newer pages
 function newPosts(user) {
     if (currentPage === 1) {
         console.log("Already at the newest posts.");
+        alreadyAtLatestPost();
+        return 0;
+    } else if (currentPage === 2) {
+        currentPage=1;
+        alreadyAtLatestPost();
         return 0;
     }
     currentPage -= 1;
     fetchPosts(user);
+}
+
+function latestPosts(user) {
+    currentPage = 1; // Reset to the first page
+    fetchPosts(user);
+    lessButton.classList.remove('disabled'); // Enable the "Newer Posts" button
+    console.log("Reset to the latest posts.");
 }
 
 // Initialize
