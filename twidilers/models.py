@@ -23,6 +23,12 @@ follow = Table(
     Column('follower_id', Integer, ForeignKey('accounts.id'),primary_key=True)
 )
 
+likes = Table(
+    'likes',
+    db.metadata,
+    Column('account_id', Integer, ForeignKey('accounts.id'), primary_key=True),
+    Column('post_id', Integer, ForeignKey('posts.id'), primary_key=True)
+)
 
 class Account(db.Model): #The user accounts
   __tablename__ = 'accounts'
@@ -37,6 +43,11 @@ class Account(db.Model): #The user accounts
   verified:Mapped[bool] = mapped_column(default=False) #Wether they are verified or not
   setup:Mapped[bool] = mapped_column(default=False) #If they have set up their account
   is_oauth:Mapped[bool] = mapped_column(default=False) #If they are an oauth user
+  liked_posts: Mapped[list["Post"]] = relationship(
+        "Post",
+        secondary=likes,
+        back_populates="liked_by"
+    )  
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
       "bio": '', 
@@ -97,7 +108,11 @@ class Post(db.Model): #The posts(linked to accounts)
   author:Mapped["Account"] = relationship(back_populates="posts")
   title:Mapped[str]
   content:Mapped[str]
-  likes:Mapped[int] = mapped_column(default=0)
+  liked_by: Mapped[list["Account"]] = relationship(
+        "Account",
+        secondary=likes,
+        back_populates="liked_posts"
+  )
   date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=datetime.datetime.now(datetime.timezone.utc),nullable=True) #an aware datetime object
   def __repr__(self):
     return f"id={self.id},title={self.title},author={self.author}"
