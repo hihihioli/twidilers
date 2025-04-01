@@ -97,6 +97,7 @@ class Post(db.Model): #The posts(linked to accounts)
   author:Mapped["Account"] = relationship(back_populates="posts")
   title:Mapped[str]
   content:Mapped[str]
+  likes:Mapped[int] = mapped_column(default=0)
   date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=datetime.datetime.now(datetime.timezone.utc),nullable=True) #an aware datetime object
   def __repr__(self):
     return f"id={self.id},title={self.title},author={self.author}"
