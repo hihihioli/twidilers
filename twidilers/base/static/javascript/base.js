@@ -5,6 +5,8 @@ const notifButton = document.getElementById('navbarbell');
 const notifMenu = document.getElementById('notif-popup');
 const filterMenu = document.getElementById('filter-form');
 
+document.getElementById('hideJS').style.display = 'none'; // Hide the JS message for users with JS enabled
+
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
 
@@ -26,3 +28,4 @@ if (userMenu.style.display === 'none') {
     userMenu.style.display = 'none';
 }
 });
+
