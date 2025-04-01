@@ -11,7 +11,7 @@ from sqlalchemy import desc
 def all_posts(page):
     POSTS_PER_PAGE = 15
     offset = (page - 1) * POSTS_PER_PAGE
-    postlist = (
+    postlist = list(
         db.session.execute(
             db.select(Post)
             .order_by(desc(Post.id))
@@ -27,10 +27,11 @@ def all_posts(page):
             'title': post.title,
             'content': post.content,
             'date': post.date,
+            'likes': post.likes
         }
         for post in postlist
     ]
-    return flask.jsonify(response)
+    return flask.jsonify(postlist)
 
 @app.route('/api/user/<username>')
 def userapi(username):

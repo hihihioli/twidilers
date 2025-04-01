@@ -93,8 +93,8 @@ async function checkLike(postId) {
 async function renderPosts(posts, container) {
     for (const post of posts) {
 
-        var reactions = ``;
-        if (likes.liked === true) {
+        var reactions = `<div id=like-post-${post.id} class="likepost"></div>`; // this should be like HTML code but it isn't
+        if (likes.liked === true) { // if user likes post then make it red
             document.getElementById(`like-post-${post.id}`).style.color = "red";
         }
         if (post.author_url) {  // Check if author_url exists
@@ -114,7 +114,7 @@ async function renderPosts(posts, container) {
                     sessionStorage.setItem(post.author_url, JSON.stringify(author)); // Cache the author data in sessionStorage
                 }
 
-                // If the poster is the logged in user, add the delete button
+                // If the poster is the logged in user, replace like  button with delete button
                 if (currentUser.username === author.username) {
                     reactions = `
                         <form method="post">
