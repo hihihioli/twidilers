@@ -10,9 +10,14 @@ Want to learn more about one of the dependencies we use? Look no further!
 * https://blog.miguelgrinberg.com/category/Flask
 
 
-# Bugs
-* __Feed JS is kind of broken__
-    * Re-add filter functionality
+# Feed...
+## Features
+* Filters for only followed users
+* 
+## Broken stuff
+* Liking currently doesn't do anything
+* You can't tell if it's the oldest page
+* "Latest" button is offset wrong
 
 
 # Do before deployment:
@@ -39,7 +44,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 # Refactor
 ## Settings
 * Redo settings into different templates
-
 
 
 ## User accounts

@@ -104,10 +104,19 @@ async function didLike(postInfo) {
 // Renders posts into HTML
 async function renderPosts(posts, container) {
     for (const post of posts) {
-
-        var reactions = `<div id=like-post-${post.id} class="likepost"></div>`; // this should be like HTML code but it isn't
+        // We are going to set a baseline reactions
+        let react = "";
+        var reactions = `
+            <form method="post">
+                <button type="submit" class="pst-like-but ${react}" id=like-post-${post.id} name="delete-post" title="Delete Post">
+                    <input type="hidden" name="like-post-id" value="${post.id}">
+                    <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                    <span class="visually-hidden">Like this post</span>
+                </button>
+            </form>
+        `;
         if (didLike(post)) {
-            reactions = '<div id=like-post-${post.id} class="likepost liked"></div>'; // this should be like HTML code but it isn't
+            react = "liked"; // set reaction to liked
         }
 
         if (post.author_url) {  // Check if author_url exists
@@ -183,19 +192,14 @@ function oldPosts(user) {
     fetchPosts(user);
 }
 
-function alreadyAtLatestPost(){
-    lessButton.classList.add('disabled');
-}
 
 // go to newer pages
 function newPosts(user) {
     if (currentPage === 1) {
         console.log("Already at the newest posts.");
-        alreadyAtLatestPost();
         return 0;
     } else if (currentPage === 2) {
         currentPage=1;
-        alreadyAtLatestPost();
         return 0;
     }
     currentPage -= 1;

@@ -67,6 +67,10 @@ input[type="checkbox" i] {
 .pst-date {
     margin: 0px
 }
+.liked {
+    background-color: var(--maroonred);
+    color:white;
+}
 
 #topfeed {
     position:relative;
