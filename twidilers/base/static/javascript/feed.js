@@ -89,14 +89,27 @@ async function checkLike(postId) {
     }
 }*/
 
+async function didLike(postInfo) {
+    try {
+        const response = postInfo;
+        if (response.likes.includes(currentUser.username)) {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Failed to check if post is liked:', error);
+    }
+}
+
 // Renders posts into HTML
 async function renderPosts(posts, container) {
     for (const post of posts) {
 
         var reactions = `<div id=like-post-${post.id} class="likepost"></div>`; // this should be like HTML code but it isn't
-        if (likes.liked === true) { // if user likes post then make it red
-            document.getElementById(`like-post-${post.id}`).style.color = "red";
+        if (didLike(post)) {
+            reactions = '<div id=like-post-${post.id} class="likepost liked"></div>'; // this should be like HTML code but it isn't
         }
+
         if (post.author_url) {  // Check if author_url exists
             try {
                 let author;
