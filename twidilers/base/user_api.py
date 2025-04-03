@@ -27,7 +27,7 @@ def all_posts(page):
             'title': post.title,
             'content': post.content,
             'date': post.date,
-            'likes': post.liked_by
+            'likes': [user.id for user in post.liked_by]
         }
         for post in postlist
     ]
