@@ -84,9 +84,10 @@ def followingapi(username):
 
 @app.route('/api/currentuser/')
 def current_user():
-    account = session.get('username')
+    account = findAccount()
     return flask.jsonify({
-        "username": account,
+        "username": account.username,
+        "id": account.id,
     })
 
 @app.route('/api/post/<int:post_id>')
