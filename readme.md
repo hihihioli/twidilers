@@ -18,6 +18,8 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Liking currently doesn't do anything
 * You can't tell if it's the oldest page
 * "Latest" button is offset wrong
+## Things backend can do
+* Attach a "oldest page" information to the API so that "oldest" button can work and can lock you out if you're already at the oldest
 
 
 # Do before deployment:

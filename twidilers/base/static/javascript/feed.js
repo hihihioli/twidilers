@@ -72,22 +72,6 @@ async function fetchCurrentUser() {
     }
 }
 
-/*
-async function checkLike(postId) {
-    try {
-        const response = await fetch(`../../api/post/${postId}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const liked = await response.json();
-        if (liked.like_count === 0) {
-            document.getElementById(`like-count-${postId}`).style.display = "none";
-        }
-        return liked;
-    } catch (error) {
-        console.error('Failed to check if post is liked:', error);
-    }
-}*/
 
 async function didLike(postInfo) {
     try {
@@ -198,9 +182,6 @@ function newPosts(user) {
     if (currentPage === 1) {
         console.log("Already at the newest posts.");
         return 0;
-    } else if (currentPage === 2) {
-        currentPage=1;
-        return 0;
     }
     currentPage -= 1;
     fetchPosts(user);
@@ -219,7 +200,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPosts('all');
 });
         
+document.addEventListener('keypress', openKeyPressHandler);
 
+function openKeyPressHandler(event) {
+    if (event.key === 'n') {
+        window.location.href = "/post"; // opens new post page
+    } else if (event.key === 'r') {
+        fetchPosts('all', currentPage); // simulates refresh
+    }
+}
 
 // delete post animation
 /*

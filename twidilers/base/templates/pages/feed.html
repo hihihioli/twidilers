@@ -11,7 +11,7 @@
     {% set account = findAccount() %}
     <div id="topfeed" role="region" aria-label="Feed controls">
         <h1 id="feedtitle">Your feed</h1>
-        <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post">Create a Post</a>
+        <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post" title="Shortcut: N">Create a Post</a>
         <!--
         <button class="filter" 
                 onclick="flyOut('filter-form')" 
@@ -37,7 +37,7 @@
                 <button id="submit-filter" onclick="fetchPosts('user/{{account.username}}')" class="submit">Apply Filters</button>
             </form>
         -->
-        <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed">
+        <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed" title="Shortcut:R">
             <button id="refresh" type="button" onclick="fetchPosts('all',currentPage)" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
         </form>
     </div>
@@ -49,10 +49,11 @@
         <script src="{{ url_for('.static', filename='javascript/feed.js')}}"></script>
     </section>
     <div id="bottomfeed" role="region" aria-label="Feed controls">
+        <button id="oldest" onclick="oldPosts('all')" class="submit" aria-label="Load more posts" title="Doesn't work right now"><<</button>
         <button id="more" onclick="oldPosts('all')" class="submit" aria-label="Load more posts"><</button>
         <span id="middle">15 posts per page.</span>
         <button id="less" onclick="newPosts('all')" class="submit" aria-label="Load more posts">></button>
-        <button id="latest" onclick="latestPosts('all')" class="submit" aria-label="Load latest posts">Latest</button>
+        <button id="latest" onclick="latestPosts('all')" class="submit" aria-label="Load latest posts">>></button>
     </div>
 </main>
 <script src="{{ url_for('.static', filename='javascript/flyout.js') }}">
