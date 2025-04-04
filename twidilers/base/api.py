@@ -15,6 +15,9 @@ from .email import sendVerification,sendWelcome,sendResetPassword #email functio
 
 @app.post('/login')
 def login():
+    if not checkCaptcha(request.form.get('h-captcha-response')):
+        flash('Failed Captcha','error')
+        return redirect(url_for('.page',page='login'))
     username = request.form.get('username').lower() #Retrieves the username and password from the form
     password = request.form.get('password')
     account = db.session.execute(db.select(Account).filter_by(username=username)).scalar() #Finds an account with the username as the submitted one
@@ -142,6 +145,9 @@ def send_reset_link():
 
 @app.post('/sign-up')
 def sign_up():
+    if not checkCaptcha(request.form.get('h-captcha-response')):
+        flash('Failed Captcha','error')
+        return redirect(url_for('.page',page='sign-up'))
     #Sets the variables to the form data
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()

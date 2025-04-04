@@ -1,9 +1,10 @@
 from .models import Account,db,Post
-from flask import session,flash,Request
+from flask import session,flash,Request,current_app
 import re #for regular expressions
 from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
 import sqlalchemy
+import requests
 
 def save():
     try:
@@ -111,3 +112,7 @@ def formatImage(image_bytes:bytes) -> bytes:
     temp_file = BytesIO()
     img.save(temp_file, format="PNG")
     return temp_file.getvalue()
+
+def checkCaptcha(response):
+    data = requests.post("https://api.hcaptcha.com/siteverify",data={"secret":current_app.config["HCAPTCHA_SECRET"],"response":response})
+    return data.json()['success']

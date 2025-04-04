@@ -3,6 +3,7 @@
 {% block head %}
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='/styles/form.css') }}">
 <link rel="stylesheet" href="{{ url_for('.static', filename='styles/google.css') }}">
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 {% endblock %}
 {% block content %}
 <h1 class="heading">Sign Up</h1>
@@ -12,6 +13,7 @@
     <input type="email" class="textbox" placeholder="Email" id="email" name="email" autocomplete="on"/>
     <input type="password" class="textbox" placeholder="Create Password" id="password1" name="password1"/>
     <input type="password" class="textbox" placeholder="Confirm Password" id="password2" name="password2"/>
+    <div class="h-captcha" data-sitekey="3c4c7004-54bc-4b54-ac4a-cf5a6e5eeb28"></div>
     <button id="submit" type="submit" class="submit">Send email verification</button>
 </form>
 <div class="separator">
