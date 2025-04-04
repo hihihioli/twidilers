@@ -97,13 +97,13 @@ def feed():
         return redirect(url_for('.page', page='feed'))
     elif "like-post-id" in request.form:
         post_id = request.form.get('like-post-id')
-        post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
-        if user in post.likes:
-            post.likes.remove(user)
+        post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+        if user.id in [person.id for person in post.liked_by]:
+            post.liked_by.remove(user)
             db.session.commit()
             flash('Post Unliked','success')
             return redirect(url_for('.page',page='feed'))
-        post.likes.append(user)
+        post.liked_by.append(user)
         db.session.commit()
         flash('Post Liked','success')
         return redirect(url_for('.page',page='feed'))
