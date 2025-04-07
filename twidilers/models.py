@@ -69,7 +69,7 @@ class Account(db.Model): #The user accounts
     self.password_hash = bcrypt.generate_password_hash(plain_password) #hash the password then store it in a binary object
 
   def check_password(self,plain_password:str): #Returns a bool on whether the passwords match
-    return bcrypt.check_password_hash(self.password_hash, plain_password) #Check them
+    return bcrypt.check_password_hash(self.password_hash, plain_password) if self.password_hash else False #Check them if they have a password
   
   def __repr__(self): #When printing, what to return
     return f'username={self.username},id={self.id}'
