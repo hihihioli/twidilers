@@ -158,3 +158,17 @@ a .other-signup {
     }
         
 }
+@media only screen and (max-width: 600px) {
+    .input_form {
+        width: 90%;
+    }
+    #title, #post-content {
+        width: 100%;
+    }
+    .separator {
+        width: 90%;
+    }
+    .textbox {
+        width: 90%;
+    }
+}

@@ -447,21 +447,28 @@ a {
     }
 }
 
-@media only screen and (width<605px){
+@media only screen and (max-width: 600px){
     body {
+        --width:100vw;
         width:100%;
-        margin:0 5px;
+        margin:5px 10px;
         font-size:20px;
+        overflow:scroll;
     }
     .input_form {
-        width:100%;
+        width:var(--width);
     }
     #navbar {
-        font-size:20px;
+        width: calc(100vw - 15px);
+        justify-content: space-between; /* Spreads the items out */
     }
     #navbar button, .card {
         height:60px;
-        padding: 20px 25px;
-        font-size:18px;
+        padding: 10px 15px;
+        font-size:16px;
+
+    }
+    #hdr-href {
+        display:none;
     }
 }

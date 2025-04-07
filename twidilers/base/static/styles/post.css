@@ -42,6 +42,9 @@ input[type="checkbox" i] {
     background-color: gray !important;
     color: white !important;
 }
+header {
+    margin:0;
+}
 .pst-auth {
     margin:10px 0 0 0;
     color:var(--darkblue);
