@@ -7,6 +7,7 @@ from ..functions import * #Custom functions, like save()
 import flask
 from sqlalchemy import desc
 
+# This displays the paginated 15 posts on the feed page.
 @app.route('/api/feed/all/<int:page>', methods=['GET'])
 def all_posts(page):
     POSTS_PER_PAGE = 15
@@ -33,6 +34,7 @@ def all_posts(page):
     ]
     return flask.jsonify(response)
 
+# This displays information about the user
 @app.route('/api/user/<username>')
 def userapi(username):
     account = findAccount(username)
@@ -48,6 +50,7 @@ def userapi(username):
         'profile_link': url_for('.profile',username=account.username)
      })
 
+# This displays a list of all users
 @app.get('/api/users/all')
 def all_users():
     userlist:list[Account] = list(db.session.execute(db.select(Account).order_by(desc(Account.id))).scalars())
@@ -63,6 +66,7 @@ def all_users():
         'profile_link': url_for('.profile',username=account.username)
     } for account in userlist))
 
+# This displays all posts by people *THE USER FOLLOWS*
 @app.route('/api/feed/user/<username>')
 def followingapi(username):
     account = findAccount(username)
@@ -82,6 +86,7 @@ def followingapi(username):
         'date': post.date,
     } for post in followed_posts))
 
+# Quick easy hack to find current user
 @app.route('/api/currentuser/')
 def current_user():
     account = findAccount()
@@ -90,6 +95,7 @@ def current_user():
         "id": account.id,
     })
 
+# General query for a post by ID
 @app.route('/api/post/<int:post_id>')
 def get_post(post_id):
     user = findAccount()
@@ -111,6 +117,7 @@ def get_post(post_id):
         'liked':liked
     })
 
+# Gets user profile picture
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
     account = findAccount(username)
