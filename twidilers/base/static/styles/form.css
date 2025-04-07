@@ -13,7 +13,7 @@ html {
 
 /* .input_form is the wrapper for the inputs and button. */
 .input_form {
-    width: 280.8px;
+    width: 300px;
     margin: 0 auto;
     padding: 25px;
     border-radius: 20px;
@@ -31,7 +31,7 @@ html {
 /* The textbox for password and username input */
 .textbox {
     border-radius: 5px;
-    width:250px;
+    width:271px;
     height:18px;
     padding:13px;
     background-color: var(--lightblue);
