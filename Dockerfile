@@ -3,8 +3,8 @@
 FROM python:3.13
 
 # Some environment variables for python
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Create a virtual directory
 WORKDIR /app
