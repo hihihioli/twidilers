@@ -338,3 +338,7 @@ def reset_password_token(token):
         db.session.commit()
         flash('Password Changed','success')
         return redirect(url_for('.page',page='settings'))
+
+@app.get('/check')
+def healthcheck():
+    return "OK",200
