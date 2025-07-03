@@ -338,18 +338,3 @@ def reset_password_token(token):
         db.session.commit()
         flash('Password Changed','success')
         return redirect(url_for('.page',page='settings'))
-    
-@app.get('/admin/dashboard')
-def admin_dashboard():
-    userlist = db.session.execute(db.select(Account)).scalars()
-    return render_template('moderator/dashboard.html',userlist=userlist)
-
-@app.post("/admin/dashboard")
-def admin_settings():
-    if "delete-post" in request.form:
-        post_id = request.form.get('post-id')
-        post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
-        db.session.delete(post)
-        db.session.commit()
-        flash('Post Deleted','success')
-        return redirect(url_for('.page',page='admin/dashboard'))

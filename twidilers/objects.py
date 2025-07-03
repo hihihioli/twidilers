@@ -21,4 +21,3 @@ mail = Mail() #Creates a mail object for sending emails
 migrate = Migrate()
 
 from . import models #Import the models before initializing the database
-from .ami import models
