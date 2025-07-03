@@ -28,6 +28,7 @@ FROM python:3.13-slim
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       libpq5 \
+      curl \
  && rm -rf /var/lib/apt/lists/*
 
 # Make sure our user-local bin is on PATH
