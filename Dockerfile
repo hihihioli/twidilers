@@ -40,4 +40,4 @@ COPY --from=builder /root/.local /root/.local
 COPY . /app
 
 # On start: run migrations, then exec gunicorn
-ENTRYPOINT ["sh", "-c", "flask db upgrade && exec gunicorn --bind 0.0.0.0:8000 twidilers:create_app() --workers 4 --graceful-timeout 30"]
+ENTRYPOINT ["sh", "-c", "flask --app 'twidilers:create_app()' db upgrade && exec gunicorn --bind 0.0.0.0:8000 'twidilers:create_app()' --workers 4 --graceful-timeout 30"]
