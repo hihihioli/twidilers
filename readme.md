@@ -1,3 +1,14 @@
+# __POST-DEPLOYMENT SUMMARY__
+## stage 1: initial deployment
+It was pretty hard and many things went wrong, but it eventually worked.
+Known issues so far:
+* Emails not sending(not even registered by the smtp server)
+* OAuth doesn't work(something like mismatched uri)
+* idk if the db even works, i can't log in because of the previous 2 issues
+    * just checks i think it works, it remembered that i needed to verify
+* The about us and everything else seems fine for now
+* tell me(oliver) if anything else is broken or add it to this list
+
 # Useful links
 ## Dependencies
 Want to learn more about one of the dependencies we use? Look no further!
