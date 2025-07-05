@@ -19,12 +19,28 @@ if (notifMenu.style.display === 'none') {
 });  
 
 userButton.addEventListener('click', () => {
-if (userMenu.style.display === 'none') {
-    userMenu.style.display = 'block';
+if (userMenu.style.display === 'none') { // Display usermenu
+userMenu.style.display = 'flex';
+    userMenu.style.animationName = "shrink"
+    userMenu.style.animationDuration = '0.55s'
+    userMenu.style.animationDirection = 'reverse'
+    userMenu.style.animationFillMode = 'forwards';
+
     notifMenu.style.display = 'none';
-    filterMenu.style.display = 'none';
+    userMenu.addEventListener('animationend', function handler1() {
+            userMenu.style.animationName = '';
+            userMenu.removeEventListener('animationend', handler1);
+        });
 } else {
-    userMenu.style.display = 'none';
+    userMenu.style.animationName = 'shrink';
+    userMenu.style.animationDuration = '0.55s'; //Hide usermenu
+    userMenu.style.animationDirection = 'normal'
+    userMenu.style.animationFillMode = 'forwards';
+    userMenu.addEventListener('animationend', function handler2() {
+            userMenu.style.display = 'none';
+            userMenu.style.animationName = '';
+            userMenu.removeEventListener('animationend', handler2);
+        });
 }
 });
 

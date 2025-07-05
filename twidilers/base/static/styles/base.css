@@ -14,6 +14,31 @@
     }
 }
 
+@keyframes shrink {
+    0% {
+        display:flex;
+        width:240px;
+        filter: opacity(1);
+    }
+    90% {
+        width:0;
+        filter: opacity(0);
+    }
+    100% {
+        width:0;
+        padding-left:0px;
+        padding-right:0px;
+        margin-left:0px;
+        border-left:0px;
+        margin-right:0px;
+        border-right:0px;
+        filter: opacity(0);
+        display:none;
+
+    }
+}
+
+
 /* This is variables. You can access them by doing var(--varname) instead of a color. */
 html {
     --lightblue: #b8eef9;
@@ -119,33 +144,39 @@ Click generate until you get the loss under 3 */
 /* Container for Popup */
 .popup-div {
     position: relative; /* Ensure children use this as the anchor point */
-    width: 600px;
+    height:67px
 }
 /* Popup Menu in base.html */
 .popup-menu {
+    overflow: hidden;
     display: none; /* Hidden by default */
-    position: absolute; /* Positioned relative to .popup-div */
-    flex-direction: column;
+    position:static;
+    flex-direction: row;
     border: 2px solid var(--darkblue);
-    width: 95px;
+    width: fit-content;
     z-index: 1000;
     padding: 10px;
     border-radius: 10px;
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
+    height: 46px !important;
+    animation-timing-function: ease-in-out;
 }
+
 .popup-menu button {
+    z-index: -1;
     display: block;
-    width: 100% !important;
     padding: 10px 15px;
     background: none;
     border: none;
     text-align: left;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     background-color:var(--darkblue);
     color:var(--lightblue);
+    margin: 0px 5px 0px 5px !important;
+    text-align: center;
 }
 #notif-popup {
     gap:10px;
@@ -153,7 +184,7 @@ Click generate until you get the loss under 3 */
 }
 .notif-div {
     width: 250px !important;
-    position: absolute; /* Positioned relative to .popup-div */
+    position: absolute!important; /* Positioned relative to .popup-div */
     flex-direction: column;
     border: 2px solid var(--darkblue);
     width: 95px;
@@ -231,10 +262,6 @@ Click generate until you get the loss under 3 */
     font-size: 10pt;
     font-weight:500;
     width:12px;
-}
-/* profilebtn is in base.html in the navbar */
-#profileBtn {
-    margin-top:0px !important;
 }
 
 #auth-info {
