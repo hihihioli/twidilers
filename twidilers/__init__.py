@@ -25,10 +25,6 @@ def create_app():
     
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
     app.config['PREFERRED_URL_SCHEME'] = 'https'
-    try: #Try to format the default sender as a tuple
-        app.config['MAIL_DEFAULT_SENDER'] = ast.literal_eval(app.config['MAIL_DEFAULT_SENDER'])
-    except: #if it fails
-        print('You can put the default sender in tuple form, such as: ("Sender","address@example.com")')
 
     app.config['OAUTH2_PROVIDERS'] = {
         # Google OAuth 2.0 documentation:
