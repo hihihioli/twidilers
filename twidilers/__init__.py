@@ -5,6 +5,7 @@ Welcome to Twidilers App! Backend by Derin and Oliver. Frontend by Eamon.
 #the imports
 from flask import Flask, session
 from dotenv import load_dotenv
+from werkzeug.middleware.proxy_fix import ProxyFix
 import os
 import uuid
 import ast
@@ -21,6 +22,9 @@ def create_app():
     if not app.config['SECRET_KEY']: #set secret key if not set
         app.config['SECRET_KEY'] = str(uuid.uuid4())
 
+    
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
+    app.config['PREFERRED_URL_SCHEME'] = 'https'
     try: #Try to format the default sender as a tuple
         app.config['MAIL_DEFAULT_SENDER'] = ast.literal_eval(app.config['MAIL_DEFAULT_SENDER'])
     except: #if it fails
