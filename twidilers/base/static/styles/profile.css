@@ -1,7 +1,7 @@
 /* For profile page and affiliates */
 .profile-auth {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
     left: 20px;
     margin-top:24px;
@@ -36,6 +36,7 @@
 }
 #display-name {
     margin:0px;
+    width:fit-content
 }
 #follow-button {
     width:100px;
@@ -54,6 +55,7 @@
     margin-bottom: 10px;
     font-size:1.1em;
     font-weight:normal;
+    width:fit-content
 }
 .profile-div {
     border-radius:15px;

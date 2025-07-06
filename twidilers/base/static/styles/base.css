@@ -17,7 +17,7 @@
 @keyframes shrink {
     0% {
         display:flex;
-        width:240px;
+        width:250px;
         filter: opacity(1);
     }
     90% {
@@ -155,7 +155,7 @@ Click generate until you get the loss under 3 */
     border: 2px solid var(--darkblue);
     width: fit-content;
     z-index: 1000;
-    padding: 10px;
+    padding: 10px 5px 10px 5px;
     border-radius: 10px;
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
@@ -172,7 +172,7 @@ Click generate until you get the loss under 3 */
     border: none;
     text-align: left;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 13px;
     background-color:var(--darkblue);
     color:var(--lightblue);
     margin: 0px 5px 0px 5px !important;

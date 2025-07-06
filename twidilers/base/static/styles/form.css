@@ -81,7 +81,6 @@ input:-webkit-autofill:active {
     transition:0.7s all !important;
 }
 #post-submit:hover {
-    border-radius:50px;
     background-color:var(--lightblue);
     color:var(--darkblue) !important;
 }

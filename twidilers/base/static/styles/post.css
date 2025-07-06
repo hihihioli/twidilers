@@ -46,6 +46,7 @@ header {
     margin:10px 0 0 0;
     color:var(--darkblue);
     font-weight: bold;
+    text-decoration: none;
 }
 
 .pst-disp {

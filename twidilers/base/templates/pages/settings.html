@@ -29,17 +29,44 @@
         h3 {
             margin: 0 0 20px 0;
         }
+        .profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* pushes form to right */
+    gap: 1rem; /* optional spacing between items */
+}
+
+#upload_pfp {
+    margin-left: auto; /* optional: ensures it's pushed right */
+}
     </style>        
     <!-- Div with account details -->
-
     <main id="acct-dtl-content">
         <div class="profile-div" id="auth-info" role="region" aria-label="Profile overview">
-            <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
-            <section class="profile-auth">
+    <section class="profile-header">
+        <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
+        
+        <section class="profile-auth">
+            <section>
                 <h1 name="prof-username" id="display-name">{{account.displayname}}</h1>
                 <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
             </section>
-        </div>
+        </section>
+        <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en">
+            <label for="file" class="custom-file-upload" role="button" id="camera">
+                <i class="fa-solid fa-camera" style="margin-top: 10px;"></i>
+                </label>
+                
+                <input type="file" 
+                       id="file" 
+                       name="file" 
+                       accept="image/*"
+                       aria-label="Select new profile picture">
+                </i>
+            
+        </form>
+    </section>
+</div>
         {% if not account.setup and account.is_oauth %}
             <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
                 <form method="post" id="change-username-form" lang="en">
@@ -96,19 +123,6 @@
                 </button>
             </form>
         </div>
-        <div class="profile-div" role="region" aria-label="Profile picture settings">
-            <h3>Upload profile picture</h3>
-            <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en">
-                <label for="file" class="custom-file-upload" role="button">
-                    Choose profile picture
-                </label>
-                <input type="file" 
-                       id="file" 
-                       name="file" 
-                       accept="image/*"
-                       aria-label="Select new profile picture">
-            </form>
-        </div>
         <div class="profile-div">
             <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
         </div>        
@@ -125,7 +139,7 @@
             <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
             <button class="submit" id="email-change" name="email-change">Send confirmation email to new account</button>
         </div>
-        <div class="profile-div">
+        <div class="profile-div" style="background-color:rgb(178, 6, 6)">
             <form id="delete-account" name="delete-account" method="post">
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 

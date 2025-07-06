@@ -29,11 +29,9 @@ input[type="file"] {
   }
   /* Custom button */
   .custom-file-upload {
-    display: inline-block;
+    display:block;
     width: auto ;
     height: auto;
-    font-size: 11pt;
-    padding: 13px;
     border-radius: 5px;
     background-color: var(--darkblue);
     color: var(--lightblue);
@@ -45,17 +43,16 @@ input[type="file"] {
     cursor: pointer;
     text-align: center;
   }
-#security-content {
+
+#delete, #send-email-password {
+  margin:0;
+}
+
+#security-content, #notif-content, #privacy-content {
     display: none;
 }
 
-#privacy-content {
-    display: none;
-}
-#notif-content {
-  display:none;
-}
-  .pf-mnu-btn {
+.pf-mnu-btn {
     border: 0;
     cursor: pointer;
     background-color: inherit;
@@ -63,18 +60,21 @@ input[type="file"] {
     font-size: 1em;
     font-weight: 500;
     text-decoration: underline;
-  }
-  #bio {
+}
+
+#bio {
     resize:vertical;
     overflow-y: hidden;
     vertical-align:top;
     width:530px;
     height:36px;
 }
+
 #bio::placeholder{
   position:absolute;
   top:12px;
 }
+
 #post-content {
   resize:vertical;
   overflow-y: hidden;
@@ -82,20 +82,53 @@ input[type="file"] {
   width:530px !important;
   border-radius:5px;
 }
+
 .profile-div {
-    border-radius:15px;
-    padding: 15px;
-    width: 565px;
-    margin: 20px 0;
-    height: fit-content;
-    flex-wrap:wrap;
+  display:grid;
+  flex-direction: column;
+  border-radius:15px;
+  padding: 15px;
+  width: 565px;
+  margin: 20px 0;
+  height: fit-content;
+  flex-wrap:wrap;
 }
+
+#camera {
+  align-self:flex-end;
+  justify-self: flex-end;
+  position: relative; 
+  padding: 0 !important;
+  font-size: 25px;
+  background-color:var(--lightblue);
+  width:46px !important;
+  padding: 15px;
+  color: var(--lightblue);
+  border-radius: 5px;
+  border: 2px solid var(--lightblue);
+  height: 46px; 
+  margin: auto;
+  margin-top: 10px;
+  cursor:pointer;
+  transition: all 0.5s;
+}
+
+#camera:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--lightblue);
+}
+
 #old-password {
   margin-bottom:10px;
 }
+
 @media only screen and (prefers-color-scheme: dark){
     
     .profile-div {
         background-color:var(--darkishblue);
+    }
+    #camera {
+        color: var(--lightblue) !important;
+        background-color:var(--darkblue)!important;
     }
 }
