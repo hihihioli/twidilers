@@ -10,6 +10,7 @@
     }
 
     100% {
+        filter: opacity(0);
         display:none
     }
 }
@@ -63,6 +64,20 @@ body {
     overflow-x:hidden;
     scroll-behavior:smooth;
 }
+
+/* Helpful tips:
+img {
+    max-width: 100%;
+    height:auto;
+    aspect-ratio: 9/16;
+    object-fit: contain;
+}
+
+text element {
+    font-size: clamp(1.8rem, calc(7vw + 1rem), 5rem)
+}
+
+*/
 
 /* Turbo.js styling */
 .turbo-progress-bar {
@@ -210,15 +225,7 @@ Click generate until you get the loss under 3 */
     font-weight:bold;
     font-size:1.2em;
 }
-.notif-auth {
-/* Nothing in here yet */
-}
-.notif-content {
-/* Nothing in here yet */
-}
-.notif-date {
-/* Nothing in here yet */
-}
+
 #notif-div-0 {
     display:flex;
     gap:10px;

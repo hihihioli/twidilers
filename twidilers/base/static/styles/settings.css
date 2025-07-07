@@ -25,7 +25,7 @@ input[type="file"] {
     margin: 20px 0; 
   }
   #change-name {
-    width:530px;
+    width:79%;
   }
   /* Custom button */
   .custom-file-upload {
@@ -103,9 +103,9 @@ input[type="file"] {
   background-color:var(--lightblue);
   width:46px !important;
   padding: 15px;
-  color: var(--lightblue);
+  color: var(--darkblue);
   border-radius: 5px;
-  border: 2px solid var(--lightblue);
+  border: 2px solid var(--darkblue);
   height: 46px; 
   margin: auto;
   margin-top: 10px;
@@ -118,17 +118,74 @@ input[type="file"] {
     box-shadow: 0 0 7px 0 var(--lightblue);
 }
 
+#videoElement {
+  border: 2px solid var(--darkblue);
+  width:100%;margin: 20px 0px 20px 0px;
+  border-radius: 5px;
+  transform: rotateY(180deg);
+  -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+  -moz-transform:rotateY(180deg); /* Firefox */
+}
+
+.modal {
+  display:none;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top:0;
+  width:100dvw;
+  height:100dvh;
+  overflow:auto;
+}
+
+.modal-content {
+  position:fixed;
+  left:calc((100dvw/2) - 308px);
+  transform: translateY(-470px);/*translateX(-51.25%),translateY(470px);*/
+  transition: all 0.75s ease; 
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.modal-header .close {
+    cursor: pointer;
+    margin: 0px;
+    font-size: 1.5rem;
+}
+
 #old-password {
   margin-bottom:10px;
 }
 
 @media only screen and (prefers-color-scheme: dark){
-    
-    .profile-div {
-        background-color:var(--darkishblue);
-    }
-    #camera {
-        color: var(--lightblue) !important;
-        background-color:var(--darkblue)!important;
-    }
+  .profile-div {
+    background-color:var(--darkishblue);
+  }
+  #camera {
+    color: var(--lightblue) !important;
+    background-color:var(--darkblue)!important;
+    border: 2px solid var(--lightblue)
+  }
+  #camera:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
+  }
+  .custom-file-upload {
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+  } 
+  #videoElement {
+    border: 2px solid var(--lightblue);
+  }
 }

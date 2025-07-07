@@ -1,7 +1,6 @@
-// This page ougtline sucks. I need perm from backend to rearrange it into a template which makes so much more sense
+// This page outline sucks. I need perm from backend to rearrange it into a template which makes so much more sense
 
 // This script hides/shows divs if menu bars are clicked.
-console.log("I know this page sucks. Will fix when given the go ahead from Oli");
 // It fetches the IDs of the divs so it can hide them
 const settingsDivs = [
     accountInfo = document.getElementById('acct-dtl-content'),
