@@ -18,6 +18,7 @@ window.onload = function () {
     closeButton.addEventListener('click', function () {
         modalContent.style.transition = 'all 0.5s ease'
         modalContent.style.transform = 'translateY(-700px)';
+        modalShell.style.backgroundColor = 'transparent'
         setTimeout(function() {
             modalShell.style.display = 'none';
             if (isOn) {
@@ -25,6 +26,7 @@ window.onload = function () {
             }
             modalContent.style.transform = 'translateY(-470px)';
             modalContent.style.transition = 'all 0.75s ease'
+            modalShell.style.backgroundColor = 'rgba(0,0,0,0.5)'
         }, 500);
     });
     cameraButton.addEventListener('click', function () {

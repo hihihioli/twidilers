@@ -23,6 +23,10 @@ html {
     color: var(--darkblue);
 }
 
+#login_form,#account_form {
+    background-color: var(--lightishblue);
+}
+
 .input_form p {
     padding:5px;
     margin:0;
@@ -57,7 +61,7 @@ h4 {
     content: '';
     flex: 1;
     height: 1px;
-    background-color: var(--lightblue); /* Line color */
+    background-color: var(--darkblue); /* Line color */
 }
 
 .separator span {
@@ -132,30 +136,9 @@ a .other-signup {
 
 
 @media only screen and (prefers-color-scheme: dark){
-    .input_form {
-        background-color: var(--darkishblue);
-        color:var(--lightblue);
-    }
-    .textbox {
-        color: var(--lightblue);
-        background-color: var(--darkblue);
-        border: 3px solid var(--lightishblue);
-    }
     .textbox::placeholder {
-        color: var(--lightblue)
+        color: var(--darkblue)
     }
-    input:-internal-autofill-selected {
-        background-color: var(--darkblue) !important;
-    }
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px var(--darkblue) inset !important;
-        -webkit-text-fill-color: var(--lightblue);
-        transition: background-color 5000s ease-in-out 0s;
-    }
-        
 }
 @media only screen and (max-width: 600px) {
     .input_form {

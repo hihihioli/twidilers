@@ -41,7 +41,7 @@
 
 
 /* This is variables. You can access them by doing var(--varname) instead of a color. */
-html {
+:root {
     --lightblue: #b8eef9;
     --darkblue: #001554;
     --darkishblue: #0a0a8d;
@@ -142,6 +142,20 @@ Click generate until you get the loss under 3 */
     box-shadow: 0 0 7px 0 var(--darkblue);
 }
 
+#usricon-nav-img {
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    position: relative;
+    border: 2px solid var(--darkblue);
+}
+
+#usricon-nav:hover {
+    box-shadow: 0 0 7px 0 var(--lightblue);
+}
+
+
+
 #navbar {
     display:flex;
     width:100%;
@@ -154,6 +168,7 @@ Click generate until you get the loss under 3 */
 #navbar #usricon-nav {
     padding: 0;
     border-radius: 1000px;
+    
 }
 
 /* Container for Popup */
@@ -253,7 +268,8 @@ Click generate until you get the loss under 3 */
     position: relative; 
     padding: 0 !important;
     font-size: 25px;
-    background-color:var(--lightblue);
+    color: var(--darkblue)!important;
+    background-color:var(--lightblue)!important;
     width:46px !important;
     margin:auto;
 }
@@ -408,8 +424,17 @@ a {
 }
 
 @media only screen and (prefers-color-scheme: dark) {
+    :root {
+    --lightblue: #001554;
+    --darkblue: #b8eef9;
+    --darkishblue:#9eefff ;
+    --lightishblue: #0a0a8d;
+    }
+    #hder-img {
+        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
+    }
     /* Flips the color and background color from the base. */
-    .notif-div button {
+    /*.notif-div button {
         color: var(--lightblue);
     }
     body {
@@ -429,10 +454,8 @@ a {
     #navbar button:hover, .popup-menu button:hover {
         box-shadow: 0 0 7px 0 var(--lightblue);
     }
-    /* Sets the image to be a certain color */
-    #hder-img {
-        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
-    }
+    /* Sets the image to be a certain color 
+    
 
     #navbarbell {
         color: var(--lightblue) !important;
@@ -494,7 +517,7 @@ a {
     }
     #navbar {
         width: calc(100vw - 15px);
-        justify-content: space-between; /* Spreads the items out */
+        justify-content: space-between; /* Spreads the items out 
     }
     #navbar button, .card {
         height:60px;
@@ -503,6 +526,6 @@ a {
 
     }
     #hdr-href {
-        display:none;
-    }
+        display:none; 
+    } */
 }

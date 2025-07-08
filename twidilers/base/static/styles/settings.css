@@ -105,17 +105,13 @@ input[type="file"] {
   padding: 15px;
   color: var(--darkblue);
   border-radius: 5px;
+  box-shadow: 0 0 7px 0 var(--darkblue);
   border: 2px solid var(--darkblue);
   height: 46px; 
   margin: auto;
   margin-top: 10px;
   cursor:pointer;
   transition: all 0.5s;
-}
-
-#camera:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 7px 0 var(--lightblue);
 }
 
 #videoElement {
@@ -168,7 +164,7 @@ input[type="file"] {
   margin-bottom:10px;
 }
 
-@media only screen and (prefers-color-scheme: dark){
+/*@media only screen and (prefers-color-scheme: dark){
   .profile-div {
     background-color:var(--darkishblue);
   }
@@ -188,4 +184,4 @@ input[type="file"] {
   #videoElement {
     border: 2px solid var(--lightblue);
   }
-}
+}*/
