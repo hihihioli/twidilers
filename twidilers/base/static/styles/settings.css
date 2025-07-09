@@ -11,41 +11,56 @@ input[type="file"] {
     display: none;
   }
   
-  #acct-dtl-content {
-    display: block;
-    flex-direction: column;
-  }
-  #acct-dtl-btn {
-    font-weight: bold;
-  }
-  #acct-navbar {
+#acct-dtl-content {
+  display: block;
+  flex-direction: column;
+}
+#acct-dtl-btn {
+  font-weight: bold;
+}
+#acct-navbar {
+  display: flex;
+  flex-direction:row;
+  gap: 10px;
+  margin: 20px 0; 
+}
+#change-name {
+  width:80%;
+  overflow: hidden;
+  resize: none;
+}
+/* Custom button */
+.custom-file-upload {
+  display:block;
+  width: auto ;
+  height: auto;
+  border-radius: 5px;
+  background-color: var(--darkblue);
+  color: var(--lightblue);
+  cursor: pointer;
+  border: 0;
+  align-self: center !important;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+.submit {
+    margin: 0;
+    margin-top:10px;
+}
+h3 {
+    margin: 0 0 20px 0;
+}
+.profile-header {
     display: flex;
-    flex-direction:row;
-    gap: 10px;
-    margin: 20px 0; 
-  }
-  #change-name {
-    width:80%;
-    overflow: hidden;
-    resize: none;
-  }
-  /* Custom button */
-  .custom-file-upload {
-    display:block;
-    width: auto ;
-    height: auto;
-    border-radius: 5px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
-    cursor: pointer;
-    border: 0;
-    align-self: center !important;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-  }
-
+    align-items: center;
+    justify-content: space-between; /* pushes form to right */
+    gap: 1rem; /* optional spacing between items */
+}
+#upload_pfp {
+    margin-left: auto; /* optional: ensures it's pushed right */
+}
 #delete, #send-email-password {
   margin:0;
 }
@@ -87,26 +102,6 @@ input[type="file"] {
   font-size: 0.85rem;
 }
 
-
-
-#camera {
-  align-self:flex-end;
-  justify-self: flex-end;
-  position: absolute; 
-  right: 20px;
-  padding: 0 !important;
-  font-size: 25px;
-  background-color:var(--lightblue);
-  color: var(--darkblue);
-  border-radius: 5px;
-  box-shadow: 0 0 7px 0 var(--darkblue);
-  border: 2px solid var(--darkblue);
-  width:46px;
-  height: 46px; 
-  cursor:pointer;
-  transition: all 0.5s;
-  box-sizing: border-box;
-}
 
 #videoElement {
   border: 2px solid var(--darkblue);

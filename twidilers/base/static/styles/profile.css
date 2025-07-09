@@ -36,7 +36,8 @@
 }
 #display-name {
     margin:0px;
-    width:fit-content
+    width:fit-content;
+    font-size:1.3em;
 }
 #follow-button {
     width:100px;
@@ -56,7 +57,7 @@
 #prof-usrname {
     margin: 0;
     margin-bottom: 10px;
-    font-size:1.1em;
+    font-size:1em;
     font-weight:normal;
     width:fit-content
 }

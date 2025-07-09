@@ -6,13 +6,11 @@ window.onload = function () {
     videoElement = document.getElementById('videoElement');
     canvasElement = document.getElementById('canvasElement');
     photoElement = document.getElementById('photoElement');
-    startButton = document.getElementById('startButton');
     captureButton = document.getElementById('captureButton');
     closeButton = document.getElementById('close');
     modalShell = document.getElementById('modal');
     modalContent = document.getElementById('modal-content');
     cameraButton = document.getElementById('camera');
-    startButton.addEventListener('click', toggleWebcam);
     captureButton.addEventListener('click', capturePhoto);
 
     closeButton.addEventListener('click', function () {
@@ -29,23 +27,16 @@ window.onload = function () {
             modalShell.style.backgroundColor = 'rgba(0,0,0,0.5)'
         }, 500);
     });
-    cameraButton.addEventListener('click', function () {
-        modalShell.style.display = 'block';
-        setTimeout(function() {modalContent.style.transform = 'translateY(0px)';}, 0);
-    });
+
     canvasElement.width = videoElement.videoWidth;
     canvasElement.height = videoElement.videoHeight;
 }
 
-function toggleWebcam() {
-    if (!isOn) {
+    function startWebService() {
+        modalShell.style.display = 'block';
+        setTimeout(function() {modalContent.style.transform = 'translateY(0px)';}, 0);
         startWebcam();
-    } else {
-        stopWebcam();
     }
-    isOn = !isOn
-};
-
 function dataURLtoBlob(dataurl) {
     const arr = dataurl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
@@ -57,7 +48,6 @@ function dataURLtoBlob(dataurl) {
 }
 async function startWebcam() {
     try {
-        startButton.innerHTML = 'Starting Webcam...'
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
         videoElement.srcObject = stream;
         captureButton.disabled = false;
@@ -67,13 +57,6 @@ async function startWebcam() {
     } catch (error) {
         console.error('Error accessing webcam:', error);
     }
-}
-function stopWebcam() {
-    stream.getTracks().forEach(track => track.stop());
-    videoElement.srcObject = null;
-    captureButton.style.display = "none"
-    captureButton.disabled = true;
-    startButton.innerHTML = 'Start Camera'
 }
 function capturePhoto() {
     canvasElement.width = videoElement.videoWidth;
