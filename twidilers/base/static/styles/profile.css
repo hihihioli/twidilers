@@ -1,7 +1,7 @@
 /* For profile page and affiliates */
 .profile-auth {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     position: relative;
     left: 20px;
     margin-top:24px;
@@ -14,7 +14,7 @@
 }
 #edit-profile {
     position: absolute;
-    top:20px;
+    bottom:55px;
     right: 20px;
     padding: 10px;
     color: inherit;
@@ -32,11 +32,10 @@
     float: left;
 }
 #about-user {
-    margin:0;
+    margin:10px 0;
 }
 #display-name {
     margin:0px;
-    width:fit-content
 }
 #follow-button {
     width:100px;
@@ -48,41 +47,23 @@
     margin: 0px 0 10px 0;
 }
 #prof-date {
-    font-size:1rem;
-    font-weight: bold;
-    margin-left: auto;
-
+    font-size:1.2em;
 }
 #prof-usrname {
     margin: 0;
     margin-bottom: 10px;
     font-size:1.1em;
     font-weight:normal;
-    width:fit-content
 }
 .profile-div {
-display: flex !important;
-  flex-wrap: wrap; /* allow content to wrap on small screens */
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  width: 100%;
-  max-width: 600px; /* keeps layout readable on large screens */
-  box-sizing: border-box;
-
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 15px;
-
-  background-color: var(--lightishblue);
-  overflow-wrap: break-word;
-  flex-shrink: 1;
-  box-sizing: border-box;
-}
-
-#about {
-    flex-direction: column;
+    border-radius:15px;
+    padding: 20px;
+    width: 560px;
+    margin: 20px 0;
+    height: fit-content;
+    flex-wrap:wrap;
+    background-color:var(--lightishblue);
+    overflow-wrap: break-word;
 }
 /* Post styling stoled from post.css for better loading times */
 .pst {
@@ -119,7 +100,7 @@ display: flex !important;
     bottom:0;
     right:0;
 }
-/*@media only screen and (prefers-color-scheme: dark){
+@media only screen and (prefers-color-scheme: dark){
     #edit-profile:hover {
         background-color:var(--lightblue);
         color: var(--darkblue);
@@ -138,4 +119,4 @@ display: flex !important;
 .profile-div {
     background-color:var(--darkishblue);
 }
-}*/
+}

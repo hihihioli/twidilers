@@ -13,8 +13,7 @@ html {
 
 /* .input_form is the wrapper for the inputs and button. */
 .input_form {
-    width:auto;
-    max-width: 300px;
+    width: 300px;
     margin: 0 auto;
     padding: 25px;
     border-radius: 20px;
@@ -22,10 +21,6 @@ html {
     flex-direction: column;
     gap: 10px;
     color: var(--darkblue);
-}
-
-#login_form,#account_form {
-    background-color: var(--lightishblue);
 }
 
 .input_form p {
@@ -36,15 +31,13 @@ html {
 /* The textbox for password and username input */
 .textbox {
     border-radius: 5px;
-    width:auto;
-    max-width: 271px;
+    width:271px;
     height:18px;
     padding:13px;
     background-color: var(--lightblue);
     color: var(--darkblue);
     border: 3px solid var(--darkblue);
     font-family:Arial, sans-serif;
-    flex-shrink: 1;
 }
 p .input_form, h2 .input_form {
     margin:10px 0;
@@ -64,7 +57,7 @@ h4 {
     content: '';
     flex: 1;
     height: 1px;
-    background-color: var(--darkblue); /* Line color */
+    background-color: var(--lightblue); /* Line color */
 }
 
 .separator span {
@@ -85,17 +78,15 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
 #post-submit {
-    margin:0;
-    align-self:inherit !important;
     transition:0.7s all !important;
 }
 #post-submit:hover {
+    border-radius:50px;
     background-color:var(--lightblue);
     color:var(--darkblue) !important;
 }
 #submit {
     width:100% !important;
-    margin-top:0px;
 }
 input:-internal-autofill-selected {
     background-color: var(--lightblue);
@@ -109,39 +100,19 @@ a:focus-visible {
     outline: 2px solid #007bff;
     outline-offset: 2px;
 }
-
-.h-captcha {
-    width: 100%;
-    display:flex;
-    justify-content: center;
-}
-
-#blog_form {
-    margin:0px;
-    justify-self: center;
-    flex-shrink: 1;
-}
-
 /* #content is the main content area. #post-content is the input form content area. */
-/*content {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 1;
-}*/
-
-#post-title {
-    width:auto;
-}
-
 #post-content {
+    resize:vertical;
     overflow-y: hidden;
     border-radius:5px;
 }
-#title {
+#title, #post-content {
     width: 470px;
 }
-
+#post-submit {
+    margin:0;
+    align-self:inherit !important;
+}
 .fa-brands {
     margin:0 12px 0 0;
     font-size:20px;
@@ -162,23 +133,42 @@ a .other-signup {
 
 
 @media only screen and (prefers-color-scheme: dark){
-    .textbox::placeholder {
-        color: var(--darkblue)
+    .input_form {
+        background-color: var(--darkishblue);
+        color:var(--lightblue);
     }
+    .textbox {
+        color: var(--lightblue);
+        background-color: var(--darkblue);
+        border: 3px solid var(--lightishblue);
+    }
+    .textbox::placeholder {
+        color: var(--lightblue)
+    }
+    input:-internal-autofill-selected {
+        background-color: var(--darkblue) !important;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px var(--darkblue) inset !important;
+        -webkit-text-fill-color: var(--lightblue);
+        transition: background-color 5000s ease-in-out 0s;
+    }
+        
 }
 @media only screen and (max-width: 600px) {
-
+    .input_form {
+        width: 90%;
+    }
     #title, #post-content {
         width: 100%;
     }
     .separator {
         width: 90%;
     }
-}
-
-@media only screen and (max-width: 350px) {
-
-.heading {
-    font-size: 36px;
-}
+    .textbox {
+        width: 90%;
+    }
 }

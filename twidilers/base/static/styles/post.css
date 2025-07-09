@@ -46,7 +46,6 @@ header {
     margin:10px 0 0 0;
     color:var(--darkblue);
     font-weight: bold;
-    text-decoration: none;
 }
 
 .pst-disp {
@@ -99,7 +98,7 @@ header {
     border-radius:5px;
     border:0;
     background:none;
-    color:var(--darkblue);
+    color:var(--lightblue);
     cursor:pointer;
     float:right;
     margin:20px 20px 0 0;
@@ -133,10 +132,10 @@ header {
     padding:0;
 }
 .pst-react-but {
-    background-color:var(--lightblue);
-    border:2px solid var(--darkblue);
+    background-color:var(--darkblue);
+    border:2px solid var(--lightblue);
     border-radius: 3px;
-    color:var(--darkblue); 
+    color:var(--lightblue); 
     padding:10px;
     cursor:pointer;
 
@@ -145,7 +144,7 @@ header {
     height:36px;
 }
 .pst-react-but:hover {
-    box-shadow:0 0 5px var(--darkblue);
+    box-shadow:0 0 3px var(--lightblue);
 }
 .checkbox-label {
     position:absolute;
@@ -163,7 +162,7 @@ header {
 #more:disabled, #less:disabled {
     background:gray;
     color:white;
-    cursor:not-allowed;
+    cursor:not-allowed;`
     border:0;
 }
 #submit-filter {
@@ -212,7 +211,25 @@ header {
 .pst-content {
     margin-top:0px
 }
+@media only screen and (prefers-color-scheme: dark){
+    .pst {
+        background-color: var(--darkishblue);
+    }
 
+    .pst-auth {
+        color:var(--lightblue)
+    }
+
+    .pst-disp {
+        color:var(--lightblue)
+    }
+    .checkbox-label {
+        color:var(--lightblue);
+    }
+    #filter:hover {
+        color:var(--lightblue);
+    }
+}
 /* Found a loading animaiton online sorry it's long*/
 
 .lds-ring,

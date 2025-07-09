@@ -8,14 +8,10 @@
 {% endblock %}
 {% block content %}
 <div class="profile-div" id="auth-info">
-    <section class="profile-header">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" loading="lazy" id="pfp">
     <section class="profile-auth">
-        <section>
         <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
         <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
-        </section>
-    </section>
         {% if owner == 1 %}
             <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
         {% else %}
@@ -48,17 +44,14 @@
             {% endif %}
         {% endif %}
     </section>
-    
 </div>
-<div class="profile-div" id="about">
+<div class="profile-div">
     <h2 id="about-user">About {{account.displayname}}</h2>
     <p>{{bio}}</p>
     <span name="prof-date" id="prof-date"></span>
 </div>
 <div>
-    {% if posts %}
     <h1>Recent Posts:</h1>
-    
     {% for post in posts %}
         <div class="pst">
             <h2 class="pst-title">{{post.title}}</h3>
@@ -81,9 +74,6 @@
             </div>
         </div>
     {% endfor %}
-    {% else %}
-    <h1>No Posts</h1>
-    {% endif %}
 </div>
 <script>
     window.onload = function() {

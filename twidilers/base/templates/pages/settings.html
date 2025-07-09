@@ -18,7 +18,7 @@
             <span>Privacy</span>
         </button>
         <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
-            <span>Notifications</span>
+            <span>Notification (BETA)</span>
         </button>
     </nav>
     <style>
@@ -29,64 +29,22 @@
         h3 {
             margin: 0 0 20px 0;
         }
-        .profile-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* pushes form to right */
-            gap: 1rem; /* optional spacing between items */
-        }
-
-#upload_pfp {
-    margin-left: auto; /* optional: ensures it's pushed right */
-}
     </style>        
     <!-- Div with account details -->
+
     <main id="acct-dtl-content">
         <div class="profile-div" id="auth-info" role="region" aria-label="Profile overview">
-    <section class="profile-header">
-        <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
-        
-        <section class="profile-auth">
-            <section>
+            <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
+            <section class="profile-auth">
                 <h1 name="prof-username" id="display-name">{{account.displayname}}</h1>
                 <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
             </section>
-        </section>
-        <button class="custom-file-upload" role="button" id="camera">
-                <i class="fa-solid fa-camera"></i>
-        </button>
-        <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en" style="display: none;">      
-                <input type="file" 
-                       id="file" 
-                       name="file" 
-                       accept="image/*"
-                       aria-label="Select new profile picture">
-                </i>
-            
-        </form>
-    </section>
-</div>
-<div id="modal" class="modal">
-<div class="profile-div modal-content" id="modal-content">
-    <div class="modal-header">
-    <h3>Change Profile Picture</h3>
-    <h2 id="close" class="close">&times;</h2>
-    </div>
-    <video id="videoElement" autoplay></video>
-    <section style="display:flex;width:100%;gap:2px">
-    <button id="startButton" class="submit" style="width:65.5%">Start Camera</button>
-    <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload from computer...</label>
-    </section>
-    <button id="captureButton" style="display:none" class="submit">Capture Photo</button>
-    <canvas id="canvasElement" style="display: none;"></canvas>
-    <img id="photoElement" style="display: none;">
-    </div>
-</div>
+        </div>
         {% if not account.setup and account.is_oauth %}
             <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
                 <form method="post" id="change-username-form" lang="en">
                     <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
-                    <textarea id="change-name" 
+                    <input id="change-name" 
                         name="username" 
                         type="text" 
                         class="textbox" 
@@ -122,23 +80,37 @@
         <div class="profile-div" role="region" aria-label="Display name settings">
             <form method="post" id="change-name-form" lang="en">
                 <h3><label for="change-name">Change display name</label></h3>
-                <textarea id="change-name" 
+                <input id="change-name" 
                        name="displayname" 
+                       type="text" 
                        class="textbox" 
                        autocomplete="off"
                        aria-label="New display name"
                        maxlength="24" 
                        placeholder="1-24 characters"
-                       rows="1"
-                       aria-describedby="name-help">{{ account.displayname }}</textarea>
+                       value="{{ account.displayname }}"
+                       aria-describedby="name-help"></input>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
                 <button type="submit" class="submit" id="name-change" name="name-change">
-                    Update
+                    Update Display Name
                 </button>
             </form>
         </div>
+        <div class="profile-div" role="region" aria-label="Profile picture settings">
+            <h3>Upload profile picture</h3>
+            <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en">
+                <label for="file" class="custom-file-upload" role="button">
+                    Choose profile picture
+                </label>
+                <input type="file" 
+                       id="file" 
+                       name="file" 
+                       accept="image/*"
+                       aria-label="Select new profile picture">
+            </form>
+        </div>
         <div class="profile-div">
-            <a href="{{ url_for('.logout') }}"><button class="submit" style="margin-top: 0px;width:100%">Log out</button></a>
+            <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
         </div>        
     </main>
     <div id="security-content">
@@ -153,7 +125,7 @@
             <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
             <button class="submit" id="email-change" name="email-change">Send confirmation email to new account</button>
         </div>
-        <div class="profile-div" style="background-color:rgb(178, 6, 6)">
+        <div class="profile-div">
             <form id="delete-account" name="delete-account" method="post">
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 
@@ -172,8 +144,7 @@
         <div class="profile-div">
         </div>
     </div>
-     <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
-     <script src="{{ url_for('.static', filename='javascript/camera.js') }}"></script>
+        <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
 
            
 
