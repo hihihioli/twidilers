@@ -146,6 +146,7 @@ Click generate until you get the loss under 3 */
     border: 0;
     height: 46px; 
     margin: auto;
+    margin-left:10px;
     margin-top: 10px;
     width: fit-content;
     cursor:pointer;
@@ -174,7 +175,6 @@ Click generate until you get the loss under 3 */
     display:flex;
     width:100%;
     padding:3px;
-    gap:10px;
     font-size: 1.3em;
     font-weight: bold !important;
     flex-shrink: 1!important;
@@ -189,7 +189,8 @@ Click generate until you get the loss under 3 */
 /* Container for Popup */
 .popup-div {
     position: relative; /* Ensure children use this as the anchor point */
-    height:67px
+    height:67px;
+
 }
 /* Popup Menu in base.html */
 .popup-menu {
@@ -202,6 +203,7 @@ Click generate until you get the loss under 3 */
     z-index: 1000;
     padding: 10px 5px 10px 5px;
     margin-bottom: 3px;
+     margin-left:10px;
     border-radius: 10px;
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
@@ -228,11 +230,13 @@ Click generate until you get the loss under 3 */
 #notif-popup {
     gap:10px;
     display:none;
+    height:0px;
 }
 .notif-div {
     width: 250px !important;
     position: absolute!important; /* Positioned relative to .popup-div */
     flex-direction: column;
+    align-items: center;
     border: 2px solid var(--darkblue);
     width: 95px;
     z-index: 1000;
@@ -263,7 +267,7 @@ Click generate until you get the loss under 3 */
     gap:10px;
     flex-direction:column;
 }
-.notif-div button {
+#clear-notifs {
     border:0;
     background:none;
     padding:13px;
@@ -276,7 +280,7 @@ Click generate until you get the loss under 3 */
     border-radius:8px;
     transition:all 0.2s;
 }
-.notif-div button:hover {
+#clear-notifs:hover {
     background-color:#ee3355;
     color:white;
 }

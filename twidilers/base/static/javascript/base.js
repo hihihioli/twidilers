@@ -4,13 +4,20 @@ const userMenu = document.getElementById('popupMenu');
 const notifButton = document.getElementById('navbarbell');
 const notifMenu = document.getElementById('notif-popup');
 const filterMenu = document.getElementById('filter-form');
+const locationthing = document.getElementById('location');
+
 
 
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
 let small;
 window.addEventListener('resize', animate);
-window.onload = animate();
+window.onload = function () {
+    locationthing.value = window.location;
+    console.log(window.location);
+    animate();
+
+};
 function animate() {
 if (window.innerWidth <= 530) {
     small = true;
@@ -22,18 +29,21 @@ if (window.innerWidth <= 530) {
 notifButton.addEventListener('click', () => {
 if (notifMenu.style.display === 'none') {
     notifMenu.style.display = 'flex';
-    userMenu.style.display = 'none';
+    if (userMenu.style.display !== 'none')
+    toggleMenu();
 } else {
     notifMenu.style.display = 'none';
 }
 });  
 
-userButton.addEventListener('click', () => {
+userButton.addEventListener('click', toggleMenu)
+    
+function toggleMenu () {
 if (userMenu.style.display === 'none') { // Display usermenu
 userMenu.style.display = 'flex';
     if (!small) {
     userMenu.style.animationName = "shrink"
-    userMenu.style.animationDuration = '0.55s'
+    userMenu.style.animationDuration = '0.35s'
     userMenu.style.animationDirection = 'reverse'
     userMenu.style.animationFillMode = 'forwards';
 
@@ -46,7 +56,7 @@ userMenu.style.display = 'flex';
 } else {
     if (!small) {
     userMenu.style.animationName = 'shrink';
-    userMenu.style.animationDuration = '0.55s'; //Hide usermenu
+    userMenu.style.animationDuration = '0.35s'; //Hide usermenu
     userMenu.style.animationDirection = 'normal'
     userMenu.style.animationFillMode = 'forwards';
     userMenu.addEventListener('animationend', function handler2() {
@@ -58,5 +68,5 @@ userMenu.style.display = 'flex';
         userMenu.style.display = 'none';
     }
 }
-});
+};
 
