@@ -95,6 +95,7 @@ input:-webkit-autofill:active {
 }
 #submit {
     width:100% !important;
+    margin-top:0px;
 }
 input:-internal-autofill-selected {
     background-color: var(--lightblue);
