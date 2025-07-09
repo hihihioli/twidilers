@@ -37,7 +37,15 @@
                     {% endif %}
                 </button></a>
                 <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
+                <div class="popup-div">
+                    <div class="popup-menu" id="popupMenu">
+                        <a href="{{ url_for('.profile', username=session['username'])}}"><button id="profileBtn">Profile</button></a>
+                        <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
+                        <a href="{{ url_for('.logout') }}"><button id="logoutBtn" style="white-space: nowrap;">Log Out</button></a>
+                    </div> 
+                </div>    
             {% endif %}
+            
         </div>
         <!-- Notification popup-->
         <div class="popup-div" id="notif-popup">
@@ -67,14 +75,7 @@
             </div>
             </div>
         </div>
-        <!-- Popup Menu -->
-        <div class="popup-div">
-            <div class="popup-menu" id="popupMenu">
-                <a href="{{ url_for('.profile', username=session['username'])}}"><button id="profileBtn" href="{{ url_for('.logout') }}">Profile</button></a>
-                <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
-                <a href="{{ url_for('.logout') }}"><button id="logoutBtn">Log Out</button></a>
-            </div> 
-        </div>           
+        <!-- Popup Menu -->       
         <script src="{{ url_for('.static', filename='javascript/base.js') }}"></script>
         <script>
             // Notification handler
@@ -120,8 +121,8 @@
     <!-- The footer has a default but can be overridden. -->
     <div id="footer-div">
         {% block footer %}
-            <section id="footer">
-                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright <span id="year"></span></p></b>
+            <section id="footer" style="width:100%">
+                <b><p style="margin-top: 0px;">This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright <span id="year"></span></p></b>
             </section>
         {% endblock %}
     </div>

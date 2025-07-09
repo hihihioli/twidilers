@@ -25,15 +25,15 @@ input[type="file"] {
     margin: 20px 0; 
   }
   #change-name {
-    width:530px;
+    width:80%;
+    overflow: hidden;
+    resize: none;
   }
   /* Custom button */
   .custom-file-upload {
-    display: inline-block;
+    display:block;
     width: auto ;
     height: auto;
-    font-size: 11pt;
-    padding: 13px;
     border-radius: 5px;
     background-color: var(--darkblue);
     color: var(--lightblue);
@@ -45,17 +45,16 @@ input[type="file"] {
     cursor: pointer;
     text-align: center;
   }
-#security-content {
+
+#delete, #send-email-password {
+  margin:0;
+}
+
+#security-content, #notif-content, #privacy-content {
     display: none;
 }
 
-#privacy-content {
-    display: none;
-}
-#notif-content {
-  display:none;
-}
-  .pf-mnu-btn {
+.pf-mnu-btn {
     border: 0;
     cursor: pointer;
     background-color: inherit;
@@ -63,39 +62,134 @@ input[type="file"] {
     font-size: 1em;
     font-weight: 500;
     text-decoration: underline;
-  }
-  #bio {
+}
+
+#bio {
     resize:vertical;
     overflow-y: hidden;
     vertical-align:top;
     width:530px;
     height:36px;
 }
+
 #bio::placeholder{
   position:absolute;
   top:12px;
 }
+
 #post-content {
-  resize:vertical;
-  overflow-y: hidden;
-  height:36px !important;
-  width:530px !important;
-  border-radius:5px;
+  min-height: 36px;
+  width: 100%;
+  resize: both;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
 }
-.profile-div {
-    border-radius:15px;
-    padding: 15px;
-    width: 565px;
-    margin: 20px 0;
-    height: fit-content;
-    flex-wrap:wrap;
+
+
+
+#camera {
+  align-self:flex-end;
+  justify-self: flex-end;
+  position: absolute; 
+  right: 20px;
+  padding: 0 !important;
+  font-size: 25px;
+  background-color:var(--lightblue);
+  color: var(--darkblue);
+  border-radius: 5px;
+  box-shadow: 0 0 7px 0 var(--darkblue);
+  border: 2px solid var(--darkblue);
+  width:46px;
+  height: 46px; 
+  cursor:pointer;
+  transition: all 0.5s;
+  box-sizing: border-box;
 }
+
+#videoElement {
+  border: 2px solid var(--darkblue);
+  width:100%;margin: 20px 0px 20px 0px;
+  border-radius: 5px;
+  transform: rotateY(180deg);
+  -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+  -moz-transform:rotateY(180deg); /* Firefox */
+}
+
+.modal {
+  padding: 15px;
+  box-sizing: border-box;
+  display:none;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top:0;
+  width:100dvw;
+  height:100dvh;
+  overflow:auto;
+}
+
+.modal-content {
+  position:relative;
+  left:50%;
+  translate: -50%;
+  transition: all 0.75s ease; 
+}
+
+.modal-header {
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.modal-header .close {
+    cursor: pointer;
+    margin: 0px;
+    font-size: 1.5rem;
+}
+
 #old-password {
   margin-bottom:10px;
 }
-@media only screen and (prefers-color-scheme: dark){
-    
-    .profile-div {
-        background-color:var(--darkishblue);
-    }
+
+@media only screen and (max-width:415px){ 
+  #camera {
+    left:15px;
+    bottom:15px;
+    right:auto;
+    width:30px;
+    height:30px;
+    font-size: 1rem;
+  }
+  #modal-content {
+    left:49.75%;
+  }
 }
+
+/*@media only screen and (prefers-color-scheme: dark){
+  #camera {
+    color: var(--lightblue) !important;
+    background-color:var(--darkblue)!important;
+    border: 2px solid var(--lightblue)
+  }
+  #camera:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
+  }
+  .custom-file-upload {
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+  } 
+  #videoElement {
+    border: 2px solid var(--lightblue);
+  }
+}*/

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Webcam Capture</h1>
+    <video id="videoElement" autoplay></video>
+    <button id="startButton">Start Webcam</button>
+    <button id="captureButton">Capture Photo</button>
+    <canvas id="canvasElement" style="display: none;"></canvas>
+    <img id="photoElement" style="display: none;">
+
+    <script>
+        window.onload = function () {
+            window.location = '/'
+        }
+        const videoElement = document.getElementById('videoElement');
+        const canvasElement = document.getElementById('canvasElement');
+        const photoElement = document.getElementById('photoElement');
+        const startButton = document.getElementById('startButton');
+        const captureButton = document.getElementById('captureButton');
+
+        let stream;
+
+        function dataURLtoBlob(dataurl) {
+            const arr = dataurl.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) u8arr[n] = bstr.charCodeAt(n);
+            return new Blob([u8arr], { type: mime });
+        }
+        async function startWebcam() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoElement.srcObject = stream;
+                startButton.disabled = true;
+                captureButton.disabled = false;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        startButton.addEventListener('click', startWebcam);
+
+        function capturePhoto() {
+            canvasElement.width = videoElement.videoWidth;
+            canvasElement.height = videoElement.videoHeight;
+            canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
+            const photoDataUrl = canvasElement.toDataURL('image/png');
+            photoElement.src = photoDataUrl;
+            photoElement.style.display = 'block';
+            const imageBlob = dataURLtoBlob(photoDataUrl);
+
+            // Create a File object
+            const imageFile = new File([imageBlob], "captured.ong", { type: "image/png" });
+
+            // Create FormData and submit
+            const formData = new FormData();
+            formData.append("file", imageFile);
+
+            fetch("/cameratest", {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    console.log("Upload successful");
+                } else {
+                    console.log("Upload failed.");
+                }
+            }).catch(err => {
+                console.error("Upload error:", err);
+            });
+        }
+
+
+        captureButton.addEventListener('click', capturePhoto);
+
+    </script>
+
+</body>
+
+</html>

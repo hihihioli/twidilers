@@ -1,0 +1,38 @@
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+
+#usricon-nav::after,#usricon-nav::before {
+    --blue: #023e72;
+    --purple: #3e0a8d;
+    content: '';
+    position: absolute;
+    height:100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle),var(--lightblue), transparent 20%, var(--lightblue)); /* var(--blue),var(--purple) 50%,var(--blue) */
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    z-index: -1;
+    border-radius: 500px;
+    padding:4px;
+    animation:2s spin linear infinite;
+}
+
+#usricon-nav::before {
+    filter:blur(1rem);
+    opacity: 0.75;
+}
+
+@keyframes spin {
+    from {
+        --angle:0deg;
+    }
+    to {
+        --angle:360deg;
+    }
+}
