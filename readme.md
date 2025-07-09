@@ -1,16 +1,3 @@
-# __POST-DEPLOYMENT SUMMARY__
-## stage 1: initial deployment
-It was pretty hard and many things went wrong, but it eventually worked.
-Known issues so far:
-* Emails not sending(not even registered by the smtp server)
-    * Fixed
-* OAuth doesn't work(something like mismatched uri)
-    * 
-* idk if the db even works, i can't log in because of the previous 2 issues
-    * just checks i think it works, it remembered that i needed to verify
-* The about us and everything else seems fine for now
-* tell me(oliver) if anything else is broken or add it to this list
-
 # Useful links
 ## Dependencies
 Want to learn more about one of the dependencies we use? Look no further!
@@ -23,7 +10,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 * https://blog.miguelgrinberg.com/category/Flask
 
 
-# Feed...
+# Feed
 ## Features
 * Filters for only followed users
 * 
@@ -32,14 +19,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 * You can't tell if it's the oldest page
 ## Things backend can do
 * Attach a "oldest page" information to the API so that "oldest" button can work and can lock you out if you're already at the oldest
-
-
-# Do before deployment:
-* Oauth
-    * Set google oAuth to deployment (see above for link)
-        * Change uri to twidilers.com
-    * Change github oAuth uri to twidilers.com
-* TOS and PP (legally probably required. GPT?)
 
 
 # How does flask-migrate work?
@@ -52,8 +31,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 * THEN upgrade your db
 
 # Cool general feature stuffs
-* reCAPTCHA?
-
 
 # Refactor
 ## Settings
@@ -65,7 +42,6 @@ Want to learn more about one of the dependencies we use? Look no further!
 * User 404 page when not fully setup
 * Ability to resend verification link
 ### Login process
-* Forgot password functionality
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
 * Able to log in with either username or email
 ### Oauth feature requests
@@ -79,8 +55,6 @@ Ability for admin03 to ban/delete user accounts
 
 
 ## Email requirements
-### Styling/frontend changes
-* All ready! Under /templates/email/
 ### When we'd send emails
 * When changing user settings (like a password, email address)
 * When creating an account
