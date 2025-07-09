@@ -8,7 +8,17 @@ const filterMenu = document.getElementById('filter-form');
 
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
-
+let small;
+window.addEventListener('resize', animate);
+window.onload = animate();
+function animate() {
+if (window.innerWidth <= 530) {
+    small = true;
+    userMenu.style.animationName = '';
+} else {
+    small = false;
+}
+}
 notifButton.addEventListener('click', () => {
 if (notifMenu.style.display === 'none') {
     notifMenu.style.display = 'flex';
@@ -21,6 +31,7 @@ if (notifMenu.style.display === 'none') {
 userButton.addEventListener('click', () => {
 if (userMenu.style.display === 'none') { // Display usermenu
 userMenu.style.display = 'flex';
+    if (!small) {
     userMenu.style.animationName = "shrink"
     userMenu.style.animationDuration = '0.55s'
     userMenu.style.animationDirection = 'reverse'
@@ -31,7 +42,9 @@ userMenu.style.display = 'flex';
             userMenu.style.animationName = '';
             userMenu.removeEventListener('animationend', handler1);
         });
+    }
 } else {
+    if (!small) {
     userMenu.style.animationName = 'shrink';
     userMenu.style.animationDuration = '0.55s'; //Hide usermenu
     userMenu.style.animationDirection = 'normal'
@@ -41,6 +54,9 @@ userMenu.style.display = 'flex';
             userMenu.style.animationName = '';
             userMenu.removeEventListener('animationend', handler2);
         });
+    } else {
+        userMenu.style.display = 'none';
+    }
 }
 });
 

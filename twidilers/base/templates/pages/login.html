@@ -4,13 +4,14 @@
 <link rel="stylesheet" data-turbo-track="dynamic"href="{{ url_for('.static', filename='styles/form.css') }}">
 <link rel="stylesheet" href="{{ url_for('.static', filename='styles/google.css') }}">
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<script src="{{ url_for('.static', filename='javascript/hcaptcha.js') }}"></script>
 {% endblock %}
 {% block content %}
 <h1 class="heading">Log In</h1>
 <form method="post" id="login_form" name="login_form" class="input_form"> <!--Form that submits to the @app.post for '/login in routes.py'-->
   <input type="text" class="textbox" placeholder="Enter Username" id="username" name="username" autocomplete="off"/>
     <input type="password" autocomplete="current-password" class="textbox" placeholder="Enter Password" id="password" name="password"/>
-    <div class="h-captcha" data-sitekey="3c4c7004-54bc-4b54-ac4a-cf5a6e5eeb28"></div>
+    <div class="h-captcha" data-sitekey="3c4c7004-54bc-4b54-ac4a-cf5a6e5eeb28"  data-size="auto" id="hcaptcha"></div>
     <button id="submit" type="submit" class="submit">Log In</button>
     <a href="{{ url_for('.page',page='send-reset-link') }}" style="margin:10px 0 0 0;font-weight:bold;width:fit-content">Forgot password?</a>
 </form>

@@ -14,7 +14,7 @@
 }
 #edit-profile {
     position: absolute;
-    bottom:55px;
+    top:20px;
     right: 20px;
     padding: 10px;
     color: inherit;
@@ -32,7 +32,7 @@
     float: left;
 }
 #about-user {
-    margin:10px 0;
+    margin:0;
 }
 #display-name {
     margin:0px;
@@ -50,9 +50,8 @@
 #prof-date {
     font-size:1rem;
     font-weight: bold;
-    position: relative;
-    left:100%;
-    transform: translateX(-100%);
+    margin-left: auto;
+
 }
 #prof-usrname {
     margin: 0;
@@ -62,14 +61,28 @@
     width:fit-content
 }
 .profile-div {
-    border-radius:15px;
-    padding: 20px;
-    width: 560px;
-    margin: 20px 0;
-    height: fit-content;
-    flex-wrap:wrap;
-    background-color:var(--lightishblue);
-    overflow-wrap: break-word;
+display: flex !important;
+  flex-wrap: wrap; /* allow content to wrap on small screens */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  width: 100%;
+  max-width: 600px; /* keeps layout readable on large screens */
+  box-sizing: border-box;
+
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 15px;
+
+  background-color: var(--lightishblue);
+  overflow-wrap: break-word;
+  flex-shrink: 1;
+  box-sizing: border-box;
+}
+
+#about {
+    flex-direction: column;
 }
 /* Post styling stoled from post.css for better loading times */
 .pst {

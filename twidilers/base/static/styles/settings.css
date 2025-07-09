@@ -25,7 +25,9 @@ input[type="file"] {
     margin: 20px 0; 
   }
   #change-name {
-    width:79%;
+    width:80%;
+    overflow: hidden;
+    resize: none;
   }
   /* Custom button */
   .custom-file-upload {
@@ -76,42 +78,34 @@ input[type="file"] {
 }
 
 #post-content {
-  resize:vertical;
-  overflow-y: hidden;
-  height:36px !important;
-  width:530px !important;
-  border-radius:5px;
+  min-height: 36px;
+  width: 100%;
+  resize: both;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
 }
 
-.profile-div {
-  display:grid;
-  flex-direction: column;
-  border-radius:15px;
-  padding: 15px;
-  width: 565px;
-  margin: 20px 0;
-  height: fit-content;
-  flex-wrap:wrap;
-}
+
 
 #camera {
   align-self:flex-end;
   justify-self: flex-end;
-  position: relative; 
+  position: absolute; 
+  right: 20px;
   padding: 0 !important;
   font-size: 25px;
   background-color:var(--lightblue);
-  width:46px !important;
-  padding: 15px;
   color: var(--darkblue);
   border-radius: 5px;
   box-shadow: 0 0 7px 0 var(--darkblue);
   border: 2px solid var(--darkblue);
+  width:46px;
   height: 46px; 
-  margin: auto;
-  margin-top: 10px;
   cursor:pointer;
   transition: all 0.5s;
+  box-sizing: border-box;
 }
 
 #videoElement {
@@ -124,6 +118,8 @@ input[type="file"] {
 }
 
 .modal {
+  padding: 15px;
+  box-sizing: border-box;
   display:none;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.5);
@@ -137,13 +133,14 @@ input[type="file"] {
 }
 
 .modal-content {
-  position:fixed;
-  left:calc((100dvw/2) - 308px);
-  transform: translateY(-470px);/*translateX(-51.25%),translateY(470px);*/
+  position:relative;
+  left:50%;
+  translate: -50%;
   transition: all 0.75s ease; 
 }
 
 .modal-header {
+    width:100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -164,10 +161,21 @@ input[type="file"] {
   margin-bottom:10px;
 }
 
-/*@media only screen and (prefers-color-scheme: dark){
-  .profile-div {
-    background-color:var(--darkishblue);
+@media only screen and (max-width:415px){ 
+  #camera {
+    left:15px;
+    bottom:15px;
+    right:auto;
+    width:30px;
+    height:30px;
+    font-size: 1rem;
   }
+  #modal-content {
+    left:49.75%;
+  }
+}
+
+/*@media only screen and (prefers-color-scheme: dark){
   #camera {
     color: var(--lightblue) !important;
     background-color:var(--darkblue)!important;

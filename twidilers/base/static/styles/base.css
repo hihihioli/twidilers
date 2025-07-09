@@ -51,11 +51,19 @@
     --maroongreen: #003d00;
 }
 
+html {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left:15px;
+    padding-right:15px;
+}
+
 /* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
 body {
     font-family: Arial;
-    width: 600px;
-    margin: auto;
+    width: 100%;
+    max-width: 600px;
     height: 100vh;
     background-color: var(--lightblue);
     color: var(--darkblue);
@@ -63,6 +71,7 @@ body {
     flex-direction: column;
     overflow-x:hidden;
     scroll-behavior:smooth;
+    padding: 0 10px;
 }
 
 /* Helpful tips:
@@ -90,6 +99,11 @@ text element {
 label {
     color:var(--darkblue)
 }
+
+input:-webkit-autofill,textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--darkblue)!important;
+}
+
 /* Accessibility for hidden stuff */
 .visually-hidden {
     position: absolute;
@@ -163,6 +177,7 @@ Click generate until you get the loss under 3 */
     gap:10px;
     font-size: 1.3em;
     font-weight: bold !important;
+    flex-shrink: 1!important;
 }
 
 #navbar #usricon-nav {
@@ -186,11 +201,13 @@ Click generate until you get the loss under 3 */
     width: fit-content;
     z-index: 1000;
     padding: 10px 5px 10px 5px;
+    margin-bottom: 3px;
     border-radius: 10px;
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
     height: 46px !important;
+    animation-name: 'shrink';
     animation-timing-function: ease-in-out;
 }
 
@@ -290,6 +307,7 @@ Click generate until you get the loss under 3 */
 #auth-info {
     height: fit-content;
     font-size: 1.2em;
+    position:relative
 }
 
 #pfp-head {
@@ -304,7 +322,7 @@ Click generate until you get the loss under 3 */
 #footer-div {
     text-align: center;
     align-self:flex-end;
-    height: 52px;
+    height: max-content;
     width: 100%;
 }
 
@@ -336,7 +354,8 @@ a {
 
 /* Flashes are the notices like "login successful" and stuff. */
 .flash {
-    width:580px;
+    width:100%;
+    max-width: 580px;
     height: fit-content;
     border-radius: 5px;
     background: var(--darkishblue);
@@ -379,7 +398,7 @@ a {
     background-color: var(--darkblue);
     color: var(--lightblue);
     cursor: pointer;
-    border: 0;
+    border: 3px solid var(--darkblue);
     align-self: center !important;
     transition: all 0.3s;
     margin: 10px auto 0 auto;
@@ -390,6 +409,12 @@ a {
 .submitwide {
     padding: 13px 100%;
 }
+
+.submit:hover {
+        background-color: var(--lightishblue);
+        color: white !important;
+
+    }
 
 /* Cards are just navbars but slightly different as of 12/4/24 */
 .card {
@@ -502,8 +527,32 @@ a {
     a {
         color: var(--lightishblue);
     }
+        */
 }
 
+@media only screen and (max-width: 611px){
+    #footer {
+        font-size: 2.6dvw;
+    }
+}
+
+
+ @media only screen and (max-width: 600px){
+    body {
+        width: 100%;
+    }
+    .profile-div, .pst, #navbar {
+        width: 100% !important;
+    }
+    #navbar {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+
+
+ /*
 @media only screen and (max-width: 600px){
     body {
         --width:100vw;
@@ -527,5 +576,5 @@ a {
     }
     #hdr-href {
         display:none; 
-    } */
-}
+    } 
+}*/

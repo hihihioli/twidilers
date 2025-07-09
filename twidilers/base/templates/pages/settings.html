@@ -18,7 +18,7 @@
             <span>Privacy</span>
         </button>
         <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
-            <span>Notification (BETA)</span>
+            <span>Notifications</span>
         </button>
     </nav>
     <style>
@@ -52,11 +52,9 @@
                 <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
             </section>
         </section>
-        <div style="margin-left: auto;">
         <button class="custom-file-upload" role="button" id="camera">
                 <i class="fa-solid fa-camera"></i>
         </button>
-        </div>
         <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en" style="display: none;">      
                 <input type="file" 
                        id="file" 
@@ -75,9 +73,9 @@
     <h2 id="close" class="close">&times;</h2>
     </div>
     <video id="videoElement" autoplay></video>
-    <section style="display:inline-block">
+    <section style="display:flex;width:100%;gap:2px">
     <button id="startButton" class="submit" style="width:65.5%">Start Camera</button>
-    <label for="file" class="submit" role="button">Upload from computer...</label>
+    <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload from computer...</label>
     </section>
     <button id="captureButton" style="display:none" class="submit">Capture Photo</button>
     <canvas id="canvasElement" style="display: none;"></canvas>
@@ -88,7 +86,7 @@
             <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
                 <form method="post" id="change-username-form" lang="en">
                     <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
-                    <input id="change-name" 
+                    <textarea id="change-name" 
                         name="username" 
                         type="text" 
                         class="textbox" 
@@ -124,16 +122,15 @@
         <div class="profile-div" role="region" aria-label="Display name settings">
             <form method="post" id="change-name-form" lang="en">
                 <h3><label for="change-name">Change display name</label></h3>
-                <input id="change-name" 
+                <textarea id="change-name" 
                        name="displayname" 
-                       type="text" 
                        class="textbox" 
                        autocomplete="off"
                        aria-label="New display name"
                        maxlength="24" 
                        placeholder="1-24 characters"
-                       value="{{ account.displayname }}"
-                       aria-describedby="name-help"></input>
+                       rows="1"
+                       aria-describedby="name-help">{{ account.displayname }}</textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
                 <button type="submit" class="submit" id="name-change" name="name-change">
                     Update
