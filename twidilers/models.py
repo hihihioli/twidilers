@@ -40,6 +40,7 @@ class Account(db.Model): #The user accounts
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=True) #Store the password hash instead of plaintext
   notifications:Mapped[list] = mapped_column(JSONB, default=list)
+  messages:Mapped[list] = mapped_column(JSONB,default=list,nullable=True)
   verified:Mapped[bool] = mapped_column(default=False) #Wether they are verified or not
   setup:Mapped[bool] = mapped_column(default=False) #If they have set up their account
   is_oauth:Mapped[bool] = mapped_column(default=False) #If they are an oauth user

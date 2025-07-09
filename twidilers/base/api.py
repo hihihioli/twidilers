@@ -58,8 +58,6 @@ def write_post():
     new_post = Post(title=title,content=content,date=date_utc,author=account)
     db.session.add(new_post)
     db.session.commit()
-    print(account)
-    print(account.followers)
     for follower in account.followers:
         new_notifications = follower.notifications.copy()
         data = {
@@ -255,6 +253,30 @@ def profaction(username):
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
+            
+@app.post('/messaging')
+@login_required
+def handleMessage():
+    account = findAccount()
+    if account:
+        if 'messaged' in request.form:
+            date_utc = datetime.datetime.now(datetime.timezone.utc)
+            reciever = findAccount(request.form.get('messaged'))
+            if reciever:
+                new_messages = reciever.messages.copy()
+                data = {
+                    "sender":account.username,
+                    "content":request.form.get('message-content'),
+                    "date":date_utc.timestamp()
+                }
+                new_messages.append(data)
+                reciever.messages = new_messages
+                db.session.commit()
+                print(reciever.messages)
+                flash('Message Successful','success')
+                return redirect(request.form.get('location'))
+            flash('User Not Found','error')
+    return redirect(request.form.get('location'))
             
 @app.get('/post/<post_id>')
 def post(post_id):

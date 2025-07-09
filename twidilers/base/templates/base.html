@@ -3,7 +3,9 @@
 
 <head>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/form.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
+
     <title>{% block title %}{% endblock %} - Twidilers</title> <!-- The title of the tab depending on the current page. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,14 +38,15 @@
                     <div id="notification-count">{{ account.notifications | length}}</div>
                     {% endif %}
                 </button></a>
-                <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
                 <div class="popup-div">
                     <div class="popup-menu" id="popupMenu">
                         <a href="{{ url_for('.profile', username=session['username'])}}"><button id="profileBtn">Profile</button></a>
                         <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
                         <a href="{{ url_for('.logout') }}"><button id="logoutBtn" style="white-space: nowrap;">Log Out</button></a>
                     </div> 
-                </div>    
+                </div>
+                <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
+                    
             {% endif %}
             
         </div>
@@ -52,7 +55,7 @@
             <div class="notif-div">
                 <h2>Notifications</h2>
                 
-                <button onclick="clearNotifs()">Clear</button>
+                <button id="clear-notifs" onclick="clearNotifs()">Clear</button>
                 <div id="notif-div-0">
                 {% if session['username'] %}
                 {% if account.notifications %}
@@ -73,6 +76,14 @@
                 {% endif %}
                 {% endif %}
             </div>
+            <form method="post" action="/messaging" id="message_form" name="message_form" class="input_form">
+            <a href="{{ url_for('.profile', username=session['username'])}}"><button id="messageBtn" class="submit">Send a message</button></a>
+            <div id="message">
+                <input type="text" class="textbox" placeholder="Recipient" id="messaged" name="messaged" autocomplete="off" maxlength="50"/>
+                <textarea type="text" class="textbox" placeholder="Content" id="message-content" name="message-content" autocomplete="off"></textarea>
+                <input type="hidden" id="location" name="location"/>
+            </div>
+            </form>
             </div>
         </div>
         <!-- Popup Menu -->       

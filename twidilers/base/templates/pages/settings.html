@@ -94,7 +94,7 @@
                         aria-label="New display name"
                         maxlength="24" 
                         placeholder="1-24 characters"
-                        aria-describedby="name-help"></input>
+                        aria-describedby="name-help"></textarea>
                     <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
                     <button type="submit" class="submit" id="username-change" name="username-change">
                         Update Username
@@ -130,7 +130,8 @@
                        maxlength="24" 
                        placeholder="1-24 characters"
                        rows="1"
-                       aria-describedby="name-help">{{ account.displayname }}</textarea>
+                       aria-describedby="name-help">{{ account.displayname }}
+                    </textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
                 <button type="submit" class="submit" id="name-change" name="name-change">
                     Update
