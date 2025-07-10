@@ -15,44 +15,47 @@ async function fetchPosts(user) {
     const postContainer = document.getElementById('post-container');
     const loadingScreen = document.getElementById('loading-screen');
     const postsUrl = `../../api/feed/${user}/${currentPage}`;
+    const minimumLoadingTime = sleep(200);
 
     // Show loading screen
     postContainer.style.display = "none"; // Hide posts temporarily
     loadingScreen.style.display = "flex";
 
     // Ensure at least 0.2s loading
-    const minimumLoadingTime = sleep(200);
+    let feed;
+    try {
+        const res = await fetch(postsUrl);
+        if (!res.ok) throw new Error(`Posts fetch failed with status: ${res.status}`);
+        feed = await res.json();
+    } catch (err) {
+        console.error(err);
+        postContainer.innerHTML = "<p>Failed to load posts.</p>";
+    }
+
+    await minimumLoadingTime;
 
     try {
-        // Fetch posts
-        const postsResponse = await fetch(postsUrl);
-        if (!postsResponse.ok) {
-            throw new Error(`Posts fetch failed with status: ${postsResponse.status}`);
+        if (feed) {
+            if (feed.length === 0) {
+                postContainer.innerHTML = "<p>No posts.</p>";
+                loadedPages = [];
+            }
+            else if (JSON.stringify(loadedPages) === JSON.stringify(feed)) {
+                console.log("No new posts to load.");
+                // NOTE: you might want to fall through and still hide the loader…
+            }
+            else {
+                postContainer.innerHTML = "";
+                loadedPages = feed;
+                await renderPosts(feed, postContainer);
+            }
         }
-        const feed = await postsResponse.json(); // Get the JSON from the response
-
-        // Check if the feed is empty
-        if (feed.length === 0) {
-            postContainer.innerHTML = "<p>No posts.</p>";
-            loadedPages = [];
-        } else if (JSON.stringify(loadedPages) === JSON.stringify(feed)) {
-            console.log("No new posts to load.");
-            return; // If the feed is the same as the loaded pages, return
-        } else {
-            postContainer.innerHTML = ""; // Clear existing posts
-            loadedPages = feed; // Update loadedPages with the latest feed
-            await renderPosts(feed, postContainer); //  Render posts
-        }
-    } catch (error) {
-        console.error(error.message);
-        postContainer.innerHTML = "<p>Failed to load posts.</p>";
     } finally {
-        // Wait for minimum loading time before hiding the loading screen
-        await minimumLoadingTime;
+        // always hide loader / show posts
         const baseUrl = window.location.pathname;
-        window.history.pushState({page: currentPage}, '', `${baseUrl}?page=${currentPage}`);      
-        loadingScreen.style.display = "none"; // Hide loading animation
-        postContainer.style.display = "block"; // Show posts
+        window.history.pushState({page: currentPage}, '', `${baseUrl}?page=${currentPage}`);
+        loadingScreen.style.display = "none";
+        postContainer.style.display = "block";
     }
 }
 
