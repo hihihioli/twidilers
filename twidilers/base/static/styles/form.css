@@ -1,15 +1,6 @@
 /* For login, signup, post.html and other forms  */
 
-/* This is variables. You can access them by doing var(--varname) instead of a color. */
-html {
-    --lightblue: #b8eef9;
-    --darkblue: #001554;
-    --darkishblue: #0a0a8d;
-    --lightishblue: #9eefff;
-    --maroonred: rgb(83, 23, 23);
-    --greenish: #4d7b9f;
-    --maroongreen: #003d00;
-}
+
 
 /* .input_form is the wrapper for the inputs and button. */
 .input_form {

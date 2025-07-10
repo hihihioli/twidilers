@@ -1,11 +1,4 @@
 
-
-#name-change {
-    height:50px;
-    position: relative;
-    top:1px;
-}
-
 /* Hide the default input */
 input[type="file"] {
     display: none;
@@ -28,6 +21,10 @@ input[type="file"] {
   width:80%;
   overflow: hidden;
   resize: none;
+}
+.profile-warning {
+  background-color: #D53F21 !important;
+  color:white !important;
 }
 /* Custom button */
 .custom-file-upload {

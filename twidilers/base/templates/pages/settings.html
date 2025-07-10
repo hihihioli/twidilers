@@ -61,25 +61,25 @@
             <h3>Change profile picture</h3>
                 <div class="settings-form">
                     <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload file</label>
-                    <button class="submit" id="camera" onclick="startWebService()">Take a picture</button>
+                    <button class="submit" id="camera" aria-label="Use camera" onclick="startWebService()">Take a picture</button>
                 </div>
         </div>
         {% if not account.setup and account.is_oauth %}
-            <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
-                <form method="post" id="change-username-form" lang="en">
-                    <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
+            <div class="profile-div profile-warning" role="region" aria-label="Username settings">
+                <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
+                <form method="post" id="change-username-form" lang="en" class="settings-form">
                     <textarea id="change-name" 
                         name="username" 
                         type="text" 
                         class="textbox" 
                         autocomplete="off"
-                        aria-label="New display name"
+                        aria-label="New username"
                         maxlength="24" 
                         placeholder="1-24 characters"
                         aria-describedby="name-help"></textarea>
                     <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
-                    <button type="submit" class="submit" id="username-change" name="username-change">
-                        Update Username
+                    <button type="submit" class="submit settings-submit" id="username-change" name="username-change" aria-label="One time username change">
+                        Update
                     </button>
                 </form>
             </div>
@@ -133,10 +133,12 @@
         </div>
         <div class="profile-div">
             <h3 class="div-heading">Change email</h3>
-            <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
-            <button class="submit" id="email-change" name="email-change">Send confirmation email to new account</button>
+            <form class="settings-form">
+                <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
+                <button class="submit settings-submit" id="email-change" name="email-change">Send confirmation email to new account</button>
+            </form>
         </div>
-        <div class="profile-div" style="background-color:rgb(178, 6, 6)">
+        <div class="profile-div profile-warning">
             <form id="delete-account" name="delete-account" method="post">
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 
