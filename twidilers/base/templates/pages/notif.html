@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Notifications{% endblock %}
+{% block head %}
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/form.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/profile.css') }}">
+{% endblock %}
+{% block content %}
+    <h1>Notifications</h1>
+        <button class="submit">Clear</button>
+    <div>
+        {% if session['username'] %}
+            {% set account = findAccount() %}
+            {% if account.notifications %}
+                {% for notif in account.notifications %}
+                    <div class="profile-div">
+                        <h3>{{notif['title']}}</h3>
+                        <h4>From @{{notif['author']}}</h4>
+                            <p>{{notif['content']}}</p>
+                            <div class="notif-date" id="notif_date_{{ loop.index0 }}"></div>
+                    </div>
+                    <script>
+                        const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }});
+                        document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
+                    </script>
+                {% endfor %}
+    =        {% else %}
+                <p>No Notifications</p>
+            {% endif %}
+        {% else %}
+            <p>Please log in to see notifications.</p>
+        {% endif %}
+    </div>
+{% endblock %}

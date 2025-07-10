@@ -35,8 +35,8 @@
                 <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
                 <a><button id="navbarbell" title="Notification bell">
                     {% if account.notifications %}
-                    <i class="fa-solid fa-bell-ring"></i>
-                    <div id="notification-count">{{ account.notifications | length}}</div>
+                        <i class="fa-solid fa-bell-ring"></i>
+                        <div id="notification-count">{{ account.notifications | length}}</div>
                     {% else %}
                     <i class="fa-solid fa-bell"></i>
                     {% endif %}
@@ -60,25 +60,25 @@
                 
                 <button id="clear-notifs" onclick="clearNotifs()">Clear</button>
                 <div id="notif-div-0">
-                {% if session['username'] %}
-                {% if account.notifications %}
-                    {% for notif in account.notifications %}
-                        <div class="notif-post">
-                            <div class="notif-auth">@{{notif['author']}}</div>
-                            <div class="notif-title">{{notif['title']}}</div>
-                            <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
-                            <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
-                        </div>
-                        <script>
-                            const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
-                                document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
-                        </script>
-                    {% endfor %}
-                {% else %}
-                    <script>document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'</script>
-                {% endif %}
-                {% endif %}
-            </div>
+                    {% if session['username'] %}
+                        {% if account.notifications %}
+                            {% for notif in account.notifications %}
+                                <div class="notif-post">
+                                    <div class="notif-auth">@{{notif['author']}}</div>
+                                    <div class="notif-title">{{notif['title']}}</div>
+                                    <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
+                                    <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
+                                </div>
+                                <script>
+                                    const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
+                                        document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
+                                </script>
+                            {% endfor %}
+                        {% else %}
+                            <script>document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'</script>
+                        {% endif %}
+                    {% endif %}
+                </div>
             <form method="post" action="/messaging" id="message_form" name="message_form" class="input_form">
             <a href="{{ url_for('.profile', username=session['username'])}}"><button id="messageBtn" class="submit">Send a message</button></a>
             <div id="message">
