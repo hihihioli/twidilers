@@ -105,7 +105,7 @@ h3 {
   gap:15px;
   min-height:36px;
   position:relative;
-  width:560px;
+  width:100%;
 }
 
 .settings-submit {
@@ -169,14 +169,6 @@ h3 {
 }
 
 @media only screen and (max-width:415px){ 
-  #camera {
-    left:15px;
-    bottom:15px;
-    right:auto;
-    width:30px;
-    height:30px;
-    font-size: 1rem;
-  }
   #modal-content {
     left:49.75%;
   }

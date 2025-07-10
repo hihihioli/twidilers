@@ -60,8 +60,8 @@
         <div class="profile-div" id="change-pfp-div">
             <h3>Change profile picture</h3>
                 <div class="settings-form">
-                    <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload file</label>
-                    <button class="submit" id="camera" aria-label="Use camera" onclick="startWebService()">Take a picture</button>
+                    <label for="file" class="submit" role="button">Upload file</label>
+                    <label class="submit" role="button" id="camera" aria-label="Use camera" onclick="startWebService()">Take a picture</label>
                 </div>
         </div>
         {% if not account.setup and account.is_oauth %}

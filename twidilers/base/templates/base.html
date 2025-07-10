@@ -79,14 +79,6 @@
                         {% endif %}
                     {% endif %}
                 </div>
-            <form method="post" action="/messaging" id="message_form" name="message_form" class="input_form">
-            <a href="{{ url_for('.profile', username=session['username'])}}"><button id="messageBtn" class="submit">Send a message</button></a>
-            <div id="message">
-                <input type="text" class="textbox" placeholder="Recipient" id="messaged" name="messaged" autocomplete="off" maxlength="50"/>
-                <textarea type="text" class="textbox" placeholder="Content" id="message-content" name="message-content" autocomplete="off"></textarea>
-                <input type="hidden" id="location" name="location"/>
-            </div>
-            </form>
             </div>
         </div>
         <!-- Popup Menu -->       

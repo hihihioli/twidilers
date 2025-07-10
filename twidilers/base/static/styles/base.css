@@ -409,6 +409,7 @@ a {
     margin: 10px auto 0 auto;
     text-decoration:none !important;
     font-weight:normal !important;
+    text-wrap:nowrap;
 }
 
 .submitwide {

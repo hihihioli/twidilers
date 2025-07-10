@@ -3,10 +3,14 @@
 {% block head %}
 <link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/form.css') }}">
 <link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/profile.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
+
 {% endblock %}
 {% block content %}
-    <h1>Notifications</h1>
-        <button class="submit">Clear</button>
+    <div id="topfeed" role="region" aria-label="Feed controls">
+        <h1 id="feedtitle">Notifications</h1>
+        <a role="button" class="submit" id="createpost" aria-label="Create a new post" title="Shortcut: N">Clear All</a>
+    </div>
     <div>
         {% if session['username'] %}
             {% set account = findAccount() %}
@@ -30,4 +34,12 @@
             <p>Please log in to see notifications.</p>
         {% endif %}
     </div>
+    <form method="post" action="/messaging" id="message_form" name="message_form" class="input_form">
+            <a href="{{ url_for('.profile', username=session['username'])}}"><button id="messageBtn" class="submit">Send a message</button></a>
+            <div id="message">
+                <input type="text" class="textbox" placeholder="Recipient" id="messaged" name="messaged" autocomplete="off" maxlength="50"/>
+                <textarea type="text" class="textbox" placeholder="Content" id="message-content" name="message-content" autocomplete="off"></textarea>
+                <input type="hidden" id="location" name="location"/>
+            </div>
+            </form>
 {% endblock %}
