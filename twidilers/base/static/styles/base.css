@@ -162,7 +162,9 @@ Click generate until you get the loss under 3 */
     left:50%;
     translate: -50% -50%;
     position: relative;
-    border: 2px solid var(--darkblue);
+    width: 46px;
+    border-radius: 1000px;
+    image-resolution: 46px;
 }
 
 #usricon-nav:hover {
@@ -434,11 +436,7 @@ a {
     cursor:pointer;
     transition: all 0.5s;
 }
-#usricon-nav-img {
-    width: 46px;
-    border-radius: 1000px;
-    image-resolution: 46px;
-}
+
 .card:hover {
     border-radius: 6px;
     box-shadow: 0 0 2px 0 var(--darkblue);

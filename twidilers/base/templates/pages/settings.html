@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
-     <script src="{{ url_for('.static', filename='javascript/camera.js') }}"></script>
+    <script src="{{ url_for('.static', filename='javascript/camera.js') }}"></script>
 
     <nav id="acct-navbar" aria-label="Settings navigation">
         <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)" aria-current="page">
@@ -16,8 +16,8 @@
         <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">
             <span>Security</span>
         </button>
-        <button class="pf-mnu-btn" id="privacy-btn" onclick="newPage(2)">
-            <span>Privacy</span>
+        <button class="pf-mnu-btn" id="appear-btn" onclick="newPage(2)">
+            <span>Appearance</span>
         </button>
         <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
             <span>Notifications</span>
@@ -144,9 +144,22 @@
             </form> 
         </div>
     </main>
-    <main id="privacy-content">
+    <main id="appear-content">
         <div class="profile-div">
-            <h3>Under construction! Check back later</h3>
+            <h3>Flyout styling</h3>
+            <form class="settings-form">
+                <div class="checkbox-wrapper-35">
+                <input class="switch" type="checkbox" id="switch" name="switch" value="private">
+                    <label for="switch">
+                        <span class="switch-x-text">Set to </span>
+                        <span class="switch-x-toggletext">
+                        <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Old</span>
+                        <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>New</span>
+                        </span>
+                    </label>
+                </div>
+            </form>
+            <img src="{{ url_for('.static', filename='images/flyout.png') }}" alt="Flyout example" id="flyout-example">
         </div>
     </main>
     <main id="notif-content">
