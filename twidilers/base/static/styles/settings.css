@@ -94,14 +94,29 @@ h3 {
 
 #post-content {
   min-height: 36px;
-  width: 100%;
-  resize: both;
+  width: 530px;
+  resize: vertical;
   border-radius: 5px;
   padding: 10px;
   font-family: inherit;
   font-size: 0.85rem;
 }
 
+.settings-form {
+  display: flex;
+  flex-direction:row;
+  gap:15px;
+  min-height:36px;
+  position:relative;
+  width:540px;
+}
+
+.settings-submit {
+  margin:0;
+  position:absolute;
+  bottom:0;
+  right:0;
+}
 
 #videoElement {
   border: 2px solid var(--darkblue);

@@ -59,8 +59,10 @@
         </div>
         <div class="profile-div" id="change-pfp-div">
             <h3>Change profile picture</h3>
-                <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload file</label>
-                <button class="submit" id="camera" onclick="startWebService()">Take a picture</button>
+                <div class="settings-form">
+                    <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload file</label>
+                    <button class="submit" id="camera" onclick="startWebService()">Take a picture</button>
+                </div>
         </div>
         {% if not account.setup and account.is_oauth %}
             <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
@@ -83,8 +85,8 @@
             </div>
         {% endif %}
         <div class="profile-div" role="region" aria-label="Bio settings">
-            <form method="post" id="profile-bio-change" lang="en">
-                <h3><label for="post-content">Edit bio</label></h3>
+            <h3><label for="post-content">Edit bio</label></h3>
+            <form method="post" id="profile-bio-change" class="settings-form" lang="en">
                 <textarea id="post-content" 
                          class="textbox" 
                          name="bio" 
@@ -94,14 +96,14 @@
                          placeholder="Write your bio here. Up to 500 characters."
                          aria-describedby="bio-help">{{ account.userdata['bio'] }}</textarea>
                 <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
-                <button type="submit" class="submit" id="bio-change" name="bio-change" aria-label="Update biography">
-                    Change Bio
+                <button type="submit" class="submit settings-submit" id="bio-change" name="bio-change" aria-label="Update biography">
+                    Update
                 </button>
             </form>
         </div>
         <div class="profile-div" role="region" aria-label="Display name settings">
-            <form method="post" id="change-name-form" lang="en">
-                <h3><label for="change-name">Change display name</label></h3>
+            <h3><label for="change-name">Change display name</label></h3>
+            <form method="post" id="change-name-form" lang="en" class="settings-form">
                 <textarea id="change-name" 
                        name="displayname" 
                        class="textbox" 
@@ -113,7 +115,7 @@
                        aria-describedby="name-help">{{ account.displayname }}
                     </textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
-                <button type="submit" class="submit" id="name-change" name="name-change">
+                <button type="submit" class="submit settings-submit" id="name-change" name="name-change">
                     Update
                 </button>
             </form>
@@ -122,7 +124,7 @@
             <a href="{{ url_for('.logout') }}"><button class="submit" style="margin-top: 0px;width:100%">Log out</button></a>
         </div>        
     </main>
-    <div id="security-content">
+    <main id="security-content">
         <div class="profile-div">
             <form method="post" id="change-password-change">
                 <h3 class="div-heading">Change password</h3>
@@ -139,20 +141,17 @@
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 
         </div>
-    </div>
-    <div id="privacy-content">
-        <div class="profile-div">
-            <h3>Profile page visibility</h3>
-            <button class="submit">Visable to everyone</button>
-        </div>
-    </div>
-    <div id="notif-content">
+    </main>
+    <main id="privacy-content">
         <div class="profile-div">
             <h3>Under construction! Check back later</h3>
         </div>
+    </main>
+    <main id="notif-content">
         <div class="profile-div">
+            <h3>Under construction! Check back later</h3>
         </div>
-    </div>
+    </main>
      <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
 
            
