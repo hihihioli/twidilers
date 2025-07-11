@@ -29,9 +29,8 @@ input[type="checkbox" i] {
     height: fit-content;
     inline-size: 565px;
     overflow-wrap: break-word;
-    display:relative !important;
     position:relative;
-    text-decoration:unset !important;
+    text-decoration:none;
     transition:all 2s;
 }
 .disabled {
@@ -46,7 +45,6 @@ header {
     margin:10px 0 0 0;
     color:var(--darkblue);
     font-weight: bold;
-    text-decoration: none;
 }
 
 .pst-disp {
@@ -55,7 +53,9 @@ header {
     font-size: 10pt;
     font-weight:normal;
 }
-
+a {
+    text-decoration:none;
+}
 .pst-auths{
     position: relative;
     bottom:8px;
