@@ -5,14 +5,14 @@
 const settingsDivs = [
     accountInfo = document.getElementById('acct-dtl-content'),
     security = document.getElementById('security-content'),
-    privacy = document.getElementById('privacy-content'),
+    appearance = document.getElementById('appear-content'),
     notif = document.getElementById('notif-content')
 ]
 
 const settingsButtons = [
     accountInfoButton = document.getElementById('acct-dtl-btn'),
     securityButton = document.getElementById('security-btn'),
-    privacyButton = document.getElementById('privacy-btn'),
+    appearButton = document.getElementById('appear-btn'),
     notifsButton = document.getElementById('notif-btn')
 ]
 
