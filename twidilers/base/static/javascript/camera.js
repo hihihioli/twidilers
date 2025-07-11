@@ -35,6 +35,7 @@ window.onload = function () {
     function startWebService() {
         modalShell.style.display = 'block';
         setTimeout(function() {modalContent.style.transform = 'translateY(0px)';}, 0);
+        isOn = true;
         startWebcam();
     }
 function dataURLtoBlob(dataurl) {
@@ -58,6 +59,14 @@ async function startWebcam() {
         console.error('Error accessing webcam:', error);
     }
 }
+function stopWebcam() {
+    stream.getTracks().forEach(track => track.stop());
+    videoElement.srcObject = null;
+    captureButton.style.display = "none"
+    startButton.innerHTML = 'Start Camera'
+    isOn = false;
+}
+
 function capturePhoto() {
     canvasElement.width = videoElement.videoWidth;
     canvasElement.height = videoElement.videoHeight;
