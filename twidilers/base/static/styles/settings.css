@@ -1,11 +1,5 @@
 
 
-#name-change {
-    height:50px;
-    position: relative;
-    top:1px;
-}
-
 /* Hide the default input */
 input[type="file"] {
     display: none;
@@ -23,9 +17,6 @@ input[type="file"] {
     flex-direction:row;
     gap: 10px;
     margin: 20px 0; 
-  }
-  #change-name {
-    width:530px;
   }
   /* Custom button */
   .custom-file-upload {
@@ -76,10 +67,9 @@ input[type="file"] {
   top:12px;
 }
 #post-content {
-  resize:vertical;
   overflow-y: hidden;
-  height:36px !important;
-  width:530px !important;
+  width:271px !important;
+  resize: vertical;
   border-radius:5px;
 }
 .profile-div {
@@ -98,4 +88,23 @@ input[type="file"] {
     .profile-div {
         background-color:var(--darkishblue);
     }
+}
+.settings-form {
+  display: flex;
+  flex-direction:row;
+  gap:15px;
+  min-height:36px;
+  position:relative;
+  width:560px;
+}
+
+.settings-submit {
+  margin:0 !important;
+  position:absolute;
+  bottom:0;
+  right:0 !important;
+}
+#change-name {
+  overflow:hidden;
+  resize:none;
 }
