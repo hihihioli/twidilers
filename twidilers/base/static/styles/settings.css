@@ -99,12 +99,18 @@ input[type="file"] {
 }
 
 .settings-submit {
-  margin:0 !important;
   position:absolute;
   bottom:0;
-  right:0 !important;
+  right:0;
 }
 #change-name {
   overflow:hidden;
   resize:none;
+}
+.profile-warning {
+  background-color: #D53F21 !important;
+  color: white !important;
+}
+#delete {
+  margin:0;
 }

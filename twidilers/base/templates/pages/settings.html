@@ -41,7 +41,7 @@
             </section>
         </div>
         {% if not account.setup and account.is_oauth %}
-            <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
+            <div class="profile-div profile-warning" role="region" aria-label="Username settings">
                 <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
                 <form method="post" id="profile-bio-change" class="settings-form" lang="en">
                     <input id="change-name" 
@@ -49,7 +49,7 @@
                         type="text" 
                         class="textbox" 
                         autocomplete="off"
-                        aria-label="New display name"
+                        aria-label="New user name"
                         maxlength="24" 
                         placeholder="1-24 characters"
                         aria-describedby="name-help"></input>
@@ -122,10 +122,12 @@
         </div>
         <div class="profile-div">
             <h3 class="div-heading">Change email</h3>
-            <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
-            <button class="submit" id="email-change" name="email-change">Send confirmation email to new account</button>
+            <form class="settings-form">
+                <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
+                <button class="submit settings-submit" id="email-change" name="email-change">Send confirmation email</button>
+            </form>
         </div>
-        <div class="profile-div">
+        <div class="profile-div profile-warning">
             <form id="delete-account" name="delete-account" method="post">
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 
