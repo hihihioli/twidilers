@@ -68,7 +68,7 @@ input[type="file"] {
 }
 #post-content {
   overflow-y: hidden;
-  width:271px !important;
+  width:271px;
   resize: vertical;
   border-radius:5px;
 }
@@ -87,7 +87,23 @@ input[type="file"] {
     
     .profile-div {
         background-color:var(--darkishblue);
+    }@media only screen and (max-width:600px) {
+    .settings-form {
+        flex-direction:column;
+        width:100%;
     }
+    #acct-navbar {
+        flex-direction:column;
+        gap: 5px;
+    }
+    .pf-mnu-btn {
+        width:100%;
+        text-align:left;    
+    }
+    #acct-dtl-content {
+        width:100%;
+    }
+}
 }
 .settings-form {
   display: flex;
@@ -113,4 +129,26 @@ input[type="file"] {
 }
 #delete {
   margin:0;
+}
+@media only screen and (max-width:600px) {
+    .settings-form {
+        flex-direction:column;
+        width:100%;
+    }
+    #acct-navbar {
+        flex-direction:column;
+        gap: 5px;
+    }
+    .pf-mnu-btn {
+        width:100%;
+        text-align:left;    
+    }
+    #acct-dtl-content {
+        width:100%;
+    }
+}
+@media only screen and (max-width:446px) {
+    .textbox, #post-content, #change-name{
+      width:200px;
+    }
 }

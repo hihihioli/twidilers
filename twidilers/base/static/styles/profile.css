@@ -105,18 +105,25 @@
         background-color:var(--lightblue);
         color: var(--darkblue);
  }
- .pst {
-    background-color: var(--darkishblue);
+    .pst {
+        background-color: var(--darkishblue);
+    }
+
+    .pst-auth {
+        color:var(--lightblue)
+    }
+
+    .pst-disp {
+        color:var(--lightblue)
+    }
+    .profile-div {
+        background-color:var(--darkishblue);
+    }
 }
 
-.pst-auth {
-    color:var(--lightblue)
-}
+@media only screen and (max-width:600px) {
+    .profile-div {
+        width:calc(100% - 60px);
+    }
 
-.pst-disp {
-    color:var(--lightblue)
-}
-.profile-div {
-    background-color:var(--darkishblue);
-}
 }

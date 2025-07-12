@@ -101,12 +101,7 @@ a:focus-visible {
     outline-offset: 2px;
 }
 /* #content is the main content area. #post-content is the input form content area. */
-#post-content {
-    resize:vertical;
-    overflow-y: hidden;
-    border-radius:5px;
-}
-#title, #post-content {
+#title {
     width: 470px;
 }
 #post-submit {
@@ -162,13 +157,10 @@ a .other-signup {
     .input_form {
         width: 90%;
     }
-    #title, #post-content {
+    #title {
         width: 100%;
     }
     .separator {
-        width: 90%;
-    }
-    .textbox {
         width: 90%;
     }
 }
