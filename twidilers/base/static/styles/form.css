@@ -125,10 +125,6 @@ a:focus-visible {
     width:auto;
 }
 
-#post-content {
-    overflow-y: hidden;
-    border-radius:5px;
-}
 #title {
     width: 470px;
 }
@@ -159,7 +155,7 @@ a .other-signup {
 }
 @media only screen and (max-width: 600px) {
 
-    #title, #post-content {
+    #title {
         width: 100%;
     }
     .separator {

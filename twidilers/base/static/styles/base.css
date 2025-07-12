@@ -279,12 +279,29 @@ Click generate until you get the loss under 3 */
     top:0;
     right:0;
     cursor: pointer;
-    border-radius:8px;
+    border-radius:0 8px 0 8px;
     transition:all 0.2s;
 }
 #clear-notifs:hover {
     background-color:#ee3355;
     color:white;
+}
+#more-notifs {
+    border:0;
+    background:none;
+    padding:13px;
+    color:var(--darkblue);
+    font-size:1em;
+    position:absolute;
+    bottom:0;
+    right:0;
+    cursor: pointer;
+    border-radius: 8px 0 8px 0;
+    transition:all 0.2s;
+}
+#more-notifs:hover {
+    background-color:var(--darkishblue);
+    color: var(--lightblue);
 }
 /* the bell on the navbar */
 #navbarbell {

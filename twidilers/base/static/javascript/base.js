@@ -36,6 +36,10 @@ if (notifMenu.style.display === 'none') {
 }
 });  
 
+function moreNotifs() {
+    window.location.href = '/notif';
+}
+
 userButton.addEventListener('click', toggleMenu)
     
 function toggleMenu () {

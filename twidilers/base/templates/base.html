@@ -59,6 +59,8 @@
                 <h2>Notifications</h2>
                 
                 <button id="clear-notifs" onclick="clearNotifs()">Clear</button>
+                <button id="more-notifs" onclick="moreNotifs()">See all</button>
+
                 <div id="notif-div-0">
                     {% if session['username'] %}
                         {% if account.notifications %}
