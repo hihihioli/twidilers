@@ -1,11 +1,5 @@
 
 
-#name-change {
-    height:50px;
-    position: relative;
-    top:1px;
-}
-
 /* Hide the default input */
 input[type="file"] {
     display: none;
@@ -23,9 +17,6 @@ input[type="file"] {
     flex-direction:row;
     gap: 10px;
     margin: 20px 0; 
-  }
-  #change-name {
-    width:530px;
   }
   /* Custom button */
   .custom-file-upload {
@@ -76,10 +67,9 @@ input[type="file"] {
   top:12px;
 }
 #post-content {
-  resize:vertical;
   overflow-y: hidden;
-  height:36px !important;
-  width:530px !important;
+  width:271px;
+  resize: vertical;
   border-radius:5px;
 }
 .profile-div {
@@ -97,5 +87,68 @@ input[type="file"] {
     
     .profile-div {
         background-color:var(--darkishblue);
+    }@media only screen and (max-width:600px) {
+    .settings-form {
+        flex-direction:column;
+        width:100%;
+    }
+    #acct-navbar {
+        flex-direction:column;
+        gap: 5px;
+    }
+    .pf-mnu-btn {
+        width:100%;
+        text-align:left;    
+    }
+    #acct-dtl-content {
+        width:100%;
+    }
+}
+}
+.settings-form {
+  display: flex;
+  flex-direction:row;
+  gap:15px;
+  min-height:36px;
+  position:relative;
+  width:560px;
+}
+
+.settings-submit {
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+#change-name {
+  overflow:hidden;
+  resize:none;
+}
+.profile-warning {
+  background-color: #D53F21 !important;
+  color: white !important;
+}
+#delete {
+  margin:0;
+}
+@media only screen and (max-width:600px) {
+    .settings-form {
+        flex-direction:column;
+        width:100%;
+    }
+    #acct-navbar {
+        flex-direction:column;
+        gap: 5px;
+    }
+    .pf-mnu-btn {
+        width:100%;
+        text-align:left;    
+    }
+    #acct-dtl-content {
+        width:100%;
+    }
+}
+@media only screen and (max-width:446px) {
+    .textbox, #post-content, #change-name{
+      width:200px;
     }
 }

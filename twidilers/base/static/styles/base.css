@@ -261,7 +261,7 @@ Click generate until you get the loss under 3 */
 #footer {
     margin: auto;
     bottom: 0;
-    width: 600px;
+    width: 100%;
 }
 
 #form-content {
@@ -470,5 +470,8 @@ a {
     }
     #hdr-href {
         display:none;
+    }
+    #footer {
+        font-size:16px;
     }
 }
