@@ -18,6 +18,7 @@ window.onload = function () {
     animate();
 
 };
+// Doesn't animate if the screen is small
 function animate() {
 if (window.innerWidth <= 530) {
     small = true;
@@ -26,6 +27,7 @@ if (window.innerWidth <= 530) {
     small = false;
 }
 }
+// Expands notif page if it's clicked
 notifButton.addEventListener('click', () => {
 if (notifMenu.style.display === 'none') {
     notifMenu.style.display = 'flex';
@@ -72,5 +74,4 @@ userMenu.style.display = 'flex';
         userMenu.style.display = 'none';
     }
 }
-};
-
+};  

@@ -57,3 +57,18 @@ file.addEventListener('change',() => {
         document.getElementById('upload_pfp').submit();
     }
 })
+
+
+document.getElementById('dark-mode-toggle')
+  .addEventListener('click', () => {
+    console.log("felt click");
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') === 'dark'
+                  ? 'light'
+                  : 'dark';
+    html.setAttribute('data-theme', current);
+    console.log("Setting theme to", current);
+    localStorage.setItem("theme", current);
+    const stored = localStorage.getItem("theme");
+    console.log("localStorage.getItem('theme') →", stored);
+  });

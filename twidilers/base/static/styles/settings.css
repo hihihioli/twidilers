@@ -234,6 +234,9 @@ h3 {
     -webkit-transform: none;
     transform: none;
   }
+  .checkbox-wrapper-35 .switch + label .switch-x-wide {
+    width: 45px;
+  }
 #videoElement {
   border: 2px solid var(--darkblue);
   width:100%;margin: 20px 0px 20px 0px;
@@ -299,10 +302,7 @@ h3 {
 }
 
 @media only screen and (prefers-color-scheme: dark){
-    .checkbox-wrapper-35 .switch + label {
-      color: var(--darkblue) !important;
 
-  }
   /*
   #camera {
     color: var(--lightblue) !important;
