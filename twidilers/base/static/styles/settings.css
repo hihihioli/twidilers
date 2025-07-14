@@ -117,7 +117,27 @@ h3 {
 }
 
   .checkbox-wrapper-35 .switch {
-    display: none;
+    width:20px;
+    height: 20px;
+    border-radius:5px;
+    border:0;
+    margin:0;
+  }
+
+  .checkbox-wrapper-35, .forswitch {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+  }
+  .checkbox-wrapper-35 {
+    gap:5px;
+    height:20px;
+  }
+
+  .forswitch {
+    vertical-align: text-top;
   }
 
   .checkbox-wrapper-35 .switch + label {
@@ -127,10 +147,7 @@ h3 {
     align-items: center;
     color: var(--darkblue);
     cursor: pointer;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+    
     font-size: 1em;
     line-height: 15px;
     position: relative;
@@ -140,12 +157,6 @@ h3 {
     user-select: none;
   }
 
-
-  .checkbox-wrapper-35 .switch + label::before,
-  .checkbox-wrapper-35 .switch + label::after {
-    content: '';
-    display: block;
-  }
 
   .checkbox-wrapper-35 .switch + label::before {
     background-color: #05012c;
@@ -178,7 +189,6 @@ h3 {
   }
 
   .checkbox-wrapper-35 .switch + label .switch-x-toggletext {
-    display: block;
     font-weight: bold;
     height: 15px;
     overflow: hidden;

@@ -58,17 +58,29 @@ file.addEventListener('change',() => {
     }
 })
 
+document.addEventListener("DOMContentLoaded", () => {
+  const html   = document.documentElement;
+  const toggle = document.getElementById("dark-mode-toggle");
+  if (!toggle) return;          // no toggle on the page? bail out
 
-document.getElementById('dark-mode-toggle')
-  .addEventListener('click', () => {
-    console.log("felt click");
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme') === 'dark'
-                  ? 'light'
-                  : 'dark';
-    html.setAttribute('data-theme', current);
-    console.log("Setting theme to", current);
-    localStorage.setItem("theme", current);
-    const stored = localStorage.getItem("theme");
-    console.log("localStorage.getItem('theme') →", stored);
+  // 1) restore stored theme (if any)
+  const stored = localStorage.getItem("theme");
+  if (stored) {
+    html.dataset.theme = stored;
+  }
+
+  // 2) sync the checkbox to whatever data-theme is right now
+  isDark = (html.dataset.theme === "dark");
+  console.log("Dark mode is", isDark ? "enabled" : "disabled");
+  toggle.checked = isDark;
+
+  // 3) when the user flips the checkbox → set data-theme & persist
+  toggle.addEventListener("change", function() {
+    const newTheme = isDark ? "light" : "dark";
+    html.dataset.theme = newTheme;
+    localStorage.setItem("theme", newTheme);
+    console.log("theme set to", newTheme);
+    isDark = !isDark; 
+    toggle.checked = isDark;
   });
+});
