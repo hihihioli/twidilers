@@ -88,7 +88,7 @@
             <h3><label for="post-content">Edit bio</label></h3>
             <form method="post" id="profile-bio-change" class="settings-form" lang="en">
                 <textarea id="post-content" 
-                         class="textbox" 
+                         class="textbox js-countable" 
                          name="bio" 
                          autocomplete="off"
                          aria-label="Biography text" 
@@ -96,6 +96,7 @@
                          placeholder="Write your bio here. Up to 500 characters."
                          aria-describedby="bio-help">{{ account.userdata['bio'] }}</textarea>
                 <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
+                <div id="post-content-count" class="char-count"></div>
                 <button type="submit" class="submit settings-submit" id="bio-change" name="bio-change" aria-label="Update biography">
                     Update
                 </button>
@@ -106,7 +107,7 @@
             <form method="post" id="change-name-form" lang="en" class="settings-form">
                 <textarea id="change-name" 
                        name="displayname" 
-                       class="textbox" 
+                       class="textbox js-countable" 
                        autocomplete="off"
                        aria-label="New display name"
                        maxlength="24" 
@@ -115,6 +116,7 @@
                        aria-describedby="name-help">{{ account.displayname }}
                     </textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
+                <div id="change-name-count" class="char-count"></div>
                 <button type="submit" class="submit settings-submit" id="name-change" name="name-change">
                     Update
                 </button>
