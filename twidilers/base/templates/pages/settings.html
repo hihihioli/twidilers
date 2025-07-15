@@ -150,7 +150,7 @@
             <h3>Flyout styling</h3>
             <form class="settings-form">
                 <div class="checkbox-wrapper-35">
-                <input class="switch" type="checkbox" id="switch" name="switch" value="private">
+                <input class="switch" type="checkbox" id="switch" name="switch">
                 <label for="switch" class="forswitch">
                     <span class="switch-x-text">Set to </span>
                     <span class="switch-x-toggletext">
@@ -162,18 +162,18 @@
             </form>
             <img src="{{ url_for('.static', filename='images/flyout.png') }}" alt="Flyout example" id="flyout-example">
         </div>
-        <div class="profile-div"  id="dark-mode-toggle">
+        <div class="profile-div">
             <h3>Theme</h3>
             <form class="settings-form">
                 <div class="checkbox-wrapper-35">
-                <input class="switch" type="checkbox" name="switch2" value="private" id="dark-mode-toggle">
-                    <label for="switch2" class="forswitch">
-                        <span class="switch-x-toggletext switch-x-wide">
-                        <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Light</span>
-                        <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>Dark</span>
-                        </span>
-                        <span class="switch-x-text">Theme</span>
-                    </label>
+                <input class="switch" type="checkbox" name="switch2" id="dark-mode-toggle"/>
+                <label for="switch2" class="forswitch">
+                    <span class="switch-x-toggletext switch-x-wide">
+                    <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Light</span>
+                    <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>Dark</span>
+                    </span>
+                    <span class="switch-x-text">Theme</span>
+                </label>
                 </div>
             </form>
         </div>
