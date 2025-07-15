@@ -416,13 +416,11 @@ a {
 
 /* The big 'Log In' heading at the top of the page */
 .heading {
-    font-size:36pt;
+    font-size:3em;
     text-align:center;
     font-weight: bold;
     margin: 25px auto 20px auto;
 }
-
-
 
 /* The submit button. */
 .submit {
@@ -561,7 +559,7 @@ a {
 
 @media only screen and (max-width: 611px){
     #footer {
-        font-size: 2.6dvw;
+        font-weight:normal;
     }
 }
 

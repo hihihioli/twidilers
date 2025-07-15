@@ -113,8 +113,7 @@
                        maxlength="24" 
                        placeholder="1-24 characters"
                        rows="1"
-                       aria-describedby="name-help">{{ account.displayname }}
-                    </textarea>
+                       aria-describedby="name-help">{{ account.displayname }}</textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
                 <div id="change-name-count" class="char-count"></div>
                 <button type="submit" class="submit settings-submit" id="name-change" name="name-change">
@@ -152,13 +151,13 @@
             <form class="settings-form">
                 <div class="checkbox-wrapper-35">
                 <input class="switch" type="checkbox" id="switch" name="switch" value="private">
-                    <label for="switch" class="forswitch">
-                        <span class="switch-x-text">Set to </span>
-                        <span class="switch-x-toggletext">
-                        <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Old</span>
-                        <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>New</span>
-                        </span>
-                    </label>
+                <label for="switch" class="forswitch">
+                    <span class="switch-x-text">Set to </span>
+                    <span class="switch-x-toggletext">
+                    <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Old</span>
+                    <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>New</span>
+                    </span>
+                </label>
                 </div>
             </form>
             <img src="{{ url_for('.static', filename='images/flyout.png') }}" alt="Flyout example" id="flyout-example">
