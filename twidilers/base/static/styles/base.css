@@ -131,6 +131,7 @@ input:-webkit-autofill,textarea:-webkit-autofill {
     margin-right:auto
 }
 
+
 #hder-img {
     background-color: inherit !important;
     margin: 20px auto 0 0 !important;
@@ -141,6 +142,9 @@ input:-webkit-autofill,textarea:-webkit-autofill {
     box-shadow: none;
 }
 
+#hder-img:hover {
+    box-shadow:none !important;
+}
 
 [data-theme="dark"] #hder-img {
     filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
@@ -165,8 +169,8 @@ Click generate until you get the loss under 3 */
     transition: all 0.5s;
 }
 #navbar button:hover, .popup-menu button:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 7px 0 var(--darkblue);
+    border-radius: 7px;
+    box-shadow: 0 0 3px 0 var(--darkishblue);
 }
 
 #usricon-nav-img {
@@ -325,6 +329,35 @@ Click generate until you get the loss under 3 */
     width:46px !important;
     margin:auto;
 }
+#navbarbell:hover {
+    box-shadow:none !important;
+}
+
+/* bell "rings" when hovered over */
+.ringing {
+  display: inline-block;          /* allow transforms */
+  transform-origin: top center;   /* pivot at the bell’s “hinge” */
+}
+
+.ringing:hover {
+    animation: ring 1s ease-in-out;
+}
+
+@keyframes ring {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(10deg); }   /* small right swing */
+  25%  { transform: rotate(-8deg); }   /* small left swing */
+  40%  { transform: rotate(6deg); }
+  55%  { transform: rotate(-4deg); }
+  70%  { transform: rotate(2deg); }
+  85%  { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.nav-bell-div {
+    width:46px;
+    height:46px;
+}
 /* Number of notifications */
 #notification-count {
     position: absolute;
@@ -423,14 +456,13 @@ a {
 }
 
 /* The submit button. */
-.submit {
+.submit, .submit-h {
     width: auto ;
     height: auto;
     font-size: 11pt;
     padding: 13px;
     border-radius: 5px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
+    color: var(--darkblue);
     cursor: pointer;
     border: 3px solid var(--darkblue);
     align-self: center !important;
@@ -441,15 +473,33 @@ a {
     text-wrap:nowrap;
 }
 
+.submit {
+    background-color:var(--lightblue)
+}
+
+.submit:hover {
+    background-color: var(--greenish);
+    color: var(--darkblue);
+}
+
+/* Accented submit button */
+
+/* Highlighted/importent submit button */
+.submit-h {
+    background-color:var(--darkblue);
+    color:var(--lightblue);
+}
+
+.submit-h:hover {
+    background-color:var(--lightishblue);
+    color: var(--darkblue);
+}
+
+
 .submitwide {
     padding: 13px 100%;
 }
 
-.submit:hover {
-        background-color: var(--lightishblue);
-        color: white !important;
-
-    }
 
 /* Cards are just navbars but slightly different as of 12/4/24 */
 .card {
