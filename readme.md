@@ -13,12 +13,12 @@ Want to learn more about one of the dependencies we use? Look no further!
 # Feed
 ## Features
 * Filters for only followed users
-* 
+* Liking systems
 ## Broken stuff
-* Liking currently doesn't do anything
 * You can't tell if it's the oldest page
 ## Things backend can do
 * Attach a "oldest page" information to the API so that "oldest" button can work and can lock you out if you're already at the oldest
+* add api with posts from people a specific user is following
 
 
 # How does flask-migrate work?
@@ -32,9 +32,11 @@ Want to learn more about one of the dependencies we use? Look no further!
 
 # Cool general feature stuffs
 
-# Refactor
 ## Settings
 * Redo settings into different templates
+* Add notification settings
+* Appearance preferances, changing the flyout style and default feed setting
+
 
 
 ## User accounts
@@ -44,7 +46,7 @@ Want to learn more about one of the dependencies we use? Look no further!
 ### Login process
 * "Stay signed in" button. Otherwise, automatically sign out after a week.
 * Able to log in with either username or email
-### Oauth feature requests
+### Oauth
 * passkeys?
 ### User API
 * User-side API which allows users to post from outside of Twidilers.com (Would be cool to get some bots setup to make it look like there is activity)
@@ -75,3 +77,5 @@ Ability for admin03 to ban/delete user accounts
 * Algorithmic feed that prefers newer posts by people you follow/interact with
     * Newness weight
     * Weight for the poster (Have you interacted with their posts recently (negetively or positively), do you follow them)
+* Blocking feature. Example: Alice blocks Bob. Bob can't see Alice's posts.
+* Hiding feature. Example: Alice hides Bob. Alice can't see Bob's posts anymore.

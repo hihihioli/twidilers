@@ -57,3 +57,47 @@ file.addEventListener('change',() => {
         document.getElementById('upload_pfp').submit();
     }
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+  const html   = document.documentElement;
+  const toggle = document.getElementById("dark-mode-toggle");
+  if (!toggle) return;          // no toggle on the page? bail out
+
+  // sync the checkbox to whatever data-theme is right now
+  isDark = (html.dataset.theme === "dark");
+  console.log("Dark mode is", isDark ? "enabled" : "disabled");
+  toggle.checked = isDark;
+
+  // when the user flips the checkbox → set data-theme & persist
+  toggle.addEventListener("change", function() {
+    const newTheme = isDark ? "light" : "dark";
+    html.dataset.theme = newTheme;
+    localStorage.setItem("theme", newTheme);
+    console.log("theme set to", newTheme);
+    isDark = !isDark; 
+    toggle.checked = isDark;
+  });
+});
+
+// Handles character count
+    document.addEventListener('DOMContentLoaded', function(){
+    // 1) find all textareas that need counting
+    var boxes = document.querySelectorAll('textarea.js-countable');
+
+    boxes.forEach(function(txt){
+      var max    = parseInt(txt.getAttribute('maxlength'), 10) || 0;
+      var counter= document.getElementById(txt.id + '-count');
+      if (!counter) return;  // no counter found, skip
+
+      // update function
+      function update(){
+        var used = txt.value.length;
+        counter.textContent = used + " / " + max;
+        counter.classList.toggle('warning', used > max);
+      }
+
+      // init + hook into future changes
+      update();
+      txt.addEventListener('input', update);
+    });
+  });

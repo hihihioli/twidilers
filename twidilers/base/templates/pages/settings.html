@@ -88,7 +88,7 @@
             <h3><label for="post-content">Edit bio</label></h3>
             <form method="post" id="profile-bio-change" class="settings-form" lang="en">
                 <textarea id="post-content" 
-                         class="textbox" 
+                         class="textbox js-countable" 
                          name="bio" 
                          autocomplete="off"
                          aria-label="Biography text" 
@@ -96,6 +96,7 @@
                          placeholder="Write your bio here. Up to 500 characters."
                          aria-describedby="bio-help">{{ account.userdata['bio'] }}</textarea>
                 <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
+                <div id="post-content-count" class="char-count"></div>
                 <button type="submit" class="submit settings-submit" id="bio-change" name="bio-change" aria-label="Update biography">
                     Update
                 </button>
@@ -106,15 +107,15 @@
             <form method="post" id="change-name-form" lang="en" class="settings-form">
                 <textarea id="change-name" 
                        name="displayname" 
-                       class="textbox" 
+                       class="textbox js-countable" 
                        autocomplete="off"
                        aria-label="New display name"
                        maxlength="24" 
                        placeholder="1-24 characters"
                        rows="1"
-                       aria-describedby="name-help">{{ account.displayname }}
-                    </textarea>
+                       aria-describedby="name-help">{{ account.displayname }}</textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
+                <div id="change-name-count" class="char-count"></div>
                 <button type="submit" class="submit settings-submit" id="name-change" name="name-change">
                     Update
                 </button>
@@ -149,17 +150,32 @@
             <h3>Flyout styling</h3>
             <form class="settings-form">
                 <div class="checkbox-wrapper-35">
-                <input class="switch" type="checkbox" id="switch" name="switch" value="private">
-                    <label for="switch">
-                        <span class="switch-x-text">Set to </span>
-                        <span class="switch-x-toggletext">
-                        <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Old</span>
-                        <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>New</span>
-                        </span>
-                    </label>
+                <input class="switch" type="checkbox" id="switch" name="switch">
+                <label for="switch" class="forswitch">
+                    <span class="switch-x-text">Set to </span>
+                    <span class="switch-x-toggletext">
+                    <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Old</span>
+                    <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>New</span>
+                    </span>
+                </label>
                 </div>
             </form>
             <img src="{{ url_for('.static', filename='images/flyout.png') }}" alt="Flyout example" id="flyout-example">
+        </div>
+        <div class="profile-div">
+            <h3>Theme</h3>
+            <form class="settings-form">
+                <div class="checkbox-wrapper-35">
+                <input class="switch" type="checkbox" name="switch2" id="dark-mode-toggle"/>
+                <label for="switch2" class="forswitch">
+                    <span class="switch-x-toggletext switch-x-wide">
+                    <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Light</span>
+                    <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>Dark</span>
+                    </span>
+                    <span class="switch-x-text">Theme</span>
+                </label>
+                </div>
+            </form>
         </div>
     </main>
     <main id="notif-content">

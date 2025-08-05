@@ -97,6 +97,7 @@ h3 {
   padding: 10px;
   font-family: inherit;
   font-size: 0.85rem;
+  overflow-y: hidden;
 }
 
 .settings-form {
@@ -114,9 +115,64 @@ h3 {
   bottom:0;
   right:0;
 }
+.char-count {
+  float:right;
+}
 
-  .checkbox-wrapper-35 .switch {
-    display: none;
+.checkbox-wrapper-35 .switch {
+  /* remove the native style */
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+
+  /* our custom box */
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--darkblue);
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+
+  /* smooth check‐in animation */
+  transition: background 0.2s, border-color 0.2s;
+}
+
+/* when checked, fill the box & draw a checkmark */
+.checkbox-wrapper-35 .switch:checked {
+  background: var(--darkblue);
+  border-color: var(--darkblue);
+}
+.checkbox-wrapper-35 .switch:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--lightishblue);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-wrapper-35 .switch:focus {
+    box-shadow: 0 0 2px 0 var(--darkblue);
+}
+
+  .checkbox-wrapper-35, .forswitch {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+  }
+  .checkbox-wrapper-35 {
+    gap:5px;
+    height:26px;
+  }
+
+  .forswitch {
+    vertical-align: text-top;
   }
 
   .checkbox-wrapper-35 .switch + label {
@@ -124,12 +180,7 @@ h3 {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    color: var(--darkblue);
-    cursor: pointer;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+    color: var(--darkblue);    
     font-size: 1em;
     line-height: 15px;
     position: relative;
@@ -139,45 +190,12 @@ h3 {
     user-select: none;
   }
 
-
-  .checkbox-wrapper-35 .switch + label::before,
-  .checkbox-wrapper-35 .switch + label::after {
-    content: '';
-    display: block;
-  }
-
-  .checkbox-wrapper-35 .switch + label::before {
-    background-color: #05012c;
-    border-radius: 500px;
-    height: 15px;
-    margin-right: 8px;
-    -webkit-transition: background-color 0.125s ease-out;
-    transition: background-color 0.125s ease-out;
-    width: 25px;
-  }
-
-  .checkbox-wrapper-35 .switch + label::after {
-    background-color: #fff;
-    border-radius: 13px;
-    box-shadow: 0 3px 1px 0 rgba(37, 34, 71, 0.05), 0 2px 2px 0 rgba(37, 34, 71, 0.1), 0 3px 3px 0 rgba(37, 34, 71, 0.05);
-    height: 13px;
-    left: 1px;
-    position: absolute;
-    top: 1px;
-    -webkit-transition: -webkit-transform 0.125s ease-out;
-    transition: -webkit-transform 0.125s ease-out;
-    transition: transform 0.125s ease-out;
-    transition: transform 0.125s ease-out, -webkit-transform 0.125s ease-out;
-    width: 13px;
-  }
-
   .checkbox-wrapper-35 .switch + label .switch-x-text {
     display: block;
     margin-right: .3em;
   }
 
   .checkbox-wrapper-35 .switch + label .switch-x-toggletext {
-    display: block;
     font-weight: bold;
     height: 15px;
     overflow: hidden;
@@ -213,15 +231,6 @@ h3 {
     visibility: hidden;
   }
 
-  .checkbox-wrapper-35 .switch:checked + label::before {
-    background-color: #ffb500;
-  }
-
-  .checkbox-wrapper-35 .switch:checked + label::after {
-    -webkit-transform: translate3d(10px, 0, 0);
-    transform: translate3d(10px, 0, 0);
-  }
-
   .checkbox-wrapper-35 .switch:checked + label .switch-x-unchecked {
     opacity: 0;
     -webkit-transform: translate3d(0, -100%, 0);
@@ -232,6 +241,9 @@ h3 {
     opacity: 1;
     -webkit-transform: none;
     transform: none;
+  }
+  .checkbox-wrapper-35 .switch + label .switch-x-wide {
+    width: 45px;
   }
 #videoElement {
   border: 2px solid var(--darkblue);
@@ -298,10 +310,7 @@ h3 {
 }
 
 @media only screen and (prefers-color-scheme: dark){
-    .checkbox-wrapper-35 .switch + label {
-      color: var(--darkblue) !important;
 
-  }
   /*
   #camera {
     color: var(--lightblue) !important;
@@ -319,4 +328,21 @@ h3 {
   #videoElement {
     border: 2px solid var(--lightblue);
   }*/
+}
+@media only screen and (max-width:600px) {
+    .settings-form {
+        flex-direction:column;
+        width:100%;
+    }
+    #acct-navbar {
+        flex-direction:column;
+        gap: 5px;
+    }
+    .pf-mnu-btn {
+        width:100%;
+        text-align:left;    
+    }
+    #acct-dtl-content {
+        width:100%;
+    }
 }

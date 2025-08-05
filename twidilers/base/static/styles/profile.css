@@ -120,6 +120,12 @@ display: flex !important;
     bottom:0;
     right:0;
 }
+@media only screen and (max-width:600px) {
+    .profile-div {
+        width:calc(100% - 60px);
+    }
+
+}
 /*@media only screen and (prefers-color-scheme: dark){
     #edit-profile:hover {
         background-color:var(--lightblue);

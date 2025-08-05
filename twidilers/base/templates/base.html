@@ -2,8 +2,9 @@
 <html lang="en">
 
 <head>
+        <script src="{{ url_for('.static', filename='javascript/beforeload.js') }}"></script>
+
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('.static', filename='styles/form.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
 
     <title>{% block title %}{% endblock %} - Twidilers</title> <!-- The title of the tab depending on the current page. -->
@@ -18,7 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     {% block head %}{% endblock %}
-
 </head>
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
     <!-- The navbar. Also can be overridden if necessary. -->
@@ -32,13 +32,17 @@
             {% else %}
             {% set account = findAccount() %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img" title="Twidilers Home"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-                <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
+                <a href="{{ url_for('.page',page='feed') }}"><button id="feed-hover">Feed</button></a>
                 <a><button id="navbarbell" title="Notification bell">
                     {% if account.notifications %}
-                        <i class="fa-solid fa-bell-ring"></i>
+                        <div class="nav-bar-div ringing">
+                            <i class="fa-solid fa-bell-ring nav-bell-icon"></i>
+                        </div>
                         <div id="notification-count">{{ account.notifications | length}}</div>
                     {% else %}
-                    <i class="fa-solid fa-bell"></i>
+                        <div class="nav-bar-div">
+                            <i class="fa-solid nav-bell-icon fa-bell"></i>
+                        </div>
                     {% endif %}
                 </button></a>
                 <div class="popup-div">
@@ -59,6 +63,8 @@
                 <h2>Notifications</h2>
                 
                 <button id="clear-notifs" onclick="clearNotifs()">Clear</button>
+                <button id="more-notifs" onclick="moreNotifs()">See all</button>
+
                 <div id="notif-div-0">
                     {% if session['username'] %}
                         {% if account.notifications %}

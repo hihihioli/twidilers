@@ -27,6 +27,7 @@ def page(page):
                 'post',
                 'profile',
                 'settings',
+                'notif',
         ]
         logout_protected = [
                 'login',
