@@ -55,6 +55,10 @@
     <p>{{bio}}</p>
     <span name="prof-date" id="prof-date"></span>
 </div>
+
+<div class="profile-div" id="notifs">
+    <a href="{{url_for('.page',page='notif')}}"><button class="submit">Temporary Notifs Button</button></a>
+</div>
 <div>
     {% if posts %}
     <h1>Recent Posts:</h1>

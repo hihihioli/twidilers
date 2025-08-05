@@ -34,7 +34,8 @@
             <p>Please log in to see notifications.</p>
         {% endif %}
     </div>
-    <form method="post" action="/messaging" id="message_form" name="message_form" class="input_form">
+    <form method="post" action="/messaging" id="message_form" name="message_form" class="input_form" id="login_form">
+        <div id="messange" class>
             <a href="{{ url_for('.profile', username=session['username'])}}"><button id="messageBtn" class="submit">Send a message</button></a>
             <div id="message">
                 <input type="text" class="textbox" placeholder="Recipient" id="messaged" name="messaged" autocomplete="off" maxlength="50"/>
@@ -42,4 +43,5 @@
                 <input type="hidden" id="location" name="location"/>
             </div>
             </form>
+        </div>
 {% endblock %}

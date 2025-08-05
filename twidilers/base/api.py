@@ -61,6 +61,7 @@ def write_post():
     for follower in account.followers:
         new_notifications = follower.notifications.copy()
         data = {
+            "type": "post",
             "author":account.username,
             "title":title,
             "content":content,
@@ -69,7 +70,6 @@ def write_post():
         new_notifications.append(data)
         follower.notifications = new_notifications
         db.session.commit()
-        print(follower.notifications)
     flash('Post successfully created','success')
     return redirect(url_for('.page',page='feed'))
 
@@ -271,13 +271,29 @@ def handleMessage():
                 }
                 new_messages.append(data)
                 reciever.messages = new_messages
+                new_notifications = reciever.notifications.copy()
+                notif = {
+                    "type": "message",
+                    "author":account.username,
+                    "title":None,
+                    "content":request.form.get('message-content'),
+                    "date":date_utc.timestamp()
+                }
+                new_notifications.append(notif)
+                reciever.notifications = new_notifications
                 db.session.commit()
-                print(reciever.messages)
+                
                 flash('Message Successful','success')
-                return redirect(request.form.get('location'))
+                return redirect(url_for('.notifs'))
             flash('User Not Found','error')
-    return redirect(request.form.get('location'))
-            
+            return redirect(url_for('.notifs'))
+    return redirect(url_for('.notifs'))
+
+@app.route('/notifs')
+@login_required
+def notifs():
+    return render_template('pages/notif.html')
+
 @app.get('/post/<post_id>')
 def post(post_id):
     post = db.session.execute(db.get_or_404(post_id)).scalar()
