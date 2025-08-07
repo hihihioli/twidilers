@@ -32,8 +32,8 @@
             {% else %}
             {% set account = findAccount() %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img" title="Twidilers Home"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-                <a href="{{ url_for('.page',page='feed') }}"><button id="feed-hover">Feed</button></a>
-                <a><button id="navbarbell" title="Notification bell">
+                <a href="{{ url_for('.page',page='feed') }}"><button id="feed-hover" title="Go to post feed">Feed</button></a>
+                <a><button id="navbarbell" title="Notifications">
                     {% if account.notifications %}
                         <div class="nav-bar-div ringing">
                             <i class="fa-solid fa-bell"></i>
@@ -52,7 +52,7 @@
                         <a href="{{ url_for('.logout') }}"><button id="logoutBtn" style="white-space: nowrap;">Log Out</button></a>
                     </div> 
                 </div>
-                <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
+                <a><button id="usricon-nav" title="Click to open flyout"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
                     
             {% endif %}
             

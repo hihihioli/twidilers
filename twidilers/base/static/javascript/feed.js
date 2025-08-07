@@ -95,7 +95,7 @@ async function renderPosts(posts, container) {
         let react = "";
         var reactions = `
             <form method="post">
-                <button type="submit" class="pst-react-but ${react}" id=like-post-${post.id} name="delete-post" title="Delete Post">
+                <button type="submit" class="pst-react-but ${react}" id=like-post-${post.id} name="like-post" title="Like Post">
                     <input type="hidden" name="like-post-id" value="${post.id}">
                     <i class="fa-solid fa-heart" aria-hidden="true"></i>
                     <span class="visually-hidden">Like this post</span>

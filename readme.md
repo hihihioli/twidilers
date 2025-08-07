@@ -1,24 +1,12 @@
 # Useful links
 ## Dependencies
 Want to learn more about one of the dependencies we use? Look no further!
-* Turbo.js https://turbo.hotwired.dev/handbook/
 * Flask https://flask.palletsprojects.com/en/stable/
 * Google Oauth https://console.cloud.google.com/apis/credentials?authuser=6&project=twidilers&supportedpurview=project 
 * Github Oauth https://github.com/settings/applications/2831103 
 
 ## Good tutorial sources
 * https://blog.miguelgrinberg.com/category/Flask
-
-
-# Feed
-## Features
-* Filters for only followed users
-* Liking systems
-## Broken stuff
-* You can't tell if it's the oldest page
-## Things backend can do
-* Attach a "oldest page" information to the API so that "oldest" button can work and can lock you out if you're already at the oldest
-* add api with posts from people a specific user is following
 
 
 # How does flask-migrate work?
@@ -29,6 +17,38 @@ Want to learn more about one of the dependencies we use? Look no further!
 * Don't just edit the models then try to upgrade. You need a migration script.
 * To generate a migration script: docker compose exec web flask --app 'twidilers:create_app()' db migrate -m "Migration Message Here"
 * THEN upgrade your db
+
+# Unfinished/broken features
+
+## Feed
+If you want to work on this, talk to Eamon because he needs some API help here!
+### Reactions
+We need to re-add in reaction functionality, with (optional) notifications when you get a reaction to your post. A count displayed in the feed.
+### Filtering
+Different feeds for "All", "Following", and "Liked". Would require a big overhaul of the API because every user would have their own feed API.
+
+## Settings
+### Flyout styling
+I don't know how this would work but an option to switch between the different flyout styles
+### Notifications
+Yeah this is a blank page right now. Not technically "unfinished" but we need to add options here as we fully bring notifications into functionality
+
+## Notifications
+### Notification page
+Barebones right now but could be decently better with cool animations and shit. Also could not exist if we don't want to push too hard into notifications
+
+## DMs
+If derin wants to work on this sure but i don't see this as high priority -Eamon
+
+
+# Finished features not in prod
+## Settings
+* Improved button layout (PR 26)
+* Better mobile functionality (PR 26)
+* Dark/light mode toggle
+## Notifications
+* They work now
+
 
 # Cool general feature stuffs
 
