@@ -36,12 +36,12 @@
                 <a><button id="navbarbell" title="Notification bell">
                     {% if account.notifications %}
                         <div class="nav-bar-div ringing">
-                            <i class="fa-solid fa-bell-ring nav-bell-icon"></i>
+                            <i class="fa-solid fa-bell"></i>
                         </div>
                         <div id="notification-count">{{ account.notifications | length}}</div>
                     {% else %}
                         <div class="nav-bar-div">
-                            <i class="fa-solid nav-bell-icon fa-bell"></i>
+                            <i class="fa-solid fa-bell"></i>
                         </div>
                     {% endif %}
                 </button></a>

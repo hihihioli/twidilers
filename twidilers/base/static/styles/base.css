@@ -174,7 +174,6 @@ Click generate until you get the loss under 3 */
 }
 
 #usricon-nav-img {
-    
 
     position: relative;
     width: 46px;
@@ -182,14 +181,12 @@ Click generate until you get the loss under 3 */
     image-resolution: 46px;
 }
 
-@media screen and not (-ms-high-contrast: active), not (-ms-high-contrast: none) {
     #usricon-nav-img {
         top:50%;
         left:50%;
         translate: -50% -50%;
 
     }
-}
 
 #usricon-nav:hover {
     box-shadow: 0 0 7px 0 var(--lightblue);
@@ -209,7 +206,7 @@ Click generate until you get the loss under 3 */
 #navbar #usricon-nav {
     padding: 0;
     border-radius: 1000px;
-    
+    background-color:var(--lightblue);
 }
 
 /* Container for Popup */
@@ -434,9 +431,8 @@ a {
     max-width: 580px;
     height: fit-content;
     border-radius: 5px;
-    background: var(--darkishblue);
-    border: 3px solid white;
-    color: white;
+    background: var(--darkblue);
+    color: var(--lightishblue);
     padding: 8px;
     font-size: 12pt;
     text-align: center;

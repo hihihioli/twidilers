@@ -111,6 +111,16 @@ a:focus-visible {
     margin:0px;
     justify-self: center;
     flex-shrink: 1;
+    width:100%;
+    background-color:var(--lightishblue);
+}
+
+#post-title {
+    width:400px;
+}
+
+#post-post-content {
+    height:50px;
 }
 
 /* #content is the main content area. #post-content is the input form content area. */
@@ -120,10 +130,6 @@ a:focus-visible {
     align-items: center;
     flex-shrink: 1;
 }*/
-
-#post-title {
-    width:auto;
-}
 
 #title {
     width: 470px;
