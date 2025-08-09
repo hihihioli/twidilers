@@ -22,3 +22,13 @@ The code hides all pages, bolds the index for the new page, and shows the new pa
 There's other stuff in settings.js that isn't worth describing but worth mentioning. 
 There is checkDelete() which confirms with the user that they want to delete their account. If yes, it submits the delete form.
 I don't know why but it also submits the image when uploading a profile picture. This may be because we hide the usual submit button.
+
+# feed.js
+idk here's what chatgpt has to say
+* This script provides a smooth, paginated feed experience:
+ • Shows/hides a loading screen with a guaranteed minimum display time.
+ • Fetches post data and user data on demand, caching author info.
+ • Tracks which posts the user has liked and toggles UI accordingly.
+ • Allows the author to delete their own posts.
+ • Updates the browser’s history state to reflect the current page.
+ • Gracefully handles network errors and empty states.
