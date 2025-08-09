@@ -32,62 +32,51 @@
             {% else %}
             {% set account = findAccount() %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img" title="Twidilers Home"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
-                <a href="{{ url_for('.page',page='feed') }}"><button id="feed-hover">Feed</button></a>
-                <a><button id="navbarbell" title="Notification bell">
+                <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
+                <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell"></i>
                     {% if account.notifications %}
-                        <div class="nav-bar-div">
-                            <i class="fa-solid fa-bell"></i>
-                        </div>
-                        <div id="notification-count">{{ account.notifications | length}}</div>
-                    {% else %}
-                        <div class="nav-bar-div">
-                            <i class="fa-solid fa-bell"></i>
-                        </div>
+                    <div id="notification-count">{{ account.notifications | length}}</div>
                     {% endif %}
                 </button></a>
-                <div class="popup-div">
-                    <div class="popup-menu" id="popupMenu">
-                        <a href="{{ url_for('.profile', username=session['username'])}}"><button id="profileBtn">Profile</button></a>
-                        <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
-                        <a href="{{ url_for('.logout') }}"><button id="logoutBtn" style="white-space: nowrap;">Log Out</button></a>
-                    </div> 
-                </div>
                 <a><button id="usricon-nav" title="User icon"><img id="usricon-nav-img" src="{{ url_for('.get_pfp', username=session['username'])}}"></button> </a>
-                    
             {% endif %}
-            
         </div>
         <!-- Notification popup-->
         <div class="popup-div" id="notif-popup">
             <div class="notif-div">
                 <h2>Notifications</h2>
                 
-                <button id="clear-notifs" onclick="clearNotifs()">Clear</button>
-                <button id="more-notifs" onclick="moreNotifs()">See all</button>
-
+                <button onclick="clearNotifs()">Clear</button>
                 <div id="notif-div-0">
-                    {% if session['username'] %}
-                        {% if account.notifications %}
-                            {% for notif in account.notifications %}
-                                <div class="notif-post">
-                                    <div class="notif-auth">@{{notif['author']}}</div>
-                                    <div class="notif-title">{{notif['title']}}</div>
-                                    <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
-                                    <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
-                                </div>
-                                <script>
-                                    const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
-                                        document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
-                                </script>
-                            {% endfor %}
-                        {% else %}
-                            <script>document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'</script>
-                        {% endif %}
-                    {% endif %}
-                </div>
+                {% if session['username'] %}
+                {% if account.notifications %}
+                    {% for notif in account.notifications %}
+                        <div class="notif-post">
+                            <div class="notif-auth">@{{notif['author']}}</div>
+                            <div class="notif-title">{{notif['title']}}</div>
+                            <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
+                            <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
+                        </div>
+                        <script>
+                            const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
+                                document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
+                        </script>
+                    {% endfor %}
+                {% else %}
+                    <script>document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'</script>
+                {% endif %}
+                {% endif %}
+            </div>
             </div>
         </div>
-        <!-- Popup Menu -->       
+        <!-- Popup Menu -->
+        <div class="popup-div">
+            <div class="popup-menu" id="popupMenu">
+                <a href="{{ url_for('.profile', username=session['username'])}}"><button id="profileBtn" href="{{ url_for('.logout') }}">Profile</button></a>
+                <a href="{{ url_for('.page',page='settings') }}"><button id="settingsBtn">Settings</button></a>
+                <a href="{{ url_for('.logout') }}"><button id="logoutBtn">Log Out</button></a>
+            </div> 
+        </div>           
         <script src="{{ url_for('.static', filename='javascript/base.js') }}"></script>
         <script>
             // Notification handler

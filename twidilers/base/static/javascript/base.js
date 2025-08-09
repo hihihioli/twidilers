@@ -23,7 +23,7 @@ if (notifMenu.style.display === 'none') {
 
 userButton.addEventListener('click', () => {
 if (userMenu.style.display === 'none') {
-    userMenu.style.display = 'block';
+    userMenu.style.display = 'flex';
     notifMenu.style.display = 'none';
     filterMenu.style.display = 'none';
 } else {

@@ -197,46 +197,70 @@ Click generate until you get the loss under 3 */
     
 }
 
+#navbar button, .popup-menu button {
+    padding: 15px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    height: 46px; 
+    margin: auto;
+    margin-top: 10px;
+    width: fit-content;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+#navbar button:hover, .popup-menu button:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
+}
+
+#navbar {
+    display:flex;
+    width:100%;
+    padding:3px;
+    gap:10px;
+    font-size: 1.3em;
+    font-weight: bold !important;
+}
+
+#navbar #usricon-nav {
+    padding: 0;
+    border-radius: 1000px;
+}
+
 /* Container for Popup */
 .popup-div {
     position: relative; /* Ensure children use this as the anchor point */
-    height:67px;
-
+    width: 600px;
 }
 /* Popup Menu in base.html */
 .popup-menu {
-    overflow: hidden;
     display: none; /* Hidden by default */
-    position:static;
-    flex-direction: row;
+    position: absolute; /* Positioned relative to .popup-div */
+    flex-direction: column;
     border: 2px solid var(--darkblue);
-    width: fit-content;
+    width: 95px;
     z-index: 1000;
-    padding: 10px 5px 10px 5px;
-    margin-bottom: 3px;
-     margin-left:10px;
+    padding: 10px;
     border-radius: 10px;
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
-    height: 46px !important;
-    animation-name: 'shrink';
-    animation-timing-function: ease-in-out;
+    gap:10px;
 }
-
 .popup-menu button {
-    z-index: -1;
     display: block;
+    width: 100% !important;
     padding: 10px 15px;
     background: none;
     border: none;
+    margin:0;
     text-align: left;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
     background-color:var(--darkblue);
     color:var(--lightblue);
-    margin: 0px 5px 0px 5px !important;
-    text-align: center;
 }
 #notif-popup {
     gap:10px;
