@@ -62,7 +62,7 @@
                     document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
             </script>
             <div class="pst-reactions">
-                {% if post.author == account %}
+                {% if owner == 1 %}
                     <form method="post">
                         <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
                             <input type="hidden" name="delete-post-id" value="{{ post.id }}">
