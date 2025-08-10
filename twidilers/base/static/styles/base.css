@@ -281,6 +281,21 @@ Click generate until you get the loss under 3 */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
 }
+.notif-div button {
+    display: block;
+    padding: 15px;
+    background: none;
+    border: none;
+    margin:0;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color:var(--darkblue);
+    position:absolute;
+    bottom:0;
+    right:0;
+    border-radius: 8px 0 8px 0;
+}
 /* Individual notifications*/
 .notif-post {
     border-radius: 5px;

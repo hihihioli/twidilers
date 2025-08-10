@@ -1,7 +1,7 @@
 /* For profile page and affiliates */
 .profile-auth {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     position: relative;
     left: 20px;
     margin-top:24px;
@@ -61,9 +61,6 @@
     width:fit-content
 }
 .profile-div {
-display: flex !important;
-  flex-wrap: wrap; /* allow content to wrap on small screens */
-  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 
@@ -79,6 +76,11 @@ display: flex !important;
   overflow-wrap: break-word;
   flex-shrink: 1;
   box-sizing: border-box;
+}
+
+#auth-info {
+    display:flex;
+    flex-direction:row;
 }
 
 #about {
