@@ -247,11 +247,14 @@ def profaction(username):
     if "delete-post" in request.form:
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
-        db.session.delete(post)
-        db.session.commit()
-        flash('Post Deleted','success')
+        if username != account.username:
+            flash('You cannot delete a post that is not yours','error')
+        if username == account.username:
+            db.session.delete(post)
+            db.session.commit()
+            flash('Post Deleted','success')
         posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
-        return render_template('profile.html',account=findAccount(), posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
+        return render_template('profile.html',account=account, posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
