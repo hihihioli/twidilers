@@ -7,6 +7,8 @@
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
+    <script src="{{ url_for('.static', filename='javascript/camera.js') }}"></script>
+
     <nav id="acct-navbar" aria-label="Settings navigation">
         <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)" aria-current="page">
             <span>Profile</span>
@@ -14,57 +16,79 @@
         <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">
             <span>Security</span>
         </button>
-        <button class="pf-mnu-btn" id="privacy-btn" onclick="newPage(2)">
-            <span>Privacy</span>
+        <button class="pf-mnu-btn" id="appear-btn" onclick="newPage(2)">
+            <span>Appearance</span>
         </button>
         <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
-            <span>Notification (BETA)</span>
+            <span>Notifications</span>
         </button>
-    </nav>
-    <style>
-        .submit {
-            margin: 0;
-            margin-top:10px;
-        }
-        h3 {
-            margin: 0 0 20px 0;
-        }
-    </style>        
+    </nav>       
     <!-- Div with account details -->
-
     <main id="acct-dtl-content">
         <div class="profile-div" id="auth-info" role="region" aria-label="Profile overview">
-            <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
-            <section class="profile-auth">
-                <h1 name="prof-username" id="display-name">{{account.displayname}}</h1>
-                <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
+            <section class="profile-header">
+                <img src="{{ url_for('.get_pfp',username=account.username) }}" id="pfp" alt="Profile picture for {{account.displayname}}">
+                <section class="profile-auth">
+                    <section>
+                        <h1 name="prof-username" id="display-name">{{account.displayname}}</h1>
+                        <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
+                    </section>
+                </section>
+                <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en" style="display: none;">      
+                        <input type="file" 
+                            id="file" 
+                            name="file" 
+                            accept="image/*"
+                            aria-label="Select new profile picture">
+                </form>
             </section>
         </div>
+
+        <!--Camera flyout-->
+        <div id="modal" class="modal">
+            <div class="profile-div modal-content" id="modal-content">
+                <div class="modal-header">
+                    <h3>Change Profile Picture</h3>
+                    <h2 id="close" class="close">&times;</h2>
+                </div>
+                <video id="videoElement" autoplay></video>
+                <button id="captureButton" class="submit">Capture Photo</button>
+                <canvas id="canvasElement" style="display: none;"></canvas>
+                <img id="photoElement" style="display: none;">
+            </div>
+        </div>
+        <div class="profile-div" id="change-pfp-div">
+            <h3>Change profile picture</h3>
+                <div class="settings-form">
+                    <label for="file" class="submit" role="button">Upload file</label>
+                    <label class="submit" role="button" id="camera" aria-label="Use camera" onclick="startWebService()">Take a picture</label>
+                </div>
+        </div>
         {% if not account.setup and account.is_oauth %}
-            <div class="profile-div" role="region" aria-label="Username settings" style="background-color:red">
-                <form method="post" id="change-username-form" lang="en">
-                    <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
-                    <input id="change-name" 
+            <div class="profile-div profile-warning" role="region" aria-label="Username settings">
+                <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
+                <form method="post" id="change-username-form" lang="en" class="settings-form">
+                    <textarea id="change-name" 
                         name="username" 
                         type="text" 
                         class="textbox" 
                         autocomplete="off"
-                        aria-label="New display name"
+                        aria-label="New username"
                         maxlength="24" 
                         placeholder="1-24 characters"
-                        aria-describedby="name-help"></input>
+                        aria-describedby="name-help"></textarea>
                     <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
-                    <button type="submit" class="submit" id="username-change" name="username-change">
-                        Update Username
+                    <button type="submit" class="submit settings-submit" id="username-change" name="username-change" aria-label="One time username change">
+                        Update
                     </button>
                 </form>
             </div>
         {% endif %}
         <div class="profile-div" role="region" aria-label="Bio settings">
-            <form method="post" id="profile-bio-change" lang="en">
-                <h3><label for="post-content">Edit bio</label></h3>
+            <h3><label for="post-content">Edit bio</label></h3>
+            <form method="post" id="profile-bio-change" class="settings-form" lang="en">
                 <textarea id="post-content" 
-                         class="textbox" 
+                         class="textbox js-countable" 
                          name="bio" 
                          autocomplete="off"
                          aria-label="Biography text" 
@@ -72,48 +96,34 @@
                          placeholder="Write your bio here. Up to 500 characters."
                          aria-describedby="bio-help">{{ account.userdata['bio'] }}</textarea>
                 <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
-                <button type="submit" class="submit" id="bio-change" name="bio-change" aria-label="Update biography">
-                    Change Bio
+                <div id="post-content-count" class="char-count"></div>
+                <button type="submit" class="submit settings-submit" id="bio-change" name="bio-change" aria-label="Update biography">
+                    Update
                 </button>
             </form>
         </div>
         <div class="profile-div" role="region" aria-label="Display name settings">
-            <form method="post" id="change-name-form" lang="en">
-                <h3><label for="change-name">Change display name</label></h3>
-                <input id="change-name" 
+            <h3><label for="change-name">Change display name</label></h3>
+            <form method="post" id="change-name-form" lang="en" class="settings-form">
+                <textarea id="change-name" 
                        name="displayname" 
-                       type="text" 
-                       class="textbox" 
+                       class="textbox js-countable" 
                        autocomplete="off"
                        aria-label="New display name"
                        maxlength="24" 
                        placeholder="1-24 characters"
-                       value="{{ account.displayname }}"
-                       aria-describedby="name-help"></input>
+                       rows="1"
+                       aria-describedby="name-help">{{ account.displayname }}</textarea>
                 <span id="name-help" class="visually-hidden">Enter between 1 and 24 characters</span>
-                <button type="submit" class="submit" id="name-change" name="name-change">
-                    Update Display Name
+                <div id="change-name-count" class="char-count"></div>
+                <button type="submit" class="submit settings-submit" id="name-change" name="name-change">
+                    Update
                 </button>
             </form>
         </div>
-        <div class="profile-div" role="region" aria-label="Profile picture settings">
-            <h3>Upload profile picture</h3>
-            <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en">
-                <label for="file" class="custom-file-upload" role="button">
-                    Choose profile picture
-                </label>
-                <input type="file" 
-                       id="file" 
-                       name="file" 
-                       accept="image/*"
-                       aria-label="Select new profile picture">
-            </form>
-        </div>
-        <div class="profile-div">
-            <a href="{{ url_for('.logout') }}"><button class="submit">Log out</button></a>
-        </div>        
+            <a href="{{ url_for('.logout') }}"><button class="submit" style="margin-top: 0px;width:100%; border-radius:10px;">Log out</button></a>
     </main>
-    <div id="security-content">
+    <main id="security-content">
         <div class="profile-div">
             <form method="post" id="change-password-change">
                 <h3 class="div-heading">Change password</h3>
@@ -122,29 +132,41 @@
         </div>
         <div class="profile-div">
             <h3 class="div-heading">Change email</h3>
-            <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
-            <button class="submit" id="email-change" name="email-change">Send confirmation email to new account</button>
+            <form class="settings-form">
+                <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
+                <button class="submit settings-submit" id="email-change" name="email-change">Send confirmation email to new account</button>
+            </form>
         </div>
-        <div class="profile-div">
+        <div class="profile-div profile-warning">
             <form id="delete-account" name="delete-account" method="post">
                 <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
             </form> 
         </div>
-    </div>
-    <div id="privacy-content">
+    </main>
+    <main id="appear-content">
+        
         <div class="profile-div">
-            <h3>Profile page visibility</h3>
-            <button class="submit">Visable to everyone</button>
+            <h3>Theme</h3>
+            <form class="settings-form">
+                <div class="checkbox-wrapper-35">
+                <input class="switch" type="checkbox" name="switch2" id="dark-mode-toggle"/>
+                <label for="switch2" class="forswitch">
+                    <span class="switch-x-toggletext switch-x-wide">
+                    <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Light</span>
+                    <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>Dark</span>
+                    </span>
+                    <span class="switch-x-text">Theme</span>
+                </label>
+                </div>
+            </form>
         </div>
-    </div>
-    <div id="notif-content">
+    </main>
+    <main id="notif-content">
         <div class="profile-div">
             <h3>Under construction! Check back later</h3>
         </div>
-        <div class="profile-div">
-        </div>
-    </div>
-        <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
+    </main>
+     <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
 
            
 

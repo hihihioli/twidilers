@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
+        <script src="{{ url_for('.static', filename='javascript/beforeload.js') }}"></script>
+
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
+
     <title>{% block title %}{% endblock %} - Twidilers</title> <!-- The title of the tab depending on the current page. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     {% block head %}{% endblock %}
-
 </head>
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
     <!-- The navbar. Also can be overridden if necessary. -->
@@ -44,7 +46,7 @@
             <div class="notif-div">
                 <h2>Notifications</h2>
                 
-                <button onclick="clearNotifs()">Clear</button>
+                <button class="submit" onclick="clearNotifs()">Clear</button>
                 <div id="notif-div-0">
                 {% if session['username'] %}
                 {% if account.notifications %}
@@ -120,8 +122,8 @@
     <!-- The footer has a default but can be overridden. -->
     <div id="footer-div">
         {% block footer %}
-            <section id="footer">
-                <b><p>This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright <span id="year"></span></p></b>
+            <section id="footer" style="width:100%">
+                <b><p style="margin-top: 0px;">This work is licensed under MIT by Twidilers Incorporated. &copy; Copyright <span id="year"></span></p></b>
             </section>
         {% endblock %}
     </div>
