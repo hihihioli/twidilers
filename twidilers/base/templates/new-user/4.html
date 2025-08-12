@@ -4,7 +4,15 @@
             <h1>Tell us about yourself</h1>
                 <h2>Write a short bio</h2>
                 <form method="post" enctype="multipart/form-data" id="profile-bio-change">
-                    <input type="text" id="bio" name="bio" class="textbox" autocomplete="off" autocapitalize="off" maxlength="500" placeholder="Write your bio here. Up to 500 characters." >
+                <textarea id="post-content" 
+                         class="textbox js-countable" 
+                         name="bio" 
+                         autocomplete="off"
+                         aria-label="Biography text" 
+                         maxlength="500" 
+                         placeholder="Write your bio here. Up to 500 characters."
+                         aria-describedby="bio-help"></textarea>
+                <span id="bio-help" class="visually-hidden">Maximum 500 characters</span>
                     <button class="submit" name="welcome4">Upload</button>
                 </form>
         </div>

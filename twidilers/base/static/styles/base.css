@@ -10,12 +10,38 @@
     }
 
     100% {
+        filter: opacity(0);
         display:none
     }
 }
 
+@keyframes shrink {
+    0% {
+        display:flex;
+        width:250px;
+        filter: opacity(1);
+    }
+    90% {
+        width:0;
+        filter: opacity(0);
+    }
+    100% {
+        width:0;
+        padding-left:0px;
+        padding-right:0px;
+        margin-left:0px;
+        border-left:0px;
+        margin-right:0px;
+        border-right:0px;
+        filter: opacity(0);
+        display:none;
+
+    }
+}
+
+
 /* This is variables. You can access them by doing var(--varname) instead of a color. */
-html {
+:root {
     --lightblue: #b8eef9;
     --darkblue: #001554;
     --darkishblue: #0a0a8d;
@@ -25,11 +51,26 @@ html {
     --maroongreen: #003d00;
 }
 
+[data-theme="dark"] {    
+    --lightblue: #001554;
+    --darkblue: #b8eef9;
+    --darkishblue:#9eefff ;
+    --lightishblue: #0a0a8d;
+    }
+
+html {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left:15px;
+    padding-right:15px;
+}
+
 /* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
 body {
     font-family: Arial;
-    width: 600px;
-    margin: auto;
+    width: 100%;
+    max-width: 600px;
     height: 100vh;
     background-color: var(--lightblue);
     color: var(--darkblue);
@@ -37,19 +78,32 @@ body {
     flex-direction: column;
     overflow-x:hidden;
     scroll-behavior:smooth;
+    padding: 0 10px;
 }
 
-/* Turbo.js styling */
-.turbo-progress-bar {
-    visibility: hidden;
-  }
-  html[data-turbo-visit-direction="forward"]::view-transition-old(sidebar):only-child {
-    animation: slide-to-right 0.5s ease-out;
-  }
+/* Helpful tips:
+img {
+    max-width: 100%;
+    height:auto;
+    aspect-ratio: 9/16;
+    object-fit: contain;
+}
+
+text element {
+    font-size: clamp(1.8rem, calc(7vw + 1rem), 5rem)
+}
+
+*/
+
 
 label {
     color:var(--darkblue)
 }
+
+input:-webkit-autofill,textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--darkblue)!important;
+}
+
 /* Accessibility for hidden stuff */
 .visually-hidden {
     position: absolute;
@@ -70,6 +124,7 @@ label {
     margin-right:auto
 }
 
+
 #hder-img {
     background-color: inherit !important;
     margin: 20px auto 0 0 !important;
@@ -77,13 +132,71 @@ label {
     filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
     position: relative;
     bottom:9px;
-    box-shadow: none !important;
+    box-shadow: none;
+}
+
+#hder-img:hover {
+    box-shadow:none !important;
+}
+
+[data-theme="dark"] #hder-img {
+    filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
 }
 
 /* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
 Click generate until you get the loss under 3 */
 
 /* This is where the navbar styling is stored.*/
+#navbar button, .popup-menu button {
+    padding: 15px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    height: 46px; 
+    margin: auto;
+    margin-left:10px;
+    margin-top: 10px;
+    width: fit-content;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+#navbar button:hover, .popup-menu button:hover {
+    border-radius: 7px;
+    box-shadow: 0 0 3px 0 var(--darkishblue);
+}
+
+#usricon-nav-img {
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    position: relative;
+    width: 46px;
+    border-radius: 1000px;
+    image-resolution: 46px;
+}
+
+#usricon-nav:hover {
+    box-shadow: 0 0 7px 0 var(--lightblue);
+}
+
+
+
+#navbar {
+    display:flex;
+    width:100%;
+    padding:3px;
+    font-size: 1.3em;
+    font-weight: bold !important;
+    flex-shrink: 1!important;
+}
+
+#navbar #usricon-nav {
+    padding: 0;
+    border-radius: 1000px;
+    
+}
+
 #navbar button, .popup-menu button {
     padding: 15px;
     background-color: var(--darkblue);
@@ -134,6 +247,7 @@ Click generate until you get the loss under 3 */
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
+    gap:10px;
 }
 .popup-menu button {
     display: block;
@@ -141,6 +255,7 @@ Click generate until you get the loss under 3 */
     padding: 10px 15px;
     background: none;
     border: none;
+    margin:0;
     text-align: left;
     cursor: pointer;
     font-size: 14px;
@@ -150,11 +265,13 @@ Click generate until you get the loss under 3 */
 #notif-popup {
     gap:10px;
     display:none;
+    height:0px;
 }
 .notif-div {
     width: 250px !important;
-    position: absolute; /* Positioned relative to .popup-div */
+    position: absolute!important; /* Positioned relative to .popup-div */
     flex-direction: column;
+    align-items: center;
     border: 2px solid var(--darkblue);
     width: 95px;
     z-index: 1000;
@@ -163,6 +280,21 @@ Click generate until you get the loss under 3 */
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
     right: 0; /* Aligns with the left of .popup-div */
     top: 100%; /* Appears directly below the parent element */
+}
+.notif-div button {
+    display: block;
+    padding: 15px;
+    background: none;
+    border: none;
+    margin:0;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color:var(--darkblue);
+    position:absolute;
+    bottom:0;
+    right:0;
+    border-radius: 8px 0 8px 0;
 }
 /* Individual notifications*/
 .notif-post {
@@ -179,21 +311,13 @@ Click generate until you get the loss under 3 */
     font-weight:bold;
     font-size:1.2em;
 }
-.notif-auth {
-/* Nothing in here yet */
-}
-.notif-content {
-/* Nothing in here yet */
-}
-.notif-date {
-/* Nothing in here yet */
-}
+
 #notif-div-0 {
     display:flex;
     gap:10px;
     flex-direction:column;
 }
-.notif-div button {
+#clear-notifs {
     border:0;
     background:none;
     padding:13px;
@@ -203,21 +327,68 @@ Click generate until you get the loss under 3 */
     top:0;
     right:0;
     cursor: pointer;
-    border-radius:8px;
+    border-radius:0 8px 0 8px;
     transition:all 0.2s;
 }
-.notif-div button:hover {
+#clear-notifs:hover {
     background-color:#ee3355;
     color:white;
+}
+#more-notifs {
+    border:0;
+    background:none;
+    padding:13px;
+    color:var(--darkblue);
+    font-size:1em;
+    position:absolute;
+    bottom:0;
+    right:0;
+    cursor: pointer;
+    border-radius: 8px 0 8px 0;
+    transition:all 0.2s;
+}
+#more-notifs:hover {
+    background-color:var(--darkishblue);
+    color: var(--lightblue);
 }
 /* the bell on the navbar */
 #navbarbell {
     position: relative; 
     padding: 0 !important;
     font-size: 25px;
-    background-color:var(--lightblue);
+    color: var(--darkblue)!important;
+    background-color:var(--lightblue)!important;
     width:46px !important;
     margin:auto;
+}
+#navbarbell:hover {
+    box-shadow:none !important;
+}
+
+/* bell "rings" when hovered over */
+.ringing {
+  display: inline-block;          /* allow transforms */
+  transform-origin: top center;   /* pivot at the bell’s “hinge” */
+}
+
+.ringing:hover {
+    animation: ring 1s ease-in-out;
+}
+
+@keyframes ring {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(10deg); }   /* small right swing */
+  25%  { transform: rotate(-8deg); }   /* small left swing */
+  40%  { transform: rotate(6deg); }
+  55%  { transform: rotate(-4deg); }
+  70%  { transform: rotate(2deg); }
+  85%  { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.nav-bell-div {
+    width:46px;
+    height:46px;
 }
 /* Number of notifications */
 #notification-count {
@@ -232,14 +403,11 @@ Click generate until you get the loss under 3 */
     font-weight:500;
     width:12px;
 }
-/* profilebtn is in base.html in the navbar */
-#profileBtn {
-    margin-top:0px !important;
-}
 
 #auth-info {
     height: fit-content;
     font-size: 1.2em;
+    position:relative
 }
 
 #pfp-head {
@@ -254,14 +422,15 @@ Click generate until you get the loss under 3 */
 #footer-div {
     text-align: center;
     align-self:flex-end;
-    height: 52px;
+    height: max-content;
     width: 100%;
+    margin-top: 8px;
 }
 
 #footer {
     margin: auto;
     bottom: 0;
-    width: 100%;
+    width: 600px;
 }
 
 #form-content {
@@ -286,7 +455,8 @@ a {
 
 /* Flashes are the notices like "login successful" and stuff. */
 .flash {
-    width:580px;
+    width:100%;
+    max-width: 580px;
     height: fit-content;
     border-radius: 5px;
     background: var(--darkishblue);
@@ -311,35 +481,48 @@ a {
 
 /* The big 'Log In' heading at the top of the page */
 .heading {
-    font-size:36pt;
+    font-size:3em;
     text-align:center;
     font-weight: bold;
     margin: 25px auto 20px auto;
 }
 
-
-
 /* The submit button. */
-.submit {
+.submit, .submit-h {
     width: auto ;
     height: auto;
     font-size: 11pt;
     padding: 13px;
     border-radius: 5px;
-    background-color: var(--darkblue);
-    color: var(--lightblue);
+    color: var(--darkblue);
     cursor: pointer;
-    border: 0;
+    border: 3px solid var(--darkblue);
     align-self: center !important;
     transition: all 0.3s;
     margin: 10px auto 0 auto;
     text-decoration:none !important;
     font-weight:normal !important;
+    text-wrap:nowrap;
 }
+
+/* Accented submit button */
+
+/* Highlighted/importent submit button */
+.submit,.submit-h {
+    background-color:var(--darkblue);
+    color:var(--lightblue);
+}
+
+.submit:hover,.submit-h:hover {
+    background-color:var(--lightishblue);
+    color: var(--darkblue);
+}
+
 
 .submitwide {
     padding: 13px 100%;
 }
+
 
 /* Cards are just navbars but slightly different as of 12/4/24 */
 .card {
@@ -353,11 +536,7 @@ a {
     cursor:pointer;
     transition: all 0.5s;
 }
-#usricon-nav-img {
-    width: 46px;
-    border-radius: 1000px;
-    image-resolution: 46px;
-}
+
 .card:hover {
     border-radius: 6px;
     box-shadow: 0 0 2px 0 var(--darkblue);
@@ -373,9 +552,14 @@ a {
     flex-direction: column !important;
 }
 
+
+
 @media only screen and (prefers-color-scheme: dark) {
-    /* Flips the color and background color from the base. */
-    .notif-div button {
+    /*
+    #hder-img {
+        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
+    }
+    /*.notif-div button {
         color: var(--lightblue);
     }
     body {
@@ -395,10 +579,8 @@ a {
     #navbar button:hover, .popup-menu button:hover {
         box-shadow: 0 0 7px 0 var(--lightblue);
     }
-    /* Sets the image to be a certain color */
-    #hder-img {
-        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
-    }
+    /* Sets the image to be a certain color 
+    
 
     #navbarbell {
         color: var(--lightblue) !important;
@@ -445,8 +627,32 @@ a {
     a {
         color: var(--lightishblue);
     }
+        */
 }
 
+@media only screen and (max-width: 611px){
+    #footer {
+        font-weight:normal;
+    }
+}
+
+
+ @media only screen and (max-width: 600px){
+    body {
+        width: 100%;
+    }
+    .profile-div, .pst, #navbar {
+        width: 100% !important;
+    }
+    #navbar {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+
+
+ /*
 @media only screen and (max-width: 600px){
     body {
         --width:100vw;
@@ -460,7 +666,7 @@ a {
     }
     #navbar {
         width: calc(100vw - 15px);
-        justify-content: space-between; /* Spreads the items out */
+        justify-content: space-between; /* Spreads the items out 
     }
     #navbar button, .card {
         height:60px;
@@ -469,9 +675,6 @@ a {
 
     }
     #hdr-href {
-        display:none;
-    }
-    #footer {
-        font-size:16px;
-    }
-}
+        display:none; 
+    } 
+}*/
