@@ -9,24 +9,11 @@ Want to learn more about one of the dependencies we use? Look no further!
 * https://blog.miguelgrinberg.com/category/Flask
 
 # HOW BRANCHES WORK
-Each feature or improvement you make should be made in the corresponding branch. After the branch feels mature and ready for review, make a pull request for that branch to go into beta-stable, where it is fully tested and then send to prod.
+Okay so it's looking a little bit different now! For each release, create a new branch with that release name. So, if I was doing something small *without adding a feature* I may make a branch called v1.6.1. For example, I might make the styling more mobile friendly or fix a typo. Once a "release" is done, send a pull request to beta-stable, which is then tested one final time and then merged into release.
 
-Hotfixes are send straight to beta-stable. They are fixes that are for non-working features currently in prod.
+I don't want to create a new release for every little thing, so try to collect them before release. It reduces the amount of reviews and redeployments.
 
-The README that should always be referenced is *THIS ONE*. Don't make one in a specific branch.
-
-## Branches
-If there isn't a category here for something, or you are planning a major revamp of something that spreads multiple features, consider making a new branch.
-### General
-For styling, landing page, about page, and other uncategorized pages
-### Settings
-Along with changes to the settings app, this includes user-customizable options (such as being able to toggle between light and dark mode) that are changed in the settings menu.
-### User-interaction
-Notifications, DMs, and the profile page would fall under this category
-
-
-
-
+Also make sure to plan out ahead, by creating "issues" for bugs or features and then attaching your improvements to that as a "milestone"
 
 
 
