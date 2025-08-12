@@ -11,7 +11,7 @@
     {% set account = findAccount() %}
     <div id="topfeed" role="region" aria-label="Feed controls">
         <h1 id="feedtitle">Your feed</h1>
-        <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post" title="Shortcut: N">Create a Post</a>
+        <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post" title="Shortcut: N">Post</a>
         <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed" title="Shortcut:R">
             <button id="refresh" type="button" onclick="fetchPosts('all',currentPage)" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
         </form>
