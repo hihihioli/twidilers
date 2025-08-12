@@ -14,7 +14,7 @@
 }
 #edit-profile {
     position: absolute;
-    bottom:55px;
+    top:20px;
     right: 20px;
     padding: 10px;
     color: inherit;
@@ -32,10 +32,12 @@
     float: left;
 }
 #about-user {
-    margin:10px 0;
+    margin:0;
 }
 #display-name {
     margin:0px;
+    width:fit-content;
+    font-size:1.4em;
 }
 #follow-button {
     width:100px;
@@ -47,23 +49,43 @@
     margin: 0px 0 10px 0;
 }
 #prof-date {
-    font-size:1.2em;
+    font-size:1rem;
+    font-weight: bold;
+    margin-left: auto;
+
 }
 #prof-usrname {
     margin: 0;
     margin-bottom: 10px;
-    font-size:1.1em;
+    font-size:1em;
     font-weight:normal;
+    width:fit-content
 }
 .profile-div {
-    border-radius:15px;
-    padding: 20px;
-    width: 560px;
-    margin: 20px 0;
-    height: fit-content;
-    flex-wrap:wrap;
-    background-color:var(--lightishblue);
-    overflow-wrap: break-word;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  width: 100%;
+  max-width: 600px; /* keeps layout readable on large screens */
+  box-sizing: border-box;
+
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 15px;
+
+  background-color: var(--lightishblue);
+  overflow-wrap: break-word;
+  flex-shrink: 1;
+  box-sizing: border-box;
+}
+
+#auth-info {
+    display:flex;
+    flex-direction:row;
+}
+
+#about {
+    flex-direction: column;
 }
 /* Post styling stoled from post.css for better loading times */
 .pst {
@@ -100,30 +122,23 @@
     bottom:0;
     right:0;
 }
-@media only screen and (prefers-color-scheme: dark){
+/*@media only screen and (prefers-color-scheme: dark){
     #edit-profile:hover {
         background-color:var(--lightblue);
         color: var(--darkblue);
  }
-    .pst {
-        background-color: var(--darkishblue);
-    }
-
-    .pst-auth {
-        color:var(--lightblue)
-    }
-
-    .pst-disp {
-        color:var(--lightblue)
-    }
-    .profile-div {
-        background-color:var(--darkishblue);
-    }
+ .pst {
+    background-color: var(--darkishblue);
 }
 
-@media only screen and (max-width:600px) {
-    .profile-div {
-        width:calc(100% - 60px);
-    }
-
+.pst-auth {
+    color:var(--lightblue)
 }
+
+.pst-disp {
+    color:var(--lightblue)
+}
+.profile-div {
+    background-color:var(--darkishblue);
+}
+}*/

@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<script>
-    // This is a test script to check if JS is enabled
-    document.getElementById("hideJS").style.display = "none";
-</script>
+
 <h1 class="heading">Welcome to Twidilers!</h1>
     <h2>Made in collaboration with Oliver, wall03, and Derin.</h2>
         <p id="hideJS"><strong>Javascript needs to be enabled</strong> or <span title="Everything. Feed, profile, everything. We tested this.">most</span> of our site won't work properly. Plus, some functionality will be lost if your web browser hasn't been updated since 2016. Sorry!</p>
+    <p>Twidilers is a social media platform that allows you to share your thoughts, ideas, and experiences with the world. You can create an account, follow other users. This is a work in progress. If you encounter bugs, create an issue on our <a href="https://github.com/hihihioli/twidilers">GitHub</a></p>
     <h2>Try exploring:</h2>
+    <script>
+    // This is a test script to check if JS is enabled
+    document.getElementById("hideJS").style.display = "none";
+</script>
 <div id="cards">
 <a href="{{ url_for('.page',page='about') }}"><button class="card">About Us!</button></a>
 <a href="{{ url_for('.page',page='feed') }}"><button class="card">Go to feed</button></a>

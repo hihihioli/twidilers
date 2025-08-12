@@ -1,19 +1,18 @@
-// This page ougtline sucks. I need perm from backend to rearrange it into a template which makes so much more sense
+// This page outline sucks. I need perm from backend to rearrange it into a template which makes so much more sense
 
 // This script hides/shows divs if menu bars are clicked.
-console.log("I know this page sucks. Will fix when given the go ahead from Oli");
 // It fetches the IDs of the divs so it can hide them
 const settingsDivs = [
     accountInfo = document.getElementById('acct-dtl-content'),
     security = document.getElementById('security-content'),
-    privacy = document.getElementById('privacy-content'),
+    appearance = document.getElementById('appear-content'),
     notif = document.getElementById('notif-content')
 ]
 
 const settingsButtons = [
     accountInfoButton = document.getElementById('acct-dtl-btn'),
     securityButton = document.getElementById('security-btn'),
-    privacyButton = document.getElementById('privacy-btn'),
+    appearButton = document.getElementById('appear-btn'),
     notifsButton = document.getElementById('notif-btn')
 ]
 
@@ -58,3 +57,47 @@ file.addEventListener('change',() => {
         document.getElementById('upload_pfp').submit();
     }
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+  const html   = document.documentElement;
+  const toggle = document.getElementById("dark-mode-toggle");
+  if (!toggle) return;          // no toggle on the page? bail out
+
+  // sync the checkbox to whatever data-theme is right now
+  isDark = (html.dataset.theme === "dark");
+  console.log("Dark mode is", isDark ? "enabled" : "disabled");
+  toggle.checked = isDark;
+
+  // when the user flips the checkbox → set data-theme & persist
+  toggle.addEventListener("change", function() {
+    const newTheme = isDark ? "light" : "dark";
+    html.dataset.theme = newTheme;
+    localStorage.setItem("theme", newTheme);
+    console.log("theme set to", newTheme);
+    isDark = !isDark; 
+    toggle.checked = isDark;
+  });
+});
+
+// Handles character count
+    document.addEventListener('DOMContentLoaded', function(){
+    // 1) find all textareas that need counting
+    var boxes = document.querySelectorAll('textarea.js-countable');
+
+    boxes.forEach(function(txt){
+      var max    = parseInt(txt.getAttribute('maxlength'), 10) || 0;
+      var counter= document.getElementById(txt.id + '-count');
+      if (!counter) return;  // no counter found, skip
+
+      // update function
+      function update(){
+        var used = txt.value.length;
+        counter.textContent = used + " / " + max;
+        counter.classList.toggle('warning', used > max);
+      }
+
+      // init + hook into future changes
+      update();
+      txt.addEventListener('input', update);
+    });
+  });
