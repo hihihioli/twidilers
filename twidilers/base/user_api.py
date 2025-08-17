@@ -117,6 +117,29 @@ def get_post(post_id):
         'liked':liked
     })
 
+@app.post('/api/post/<int:post_id>/like')
+@login_required
+def api_like(post_id):
+    user = findAccount()
+    post = findPost(post_id)
+    if user in post.liked_by:
+        post.liked_by.remove(user)
+        db.session.commit()
+        return jsonify({'liked': False, 'post_id': post_id})
+    post.liked_by.append(user)
+    db.session.commit()
+    return jsonify({'liked': True,  'post_id': post_id})
+
+@app.delete('/api/post/<int:post_id>')
+@login_required
+def api_delete(post_id):
+    post = findPost(post_id)
+    if post.author != findAccount():
+        return jsonify({'error':'not your post'}), 403
+    db.session.delete(post)
+    db.session.commit()
+    return jsonify({'deleted': True, 'post_id': post_id})
+
 # Gets user profile picture
 @app.get('/api/user/<username>/pfp')
 def get_pfp(username):
