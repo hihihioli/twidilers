@@ -61,10 +61,7 @@ a {
 .pst-date {
     margin: 0px
 }
-.liked {
-    background-color: var(--maroonred);
-    color:white;
-}
+
 
 #topfeed {
     position:relative;
@@ -178,7 +175,15 @@ a {
     width: 500px;
     margin-bottom:1px;
 }
+.liked {
+    background-color: var(--maroonred) !important;
+    color:white !important;
+    border:2px solid white;
+}
 
+.liked:hover {
+    border-radius:50%;
+}
 
 .auth-info {
     display: flex;
