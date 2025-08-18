@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Settings{% endblock %}
 {% block head %}
-<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/settings.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/profile.css') }}">
-<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/form.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/form.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/settings.css') }}">
 {% endblock %}
 {% block content %}
 {% set account = findAccount() %}
@@ -23,7 +23,7 @@
             <span>Notifications</span>
         </button>
     </nav>       
-    <!-- Div with account details -->
+    <!-- Account/profile content. Profile picture, display name, username, biography, log out -->
     <main id="acct-dtl-content">
         <div class="profile-div" id="auth-info" role="region" aria-label="Profile overview">
             <section class="profile-header">
@@ -123,6 +123,7 @@
         </div>
             <a href="{{ url_for('.logout') }}"><button class="submit" style="margin-top: 0px;width:100%; border-radius:10px;">Log out</button></a>
     </main>
+    <!-- Security content. Password, email, delete account-->
     <main id="security-content">
         <div class="profile-div">
             <form method="post" id="change-password-change">
@@ -143,8 +144,8 @@
             </form> 
         </div>
     </main>
+    <!-- Appearance themes. Just dark/light mode for now.-->
     <main id="appear-content">
-        
         <div class="profile-div">
             <h3>Theme</h3>
             <form class="settings-form">
@@ -162,8 +163,51 @@
         </div>
     </main>
     <main id="notif-content">
+        <!-- My idea for how this works is that we would have Javascript query an API to see whether these settings are on or off, then send a POST to an address, changing different settings.-->
         <div class="profile-div">
-            <h3>Under construction! Check back later</h3>
+            <h3>Reaction notifications</h3>
+                <p>Get notified when someone reacts to your post</p>
+                <form class="settings-form">
+                    <div class="checkbox-wrapper-35">
+                        <input class="switch" type="checkbox" name="switch2" id="reaction-toggle"/>
+                        <label for="switch2" class="forswitch">
+                            <span class="switch-x-toggletext switch-x-wide">
+                                <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Off</span>
+                                <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>On</span>
+                            </span>
+                        </label>
+                    </div>
+                </form>
+        </div>
+        <div class="profile-div">
+            <h3>Following notifications</h3>
+                <p>Get notified when someone follows you</p>
+                <form class="settings-form">
+                    <div class="checkbox-wrapper-35">
+                        <input class="switch" type="checkbox" name="switch2" id="follow-toggle"/>
+                        <label for="switch2" class="forswitch">
+                            <span class="switch-x-toggletext switch-x-wide">
+                                <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Off</span>
+                                <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>On</span>
+                            </span>
+                        </label>
+                    </div>
+                </form>
+        </div>
+        <div class="profile-div">
+            <h3>Post notifications</h3>
+                <p>Get notified when someone you're following posts</p>
+                <form class="settings-form">
+                    <div class="checkbox-wrapper-35">
+                        <input class="switch" type="checkbox" name="switch2" id="post-notif-toggle"/>
+                        <label for="switch2" class="forswitch">
+                            <span class="switch-x-toggletext switch-x-wide">
+                                <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>Off</span>
+                                <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>On</span>
+                            </span>
+                        </label>
+                    </div>
+                </form>
         </div>
     </main>
      <script src="{{ url_for('.static', filename='javascript/settings.js') }}"></script>
