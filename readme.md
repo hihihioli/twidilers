@@ -18,41 +18,24 @@ Also make sure to plan out ahead, by creating "issues" for bugs or features and 
 
 
 
-# Unfinished/broken features
+# State of pages
 
 ## Feed
-If you want to work on this, talk to Eamon because he needs some API help here!
-### Reactions
-We need to re-add in reaction functionality, with (optional) notifications when you get a reaction to your post. A count displayed in the feed.
-### Filtering
-Different feeds for "All", "Following", and "Liked". Would require a big overhaul of the API because every user would have their own feed API.
+Redid in v1.2. Need more API help here in terms of filtering, reaction notifications. Please talk to E so we can add this. It can't be that hard.
 
 ## Settings
 ### Flyout styling
 I don't know how this would work but an option to switch between the different flyout styles
-### Notifications
-Yeah this is a blank page right now. Not technically "unfinished" but we need to add options here as we fully bring notifications into functionality
-
-## Notifications
-### Notification page
-Barebones right now but could be decently better with cool animations and shit. Also could not exist if we don't want to push too hard into notifications
+### Notification
+Add notification settings. Hopefully this would include adding a settings JSON part of the account table, and we can redo the settings page with API calls -E
 
 ## DMs
 If derin wants to work on this sure but i don't see this as high priority -Eamon
 
 
-# Finished features not in prod
-## Settings
-* Improved button layout (PR 26)
-* Better mobile functionality (PR 26)
-* Dark/light mode toggle
-* Camera functionality
-## Notifications
-* They work now
 
 
-
-# Cool general feature stuffs
+# Cool general feature ideas
 
 ## Settings
 * Redo settings into different templates
