@@ -117,6 +117,22 @@ def get_post(post_id):
         'liked':liked
     })
 
+"""
+Ideally there would be an API for changing user settings. Hopefully someone will add this api :)
+@app.route('/api/currentuser/settings')
+@login_required
+def get_user_settings():
+    account = findAccount()
+    return flask.jsonify({
+        ''
+    })
+
+@app.post('/api/currentuser/settings/<int:setting_id>')
+@login_required
+def change_user_settings(setting_id):
+    account = findAccount()
+"""    
+
 @app.post('/api/post/<int:post_id>/like')
 @login_required
 def api_like(post_id):
@@ -125,10 +141,16 @@ def api_like(post_id):
     if user in post.liked_by:
         post.liked_by.remove(user)
         db.session.commit()
-        return jsonify({'liked': False, 'post_id': post_id})
+        return jsonify({
+            'liked': False, 
+            'post_id': post_id
+        })
     post.liked_by.append(user)
     db.session.commit()
-    return jsonify({'liked': True,  'post_id': post_id})
+    return jsonify({
+        'liked': True,
+        'post_id': post_id
+    })
 
 @app.delete('/api/post/<int:post_id>')
 @login_required
