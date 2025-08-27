@@ -70,13 +70,74 @@ a {
     flex-direction:row;
     justify-content:space-between;
     margin-bottom:30px;
-    gap:15px;
+    gap:10px;
 }
 #createpost {
-    margin:auto 0 0 auto;
+    margin:auto 0 0 0;
 }
 #refreshbutton {
     margin:auto 0 0 0;
+}
+
+
+.feed-controls {
+    height:50px;
+    margin:21.6px 0 0 auto;
+}
+
+#feed-dropdown {
+    color: var(--darkblue);
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+::picker(select) {
+  border: none;
+}
+
+select {
+    border-radius:10px;
+    background-color:var(--lightblue);
+    padding:14px 12px;
+    height:50px;
+    border:2px solid var(--darkblue);
+    cursor:pointer;
+}
+
+select::picker-icon {
+  color: #999999;
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  color:var(--darkblue);
+  border: 2px solid var(--darkblue);
+  background: var(--lightishblue);
+  padding: 10px;
+  transition: 0.4s;
+  cursor:pointer;
+}
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+option:not(option:last-of-type) {
+  border-bottom: none;
+}
+option:hover {
+    background-color:var(--lightblue);
 }
 #bottomfeed {
     display: flex; /* Use Flexbox */
@@ -185,6 +246,7 @@ a {
     border-radius:50%;
 }
 
+
 .auth-info {
     display: flex;
     flex-direction: row;
@@ -252,4 +314,5 @@ a {
     .pst {
         width: calc(var(--width) - 40px) !important;
     }
+
 }

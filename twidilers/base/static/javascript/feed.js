@@ -3,6 +3,7 @@
 // 1) “Global” state
 let currentUser  = null;
 let currentPage  = 1;
+let currentFeedType = 'all';
 const POSTS_PER_PAGE = 15;
 
 // 2) DOM refs
@@ -10,6 +11,9 @@ const postContainer  = document.getElementById('post-container');
 const loadingScreen  = document.getElementById('loading-screen');
 const moreButton     = document.getElementById('more');
 const lessButton     = document.getElementById('less');
+const feedTypeButtons = document.querySelectorAll('.feed-type-btn');
+const refreshButton = document.getElementById('refresh');
+
 
 // 3) Utility: sleep X ms
 function sleep(ms) {
@@ -29,45 +33,105 @@ async function fetchCurrentUser() {
 }
 
 // 5) Fetch the feed JSON and render
-async function fetchPosts(userFilter = 'all') {
-  if (!currentUser) {
-    console.warn('Cannot fetch feed until currentUser is set');
-    return;
-  }
+async function fetchPosts(feedType = currentFeedType) {
+    if (!currentUser) {
+        console.warn('Cannot fetch feed until currentUser is set');
+        return;
+    }
 
-  // Show loader
-  postContainer.style.display = 'none';
-  loadingScreen.style.display = 'flex';
+    // Show loader
+    postContainer.style.display = 'none';
+    loadingScreen.style.display = 'flex';
 
-  // Always show at least 200ms spinner (optional)
-  const minLoad = sleep(200);
+    // Always show at least 200ms spinner
+    const minLoad = sleep(200);
 
-  let feedData = null;
-  try {
-    const url = `/api/feed/${userFilter}/${currentPage}`;
-    const res = await fetch(url, { credentials: 'same-origin' });
-    if (!res.ok) throw new Error(`Feed fetch failed: ${res.status}`);
-    feedData = await res.json();
-  } catch(err) {
-    console.error('fetchPosts error:', err);
-    postContainer.innerHTML = `<p style="color:red">Error loading posts.</p>`;
-  }
+    let feedData = null;
+    try {
+        const url = `/api/feed/${feedType}/${currentPage}`;
+        const res = await fetch(url, { credentials: 'same-origin' });
+        if (!res.ok) throw new Error(`Feed fetch failed: ${res.status}`);
+        feedData = await res.json();
+        if (!Array.isArray(feedData) || feedData.length === 0) {
+          // Show  “no posts” message
+          postContainer.innerHTML = `
+            <div class="empty-feed">
+              <p>There are no posts to display.</p>
+            </div>
+          `;
+          // hide loader & bail out early
+          await minLoad;
+          loadingScreen.style.display = 'none';
+          postContainer.style.display = 'block';
+          return;
+        }
+    } catch(err) {
+        console.error('fetchPosts error:', err);
+        postContainer.innerHTML = `<p style="color:red">Error loading posts.</p>`;
+    }
 
-  await minLoad;
+    await minLoad;
 
-  if (Array.isArray(feedData)) {
-    renderPosts(feedData);
-  } else {
-    postContainer.innerHTML = `<p>No posts to show.</p>`;
-  }
+    if (Array.isArray(feedData)) {
+        renderPosts(feedData);
+    } else {
+        postContainer.innerHTML = `<p>No posts to show.</p>`;
+    }
 
-  // Hide loader
-  loadingScreen.style.display = 'none';
-  postContainer.style.display = 'block';
+    // Hide loader
+    loadingScreen.style.display = 'none';
+    postContainer.style.display = 'block';
 
-  // Update query string
-  const base = window.location.pathname;
-  window.history.replaceState({}, '', `${base}?page=${currentPage}`);
+    // Update query string with both page and feed type
+    const base = window.location.pathname;
+    window.history.replaceState(
+        {}, 
+        '', 
+        `${base}?page=${currentPage}&feed=${feedType}`
+    );
+}
+
+
+// Add feed type button handlers
+feedTypeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Update active state
+        feedTypeButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Update feed type and reload
+        currentFeedType = button.dataset.feed;
+        currentPage = 1; // Reset to first page
+        fetchPosts(currentFeedType);
+    });
+});
+
+// selector dropdown field
+const feedDropdown = document.getElementById('feed-dropdown');
+    if (feedDropdown) {
+      // set initial value from currentFeedType
+      feedDropdown.value = currentFeedType;
+
+      feedDropdown.addEventListener('change', () => {
+        currentFeedType = feedDropdown.value;
+        currentPage = 1;
+
+        // mirror the active state on the buttons (in case
+        // someone rotates their phone, or screen gets wider)
+        feedTypeButtons.forEach(btn => {
+          btn.classList.toggle('active',
+            btn.dataset.feed === currentFeedType
+          );
+        });
+
+        fetchPosts(currentFeedType);
+      });
+    }
+
+
+// Update refresh button
+if (refreshButton) {
+    refreshButton.onclick = () => fetchPosts(currentFeedType);
 }
 
 // 6) Helper: do they already like this post?
@@ -172,16 +236,36 @@ document.addEventListener('submit', async e => {
 });
 
 // 9) Paging controls
-function older() { currentPage++; fetchPosts('all'); }
-function newer() {
-  if (currentPage>1) currentPage--;
-  fetchPosts('all');
+function older() { 
+    currentPage++; 
+    fetchPosts(currentFeedType); 
 }
-if (moreButton) moreButton.onclick = older;
-if (lessButton) lessButton.onclick = newer;
+
+function newer() {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchPosts(currentFeedType);
+    }
+}
 
 // 10) Kick it all off
 window.addEventListener('DOMContentLoaded', async () => {
-  await fetchCurrentUser();
-  await fetchPosts('all');
+    const params = new URLSearchParams(window.location.search);
+    const feedType = params.get('feed') || 'all';
+    currentPage = parseInt(params.get('page')) || 1;
+    
+    // Set initial active button
+    const activeButton = document.querySelector(
+        `.feed-type-btn[data-feed="${feedType}"]`
+    );
+    if (activeButton) {
+        activeButton.classList.add('active');
+        currentFeedType = feedType;
+    }
+    if (feedDropdown) {
+        feedDropdown.value = currentFeedType;
+      }
+    
+    await fetchCurrentUser();
+    await fetchPosts(currentFeedType);
 });

@@ -10,9 +10,16 @@
     {% set account = findAccount() %}
     <div id="topfeed" role="region" aria-label="Feed controls">
         <h1 id="feedtitle">Your feed</h1>
+        <div class="feed-controls">
+            <select id="feed-dropdown" aria-label="Select feed type">
+                <option value="all">All Posts</option>
+                <option value="following">Following</option>
+                <option value="liked">Liked</option>
+            </select>
+        </div>
         <a href="{{ url_for('.write_post') }}" role="button" class="submit" id="createpost" aria-label="Create a new post" title="Shortcut: N">Post</a>
         <form method="post" id="refreshbutton" name="refreshbutton" aria-label="Refresh feed" title="Shortcut:R">
-            <button id="refresh" type="button" onclick="fetchPosts('all',currentPage)" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
+            <button id="refresh" type="button" class="filter"><i class="fa-solid fa-rotate-right"></i></button>
         </form>
     </div>
     <section aria-label="Posts feed" class="posts-container">

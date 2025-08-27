@@ -66,6 +66,11 @@ html {
     padding-right:15px;
 }
 
+*:focus {
+    outline: 2px solid var(--greenish);
+    outline-offset: 1px;
+}
+
 /* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
 body {
     font-family: Arial;

@@ -36,6 +36,74 @@ def all_posts(page):
     } for post in postlist]
     return flask.jsonify(response)
 
+@app.route('/api/feed/following/<int:page>')
+@login_required
+def following_feed(page):
+    POSTS_PER_PAGE = 15
+    offset = (page - 1) * POSTS_PER_PAGE
+    account = findAccount()
+    
+    following_ids = [user.id for user in account.following]
+    
+    postlist = (
+        db.session.execute(
+            db.select(Post)
+            .filter(Post.author_id.in_(following_ids))
+            .order_by(desc(Post.id))
+            .limit(POSTS_PER_PAGE)
+            .offset(offset)
+        ).scalars()
+    )
+    
+    response = [{
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+        'likes': [u.id for u in post.liked_by],
+        'author': {
+            'id': post.author.id,   
+            'username': post.author.username,
+            'displayname': post.author.displayname,
+            'photo_url': url_for('.get_pfp', username=post.author.username, _external=True),
+            'profile_link': url_for('.profile', username=post.author.username, _external=True)
+        }
+    } for post in postlist]
+    return flask.jsonify(response)
+
+@app.route('/api/feed/liked/<int:page>')
+@login_required
+def liked_feed(page):
+    POSTS_PER_PAGE = 15
+    offset = (page - 1) * POSTS_PER_PAGE
+    account = findAccount()
+    
+    postlist = (
+        db.session.execute(
+            db.select(Post)
+            .filter(Post.liked_by.contains(account))
+            .order_by(desc(Post.id))
+            .limit(POSTS_PER_PAGE)
+            .offset(offset)
+        ).scalars()
+    )
+    
+    response = [{
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+        'likes': [u.id for u in post.liked_by],
+        'author': {
+            'id': post.author.id,   
+            'username': post.author.username,
+            'displayname': post.author.displayname,
+            'photo_url': url_for('.get_pfp', username=post.author.username, _external=True),
+            'profile_link': url_for('.profile', username=post.author.username, _external=True)
+        }
+    } for post in postlist]
+    return flask.jsonify(response)
+
 # This displays information about the user
 @app.route('/api/user/<username>')
 def userapi(username):
