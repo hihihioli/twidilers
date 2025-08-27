@@ -111,6 +111,32 @@ a:focus-visible {
     margin:0px;
     justify-self: center;
     flex-shrink: 1;
+    width:600px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:15px;
+    background-color:var(--lightishblue);
+    border-radius:15px;
+}
+
+.post-textbox {
+    max-width:600px;
+    overflow:hidden;
+}
+
+#post-title {
+    font-size:1.4em;
+    font-weight:400;
+    height:30px;
+}
+
+#post-post-content {
+    height:160px;
+}
+#post-post-content-count {
+    font-size: 0.9em;
+    text-align: right;
 }
 
 /* #content is the main content area. #post-content is the input form content area. */

@@ -20,18 +20,19 @@ def all_posts(page):
             .offset(offset)
         ).scalars()
     )
-    response = [
-        {
-            'id': post.id,
-            'author_id': post.author_id,
-            'author_url': url_for('.userapi', username=post.author.username, _external=True),
-            'title': post.title,
-            'content': post.content,
-            'date': post.date,
-            'likes': [user.id for user in post.liked_by]
+    response = [{
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+        'likes': [u.id for u in post.liked_by],
+        'author': {
+            'username':    post.author.username,
+            'displayname': post.author.displayname,
+            'photo_url':   url_for('.get_pfp', username=post.author.username, _external=True),
+            'profile_link': url_for('.profile', username=post.author.username, _external=True)
         }
-        for post in postlist
-    ]
+    } for post in postlist]
     return flask.jsonify(response)
 
 # This displays information about the user

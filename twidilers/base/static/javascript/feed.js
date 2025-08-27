@@ -77,36 +77,6 @@ function didLike(post) {
       && post.likes.includes(currentUser.id);
 }
 
-function findAuthor(post) {
-    let author;
-    // Check if the author data is already cached in sessionStorage
-    const cachedAuthor = sessionStorage.getItem(post.author_url);
-    if (cachedAuthor) {
-        author = JSON.parse(cachedAuthor); // Parse the cached JSON to an object
-    } else {
-        const response = fetch(post.author_url);  // Fetch author data using the URL
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        author = response.json();  // Parse the response as JSON
-        sessionStorage.setItem(post.author_url, JSON.stringify(author)); // Cache the author data in sessionStorage
-    }
-    authorHTML = `
-        <a href="${author.profile_link}" 
-        class="auth-info"
-        aria-label="View ${author.displayname}'s profile">
-        <img class="pst-auth-pfp" 
-        loading="lazy" 
-        src="${author.photo_url}"
-        alt="Profile picture of ${author.displayname}">
-        <div class="pst-auths">
-        <p class="pst-auth">${author.displayname}</p>
-        <p class="pst-disp">@${author.username}</p>              
-        </div>
-        </a>
-    `;
-    return authorHTML;
-}
 
 // 7) Build & inject the HTML, then hook up the form-submit interceptor
 function renderPosts(posts) {
@@ -114,6 +84,7 @@ function renderPosts(posts) {
 
   // build each post
   for (const post of posts) {
+    const author   = post.author;
     const liked    = didLike(post);
     const yourPost = post.author_id === currentUser.id;
     const btnClass = yourPost
@@ -143,13 +114,26 @@ function renderPosts(posts) {
       </form>
     `;
 
-    const author = findAuthor(post);
+    const authorHTML = `
+        <a href="${author.profile_link}" 
+        class="auth-info"
+        aria-label="View ${author.displayname}'s profile">
+        <img class="pst-auth-pfp" 
+        loading="lazy" 
+        src="${author.photo_url}"
+        alt="Profile picture of ${author.displayname}">
+        <div class="pst-auths">
+        <p class="pst-auth">${author.displayname}</p>
+        <p class="pst-disp">@${author.username}</p>              
+        </div>
+        </a>
+    `;
 
     // full post HTML (tweak as you need)
     const onePost = `
       <div class="pst" id="post-${post.id}">
         <header>
-            ${author}      
+            ${authorHTML}      
         </header>
         <h2 class="pst-title">${post.title || ''}</h2>
         <p class="pst-content">${post.content}</p>
