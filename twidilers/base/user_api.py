@@ -27,6 +27,7 @@ def all_posts(page):
         'date': post.date,
         'likes': [u.id for u in post.liked_by],
         'author': {
+            'id':         post.author.id,   
             'username':    post.author.username,
             'displayname': post.author.displayname,
             'photo_url':   url_for('.get_pfp', username=post.author.username, _external=True),

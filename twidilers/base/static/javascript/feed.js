@@ -86,7 +86,7 @@ function renderPosts(posts) {
   for (const post of posts) {
     const author   = post.author;
     const liked    = didLike(post);
-    const yourPost = post.author_id === currentUser.id;
+    const yourPost = author.id === currentUser.id;
     const btnClass = yourPost
                    ? 'delete-button'
                    : (liked ? 'liked' : 'like-button');

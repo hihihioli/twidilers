@@ -555,6 +555,10 @@ a {
 
 
 @media only screen and (prefers-color-scheme: dark) {
+    .flash.info {
+        color:var(--lightishblue);
+        border:3px solid var(--lightishblue);
+    }
     /*
     #hder-img {
         filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
