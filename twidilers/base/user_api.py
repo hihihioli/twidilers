@@ -36,6 +36,7 @@ def all_posts(page):
     } for post in postlist]
     return flask.jsonify(response)
 
+# Displays posts by people the logged-in user follows
 @app.route('/api/feed/following/<int:page>')
 @login_required
 def following_feed(page):
@@ -71,6 +72,7 @@ def following_feed(page):
     } for post in postlist]
     return flask.jsonify(response)
 
+# Displays posts that logged-in user liked
 @app.route('/api/feed/liked/<int:page>')
 @login_required
 def liked_feed(page):
@@ -136,25 +138,6 @@ def all_users():
         'profile_link': url_for('.profile',username=account.username)
     } for account in userlist))
 
-# This displays all posts by people *THE USER FOLLOWS*
-@app.route('/api/feed/user/<username>')
-def followingapi(username):
-    account = findAccount(username)
-    followed_posts = (
-        db.session.query(Post)
-        .join(Account, account == Post.user_id)  # Join the Account table to access the followers relationship
-        .filter(Account.id.in_([user.id for user in account.following]))
-        .order_by(desc(Post.id))
-        .all()
-    )
-    return flask.jsonify(list({
-        'id': post.id,
-        'author_id': post.author_id,
-        'author_url': url_for('.userapi', username=post.author.username, _external=True),
-        'title': post.title,
-        'content': post.content,
-        'date': post.date,
-    } for post in followed_posts))
 
 # Quick easy hack to find current user
 @app.route('/api/currentuser/')
@@ -203,6 +186,7 @@ def change_user_settings(setting_id):
     account = findAccount()
 """    
 
+#toggles like on post
 @app.post('/api/post/<int:post_id>/like')
 @login_required
 def api_like(post_id):
@@ -230,6 +214,7 @@ def api_delete(post_id):
         return jsonify({'error':'not your post'}), 403
     db.session.delete(post)
     db.session.commit()
+    flash('Post deleted','success')
     return jsonify({'deleted': True, 'post_id': post_id})
 
 # Gets user profile picture
