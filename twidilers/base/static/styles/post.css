@@ -138,6 +138,7 @@ option:not(option:last-of-type) {
 }
 option:hover {
     background-color:var(--lightblue);
+
 }
 #bottomfeed {
     display: flex; /* Use Flexbox */
@@ -314,5 +315,4 @@ option:hover {
     .pst {
         width: calc(var(--width) - 40px) !important;
     }
-
 }
