@@ -4,14 +4,7 @@
     font-size: 3em;
     margin: 20px 0;
 }
-#createpost {
-    float: right;
-    margin: 20px 0;
-}
 
-#filter-button {
-    margin-top: 0px;
-}
 input[type="checkbox" i] {
     border:2px solid var(--lightblue);
     background-color:var(--darkishblue);
@@ -75,7 +68,18 @@ a {
 
 #topfeed {
     position:relative;
-    height:100px;
+    height:70px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin-bottom:30px;
+    gap:15px;
+}
+#createpost {
+    margin:auto 0 0 auto;
+}
+#refreshbutton {
+    margin:auto 0 0 0;
 }
 #bottomfeed {
     display: flex; /* Use Flexbox */
@@ -102,26 +106,8 @@ a {
     color:var(--darkblue);
     cursor:pointer;
     float:right;
-    margin:20px 20px 0 0;
     width:50px;
     transition:all 0.3s;
-}
-#filter:hover {
-    box-shadow: 0 0 10px var(--lightblue);
-    color:var(--darkblue);
-}
-#filter-form {
-    display:none;
-    padding:10px;
-    background-color:var(--darkishblue);
-    border:2px solid var(--lightblue);
-    position:absolute;
-    border-radius:13px;
-    height:82px;
-    top:100px;
-    z-index:1000;
-    width:270px;
-    right:0;
 }
 .pst-reactions {
     position:absolute;
@@ -257,14 +243,8 @@ a {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 640px) {
     .pst {
         width: calc(var(--width) - 40px) !important;
-    }
-    .filter {
-        position:absolute;
-        right:0;
-        top:0;
-        margin-top:30px;
     }
 }

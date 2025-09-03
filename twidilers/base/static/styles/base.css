@@ -641,7 +641,7 @@ a {
     body {
         width: 100%;
     }
-    .profile-div, .pst, #navbar {
+    .profile-div, .pst, #navbar,.popup-div {
         width: 100% !important;
     }
     #navbar {

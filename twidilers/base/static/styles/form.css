@@ -141,6 +141,7 @@ a:focus-visible {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    gap:15px;
     flex-direction:column;
 }
 a .other-signup {
