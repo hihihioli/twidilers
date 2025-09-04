@@ -5,10 +5,31 @@
 {% endblock %}
 {% block content %}
 <h1 class="heading">Create a post</h1>
-<form method="post" id="blog_form" name="blog_form" class="input_form"> <!--Form that submits to the @app.post for '/sign_up in routes.py'-->
-    <input type="text" class="textbox" placeholder="Title. Not required" id="post-title" name="title" autocomplete="off" maxlength="50"/>
-    <textarea type="text" class="textbox" placeholder="Content" id="post-post-content" name="post-content" autocomplete="off"></textarea>
-    <button id="post-submit" type="submit" class="submit">Post</button>
+<form method="post" id="blog_form" name="blog_form"> <!--Form that submits to the @app.post for '/sign_up in routes.py'-->
+    <input 
+        type="text" 
+        class="post-textbox textbox" 
+        placeholder="Title. Not required" 
+        id="post-title" 
+        name="title" 
+        autocomplete="off" 
+        maxlength="50"/>
+    <textarea 
+        type="text" 
+        class="post-textbox textbox js-countable" 
+        placeholder="Content" 
+        id="post-post-content" 
+        name="post-content" 
+        maxlength="500"
+        autocomplete="off"></textarea>
+    <div id="post-post-content-count" class="char-count"></div>
+    <button 
+        id="post-submit" 
+        type="submit" 
+        class="submit"
+        style="border-radius:10px;">
+        Post
+    </button>
 </form>
 
 {% endblock %}
