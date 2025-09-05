@@ -79,25 +79,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Handles character count
-    document.addEventListener('DOMContentLoaded', function(){
-    // 1) find all textareas that need counting
-    var boxes = document.querySelectorAll('textarea.js-countable');
-
-    boxes.forEach(function(txt){
-      var max    = parseInt(txt.getAttribute('maxlength'), 10) || 0;
-      var counter= document.getElementById(txt.id + '-count');
-      if (!counter) return;  // no counter found, skip
-
-      // update function
-      function update(){
-        var used = txt.value.length;
-        counter.textContent = used + " / " + max;
-        counter.classList.toggle('warning', used > max);
-      }
-
-      // init + hook into future changes
-      update();
-      txt.addEventListener('input', update);
-    });
-  });

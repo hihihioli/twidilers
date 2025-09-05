@@ -46,7 +46,7 @@
     --darkblue: #001554;
     --darkishblue: #0a0a8d;
     --lightishblue: #9eefff;
-    --maroonred: rgb(83, 23, 23);
+    --maroonred: rgb(126, 36, 36);
     --greenish: #4d7b9f;
     --maroongreen: #003d00;
 }
@@ -64,6 +64,11 @@ html {
     align-items: center;
     padding-left:15px;
     padding-right:15px;
+}
+
+*:focus {
+    outline: 2px solid var(--greenish);
+    outline-offset: 1px;
 }
 
 /* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
@@ -555,6 +560,10 @@ a {
 
 
 @media only screen and (prefers-color-scheme: dark) {
+    .flash.info {
+        color:var(--lightishblue);
+        border:3px solid var(--lightishblue);
+    }
     /*
     #hder-img {
         filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
@@ -637,20 +646,23 @@ a {
 }
 
 
- @media only screen and (max-width: 600px){
+ @media only screen and (max-width: 629px){
     body {
         width: 100%;
     }
     .profile-div, .pst, #navbar,.popup-div {
         width: 100% !important;
     }
-    #navbar {
+    
+}
+
+@media only screen and (max-width: 500px){
+#navbar {
         flex-wrap: wrap;
         gap: 5px;
     }
+
 }
-
-
 
  /*
 @media only screen and (max-width: 600px){
