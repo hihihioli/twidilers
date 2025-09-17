@@ -465,7 +465,6 @@ a {
     height: fit-content;
     border-radius: 5px;
     background: var(--darkishblue);
-    border: 3px solid white;
     color: white;
     padding: 8px;
     font-size: 12pt;
@@ -475,7 +474,7 @@ a {
 }
 
 .flash.error {
-    color: var(--maroonred);
+    color: white;
     background:red;
 }
 
