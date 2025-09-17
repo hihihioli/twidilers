@@ -188,6 +188,9 @@ a .other-signup {
     .separator {
         width: 90%;
     }
+    #blog_form {
+        width:100%;
+    }
 }
 
 @media only screen and (max-width: 350px) {

@@ -653,6 +653,9 @@ a {
     .profile-div, .pst, #navbar,.popup-div {
         width: 100% !important;
     }
+    .flash {
+        width: calc(100% - 20px);
+    }
     
 }
 
