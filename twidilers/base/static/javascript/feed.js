@@ -248,6 +248,11 @@ function newer() {
     }
 }
 
+function newest() {
+  currentPage = 1;
+  fetchPosts(currentFeedType);
+}
+
 // 10) Kick it all off
 window.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);

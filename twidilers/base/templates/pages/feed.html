@@ -30,11 +30,11 @@
         <script src="{{ url_for('.static', filename='javascript/feed.js')}}"></script>
     </section>
     <div id="bottomfeed" role="region" aria-label="Feed controls">
-        <button id="oldest" onclick="oldPosts('all')" class="submit" aria-label="Load more posts" title="Doesn't work right now"><<</button>
-        <button id="more" onclick="oldPosts('all')" class="submit" aria-label="Load more posts"><</button>
+        <button id="oldest" onclick="older()" class="submit" aria-label="Load more posts" title="Doesn't work right now"><<</button>
+        <button id="more" onclick="older()" class="submit" aria-label="Load more posts"><</button>
         <span id="middle">15 posts per page.</span>
-        <button id="less" onclick="newPosts('all')" class="submit" aria-label="Load more posts">></button>
-        <button id="latest" onclick="latestPosts('all')" class="submit" aria-label="Load latest posts">>></button>
+        <button id="less" onclick="newer()" class="submit" aria-label="Load more posts">></button>
+        <button id="latest" onclick="newest()" class="submit" aria-label="Load latest posts">>></button>
     </div>
 </main>
 <script src="{{ url_for('.static', filename='javascript/flyout.js') }}">
