@@ -315,4 +315,7 @@ option:hover {
     .pst {
         width: calc(var(--width) - 40px) !important;
     }
+    #feedtitle {
+        font-size: 2em;
+    }
 }
