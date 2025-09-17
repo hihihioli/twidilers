@@ -126,14 +126,10 @@ def feed():
 @app.post('/clear')
 @login_required
 def clear():
-    data = request.get_json()
     account = findAccount()
     account.notifications = []
     db.session.commit()
-    response = {
-        "recieved_data": data
-    }
-    return jsonify(response)
+    return
 
 @app.post('/send-reset-link')
 def send_reset_link():
