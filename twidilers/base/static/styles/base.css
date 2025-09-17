@@ -138,6 +138,7 @@ input:-webkit-autofill,textarea:-webkit-autofill {
     position: relative;
     bottom:9px;
     box-shadow: none;
+    transition:none;
 }
 
 #hder-img:hover {
@@ -172,9 +173,6 @@ Click generate until you get the loss under 3 */
 }
 
 #usricon-nav-img {
-    top:50%;
-    left:50%;
-    translate: -50% -50%;
     position: relative;
     width: 46px;
     border-radius: 1000px;
@@ -317,10 +315,24 @@ Click generate until you get the loss under 3 */
     font-size:1.2em;
 }
 
+#notif-header {
+    height:44.4;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+
 #notif-div-0 {
     display:flex;
     gap:10px;
     flex-direction:column;
+    /* Let the container grow naturally up to 300px, then allow scrolling */
+    max-height:300px;
+    overflow-y:auto; /* only show scrollbar when needed */
+    overflow-x:hidden;
+}
+#notif-header h2 {
+    margin:auto 0;
 }
 #clear-notifs {
     border:0;
@@ -328,12 +340,10 @@ Click generate until you get the loss under 3 */
     padding:13px;
     color:var(--darkblue);
     font-size:1em;
-    position:absolute;
-    top:0;
-    right:0;
     cursor: pointer;
-    border-radius:0 8px 0 8px;
+    border-radius:8px 8px 0 0;
     transition:all 0.2s;
+    position:relative;
 }
 #clear-notifs:hover {
     background-color:#ee3355;
