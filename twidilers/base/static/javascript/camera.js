@@ -23,7 +23,9 @@ window.onload = function () {
                 stopWebcam()
             }
             modalContent.style.transform = 'translateY(-470px)';
-            modalContent.style.transition = 'all 0.75s ease'
+            modalContent.style.transition = 'all 0.75s ease';
+            modalShell.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            modalShell.style.backgroundColor = 'rgb(0,0,0)';
             modalShell.style.backgroundColor = 'rgba(0,0,0,0.5)'
         }, 500);
     });
@@ -33,11 +35,13 @@ window.onload = function () {
 }
 
     function startWebService() {
+        modalShell.style.backgroundColor = 'rgba(0,0,0,0.5)'
         modalShell.style.display = 'block';
         setTimeout(function() {modalContent.style.transform = 'translateY(0px)';}, 0);
         isOn = true;
         startWebcam();
     }
+
 function dataURLtoBlob(dataurl) {
     const arr = dataurl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];

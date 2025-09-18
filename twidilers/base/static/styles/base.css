@@ -175,7 +175,7 @@ Click generate until you get the loss under 3 */
 #usricon-nav-img {
     position: relative;
     width: 46px;
-    border-radius: 1000px;
+    border-radius: 100%;
     image-resolution: 46px;
 }
 
