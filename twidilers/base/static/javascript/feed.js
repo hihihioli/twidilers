@@ -232,7 +232,7 @@ document.addEventListener('submit', async e => {
   }
 
   // once server has processed like/delete, reload the JSON feed
-  await fetchPosts('all');
+  await fetchPosts(currentFeedType);
 });
 
 // 9) Paging controls
