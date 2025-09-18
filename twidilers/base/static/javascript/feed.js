@@ -172,6 +172,8 @@ function renderPosts(posts) {
          class="js-reaction-form"
       >
         ${hiddenField}
+        <span class="pst-like-count">${post.likes.length} like${post.likes.length !== 1 ? 's' : ''}</span>
+
         <button type="submit" class="pst-react-but ${btnClass}">
           ${icon}
         </button>

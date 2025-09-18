@@ -184,7 +184,7 @@ option:hover {
     color:var(--darkblue); 
     padding:10px;
     cursor:pointer;
-
+    margin-left:10px;
     width:36px;
     transition:0.3s all;
     height:36px;
