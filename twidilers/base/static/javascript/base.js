@@ -25,9 +25,31 @@ userButton.addEventListener('click', () => {
 if (userMenu.style.display === 'none') {
     userMenu.style.display = 'flex';
     notifMenu.style.display = 'none';
-    filterMenu.style.display = 'none';
 } else {
     userMenu.style.display = 'none';
 }
 });
 
+// Handles character count
+document.addEventListener('DOMContentLoaded', function(){
+// 1) find all textareas that need counting
+var boxes = document.querySelectorAll('textarea.js-countable');
+
+if (boxes) {
+    boxes.forEach(function(txt){
+        var max    = parseInt(txt.getAttribute('maxlength'), 10) || 0;
+        var counter= document.getElementById(txt.id + '-count');
+        if (!counter) return;  // no counter found, skip
+
+        // update function
+        function update(){
+        var used = txt.value.length;
+        counter.textContent = used + " / " + max;
+        counter.classList.toggle('warning', used > max);
+        }
+
+        // init + hook into future changes
+        update();
+        txt.addEventListener('input', update);
+    });
+}});

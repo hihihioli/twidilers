@@ -48,30 +48,40 @@ def logout():
 @app.post('/post')
 @login_required
 def write_post():
-    title = request.form.get('title')
-    content = request.form.get('post-content')
-    if not content:
+    title   = request.form.get('title')
+    content = request.form.get('post-content') or ''
+    # enforce non‐empty
+    if not content.strip():
         flash('Post cannot be empty','error')
         return redirect(url_for('.page',page='post'))
-    account = findAccount()
+    # truncate to 500 chars
+    MAX_CONTENT = 500
+    if len(content) > MAX_CONTENT:
+        content = content[:MAX_CONTENT]
+        flash(f'Post was longer than {MAX_CONTENT} chars; truncated.','info')
+    account  = findAccount()
     date_utc = datetime.datetime.now(datetime.timezone.utc)
-    new_post = Post(title=title,content=content,date=date_utc,author=account)
+    # save post
+    new_post = Post(
+        title   = title,
+        content = content,
+        date    = date_utc,
+        author  = account
+    )
     db.session.add(new_post)
     db.session.commit()
-    print(account)
-    print(account.followers)
+    # notify followers
+    notifications = {
+        "author":  account.username,
+        "title":   title,
+        "content": content,
+        "date":    date_utc.timestamp()
+    }
     for follower in account.followers:
-        new_notifications = follower.notifications.copy()
-        data = {
-            "author":account.username,
-            "title":title,
-            "content":content,
-            "date":date_utc.timestamp()
-        }
-        new_notifications.append(data)
-        follower.notifications = new_notifications
-        db.session.commit()
-        print(follower.notifications)
+        n = follower.notifications.copy()
+        n.append(notifications)
+        follower.notifications = n
+    db.session.commit()
     flash('Post successfully created','success')
     return redirect(url_for('.page',page='feed'))
 
@@ -116,14 +126,10 @@ def feed():
 @app.post('/clear')
 @login_required
 def clear():
-    data = request.get_json()
     account = findAccount()
     account.notifications = []
     db.session.commit()
-    response = {
-        "recieved_data": data
-    }
-    return jsonify(response)
+    return
 
 @app.post('/send-reset-link')
 def send_reset_link():
