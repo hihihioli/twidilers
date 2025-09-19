@@ -32,13 +32,46 @@
 <div class="profile-div">
     <h2 id="about-user">About {{account.displayname}}</h2>
     <p>{{bio}}</p>
-    <p id="follower-count">{{follower_count}} follower</p>
+    <p>
+        <span id="follower-count" class="hover-pop" data-popover="followers">
+            {{follower_count}} follower{% if follower_count != 1 %}s{% endif %}
+        </span>
+        &middot;
+        <span id="following-count" class="hover-pop" data-popover="following">
+            {{following_count}} following
+        </span>
+    </p>
     <span name="prof-date" id="prof-date"></span>
-    <script>
-        if ({{follower_count}} != 1) {
-            document.getElementById('follower-count').innerText = '{{follower_count}} followers';
-        }
-    </script>
+    <div id="followers-pop" class="pop-panel" role="dialog" aria-label="Followers" aria-hidden="true">
+        {% if follower_list|length == 0 %}
+            <div class="empty">No followers yet</div>
+        {% else %}
+            {% for u in follower_list %}
+                <a class="pop-user" href="{{ url_for('.profile', username=u.username) }}">
+                    <img src="{{ u.photo_url }}" alt="{{ u.username }} pfp" class="mini-pfp" loading="lazy">
+                    <span class="pop-names">
+                        <strong>{{ u.displayname }}</strong>
+                        <small>@{{ u.username }}</small>
+                    </span>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div id="following-pop" class="pop-panel" role="dialog" aria-label="Following" aria-hidden="true">
+        {% if following_list|length == 0 %}
+            <div class="empty">Not following anyone</div>
+        {% else %}
+            {% for u in following_list %}
+                <a class="pop-user" href="{{ url_for('.profile', username=u.username) }}">
+                    <img src="{{ u.photo_url }}" alt="{{ u.username }} pfp" class="mini-pfp" loading="lazy">
+                    <span class="pop-names">
+                        <strong>{{ u.displayname }}</strong>
+                        <small>@{{ u.username }}</small>
+                    </span>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>
 <div>
     <h1>Recent Posts:</h1>
@@ -48,8 +81,10 @@
                 <p class="pst-content">{{post.content}}</p>
                 <p class="pst-date" id="date{{ loop.index0 }}">error</p>
             <script>
-                const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
-                    document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
+                (function(){
+                    const d = new Date(parseInt("{{ (post.date.timestamp()*1000)|int }}",10));
+                    document.getElementById("date{{ loop.index0 }}").textContent = d.toLocaleString();
+                })();
             </script>
             <div class="pst-reactions">
                 {% if owner == 1 %}
@@ -66,9 +101,10 @@
     {% endfor %}
 </div>
 <script>
-    window.onload = function() {
-        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ');
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+        const joined = new Date(parseInt("{{ (account.userdata['joined']*1000)|int }}",10));
+        document.getElementById('prof-date').textContent = 'Joined on ' + joined.toDateString().replace(/^(\w+)\s/, '$1, ');
+    });
 </script>
 <script  src="{{ url_for('.static', filename='javascript/profile.js') }}"></script>
 

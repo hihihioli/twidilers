@@ -235,7 +235,34 @@ def profile(username):
     else:
         owner = 0
     follower_count = len(account.followers)
-    return render_template('profile.html',account=account, follower_count=follower_count, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
+    following_count = len(account.following)
+    # lightweight serialization for popovers
+    follower_list = [
+        {
+            'username': u.username,
+            'displayname': u.displayname,
+            'photo_url': url_for('.get_pfp', username=u.username)
+        } for u in account.followers
+    ]
+    following_list = [
+        {
+            'username': u.username,
+            'displayname': u.displayname,
+            'photo_url': url_for('.get_pfp', username=u.username)
+        } for u in account.following
+    ]
+    return render_template(
+        'profile.html',
+        account=account,
+        follower_count=follower_count,
+        following_count=following_count,
+        follower_list=follower_list,
+        following_list=following_list,
+        posts=posts,
+        owner=owner,
+        date=account.userdata['joined'],
+        bio=account.userdata['bio']
+    )
 
 @app.post('/user/<username>/')
 @login_required

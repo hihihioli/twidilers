@@ -78,6 +78,53 @@
   box-sizing: border-box;
 }
 
+/* Popover panels for followers / following */
+.hover-pop {
+    cursor: pointer;
+    font-weight: 600;
+}
+.hover-pop:hover, .hover-pop:focus {
+    text-decoration: underline;
+}
+.pop-panel {
+    position: absolute;
+    z-index: 40;
+    background: var(--lightblue);
+    color: var(--darkblue);
+    border: 1px solid var(--darkblue);
+    border-radius: 10px;
+    padding: 10px;
+    width: 240px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    display: none;
+}
+@media (prefers-color-scheme: dark) {
+    .pop-panel { background: var(--darkishblue); color: var(--lightblue); border-color: var(--lightblue); }
+}
+.pop-panel.show { display: block; }
+.pop-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 4px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+}
+.pop-user:hover { background: rgba(0,0,0,0.08); }
+@media (prefers-color-scheme: dark) { .pop-user:hover { background: rgba(255,255,255,0.08); } }
+.mini-pfp {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.pop-names { display: flex; flex-direction: column; line-height: 1.1; }
+.pop-names small { opacity: 0.7; }
+.empty { opacity: 0.6; font-style: italic; }
+
 #auth-info {
     display:flex;
     flex-direction:row;
