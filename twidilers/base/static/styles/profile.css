@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-right:20px;
     left: 20px;
     height:100%;
+    margin:auto 0 auto 20px;
 }
 #follow-button {
     position: absolute;
@@ -164,23 +164,3 @@
     bottom:0;
     right:0;
 }
-/*@media only screen and (prefers-color-scheme: dark){
-    #edit-profile:hover {
-        background-color:var(--lightblue);
-        color: var(--darkblue);
- }
- .pst {
-    background-color: var(--darkishblue);
-}
-
-.pst-auth {
-    color:var(--lightblue)
-}
-
-.pst-disp {
-    color:var(--lightblue)
-}
-.profile-div {
-    background-color:var(--darkishblue);
-}
-}*/
