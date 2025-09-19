@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    margin-right:20px;
     left: 20px;
-    margin-top:24px;
-    height:75px;
+    height:100%;
 }
 #follow-button {
     position: absolute;
@@ -56,7 +56,6 @@
 }
 #prof-usrname {
     margin: 0;
-    margin-bottom: 10px;
     font-size:1em;
     font-weight:normal;
     width:fit-content

@@ -53,25 +53,27 @@ function cameraButtons() {
 }
 
 function startWebService() {
-    modalContent.style.transition = 'all 0.75s ease';
-    modalContent.style.transform = 'translateY(0px)';
     modalShell.style.display = 'block'
+    modalContent.style.transition = 'all 3s ease'
+    modalContent.style.transform = 'translateY(0px)';
+    
+    userMenu.style.display = 'none';
+    notifMenu.style.display = 'none';
 }
 
 function stopWebService() {
      modalContent.style.transition = 'all 0.5s ease'
-        modalContent.style.transform = 'translateY(-700px)';
+        modalContent.style.transform = 'translateY(-100dvh)';
         modalShell.style.backgroundColor = 'transparent'
         setTimeout(function() {
             modalShell.style.display = 'none';
             if (isOn) {
                 stopWebcam()
             }
-            modalContent.style.transform = 'translateY(-470px)';
-            modalContent.style.transition = 'all 0.75s ease';
+            modalContent.style.transform = 'translateY(-50dvh)';
             modalShell.style.backgroundColor = 'rgb(0,0,0)';
             modalShell.style.backgroundColor = 'rgba(0,0,0,0.5)'
-            picTaken = false;
+            picTaken = true;
             togglePhoto();
         }, 500);
 }
