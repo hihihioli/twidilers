@@ -234,7 +234,8 @@ def profile(username):
         owner = 1
     else:
         owner = 0
-    return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
+    follower_count = len(account.followers)
+    return render_template('profile.html',account=account, follower_count=follower_count, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
 
 @app.post('/user/<username>/')
 @login_required

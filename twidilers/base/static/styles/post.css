@@ -87,6 +87,7 @@ a {
 
 #feed-dropdown {
     color: var(--darkblue);
+    width:fit-content;
 }
 
 select,
@@ -316,6 +317,6 @@ option:hover {
         width: calc(var(--width) - 40px) !important;
     }
     #feedtitle {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 }

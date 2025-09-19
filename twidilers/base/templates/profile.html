@@ -23,33 +23,22 @@
                 </form>
             {% else %}
                 <form method="post" id="unfollow-form" name="unfollow-form">
-                    <button class="submit" id="follow-button" name="unfollow-button">Following</button></a>
+                    <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
                 </form>
-                <script>
-                    const followButton = document.getElementById('follow-button');
-                    function sleep(time) {
-                        return new Promise((resolve) => setTimeout(resolve, time));
-                    }
-                    // Change text to "Unfollow" on hover
-                    followButton.addEventListener('mouseover', function () {
-                        sleep(100);
-                        followButton.innerHTML = "Unfollow";
-                    });
-
-                    // Revert text to original when the mouse leaves the button
-                    followButton.addEventListener('mouseout', function () {
-                        sleep(100);
-                        followButton.innerHTML = "Following";
-                    });
-
-                </script>
             {% endif %}
         {% endif %}
+
 </div>
 <div class="profile-div">
     <h2 id="about-user">About {{account.displayname}}</h2>
     <p>{{bio}}</p>
+    <p id="follower-count">{{follower_count}} follower</p>
     <span name="prof-date" id="prof-date"></span>
+    <script>
+        if ({{follower_count}} != 1) {
+            document.getElementById('follower-count').innerText = '{{follower_count}} followers';
+        }
+    </script>
 </div>
 <div>
     <h1>Recent Posts:</h1>
@@ -81,5 +70,6 @@
         document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ');
     }
 </script>
+<script  src="{{ url_for('.static', filename='javascript/profile.js') }}"></script>
 
 {% endblock %}
