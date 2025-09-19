@@ -34,13 +34,18 @@
                         <h2 name="prof-username" id="prof-usrname">@{{account.username}}</h2>
                     </section>
                 </section>
+                <button class="custom-file-upload" role="button" id="camera" onclick="startWebService()">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
                 <form method="post" enctype="multipart/form-data" id="upload_pfp" lang="en" style="display: none;">      
-                        <input type="file" 
-                            id="file" 
-                            name="file" 
-                            accept="image/*"
-                            aria-label="Select new profile picture">
-                </form>
+                <input type="file" 
+                       id="file" 
+                       name="file" 
+                       accept="image/*"
+                       aria-label="Select new profile picture">
+                </i>
+            
+        </form>
             </section>
         </div>
 
@@ -48,22 +53,24 @@
         <div id="modal" class="modal">
             <div class="profile-div modal-content" id="modal-content">
                 <div class="modal-header">
-                    <h3>Change Profile Picture</h3>
-                    <h2 id="close" class="close">&times;</h2>
+                <h3>Change Profile Picture</h3>
+                <h2 id="close" class="close">&times;</h2>
                 </div>
+                <div id="videoShell">
                 <video id="videoElement" autoplay></video>
-                <button id="captureButton" class="submit">Capture Photo</button>
                 <canvas id="canvasElement" style="display: none;"></canvas>
-                <img id="photoElement" style="display: none;">
-            </div>
-        </div>
-        <div class="profile-div" id="change-pfp-div">
-            <h3>Change profile picture</h3>
-                <div class="settings-form">
-                    <label for="file" class="submit" role="button">Upload file</label>
-                    <label class="submit" role="button" id="camera" aria-label="Use camera" onclick="startWebService()">Take a picture</label>
                 </div>
-        </div>
+                <section style="display:flex;width:100%;gap:2px">
+                <button id="startButton" class="submit" style="width:65.5%">Start Camera</button>
+                <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload from computer...</label>
+                </section>
+                <section id="cameraControls">
+                <button id="captureButton" class="submit">Capture Photo</button>
+                <button id="uploadButton" class="submit" style="display:none">Upload Photo</button>
+                </section>
+                
+                </div>
+            </div>
         {% if not account.setup and account.is_oauth %}
             <div class="profile-div profile-warning" role="region" aria-label="Username settings">
                 <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
