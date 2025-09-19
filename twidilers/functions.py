@@ -1,5 +1,5 @@
 from .models import Account,db,Post
-from flask import session,flash,Request,current_app
+from flask import session,flash,Request,current_app, url_for
 import re #for regular expressions
 from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
@@ -116,3 +116,45 @@ def formatImage(image_bytes:bytes) -> bytes:
 def checkCaptcha(response):
     data = requests.post("https://api.hcaptcha.com/siteverify",data={"secret":current_app.config["HCAPTCHA_SECRET"],"response":response})
     return data.json()['success']
+
+# -----------------------------
+# API serialization helpers
+# -----------------------------
+def post_to_api_dict(post: Post, *, external_urls: bool = True) -> dict:
+    """Serialize a Post into a compact feed-friendly dict.
+
+    Fields mirror the existing feed endpoints in user_api.py.
+    """
+    return {
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+        'likes': [u.id for u in post.liked_by],
+        'author': {
+            'id':           post.author.id,
+            'username':     post.author.username,
+            'displayname':  post.author.displayname,
+            'photo_url':    url_for('.get_pfp', username=post.author.username, _external=external_urls),
+            'profile_link': url_for('.profile', username=post.author.username, _external=external_urls),
+        },
+    }
+
+def post_detail_api_dict(post: Post, current_user: Account | None = None, *, external_urls: bool = True) -> dict:
+    """Serialize a Post with additional details (author_url, like_count, liked).
+
+    Used by the /api/post/<id> endpoint.
+    """
+    likes_list = [u.id for u in post.liked_by]
+    liked = bool(current_user) and current_user.id in likes_list
+    return {
+        'id': post.id,
+        'author_id': post.author_id,
+        'author_url': url_for('.userapi', username=post.author.username, _external=external_urls),
+        'title': post.title,
+        'content': post.content,
+        'date': post.date,
+        'like_count': len(likes_list),
+        'likes': likes_list,
+        'liked': liked,
+    }
