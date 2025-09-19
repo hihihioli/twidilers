@@ -50,7 +50,7 @@
                 <a class="pop-user" href="{{ url_for('.profile', username=u.username) }}">
                     <img src="{{ u.photo_url }}" alt="{{ u.username }} pfp" class="mini-pfp" loading="lazy">
                     <span class="pop-names">
-                        <strong>{{ u.displayname }}</strong>
+                        <span>{{ u.displayname }}</span>
                         <small>@{{ u.username }}</small>
                     </span>
                 </a>
@@ -65,7 +65,7 @@
                 <a class="pop-user" href="{{ url_for('.profile', username=u.username) }}">
                     <img src="{{ u.photo_url }}" alt="{{ u.username }} pfp" class="mini-pfp" loading="lazy">
                     <span class="pop-names">
-                        <strong>{{ u.displayname }}</strong>
+                        <span>{{ u.displayname }}</span>
                         <small>@{{ u.username }}</small>
                     </span>
                 </a>
