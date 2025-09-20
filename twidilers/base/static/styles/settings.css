@@ -256,6 +256,7 @@ h3 {
   border: 3px solid var(--darkblue);
   box-sizing: border-box;
   border-radius: 5px;
+  overflow-x:hidden;
 }
 
 #videoElement,#canvasElement {
@@ -332,9 +333,26 @@ h3 {
     font-size: 1.5rem;
 }
 
+#computerUpload {
+  text-align: center;
+  flex-grow: 1;
+}
+
+#startButton {
+  min-width: 49%;
+  flex-grow: 1; 
+}
+
 #cameraControls {
   display:none;
   justify-content: space-between;
+}
+
+#imageControls {
+  display:flex;
+  width:100%;
+  justify-content: space-between;
+  gap:10px;
 }
 
 #old-password {
@@ -389,7 +407,7 @@ h3 {
         gap: 1px;
     }
 }
-@media only screen and (max-width:300px) {
+@media only screen and (max-width:360px) {
   .profile-header {
       gap: 0rem; /* optional spacing between items */
   }

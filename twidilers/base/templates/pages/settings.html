@@ -58,12 +58,12 @@
                     <video id="videoElement" autoplay></video>
                     <canvas id="canvasElement" style="display: none;"></canvas>
                 </div>
-                <section style="display:flex;width:100%;gap:10px">
-                    <button id="startButton" class="submit" style="width:65.5%">Start Camera</button>
-                    <label for="file" class="submit" role="button" style="text-wrap:nowrap">Upload from device</label>
+                <section id="imageControls">
+                    <button id="startButton" class="submit">Start Camera</button>
+                    <label for="file" class="submit" role="button" id="computerUpload" style="text-wrap:wrap">Upload from device</label>
                 </section>
                 <section id="cameraControls">
-                    <button id="captureButton" class="submit">Capture Photo</button>
+                    <button id="captureButton" class="submit" style="display:none">Capture Photo</button>
                     <button id="uploadButton" class="submit" style="display:none">Upload Photo</button>
                 </section>
                 

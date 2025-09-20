@@ -1,6 +1,6 @@
 // Webcam and file uploading logic //
-let videoElement, canvasElement, startButton, captureButton, closeButton, cameraButton, uploadButton, modalContent, modalShell;
-let stream, picTaken, vidWidth;
+let videoElement, canvasElement, startButton, closeButton, cameraButton, fileButton, modalContent, modalShell;
+let stream, picTaken, vidWidth, state;
 let isOn = false;
 window.onload = function () {
     let imageBlob;
@@ -8,18 +8,36 @@ window.onload = function () {
     startButton = document.getElementById('startButton');
     videoElement = document.getElementById('videoElement');
     canvasElement = document.getElementById('canvasElement');
-    captureButton = document.getElementById('captureButton');
-    uploadButton = document.getElementById('uploadButton');
+    fileButton = document.getElementById('computerUpload');
     closeButton = document.getElementById('close');
     modalShell = document.getElementById('modal');
     modalContent = document.getElementById('modal-content');
     cameraButton = document.getElementById('camera');
     cameraControls = document.getElementById('cameraControls');
-    uploadButton.addEventListener('click', uploadPhoto);
-    captureButton.addEventListener('click', cameraButtons);
-    startButton.addEventListener('click', toggleWebcam);
+    startButton.addEventListener('click', alternator);
     closeButton.addEventListener('click', stopWebService);
-}   
+    state = 0
+}  
+
+function alternator() {
+    if (state == 0) {
+        startWebcam()
+        state = 1
+    } else if (state == 1) {
+        capturePhoto()
+        startButton.innerHTML = "Retake"
+        state = 2
+        setUpload(1);
+    } else if (state == 2) {
+       state=1;
+       picTaken = true;
+       startButton.innerHTML = "Take Photo"
+       setUpload(0);
+       togglePhoto();
+    } else if (state == 3) {
+            
+    }
+}
 
 function toggleWebcam() {
     if (isOn) {
@@ -41,14 +59,15 @@ function togglePhoto() {
     }
 }
 
-function cameraButtons() {
-    if (picTaken) {
-        captureButton.style.display = 'Capture Photo';
-        imageBlob = null;
-        togglePhoto();
-    } else {
-        captureButton.innerHTML = 'Try Again'
-        capturePhoto();
+function setUpload(stat) {
+    if (stat == 0) {
+        fileButton.htmlFor = "file";
+        fileButton.innerHTML = "Upload from device";
+        fileButton.removeEventListener('click', uploadPhoto)
+    } else if (stat == 1) {
+        fileButton.htmlFor = "null";
+        fileButton.innerHTML = "Use This Photo";
+        fileButton.addEventListener('click', uploadPhoto)
     }
 }
 
@@ -84,11 +103,9 @@ async function startWebcam() {
         startButton.innerHTML = 'Starting Camera...'
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
         videoElement.srcObject = stream;
-        captureButton.disabled = false;
+        videoShell.style.width = toString(videoShell.clientHeight)
         videoElement.style.display = 'block'
-        startButton.innerHTML = 'Stop Camera'
-        vidWidth = videoElement.videoWidth
-        vidHeight = videoElement.videoHeight;
+        startButton.innerHTML = 'Take Photo'
         cameraControls.style.display = 'flex'
     } catch (error) {
         console.error('Error accessing webcam:', error);
@@ -108,9 +125,7 @@ function capturePhoto() {
     canvasElement.height = videoElement.videoHeight;
     canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
     const photoDataUrl = canvasElement.toDataURL('image/png');
-    console.log('captured')
     imageBlob = dataURLtoBlob(photoDataUrl);
-    uploadButton.style.display = 'block'
     togglePhoto();
 }
 

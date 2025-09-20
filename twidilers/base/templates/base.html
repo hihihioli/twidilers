@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-        <script src="{{ url_for('.static', filename='javascript/beforeload.js') }}"></script>
-
+    <script src="{{ url_for('.static', filename='javascript/beforeload.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
 
@@ -67,14 +66,34 @@
                 {% if account.notifications %}
                     {% for notif in account.notifications %}
                         <div class="notif-post">
-                            <div class="notif-auth">@{{notif['author']}}</div>
+                            <div class="notif-auth">
+                                <a href="{{ url_for('.profile', username=notif['author'])}}" 
+                                    class="auth-info-base"
+                                    aria-label="View {{findAccount(notif['author']).displayname}}'s profile">
+                                    <img class="pst-auth-pfp" 
+                                    loading="lazy" 
+                                    src="{{ url_for('.get_pfp', username=notif['author'])}}"
+                                    alt="Profile picture of ${author.displayname}">
+                                    <div class="pst-auths-base">
+                                    <p class="pst-auth">{{findAccount(notif['author']).displayname}}</p>
+                                    <p class="pst-disp">@{{notif['author']}}</p>              
+                                    </div>
+                                    </a>
+                                {% if notif.type == 'reference' %}
+                                <b>mentioned you</b>
+                                {% endif %}
+                            </div>
                             <div class="notif-title">{{notif['title']}}</div>
                             <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
                             <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
                         </div>
                         <script>
+
+                            options = ['2-digit','numeric','numeric','numeric','2-digit']
                             const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
-                                document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
+                                document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString('en-US', {
+                                year: options[0], month: options[1], day: options[2], hour: options[3],minute: options[4],
+                            });
                         </script>
                     {% endfor %}
                 {% else %}

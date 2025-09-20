@@ -26,7 +26,6 @@ async function fetchCurrentUser() {
     const res = await fetch('/api/currentuser/', { credentials: 'same-origin' });
     if (!res.ok) throw new Error(`CurrentUser failed: ${res.status}`);
     currentUser = await res.json();
-    console.log('currentUser →', currentUser);
   } catch(err) {
     console.error('fetchCurrentUser error:', err);
   }
@@ -203,7 +202,7 @@ function renderPosts(posts) {
         </header>
         <h2 class="pst-title">${post.title || ''}</h2>
         <p class="pst-content">${post.content}</p>
-        <div class="pst-date">${new Date(post.date).toLocaleString()}</div>
+        <div class="pst-date">${parseDate(post.date)}</div>
         <div class="pst-reactions">${reactionsHTML}</div>
       </div>
     `;

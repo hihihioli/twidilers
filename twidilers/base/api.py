@@ -50,6 +50,9 @@ def logout():
 def write_post():
     title   = request.form.get('title')
     content = request.form.get('post-content') or ''
+    references = request.form.get('references').strip().split(',')
+    for i in range(0,len(references)):
+        references[i] = references[i].lstrip('@')
     # enforce non‐empty
     if not content.strip():
         flash('Post cannot be empty','error')
@@ -61,28 +64,67 @@ def write_post():
         flash(f'Post was longer than {MAX_CONTENT} chars; truncated.','info')
     account  = findAccount()
     date_utc = datetime.datetime.now(datetime.timezone.utc)
-    # save post
+    
     new_post = Post(
-        title   = title,
-        content = content,
-        date    = date_utc,
-        author  = account
-    )
+                title   = title,
+                content = content,
+                date    = date_utc,
+                author  = account,
+                is_reference = False,
+                references = []
+            )
     db.session.add(new_post)
     db.session.commit()
     # notify followers
-    notifications = {
+    follownotifs = {
+        "type": "follow",
+        "references": [],
         "author":  account.username,
         "title":   title,
         "content": content,
         "date":    date_utc.timestamp()
     }
+    refnotifs = {
+        "type": "reference",
+        "references": [],
+        "author":  account.username,
+        "title":   title,
+        "content": content,
+        "date":    date_utc.timestamp()
+    }
+    unfound = []
+    if references != ['']:
+        finList = []
+        notifList = []
+        for referenceStr in references:
+            reference = findAccount(referenceStr)
+            if reference:
+                finList.append(reference)
+                notifList.append(referenceStr)
+            else:
+                unfound.append(referenceStr)
+        post = findPostByDate(date_utc)
+        if len(finList) == 0:
+            post.is_reference = False
+        else:
+            refnotifs["references"] = notifList
+            post.is_reference = True
+            post.references = finList
+            for ref in finList:
+                ref.addNotifs(refnotifs)
+    account = findAccount()
     for follower in account.followers:
-        n = follower.notifications.copy()
-        n.append(notifications)
-        follower.notifications = n
+        if not references == ['']:
+            if not(follower in finList):
+                follower.addNotifs(follownotifs)
+        else:
+            follower.addNotifs(follownotifs)
+    print(new_post)
     db.session.commit()
-    flash('Post successfully created','success')
+    if len(unfound) != 0:
+        flash('Posted; References not found: '+', '.join(unfound),'info')
+    else:
+        flash('Post successfully created','success')
     return redirect(url_for('.page',page='feed'))
 
 @app.post('/feed')
@@ -95,6 +137,16 @@ def feed():
         if post.author != user:
             flash('You cannot delete a post that is not yours','error')
             return redirect(url_for('.page',page='feed'))
+        if post.is_reference:
+            for accName in post.references:
+                account = findAccount(accName)
+                o = account.notifications.copy()
+                for notif in o:
+                    if notif.get("type"):
+                        pass
+                #n.append(follownotifs)
+                #follower.notifications = n
+                pass
         db.session.delete(post)
         db.session.commit()
         flash('Post Deleted','success')

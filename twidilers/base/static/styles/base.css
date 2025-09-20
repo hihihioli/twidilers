@@ -270,20 +270,37 @@ Click generate until you get the loss under 3 */
     display:none;
     height:0px;
 }
+
 .notif-div {
-    width: 250px !important;
+    height:auto;
+    max-height: 50dvh;
+    width: clamp(200px,calc(15vw + 130px),300px) !important;
     position: absolute!important; /* Positioned relative to .popup-div */
+    right: 0; /* Aligns with the left of .popup-div */
+    top: 100%; /* Appears directly below the parent element */
     flex-direction: column;
     align-items: center;
-    border: 2px solid var(--darkblue);
-    width: 95px;
+    overflow-y:scroll;
+    scrollbar-width: none;
     z-index: 1000;
     padding: 10px;
     border-radius: 10px;
+    border: 2px solid var(--darkblue);
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
-    right: 0; /* Aligns with the left of .popup-div */
-    top: 100%; /* Appears directly below the parent element */
+    
 }
+
+#notif-div-0 {
+    height:100%;
+    display:flex;
+    gap:10px;
+    flex-direction:column;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    scrollbar-width: none;
+    
+}
+
 .notif-div button {
     display: block;
     padding: 15px;
@@ -322,15 +339,6 @@ Click generate until you get the loss under 3 */
     justify-content: space-between;
 }
 
-#notif-div-0 {
-    display:flex;
-    gap:10px;
-    flex-direction:column;
-    /* Let the container grow naturally up to 300px, then allow scrolling */
-    max-height:300px;
-    overflow-y:auto; /* only show scrollbar when needed */
-    overflow-x:hidden;
-}
 #notif-header h2 {
     margin:auto 0;
 }
@@ -419,10 +427,32 @@ Click generate until you get the loss under 3 */
     width:12px;
 }
 
-#auth-info {
-    height: fit-content;
-    font-size: 1.2em;
-    position:relative
+.pst-auth {
+    margin:0px;
+    color:var(--darkblue);
+    font-weight: bold;
+}
+
+.pst-disp {
+    margin:3px 0 0 0; /* maybe change this to 0? looks better like that in notif page */
+    color:var(--darkblue);
+    font-size: 10pt;
+    font-weight:normal;
+}
+
+.pst-auth-pfp {
+    border-radius: 1000px;
+    width: 40px;
+}
+
+.auth-info-base {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 10px 0;
+    width: 100%;
+    cursor:pointer;
+    height: 40px;
 }
 
 #pfp-head {
@@ -503,7 +533,7 @@ a {
 
 /* The submit button. */
 .submit, .submit-h {
-    width: auto ;
+    width: auto;
     height: auto;
     font-size: 11pt;
     padding: 13px;

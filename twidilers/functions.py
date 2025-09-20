@@ -83,6 +83,10 @@ def findPost(post_id) -> Post|None:
     post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
     return post
 
+def findPostByDate(date_utc):
+    post = db.session.execute(db.select(Post).filter_by(date=date_utc)).scalar()
+    return post
+
 def changePFP(request:Request):
     account = findAccount()
     try:
