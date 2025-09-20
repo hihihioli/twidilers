@@ -5,7 +5,9 @@
     position: relative;
     left: 20px;
     height:100%;
-    margin:auto 0 auto 20px;
+    margin-right:20px;
+    width:fit-content;
+    flex-shrink: 1;
 }
 #follow-button {
     position: absolute;
@@ -60,6 +62,7 @@
     font-weight:normal;
     width:fit-content
 }
+
 .profile-div {
   justify-content: flex-start;
   align-items: flex-start;
@@ -124,6 +127,7 @@
 #auth-info {
     display:flex;
     flex-direction:row;
+    position:relative;
 }
 
 #about {
@@ -142,10 +146,6 @@
     display:relative !important;
 }
 
-.pst-auths{
-    position: relative;
-    bottom:8px;
-}
 
 .pst-title {
     margin:1px 0 10px 0;

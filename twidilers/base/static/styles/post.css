@@ -34,24 +34,9 @@ input[type="checkbox" i] {
 header {
     margin:0;
 }
-.pst-auth {
-    margin:10px 0 0 0;
-    color:var(--darkblue);
-    font-weight: bold;
-}
 
-.pst-disp {
-    margin:3px 0 0 0;
-    color:var(--darkblue);
-    font-size: 10pt;
-    font-weight:normal;
-}
 a {
     text-decoration:none;
-}
-.pst-auths{
-    position: relative;
-    bottom:8px;
 }
 
 .pst-title {
@@ -245,7 +230,7 @@ option:hover {
 }
 
 .liked:hover {
-    border-radius:50%;
+    border-radius:5px;
 }
 
 
@@ -259,10 +244,7 @@ option:hover {
     height: 40px;
 }
 
-.pst-auth-pfp {
-    border-radius: 1000px;
-    width: 40px;
-}
+
 
 .pst-content {
     margin-top:0px

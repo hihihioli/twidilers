@@ -11,7 +11,37 @@ const locationthing = document.getElementById('location');
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
 
+function resizeCaptcha() {
+    captchaElem = document.getElementsByClassName("h-captcha")[0]
+    captchaWidth = captchaElem.children[0].offsetWidth;
+    parentWidth = document.getElementById('password').offsetWidth;
+    scale = parentWidth/captchaWidth
+    captchaElem.style.transform = "scale(" + (scale+","+1.025*scale ) + ")";
+}
+window.onload = function () {
+    setTimeout(function () {
+        let captchaElem = document.getElementsByClassName("h-captcha")[0]
+        captchaElem.style.display = "flex";
+    }
+    ,20)
+    window.onresize = resizeCaptcha
+
+    resizeCaptcha()
+}
+
+function parseDate(date_utc, options = ['2-digit','numeric','numeric','numeric','2-digit']) {
+    dateStr = new Date(date_utc).toLocaleString('en-US', {
+            year: options[0],
+            month: options[1],
+            day: options[2],
+            hour: options[3],
+            minute: options[4],
+        })
+    return dateStr
+}
+
 // Expands notif page if it's clicked
+
 notifButton.addEventListener('click', () => {
 if (notifMenu.style.display === 'none') {
     notifMenu.style.display = 'flex';
@@ -29,6 +59,10 @@ if (userMenu.style.display === 'none') {
     userMenu.style.display = 'none';
 }
 });
+
+
+
+
 
 // Handles character count
 document.addEventListener('DOMContentLoaded', function(){
