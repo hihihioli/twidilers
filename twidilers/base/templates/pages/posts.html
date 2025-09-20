@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Create a post{% endblock %}
+{% block title %}Post by {{ post.author }}{% endblock %}
 {% block head %}
 <link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/form.css') }}">
 {% endblock %}
