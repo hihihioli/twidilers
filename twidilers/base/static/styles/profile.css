@@ -45,6 +45,17 @@
     width:100px;
     transition:0.5s all !important;
 }
+
+@media screen and (max-width:500px) {
+    #follow-button {
+        width:fit-content;
+    }
+}
+@media screen and (max-width:450px) {
+    #follow-button {
+        bottom:35px;
+    }
+}
 #prof-disp {
     position: relative;
     right: 0;

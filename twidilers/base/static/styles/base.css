@@ -505,7 +505,7 @@ a {
     height: fit-content;
     border-radius: 5px;
     background: var(--darkishblue);
-    color: white;
+    color: var(--lightishblue);
     padding: 8px;
     font-size: 12pt;
     text-align: center;

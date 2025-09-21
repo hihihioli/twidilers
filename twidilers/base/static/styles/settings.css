@@ -333,6 +333,10 @@ h3 {
     font-size: 1.5rem;
 }
 
+#close {
+  padding:5px;
+}
+
 #computerUpload {
   text-align: center;
   flex-grow: 1;
@@ -407,9 +411,12 @@ h3 {
         gap: 1px;
     }
 }
-@media only screen and (max-width:360px) {
+@media only screen and (max-width:450px) {
   .profile-header {
       gap: 0rem; /* optional spacing between items */
+  }
+  #pfp {
+    width: 80px;
   }
 }
 
