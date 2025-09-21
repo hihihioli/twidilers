@@ -72,7 +72,7 @@ def changeUsername(request:Request):
     new_name = request.form.get('username')
     new_name.lstrip('@')
     if not checkUsername(new_name):
-        flash("Only a-z,0-9,_ allowed in username","error")
+        flash("Only letters, numbers, and underscores allowed in username","error")
         return
     account.username = new_name
     account.setup = True

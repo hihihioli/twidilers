@@ -207,7 +207,7 @@ def sign_up():
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()
     if not checkUsername(new_username):
-        flash("Only a-z,0-9,_ allowed in username","error")
+        flash("OOnly letters, numbers, and underscores allowed in username","error")
         return redirect(url_for('.page',page='sign-up'))
     password1=request.form.get('password1')
     password2=request.form.get('password2')
