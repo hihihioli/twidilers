@@ -65,6 +65,7 @@
                 {% if session['username'] %}
                 {% if account.notifications %}
                     {% for notif in account.notifications %}
+                    <script>console.log({{notif}})</script>
                         <div class="notif-post">
                             <div class="notif-auth">
                                 <a href="{{ url_for('.profile', username=notif['author'])}}" 
@@ -80,7 +81,7 @@
                                     </div>
                                     </a>
                                 {% if notif.type == 'reference' %}
-                                <b>mentioned you</b>
+                                <b>mentioned you in:</b>
                                 {% endif %}
                             </div>
                             <div class="notif-title">{{notif['title']}}</div>

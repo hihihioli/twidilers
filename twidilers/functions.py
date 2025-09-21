@@ -68,9 +68,28 @@ def changeDisplay(request:Request):
 
 def changeUsername(request:Request):
     account = findAccount()
+    old_name = account.username
     new_name = request.form.get('username')
+    new_name.lstrip('@')
+    if not checkUsername(new_name):
+        flash("Only a-z,0-9,_ allowed in username","error")
+        return
     account.username = new_name
     account.setup = True
+    for post in account.posts:
+        if post.is_reference:
+            for act in post.references:
+                ns = act.notifications.copy()
+                for notif in ns:
+                    if notif["author"] == old_name:
+                        notif["author"] = new_name
+                act.notifications = ns
+    for act in account.followers:
+                ns = act.notifications.copy()
+                for notif in ns:
+                    if notif["author"] == old_name:
+                        notif["author"] = new_name
+                act.notifications = ns
     try:
         db.session.commit()
         flash(f'Username Changed to {account.username}','success')
@@ -86,6 +105,23 @@ def findPost(post_id) -> Post|None:
 def findPostByDate(date_utc):
     post = db.session.execute(db.select(Post).filter_by(date=date_utc)).scalar()
     return post
+
+def deletePost(post):
+    for accName in post.references:
+        account = findAccount(accName)
+        o = account.notifications.copy()
+        for notif in o:
+            if notif.get("date") == post.date:
+                o.remove(notif)
+    for accName in post.author.followers:
+        account = findAccount(accName)
+        o = account.notifications.copy()
+        for notif in o:
+            if notif.get("date") == post.date:
+                o.remove(notif)
+        account.notifications = o
+    db.session.delete(post)
+    db.session.commit()
 
 def changePFP(request:Request):
     account = findAccount()

@@ -5,6 +5,7 @@ The file for routes that need extra processing, such as processing a login.
 from flask import render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
 import sqlalchemy
 import datetime
+import re
 
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
@@ -50,7 +51,17 @@ def logout():
 def write_post():
     title   = request.form.get('title')
     content = request.form.get('post-content') or ''
-    references = request.form.get('references').strip().split(',')
+    twords = re.findall(r"[@\w']+|[.,!?;]",title)
+    words = re.findall(r"[@\w']+|[.,!?;]", content)
+    #references = request.form.get('references').strip().split(',')
+    #if references == ['']:
+    references = []
+    for word in words:
+        if word.lstrip('@') != word:
+            references.append(word)
+    for tword in twords:
+        if tword.lstrip('@') != tword:
+            references.append(tword)
     for i in range(0,len(references)):
         references[i] = references[i].lstrip('@')
     # enforce non‐empty
@@ -93,8 +104,8 @@ def write_post():
         "date":    date_utc.timestamp()
     }
     unfound = []
-    if references != ['']:
-        finList = []
+    finList = []
+    if references != []:
         notifList = []
         for referenceStr in references:
             reference = findAccount(referenceStr)
@@ -114,12 +125,8 @@ def write_post():
                 ref.addNotifs(refnotifs)
     account = findAccount()
     for follower in account.followers:
-        if not references == ['']:
-            if not(follower in finList):
+        if not(references and follower in finList):
                 follower.addNotifs(follownotifs)
-        else:
-            follower.addNotifs(follownotifs)
-    print(new_post)
     db.session.commit()
     if len(unfound) != 0:
         flash('Posted; References not found: '+', '.join(unfound),'info')
@@ -132,23 +139,13 @@ def write_post():
 def feed():
     user = findAccount()
     if "delete-post-id" in request.form:
+        
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if post.author != user:
             flash('You cannot delete a post that is not yours','error')
             return redirect(url_for('.page',page='feed'))
-        if post.is_reference:
-            for accName in post.references:
-                account = findAccount(accName)
-                o = account.notifications.copy()
-                for notif in o:
-                    if notif.get("type"):
-                        pass
-                #n.append(follownotifs)
-                #follower.notifications = n
-                pass
-        db.session.delete(post)
-        db.session.commit()
+        deletePost(post)
         flash('Post Deleted','success')
         return redirect(url_for('.page',page='feed'))
     elif "filter-foll" in request.form:
@@ -181,7 +178,7 @@ def clear():
     account = findAccount()
     account.notifications = []
     db.session.commit()
-    return
+    return redirect(request.referrer)
 
 @app.post('/send-reset-link')
 def send_reset_link():
@@ -210,7 +207,7 @@ def sign_up():
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()
     if not checkUsername(new_username):
-        flash("Only a-z,0-9,_ Allowed","error")
+        flash("Only a-z,0-9,_ allowed in username","error")
         return redirect(url_for('.page',page='sign-up'))
     password1=request.form.get('password1')
     password2=request.form.get('password2')
@@ -258,7 +255,7 @@ def settings(): #Handles the settings page
     elif 'name-change' in request.form: #The user wants to change their display name
         changeDisplay(request)
         return redirect(url_for('.page',page='settings'))
-    elif 'username-change' in request.form: #The user wants to change their display name
+    elif 'username-change' in request.form: #The user wants to change their username
         changeUsername(request)
         return redirect(url_for('.page',page='settings'))
     elif 'file' in request.files: #The user wants to update their pfp
@@ -335,10 +332,7 @@ def profaction(username):
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if username != account.username:
             flash('You cannot delete a post that is not yours','error')
-        if username == account.username:
-            db.session.delete(post)
-            db.session.commit()
-            flash('Post Deleted','success')
+        deletePost(post)
         posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
         return render_template('profile.html',account=account, posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
     else:
