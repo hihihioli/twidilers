@@ -4,16 +4,27 @@
 let currentUser  = null;
 let currentPage  = 1;
 let currentFeedType = 'all';
+let jumpTo = null;
+let URLtoJumpTo = null
 const POSTS_PER_PAGE = 15;
 
 // 2) DOM refs
-const postContainer  = document.getElementById('post-container');
-const loadingScreen  = document.getElementById('loading-screen');
-const moreButton     = document.getElementById('more');
-const lessButton     = document.getElementById('less');
+const postContainer   = document.getElementById('post-container');
+const loadingScreen   = document.getElementById('loading-screen');
+const moreButton      = document.getElementById('more');
+const lessButton      = document.getElementById('less');
 const feedTypeButtons = document.querySelectorAll('.feed-type-btn');
-const refreshButton = document.getElementById('refresh');
+const refreshButton   = document.getElementById('refresh');
 
+// copy to clipboard logic
+function copyToClipboard(text){
+  newText = `https://twidilers.com/feed/${text}`
+  navigator.clipboard.writeText(newText).then(() => {
+    console.log('Text copied to clipboard!');
+  }).catch(err => {
+    console.error('Failed to copy text: ', err);
+  });
+};
 
 // 3) Utility: sleep X ms
 function sleep(ms) {
@@ -77,17 +88,29 @@ async function fetchPosts(feedType = currentFeedType) {
         postContainer.innerHTML = `<p>No posts to show.</p>`;
     }
 
+
     // Hide loader
     loadingScreen.style.display = 'none';
     postContainer.style.display = 'block';
 
+    runJumpTo();
+
     // Update query string with both page and feed type
     const base = window.location.pathname;
-    window.history.replaceState(
-        {}, 
-        '', 
-        `${base}?page=${currentPage}&feed=${feedType}`
-    );
+    // If we jumped to a post, the post should stay in the URL
+    if (jumpTo) {
+      window.history.replaceState(
+          {}, 
+          '', 
+          `${base}?page=${currentPage}&feed=${feedType}&jumpTo=${jumpTo}`
+      );    
+    } else {
+      window.history.replaceState(
+          {}, 
+          '', 
+          `${base}?page=${currentPage}&feed=${feedType}`
+      );
+    }
 }
 
 
@@ -181,31 +204,35 @@ function renderPosts(posts) {
 
     const authorHTML = `
         <a href="${author.profile_link}" 
-        class="auth-info"
-        aria-label="View ${author.displayname}'s profile">
-        <img class="pst-auth-pfp" 
-        loading="lazy" 
-        src="${author.photo_url}"
-        alt="Profile picture of ${author.displayname}">
-        <div class="pst-auths">
-        <p class="pst-auth">${author.displayname}</p>
-        <p class="pst-disp">@${author.username}</p>              
-        </div>
+          class="auth-info"
+          aria-label="View ${author.displayname}'s profile">
+          <img class="pst-auth-pfp" 
+            loading="lazy" 
+            src="${author.photo_url}"
+            alt="Profile picture of ${author.displayname}">
+          <div class="pst-auths">
+            <p class="pst-auth">${author.displayname}</p>
+            <p class="pst-disp">@${author.username}</p>              
+          </div>
         </a>
     `;
 
-    // full post HTML (tweak as you need)
+
+    // mentioning logic
     const mentionClass = post.mentions_current_user ? ' mentioned-you' : '';
     // simple mention highlighting inside content
     let contentHTML = post.content;
     if (Array.isArray(post.mentions) && post.mentions.length) {
-      // replace each @username with a span (basic escaping assumption)
+      // replace each @username with a span
       for (const m of post.mentions) {
         const pattern = new RegExp(`@${m}\\b`, 'g');m
         contentHTML = contentHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
       }
     }
 
+    let stringPostId = String(post.id);
+
+    // full post HTML
     const onePost = `
       <div class="pst${mentionClass}" id="post-${post.id}">
         <header>
@@ -215,10 +242,23 @@ function renderPosts(posts) {
         <p class="pst-content">${contentHTML}</p>
         <div class="pst-date">${parseDate(post.date)}</div>
         <div class="pst-reactions">${reactionsHTML}</div>
+        <div class="pst-share" onClick="copyToClipboard(${stringPostId})"><i class="fa-solid fa-link"></i></div>
       </div>
     `;
 
     postContainer.insertAdjacentHTML('beforeend', onePost);
+  }
+}
+
+function runJumpTo() {
+  if (!jumpTo) {
+    return
+  }
+    // looking for jumpTo posts
+  let idName = 'post-' + jumpTo;
+  let postToJumpTo = document.getElementById(idName);
+  if (postToJumpTo) {
+    postToJumpTo.scrollIntoView({ behavior: 'smooth' });
   }
 }
 
@@ -270,6 +310,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const feedType = params.get('feed') || 'all';
     currentPage = parseInt(params.get('page')) || 1;
+    jumpTo = parseInt(params.get('jumpTo')) || null;
     
     // Set initial active button
     const activeButton = document.querySelector(

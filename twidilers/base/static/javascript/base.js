@@ -3,7 +3,6 @@ const userButton = document.getElementById('usricon-nav');
 const userMenu = document.getElementById('popupMenu');
 const notifButton = document.getElementById('navbarbell');
 const notifMenu = document.getElementById('notif-popup');
-const filterMenu = document.getElementById('filter-form');
 const locationthing = document.getElementById('location');
 
 
@@ -11,23 +10,6 @@ const locationthing = document.getElementById('location');
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
 
-function resizeCaptcha() {
-    captchaElem = document.getElementsByClassName("h-captcha")[0]
-    captchaWidth = captchaElem.children[0].offsetWidth;
-    parentWidth = document.getElementById('password').offsetWidth;
-    scale = parentWidth/captchaWidth
-    captchaElem.style.transform = "scale(" + (scale+","+1.025*scale ) + ")";
-}
-window.onload = function () {
-    setTimeout(function () {
-        let captchaElem = document.getElementsByClassName("h-captcha")[0]
-        captchaElem.style.display = "flex";
-    }
-    ,20)
-    window.onresize = resizeCaptcha
-
-    resizeCaptcha()
-}
 
 function parseDate(date_utc, options = ['2-digit','numeric','numeric','numeric','2-digit']) {
     dateStr = new Date(date_utc).toLocaleString('en-US', {

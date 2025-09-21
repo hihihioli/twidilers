@@ -178,6 +178,15 @@ option:hover {
 .pst-react-but:hover {
     box-shadow:0 0 5px var(--darkblue);
 }
+
+.pst-share {
+    padding:20px;
+    font-size:18px;
+    position:absolute;
+    bottom:0;
+    right:0;
+    cursor:pointer;
+}
 .checkbox-label {
     position:absolute;
     top:0;

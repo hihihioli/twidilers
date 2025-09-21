@@ -172,6 +172,23 @@ def feed():
     flash(f'{request.form}','error')
     return redirect(url_for('.page',page='feed'))
 
+@app.route('/feed/<int:post_id>')
+@login_required
+def go_to_post(post_id):
+    POSTS_PER_PAGE = 15
+    post = findPost(post_id)
+    if not post:
+        flash('Post not found','error')
+        return redirect(url_for('.page', page='feed'))
+    # Count how many newer (higher id) posts exist (feed is ordered desc by id)
+    newer_count = db.session.execute(
+        db.select(db.func.count()).select_from(Post).filter(Post.id > post_id)
+    ).scalar()
+    page = (newer_count // POSTS_PER_PAGE) + 1
+    # Redirect to feed with correct pagination parameters
+    return redirect(f"{url_for('.page', page='feed')}?page={page}&feed=all&jumpTo={post_id}")
+
+
 @app.post('/clear')
 @login_required
 def clear():

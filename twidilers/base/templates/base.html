@@ -59,7 +59,12 @@
             <div class="notif-div">
                 <div id="notif-header">
                     <h2>Notifications</h2>   
-                    <button class="submit" id="clear-notifs" onclick="clearNotifs()">Clear</button>
+                    <button 
+                        class="submit" 
+                        id="clear-notifs" 
+                        onclick="clearNotifs()">
+                        Clear
+                    </button>
                 </div>
                 <div id="notif-div-0">
                 {% if session['username'] %}
@@ -71,16 +76,16 @@
                                     class="auth-info-base"
                                     aria-label="View {{findAccount(notif['author']).displayname}}'s profile">
                                     <img class="pst-auth-pfp" 
-                                    loading="lazy" 
-                                    src="{{ url_for('.get_pfp', username=notif['author'])}}"
-                                    alt="Profile picture of ${author.displayname}">
+                                        loading="lazy" 
+                                        src="{{ url_for('.get_pfp', username=notif['author'])}}"
+                                        alt="Profile picture of ${author.displayname}">
                                     <div class="pst-auths-base">
-                                    <p class="pst-auth">{{findAccount(notif['author']).displayname}}</p>
-                                    <p class="pst-disp">@{{notif['author']}}</p>              
+                                        <p class="pst-auth">{{findAccount(notif['author']).displayname}}</p>
+                                        <p class="pst-disp">@{{notif['author']}}</p>              
                                     </div>
-                                    </a>
+                                </a>
                                 {% if notif.type == 'reference' %}
-                                <b>mentioned you in:</b>
+                                    <b>mentioned you in:</b>
                                 {% endif %}
                             </div>
                             <div class="notif-title">{{notif['title']}}</div>
