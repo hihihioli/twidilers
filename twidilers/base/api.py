@@ -256,6 +256,10 @@ def settings(): #Handles the settings page
         changeDisplay(request)
         return redirect(url_for('.page',page='settings'))
     elif 'username-change' in request.form: #The user wants to change their username
+        account = findAccount()
+        if account.setup == True:
+            flash('Account Already Set Up','error')
+            return redirect('/settings')
         changeUsername(request)
         return redirect(url_for('.page',page='settings'))
     elif 'file' in request.files: #The user wants to update their pfp
