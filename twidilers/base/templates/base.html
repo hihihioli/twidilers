@@ -41,7 +41,7 @@
             {% endif %}
         </div>
         <!-- Notification popup-->
-                 <script>
+        <script>
             // Notification handler
             function clearNotifs() { //The function to clear notifications
                 {% if session['username'] %}
@@ -65,7 +65,6 @@
                 {% if session['username'] %}
                 {% if account.notifications %}
                     {% for notif in account.notifications %}
-                    <script>console.log({{notif}})</script>
                         <div class="notif-post">
                             <div class="notif-auth">
                                 <a href="{{ url_for('.profile', username=notif['author'])}}" 

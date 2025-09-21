@@ -13,6 +13,7 @@ from io import BytesIO
 def all_posts(page):
     POSTS_PER_PAGE = 15
     offset = (page - 1) * POSTS_PER_PAGE
+    current = findAccount()
     postlist:list[Post] = (
         db.session.execute(
             db.select(Post)
@@ -21,7 +22,7 @@ def all_posts(page):
             .offset(offset)
         ).scalars()
     )
-    response = [post_to_api_dict(post) for post in postlist]
+    response = [post_to_api_dict(post, current_user=current) for post in postlist]
     return flask.jsonify(response)
 
 # Displays posts by people the logged-in user follows
@@ -44,7 +45,7 @@ def following_feed(page):
         ).scalars()
     )
     
-    response = [post_to_api_dict(post) for post in postlist]
+    response = [post_to_api_dict(post, current_user=account) for post in postlist]
     return flask.jsonify(response)
 
 # Displays posts that logged-in user liked
@@ -65,7 +66,7 @@ def liked_feed(page):
         ).scalars()
     )
     
-    response = [post_to_api_dict(post) for post in postlist]
+    response = [post_to_api_dict(post, current_user=account) for post in postlist]
     return flask.jsonify(response)
 
 # This displays information about the user
@@ -118,6 +119,40 @@ def get_post(post_id):
     if not post:
         flask.abort(404)
     return flask.jsonify(post_detail_api_dict(post, user))
+
+# Bulk user existence / data lookup
+# POST { "usernames": ["alice","bob"] }
+@app.post('/api/users/bulk')
+def bulk_users():
+    data = flask.request.get_json(silent=True) or {}
+    names = data.get('usernames') or []
+    if not isinstance(names, list):
+        return flask.jsonify({'error':'usernames must be a list'}), 400
+    # normalize & dedupe
+    norm = []
+    seen = set()
+    for n in names:
+        if not isinstance(n,str):
+            continue
+        u = n.strip().lstrip('@')
+        if not u or u in seen:
+            continue
+        if not checkUsername(u):
+            continue
+        seen.add(u)
+        norm.append(u)
+    if not norm:
+        return flask.jsonify({'users': []})
+    rows = db.session.execute(
+        db.select(Account).filter(Account.username.in_(norm))
+    ).scalars().all()
+    users = [{
+        'username': r.username,
+        'displayname': r.displayname,
+        'photo_url': flask.url_for('.get_pfp', username=r.username),
+        'profile_link': flask.url_for('.profile', username=r.username)
+    } for r in rows]
+    return flask.jsonify({'users': users})
 
 """
 Ideally there would be an API for changing user settings. Hopefully someone will add this api :)

@@ -195,13 +195,24 @@ function renderPosts(posts) {
     `;
 
     // full post HTML (tweak as you need)
+    const mentionClass = post.mentions_current_user ? ' mentioned-you' : '';
+    // simple mention highlighting inside content
+    let contentHTML = post.content;
+    if (Array.isArray(post.mentions) && post.mentions.length) {
+      // replace each @username with a span (basic escaping assumption)
+      for (const m of post.mentions) {
+        const pattern = new RegExp(`@${m}\\b`, 'g');m
+        contentHTML = contentHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
+      }
+    }
+
     const onePost = `
-      <div class="pst" id="post-${post.id}">
+      <div class="pst${mentionClass}" id="post-${post.id}">
         <header>
             ${authorHTML}      
         </header>
         <h2 class="pst-title">${post.title || ''}</h2>
-        <p class="pst-content">${post.content}</p>
+        <p class="pst-content">${contentHTML}</p>
         <div class="pst-date">${parseDate(post.date)}</div>
         <div class="pst-reactions">${reactionsHTML}</div>
       </div>

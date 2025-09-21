@@ -160,17 +160,51 @@ def checkCaptcha(response):
 # -----------------------------
 # API serialization helpers
 # -----------------------------
-def post_to_api_dict(post: Post, *, external_urls: bool = True) -> dict:
+MENTION_REGEX = re.compile(r'(?<![\w@])@([A-Za-z0-9_]{1,32})')
+
+def extract_mentions(text:str) -> list[str]:
+    """Return unique usernames mentioned in text via @username.
+
+    Rules:
+      - Start with @ not preceded by a word char or @ (prevents email user parts and @@).
+      - Username chars: letters, numbers, underscore. Capped at 32 for sanity.
+    """
+    if not text:
+        return []
+    seen = set()
+    mentions = []
+    for match in MENTION_REGEX.finditer(text):
+        uname = match.group(1)
+        if uname not in seen:
+            seen.add(uname)
+            mentions.append(uname)
+    return mentions
+
+def validate_mentions(usernames:list[str]) -> list[str]:
+    """Filter list of usernames to only those that exist in the DB."""
+    if not usernames:
+        return []
+    existing = db.session.execute(
+        db.select(Account.username).filter(Account.username.in_(usernames))
+    ).scalars().all()
+    return list(existing)
+
+def post_to_api_dict(post: Post, current_user: Account|None=None, *, external_urls: bool = True) -> dict:
     """Serialize a Post into a compact feed-friendly dict.
 
     Fields mirror the existing feed endpoints in user_api.py.
     """
+    raw_mentions = extract_mentions(post.content)
+    valid_mentions = validate_mentions(raw_mentions)
+    mentions_current_user = bool(current_user) and current_user.username in valid_mentions
     return {
         'id': post.id,
         'title': post.title,
         'content': post.content,
         'date': post.date,
         'likes': [u.id for u in post.liked_by],
+        'mentions': valid_mentions,
+        'mentions_current_user': mentions_current_user,
         'author': {
             'id':           post.author.id,
             'username':     post.author.username,
@@ -187,6 +221,8 @@ def post_detail_api_dict(post: Post, current_user: Account | None = None, *, ext
     """
     likes_list = [u.id for u in post.liked_by]
     liked = bool(current_user) and current_user.id in likes_list
+    raw_mentions = extract_mentions(post.content)
+    valid_mentions = validate_mentions(raw_mentions)
     return {
         'id': post.id,
         'author_id': post.author_id,
@@ -197,4 +233,6 @@ def post_detail_api_dict(post: Post, current_user: Account | None = None, *, ext
         'like_count': len(likes_list),
         'likes': likes_list,
         'liked': liked,
+        'mentions': valid_mentions,
+        'mentions_current_user': bool(current_user) and current_user.username in valid_mentions,
     }
