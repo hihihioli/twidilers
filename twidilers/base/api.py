@@ -5,6 +5,7 @@ The file for routes that need extra processing, such as processing a login.
 from flask import render_template, abort, request, redirect, url_for, flash, session,jsonify,send_file
 import sqlalchemy
 import datetime
+import re
 
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
@@ -50,6 +51,19 @@ def logout():
 def write_post():
     title   = request.form.get('title')
     content = request.form.get('post-content') or ''
+    twords = re.findall(r"[@\w']+|[.,!?;]",title)
+    words = re.findall(r"[@\w']+|[.,!?;]", content)
+    #references = request.form.get('references').strip().split(',')
+    #if references == ['']:
+    references = []
+    for word in words:
+        if word.lstrip('@') != word:
+            references.append(word)
+    for tword in twords:
+        if tword.lstrip('@') != tword:
+            references.append(tword)
+    for i in range(0,len(references)):
+        references[i] = references[i].lstrip('@')
     # enforce non‐empty
     if not content.strip():
         flash('Post cannot be empty','error')
@@ -61,28 +75,64 @@ def write_post():
         flash(f'Post was longer than {MAX_CONTENT} chars; truncated.','info')
     account  = findAccount()
     date_utc = datetime.datetime.now(datetime.timezone.utc)
-    # save post
+    
     new_post = Post(
-        title   = title,
-        content = content,
-        date    = date_utc,
-        author  = account
-    )
+                title   = title,
+                content = content,
+                date    = date_utc,
+                author  = account,
+                is_reference = False,
+                references = []
+            )
     db.session.add(new_post)
     db.session.commit()
     # notify followers
-    notifications = {
+    follownotifs = {
+        "type": "follow",
+        "references": [],
         "author":  account.username,
         "title":   title,
         "content": content,
         "date":    date_utc.timestamp()
     }
+    refnotifs = {
+        "type": "reference",
+        "references": [],
+        "author":  account.username,
+        "title":   title,
+        "content": content,
+        "date":    date_utc.timestamp()
+    }
+    unfound = []
+    finList = []
+    if references != []:
+        notifList = []
+        for referenceStr in references:
+            reference = findAccount(referenceStr)
+            if reference:
+                if reference == account:
+                    continue
+                finList.append(reference)
+                notifList.append(referenceStr)
+            else:
+                unfound.append(referenceStr)
+        post = findPostByDate(date_utc)
+        if len(finList) == 0:
+            post.is_reference = False
+        else:
+            refnotifs["references"] = notifList
+            post.is_reference = True
+            post.references = finList
+            for ref in finList:
+                ref.addNotifs(refnotifs)
     for follower in account.followers:
-        n = follower.notifications.copy()
-        n.append(notifications)
-        follower.notifications = n
+        if not(references and follower in finList):
+                follower.addNotifs(follownotifs)
     db.session.commit()
-    flash('Post successfully created','success')
+    if len(unfound) != 0:
+        flash('Posted; References not found: '+', '.join(unfound),'info')
+    else:
+        flash('Post successfully created','success')
     return redirect(url_for('.page',page='feed'))
 
 @app.post('/feed')
@@ -90,13 +140,13 @@ def write_post():
 def feed():
     user = findAccount()
     if "delete-post-id" in request.form:
+        
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if post.author != user:
             flash('You cannot delete a post that is not yours','error')
             return redirect(url_for('.page',page='feed'))
-        db.session.delete(post)
-        db.session.commit()
+        deletePost(post)
         flash('Post Deleted','success')
         return redirect(url_for('.page',page='feed'))
     elif "filter-foll" in request.form:
@@ -123,13 +173,30 @@ def feed():
     flash(f'{request.form}','error')
     return redirect(url_for('.page',page='feed'))
 
+@app.route('/feed/<int:post_id>')
+@login_required
+def go_to_post(post_id):
+    POSTS_PER_PAGE = 15
+    post = findPost(post_id)
+    if not post:
+        flash('Post not found','error')
+        return redirect(url_for('.page', page='feed'))
+    # Count how many newer (higher id) posts exist (feed is ordered desc by id)
+    newer_count = db.session.execute(
+        db.select(db.func.count()).select_from(Post).filter(Post.id > post_id)
+    ).scalar()
+    page = (newer_count // POSTS_PER_PAGE) + 1
+    # Redirect to feed with correct pagination parameters
+    return redirect(f"{url_for('.page', page='feed')}?page={page}&feed=all&jumpTo={post_id}")
+
+
 @app.post('/clear')
 @login_required
 def clear():
     account = findAccount()
     account.notifications = []
     db.session.commit()
-    return
+    return redirect(request.referrer)
 
 @app.post('/send-reset-link')
 def send_reset_link():
@@ -158,7 +225,7 @@ def sign_up():
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()
     if not checkUsername(new_username):
-        flash("Only a-z,0-9,_ Allowed","error")
+        flash("OOnly letters, numbers, and underscores allowed in username","error")
         return redirect(url_for('.page',page='sign-up'))
     password1=request.form.get('password1')
     password2=request.form.get('password2')
@@ -206,7 +273,11 @@ def settings(): #Handles the settings page
     elif 'name-change' in request.form: #The user wants to change their display name
         changeDisplay(request)
         return redirect(url_for('.page',page='settings'))
-    elif 'username-change' in request.form: #The user wants to change their display name
+    elif 'username-change' in request.form: #The user wants to change their username
+        account = findAccount()
+        if account.setup == True:
+            flash('Account Already Set Up','error')
+            return redirect('/settings')
         changeUsername(request)
         return redirect(url_for('.page',page='settings'))
     elif 'file' in request.files: #The user wants to update their pfp
@@ -234,7 +305,35 @@ def profile(username):
         owner = 1
     else:
         owner = 0
-    return render_template('profile.html',account=account, posts=posts,owner=owner,date=account.userdata['joined'],bio=account.userdata['bio'])
+    follower_count = len(account.followers)
+    following_count = len(account.following)
+    # lightweight serialization for popovers
+    follower_list = [
+        {
+            'username': u.username,
+            'displayname': u.displayname,
+            'photo_url': url_for('.get_pfp', username=u.username)
+        } for u in account.followers
+    ]
+    following_list = [
+        {
+            'username': u.username,
+            'displayname': u.displayname,
+            'photo_url': url_for('.get_pfp', username=u.username)
+        } for u in account.following
+    ]
+    return render_template(
+        'profile.html',
+        account=account,
+        follower_count=follower_count,
+        following_count=following_count,
+        follower_list=follower_list,
+        following_list=following_list,
+        posts=posts,
+        owner=owner,
+        date=account.userdata['joined'],
+        bio=account.userdata['bio']
+    )
 
 @app.post('/user/<username>/')
 @login_required
@@ -250,25 +349,30 @@ def profaction(username):
         db.session.commit()
         flash(f'You are no longer following {username}')
         return redirect(url_for('.profile',username=username))
+    elif 'like-post-id' in request.form: #The user is trying to like a post
+        post_id = request.form.get('like-post-id')
+        post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+        if account.id in [person.id for person in post.liked_by]:
+            post.liked_by.remove(account)
+            db.session.commit()
+            flash('Post Unliked','success')
+            return redirect(url_for('.profile',username=username))
+        post.liked_by.append(account)
+        db.session.commit()
+        flash('Post Liked','success')
+        return redirect(url_for('.profile',username=username))
     if "delete-post" in request.form:
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if username != account.username:
             flash('You cannot delete a post that is not yours','error')
-        if username == account.username:
-            db.session.delete(post)
-            db.session.commit()
-            flash('Post Deleted','success')
+        deletePost(post)
         posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
         return render_template('profile.html',account=account, posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
-            
-@app.get('/post/<post_id>')
-def post(post_id):
-    post = db.session.execute(db.get_or_404(post_id)).scalar()
-    return render_template('postinfo.html',post=post)
+
 
 @app.get('/verify/<token>')
 def verify(token):

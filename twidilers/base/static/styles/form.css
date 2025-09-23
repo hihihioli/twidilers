@@ -37,12 +37,15 @@
     font-family:Arial, sans-serif;
     flex-shrink: 1;
 }
+
 p .input_form, h2 .input_form {
     margin:10px 0;
 }
+
 h4 {
     font-weight:normal;
 }
+
 .separator {
     display: flex;
     align-items: center;
@@ -102,9 +105,9 @@ a:focus-visible {
 }
 
 .h-captcha {
-    width: 100%;
-    display:flex;
+    display:none;
     justify-content: center;
+    min-height: 75px;
 }
 
 #blog_form {
@@ -133,6 +136,8 @@ a:focus-visible {
 
 #post-post-content {
     height:160px;
+    min-height: 16px;
+    resize: vertical!important;
 }
 #post-post-content-count {
     font-size: 0.9em;

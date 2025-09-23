@@ -4,8 +4,10 @@
     flex-direction: column;
     position: relative;
     left: 20px;
-    margin-top:24px;
-    height:75px;
+    height:100%;
+    margin-right:20px;
+    width:fit-content;
+    flex-shrink: 1;
 }
 #follow-button {
     position: absolute;
@@ -43,6 +45,17 @@
     width:100px;
     transition:0.5s all !important;
 }
+
+@media screen and (max-width:500px) {
+    #follow-button {
+        width:fit-content;
+    }
+}
+@media screen and (max-width:450px) {
+    #follow-button {
+        bottom:35px;
+    }
+}
 #prof-disp {
     position: relative;
     right: 0;
@@ -56,11 +69,11 @@
 }
 #prof-usrname {
     margin: 0;
-    margin-bottom: 10px;
     font-size:1em;
     font-weight:normal;
     width:fit-content
 }
+
 .profile-div {
   justify-content: flex-start;
   align-items: flex-start;
@@ -79,9 +92,53 @@
   box-sizing: border-box;
 }
 
+/* Popover panels for followers / following */
+.hover-pop {
+    cursor: pointer;
+}
+.hover-pop:hover, .hover-pop:focus {
+    text-decoration: underline;
+}
+.pop-panel {
+    position: absolute;
+    z-index: 40;
+    background: var(--lightblue);
+    color: var(--darkblue);
+    border: 3px solid var(--darkblue);
+    border-radius: 10px;
+    padding: 10px;
+    width: 240px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    display: none;
+}
+
+.pop-panel.show { display: block; }
+.pop-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 4px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+}
+.pop-user:hover { background: rgba(0,0,0,0.08); }
+.mini-pfp {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.pop-names { display: flex; flex-direction: column; line-height: 1.1; }
+.pop-names small { opacity: 0.7; }
+.empty { opacity: 0.6; font-style: italic; }
+
 #auth-info {
     display:flex;
     flex-direction:row;
+    position:relative;
 }
 
 #about {
@@ -100,10 +157,6 @@
     display:relative !important;
 }
 
-.pst-auths{
-    position: relative;
-    bottom:8px;
-}
 
 .pst-title {
     margin:1px 0 10px 0;
@@ -122,23 +175,3 @@
     bottom:0;
     right:0;
 }
-/*@media only screen and (prefers-color-scheme: dark){
-    #edit-profile:hover {
-        background-color:var(--lightblue);
-        color: var(--darkblue);
- }
- .pst {
-    background-color: var(--darkishblue);
-}
-
-.pst-auth {
-    color:var(--lightblue)
-}
-
-.pst-disp {
-    color:var(--lightblue)
-}
-.profile-div {
-    background-color:var(--darkishblue);
-}
-}*/

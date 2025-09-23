@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-        <script src="{{ url_for('.static', filename='javascript/beforeload.js') }}"></script>
-
+    <script src="{{ url_for('.static', filename='javascript/beforeload.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('.static', filename='styles/base.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('.static', filename='images/favicon.ico', v=2) }}">
 
@@ -42,7 +41,7 @@
             {% endif %}
         </div>
         <!-- Notification popup-->
-                 <script>
+        <script>
             // Notification handler
             function clearNotifs() { //The function to clear notifications
                 {% if session['username'] %}
@@ -56,29 +55,54 @@
                 {% endif %}
         }
         </script>
-        <div class="popup-div" id="notif-popup">
+        <div class="popup-div popup" id="notif-popup">
             <div class="notif-div">
                 <div id="notif-header">
                     <h2>Notifications</h2>   
-                    <button class="submit" id="clear-notifs" onclick="clearNotifs()">Clear</button>
+                    <button 
+                        class="submit" 
+                        id="clear-notifs" 
+                        onclick="clearNotifs()">
+                        Clear
+                    </button>
                 </div>
                 <div id="notif-div-0">
                 {% if session['username'] %}
                 {% if account.notifications %}
                     {% for notif in account.notifications %}
                         <div class="notif-post">
-                            <div class="notif-auth">@{{notif['author']}}</div>
+                            <div class="notif-auth">
+                                <a href="{{ url_for('.profile', username=notif['author'])}}" 
+                                    class="auth-info-base"
+                                    aria-label="View {{findAccount(notif['author']).displayname}}'s profile">
+                                    <img class="pst-auth-pfp" 
+                                        loading="lazy" 
+                                        src="{{ url_for('.get_pfp', username=notif['author'])}}"
+                                        alt="Profile picture of ${author.displayname}">
+                                    <div class="pst-auths-base">
+                                        <p class="pst-auth">{{findAccount(notif['author']).displayname}}</p>
+                                        <p class="pst-disp">@{{notif['author']}}</p>              
+                                    </div>
+                                </a>
+                                {% if notif.type == 'reference' %}
+                                    <b>mentioned you in:</b>
+                                {% endif %}
+                            </div>
                             <div class="notif-title">{{notif['title']}}</div>
                             <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
                             <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
                         </div>
                         <script>
+
+                            options = ['2-digit','numeric','numeric','numeric','2-digit']
                             const notif_date_{{ loop.index0 }} = new Date({{ notif['date']*1000 }})
-                                document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString();
+                                document.getElementById("notif_date_{{ loop.index0 }}").innerHTML = notif_date_{{ loop.index0 }}.toLocaleString('en-US', {
+                                year: options[0], month: options[1], day: options[2], hour: options[3],minute: options[4],
+                            });
                         </script>
                     {% endfor %}
                 {% else %}
-                    <script>document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'</script>
+                    <script>document.getElementById('notif-div-0').innerHTML = "<span class='no-notifs'>No Notifications</span>"</script>
                 {% endif %}
                 {% endif %}
             </div>

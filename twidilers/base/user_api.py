@@ -6,12 +6,14 @@ from ..functions import * #Custom functions, like save()
 
 import flask
 from sqlalchemy import desc
+from io import BytesIO
 
 # This displays the paginated 15 posts on the feed page.
 @app.route('/api/feed/all/<int:page>', methods=['GET'])
 def all_posts(page):
     POSTS_PER_PAGE = 15
     offset = (page - 1) * POSTS_PER_PAGE
+    current = findAccount()
     postlist:list[Post] = (
         db.session.execute(
             db.select(Post)
@@ -20,20 +22,7 @@ def all_posts(page):
             .offset(offset)
         ).scalars()
     )
-    response = [{
-        'id': post.id,
-        'title': post.title,
-        'content': post.content,
-        'date': post.date,
-        'likes': [u.id for u in post.liked_by],
-        'author': {
-            'id':         post.author.id,   
-            'username':    post.author.username,
-            'displayname': post.author.displayname,
-            'photo_url':   url_for('.get_pfp', username=post.author.username, _external=True),
-            'profile_link': url_for('.profile', username=post.author.username, _external=True)
-        }
-    } for post in postlist]
+    response = [post_to_api_dict(post, current_user=current) for post in postlist]
     return flask.jsonify(response)
 
 # Displays posts by people the logged-in user follows
@@ -56,20 +45,7 @@ def following_feed(page):
         ).scalars()
     )
     
-    response = [{
-        'id': post.id,
-        'title': post.title,
-        'content': post.content,
-        'date': post.date,
-        'likes': [u.id for u in post.liked_by],
-        'author': {
-            'id': post.author.id,   
-            'username': post.author.username,
-            'displayname': post.author.displayname,
-            'photo_url': url_for('.get_pfp', username=post.author.username, _external=True),
-            'profile_link': url_for('.profile', username=post.author.username, _external=True)
-        }
-    } for post in postlist]
+    response = [post_to_api_dict(post, current_user=account) for post in postlist]
     return flask.jsonify(response)
 
 # Displays posts that logged-in user liked
@@ -90,20 +66,7 @@ def liked_feed(page):
         ).scalars()
     )
     
-    response = [{
-        'id': post.id,
-        'title': post.title,
-        'content': post.content,
-        'date': post.date,
-        'likes': [u.id for u in post.liked_by],
-        'author': {
-            'id': post.author.id,   
-            'username': post.author.username,
-            'displayname': post.author.displayname,
-            'photo_url': url_for('.get_pfp', username=post.author.username, _external=True),
-            'profile_link': url_for('.profile', username=post.author.username, _external=True)
-        }
-    } for post in postlist]
+    response = [post_to_api_dict(post, current_user=account) for post in postlist]
     return flask.jsonify(response)
 
 # This displays information about the user
@@ -114,12 +77,12 @@ def userapi(username):
         'id': account.id,
         'username': account.username,
         'displayname': account.displayname,
-        'photo_url': url_for('.get_pfp',username=account.username),
+        'photo_url': flask.url_for('.get_pfp',username=account.username),
         'verified': account.verified,
         'setup': account.setup,
         'is_oauth': account.is_oauth,
         'userdata': account.userdata,
-        'profile_link': url_for('.profile',username=account.username)
+        'profile_link': flask.url_for('.profile',username=account.username)
      })
 
 # This displays a list of all users
@@ -130,12 +93,12 @@ def all_users():
         'id': account.id,
         'username': account.username,
         'displayname': account.displayname,
-        'photo_url': url_for('.get_pfp',username=account.username),
+        'photo_url': flask.url_for('.get_pfp',username=account.username),
         'verified': account.verified,
         'setup': account.setup,
         'is_oauth': account.is_oauth,
         'userdata': account.userdata,
-        'profile_link': url_for('.profile',username=account.username)
+        'profile_link': flask.url_for('.profile',username=account.username)
     } for account in userlist))
 
 
@@ -152,23 +115,44 @@ def current_user():
 @app.route('/api/post/<int:post_id>')
 def get_post(post_id):
     user = findAccount()
-    liked = False
     post = findPost(post_id)
     if not post:
         flask.abort(404)
-    if user in post.likes:
-        liked = True
-    return flask.jsonify({
-        'id': post.id,
-        'author_id': post.author_id,
-        'author_url': url_for('.userapi', username=post.author.username, _external=True),
-        'title': post.title,
-        'content': post.content,
-        'date': post.date,
-        'like_count':post.like_count,
-        'likes':post.likes,
-        'liked':liked
-    })
+    return flask.jsonify(post_detail_api_dict(post, user))
+
+# Bulk user existence / data lookup
+# POST { "usernames": ["alice","bob"] }
+@app.post('/api/users/bulk')
+def bulk_users():
+    data = flask.request.get_json(silent=True) or {}
+    names = data.get('usernames') or []
+    if not isinstance(names, list):
+        return flask.jsonify({'error':'usernames must be a list'}), 400
+    # normalize & dedupe
+    norm = []
+    seen = set()
+    for n in names:
+        if not isinstance(n,str):
+            continue
+        u = n.strip().lstrip('@')
+        if not u or u in seen:
+            continue
+        if not checkUsername(u):
+            continue
+        seen.add(u)
+        norm.append(u)
+    if not norm:
+        return flask.jsonify({'users': []})
+    rows = db.session.execute(
+        db.select(Account).filter(Account.username.in_(norm))
+    ).scalars().all()
+    users = [{
+        'username': r.username,
+        'displayname': r.displayname,
+        'photo_url': flask.url_for('.get_pfp', username=r.username),
+        'profile_link': flask.url_for('.profile', username=r.username)
+    } for r in rows]
+    return flask.jsonify({'users': users})
 
 """
 Ideally there would be an API for changing user settings. Hopefully someone will add this api :)
@@ -195,13 +179,13 @@ def api_like(post_id):
     if user in post.liked_by:
         post.liked_by.remove(user)
         db.session.commit()
-        return jsonify({
+        return flask.jsonify({
             'liked': False, 
             'post_id': post_id
         })
     post.liked_by.append(user)
     db.session.commit()
-    return jsonify({
+    return flask.jsonify({
         'liked': True,
         'post_id': post_id
     })
@@ -211,11 +195,11 @@ def api_like(post_id):
 def api_delete(post_id):
     post = findPost(post_id)
     if post.author != findAccount():
-        return jsonify({'error':'not your post'}), 403
+        return flask.jsonify({'error':'not your post'}), 403
     db.session.delete(post)
     db.session.commit()
-    flash('Post deleted','success')
-    return jsonify({'deleted': True, 'post_id': post_id})
+    flask.flash('Post deleted','success')
+    return flask.jsonify({'deleted': True, 'post_id': post_id})
 
 # Gets user profile picture
 @app.get('/api/user/<username>/pfp')
@@ -226,3 +210,10 @@ def get_pfp(username):
         return flask.send_file(BytesIO(account.photo),download_name=f'{username}_pfp.png')
     else:
         return flask.send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
+
+""" TODO: ADD NOTIFICATION SETTINGS TO MODELS.PY AND FINISH THIS
+@app.post('/api/settings/<setting>')
+@login_required
+def get_setting(setting)
+    account = findAccount()
+"""

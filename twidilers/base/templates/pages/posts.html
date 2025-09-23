@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Create a post{% endblock %}
+{% block title %}Post by {{ post.author }}{% endblock %}
 {% block head %}
 <link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/form.css') }}">
 {% endblock %}
@@ -23,13 +23,6 @@
         maxlength="500"
         autocomplete="off"></textarea>
     <div id="post-post-content-count" class="char-count"></div>
-    <!--<input 
-        type="text" 
-        class="post-textbox textbox" 
-        placeholder="References (e.g. @wall03, @hihihioli):" 
-        id="references" 
-        name="references" 
-        autocomplete="off" />-->
     <button 
         id="post-submit" 
         type="submit" 

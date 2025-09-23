@@ -5,6 +5,7 @@ input[type="file"] {
   }
   
 #acct-dtl-content {
+  height:fit-content;
   display: block;
   flex-direction: column;
 }
@@ -22,6 +23,19 @@ input[type="file"] {
   overflow: hidden;
   resize: none;
 }
+
+#post-content {
+  min-height: 36px;
+  max-width: 277px;
+  width: 82%;
+  resize: vertical;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  overflow-y: hidden;
+}
+
 .profile-warning {
   background-color: #D53F21 !important;
   color:white !important;
@@ -54,6 +68,7 @@ h3 {
     align-items: center;
     justify-content: space-between; /* pushes form to right */
     gap: 1rem; /* optional spacing between items */
+    transition: all 0.5s ease;
 }
 #upload_pfp {
     margin-left: auto; /* optional: ensures it's pushed right */
@@ -89,22 +104,13 @@ h3 {
   top:12px;
 }
 
-#post-content {
-  min-height: 36px;
-  width: 530px;
-  resize: vertical;
-  border-radius: 5px;
-  padding: 10px;
-  font-family: inherit;
-  font-size: 0.85rem;
-  overflow-y: hidden;
-}
+
 
 .settings-form {
   display: flex;
   flex-direction:row;
   gap:15px;
-  min-height:36px;
+  min-height:30px;
   position:relative;
   width:100%;
 }
@@ -114,6 +120,7 @@ h3 {
   position:absolute;
   bottom:0;
   right:0;
+  text-wrap: wrap;
 }
 .char-count {
   float:right;
@@ -245,13 +252,38 @@ h3 {
   .checkbox-wrapper-35 .switch + label .switch-x-wide {
     width: 45px;
   }
-#videoElement {
-  border: 2px solid var(--darkblue);
-  width:100%;margin: 20px 0px 20px 0px;
+#videoShell{
+  border: 3px solid var(--darkblue);
+  box-sizing: border-box;
   border-radius: 5px;
-  transform: rotateY(180deg);
-  -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-  -moz-transform:rotateY(180deg); /* Firefox */
+  overflow-x:hidden;
+}
+
+#videoElement,#canvasElement {
+  width:100%;
+  height:fit-content;
+  border-width: 0px !important;;
+}
+
+
+#camera {
+  position: absolute; 
+  width:30px;
+  height: 30px;
+  padding: 0px;
+  color: var(--darkblue);
+  background-color:var(--lightblue);
+  border: 2px solid var(--darkblue);
+  border-radius: 5px;
+  font-size:15px;
+  cursor:pointer;
+  bottom:15%;
+  transition: all 0.5s;
+}
+
+#camera:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
 }
 
 .modal {
@@ -267,6 +299,7 @@ h3 {
   width:100dvw;
   height:100dvh;
   overflow:auto;
+  transition: all 0.75s ease;
 }
 
 #flyout-example {
@@ -278,6 +311,7 @@ h3 {
   position:relative;
   left:50%;
   translate: -50%;
+  transform: translateY(150dvh);
   transition: all 0.75s ease; 
 }
 
@@ -299,8 +333,69 @@ h3 {
     font-size: 1.5rem;
 }
 
+#close {
+  padding:5px;
+}
+
+#computerUpload {
+  text-align: center;
+  flex-grow: 1;
+}
+
+#startButton {
+  min-width: 49%;
+  flex-grow: 1; 
+}
+
+#cameraControls {
+  display:none;
+  justify-content: space-between;
+}
+
+#imageControls {
+  display:flex;
+  width:100%;
+  justify-content: space-between;
+  gap:10px;
+}
+
 #old-password {
   margin-bottom:10px;
+}
+
+@media only screen and (max-width:600px) {
+    .settings-form {
+        flex-direction:column;
+        width:100%;
+    }
+    .pf-mnu-btn {
+        text-align:left;    
+    }
+}
+@media only screen and (max-width:475px) {
+.settings-submit {
+  justify-self: flex-start;
+  align-self: flex-start;
+  margin:0;
+  position:relative;
+  bottom:0;
+  width:100%
+}
+.settings-box {
+  max-width: 10000000px;
+  width: initial !important;;
+}
+
+#post-content {
+  max-width: 100000px;
+  width: initial!important;
+  
+}
+
+.char-count {
+  position:absolute;
+  top:-36.5px;
+  right:0;
 }
 
 @media only screen and (max-width:415px){ 
@@ -309,40 +404,19 @@ h3 {
   }
 }
 
-@media only screen and (prefers-color-scheme: dark){
-
-  /*
-  #camera {
-    color: var(--lightblue) !important;
-    background-color:var(--darkblue)!important;
-    border: 2px solid var(--lightblue)
-  }
-  #camera:hover {
-    border-radius: 6px;
-    box-shadow: 0 0 7px 0 var(--darkblue);
-  }
-  .custom-file-upload {
-    background-color: var(--lightblue);
-    color: var(--darkblue);
-  } 
-  #videoElement {
-    border: 2px solid var(--lightblue);
-  }*/
 }
-@media only screen and (max-width:600px) {
-    .settings-form {
-        flex-direction:column;
-        width:100%;
-    }
+@media only screen and (max-width:386px) {
     #acct-navbar {
         flex-direction:column;
-        gap: 5px;
-    }
-    .pf-mnu-btn {
-        width:100%;
-        text-align:left;    
-    }
-    #acct-dtl-content {
-        width:100%;
+        gap: 1px;
     }
 }
+@media only screen and (max-width:450px) {
+  .profile-header {
+      gap: 0rem; /* optional spacing between items */
+  }
+  #pfp {
+    width: 80px;
+  }
+}
+

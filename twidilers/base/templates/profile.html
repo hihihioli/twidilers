@@ -2,18 +2,20 @@
 {% block title %}{{account.displayname}}'s profile{% endblock %}
 {% block head %}
 <link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/profile.css') }}">
+<link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/settings.css') }}">
 <link rel="stylesheet" data-turbo-track="dynamic" href="{{ url_for('.static', filename='styles/post.css') }}">
 
 
 {% endblock %}
 {% block content %}
 <div class="profile-div" id="auth-info">
+    <section class="profile-header">
     <img src="{{ url_for('.get_pfp',username=account.username) }}" loading="lazy" id="pfp">
-    <section class="profile-auth">
-        <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
-        <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
+        <section class="profile-auth">
+            <h1 name="display-name" id="display-name">{{account.displayname}}</h1>
+            <h3 name="prof-username" id="prof-usrname">@{{account.username}}</h3>
         </section>
-
+    </section>
         {% if owner == 1 %}
             <a href="{{ url_for('.page',page='settings') }}" id="edit-profile"><i class="fa-solid fa-pencil"></i></a>
         {% else %}
@@ -23,63 +25,99 @@
                 </form>
             {% else %}
                 <form method="post" id="unfollow-form" name="unfollow-form">
-                    <button class="submit" id="follow-button" name="unfollow-button">Following</button></a>
+                    <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
                 </form>
-                <script>
-                    const followButton = document.getElementById('follow-button');
-                    function sleep(time) {
-                        return new Promise((resolve) => setTimeout(resolve, time));
-                    }
-                    // Change text to "Unfollow" on hover
-                    followButton.addEventListener('mouseover', function () {
-                        sleep(100);
-                        followButton.innerHTML = "Unfollow";
-                    });
-
-                    // Revert text to original when the mouse leaves the button
-                    followButton.addEventListener('mouseout', function () {
-                        sleep(100);
-                        followButton.innerHTML = "Following";
-                    });
-
-                </script>
             {% endif %}
         {% endif %}
+
 </div>
 <div class="profile-div">
     <h2 id="about-user">About {{account.displayname}}</h2>
     <p>{{bio}}</p>
+    <p>
+        <span id="follower-count" class="hover-pop" data-popover="followers">
+            {{follower_count}} follower{% if follower_count != 1 %}s{% endif %}
+        </span>
+        &middot;
+        <span id="following-count" class="hover-pop" data-popover="following">
+            {{following_count}} following
+        </span>
+    </p>
     <span name="prof-date" id="prof-date"></span>
+    <div id="followers-pop" class="pop-panel" role="dialog" aria-label="Followers" aria-hidden="true">
+        {% if follower_list|length == 0 %}
+            <div class="empty">No followers yet</div>
+        {% else %}
+            {% for u in follower_list %}
+                <a class="pop-user" href="{{ url_for('.profile', username=u.username) }}">
+                    <img src="{{ u.photo_url }}" alt="{{ u.username }} pfp" class="mini-pfp" loading="lazy">
+                    <span class="pop-names">
+                        <span>{{ u.displayname }}</span>
+                        <small>@{{ u.username }}</small>
+                    </span>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div id="following-pop" class="pop-panel" role="dialog" aria-label="Following" aria-hidden="true">
+        {% if following_list|length == 0 %}
+            <div class="empty">Not following anyone</div>
+        {% else %}
+            {% for u in following_list %}
+                <a class="pop-user" href="{{ url_for('.profile', username=u.username) }}">
+                    <img src="{{ u.photo_url }}" alt="{{ u.username }} pfp" class="mini-pfp" loading="lazy">
+                    <span class="pop-names">
+                        <span>{{ u.displayname }}</span>
+                        <small>@{{ u.username }}</small>
+                    </span>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>
 <div>
     <h1>Recent Posts:</h1>
     {% for post in posts %}
-        <div class="pst">
-            <h2 class="pst-title">{{post.title}}</h3>
-                <p class="pst-content">{{post.content}}</p>
-                <p class="pst-date" id="date{{ loop.index0 }}">error</p>
-            <script>
-                const date{{ post.id }} = new Date({{ post.date.timestamp()*1000 }})
-                    document.getElementById("date{{ loop.index0 }}").innerHTML = date{{ post.id }}.toLocaleString();
-            </script>
-            <div class="pst-reactions">
-                {% if owner == 1 %}
-                    <form method="post">
-                        <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
-                            <input type="hidden" name="delete-post-id" value="{{ post.id }}">
-                            <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                            <span class="visually-hidden">Delete this post</span>
-                        </button>
-                    </form>
-                {% endif %}
+        <a href="{{ url_for('base.go_to_post', post_id=post.id) }}" class="post-link">
+            <div class="pst">
+                <h2 class="pst-title">{{post.title}}</h3>
+                    <p class="pst-content">{{post.content}}</p>
+                    <p class="pst-date" id="date{{ loop.index0 }}">error</p>
+                <script>
+                    (function(){
+                        const d = new Date(parseInt("{{ (post.date.timestamp()*1000)|int }}",10));
+                        document.getElementById("date{{ loop.index0 }}").textContent = d.toLocaleString();
+                    })();
+                </script>
+                <div class="pst-reactions">
+                    {% if owner == 1 %}
+                        <form method="post">
+                            <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
+                                <input type="hidden" name="delete-post-id" value="{{ post.id }}">
+                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                <span class="visually-hidden">Delete this post</span>
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="post" class="js-reaction-form">
+                            <button type="submit" class="pst-react-but  like-button {% if findAccount() and (findAccount() in post.likes) %}liked{% endif %}" name="like-button" title="Like">
+                                <input type="hidden" name="like-post-id" value="{{ post.id }}">
+                                <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                                <span class="visually-hidden">Like this post</span>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
-        </div>
+        </a>
     {% endfor %}
 </div>
 <script>
-    window.onload = function() {
-        document.getElementById('prof-date').textContent = 'Joined on ' + new Date({{ account.userdata['joined']*1000 }}).toDateString().replace(/^(\w+)\s/, '$1, ');
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+        const joined = new Date(parseInt("{{ (account.userdata['joined']*1000)|int }}",10));
+        document.getElementById('prof-date').textContent = 'Joined on ' + joined.toDateString().replace(/^(\w+)\s/, '$1, ');
+    });
 </script>
+<script  src="{{ url_for('.static', filename='javascript/profile.js') }}"></script>
 
 {% endblock %}

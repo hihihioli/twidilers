@@ -270,20 +270,37 @@ Click generate until you get the loss under 3 */
     display:none;
     height:0px;
 }
+
 .notif-div {
-    width: 250px !important;
+    height:auto;
+    max-height: 50dvh;
+    width: clamp(200px,calc(15vw + 130px),300px) !important;
     position: absolute!important; /* Positioned relative to .popup-div */
+    right: 0; /* Aligns with the left of .popup-div */
+    top: 100%; /* Appears directly below the parent element */
     flex-direction: column;
     align-items: center;
-    border: 2px solid var(--darkblue);
-    width: 95px;
+    overflow-y:scroll;
+    scrollbar-width: none;
     z-index: 1000;
     padding: 10px;
     border-radius: 10px;
+    border: 2px solid var(--darkblue);
     background-color: var(--lightblue); /* Ensure it contrasts with the background */
-    right: 0; /* Aligns with the left of .popup-div */
-    top: 100%; /* Appears directly below the parent element */
+    
 }
+
+#notif-div-0 {
+    height:100%;
+    display:flex;
+    gap:10px;
+    flex-direction:column;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    scrollbar-width: none;
+    
+}
+
 .notif-div button {
     display: block;
     padding: 15px;
@@ -312,7 +329,7 @@ Click generate until you get the loss under 3 */
 }
 .notif-title {
     font-weight:bold;
-    font-size:1.2em;
+    font-size:1.3em;
 }
 
 #notif-header {
@@ -320,17 +337,9 @@ Click generate until you get the loss under 3 */
     display:flex;
     flex-direction:row;
     justify-content: space-between;
+    margin-bottom:10px;
 }
 
-#notif-div-0 {
-    display:flex;
-    gap:10px;
-    flex-direction:column;
-    /* Let the container grow naturally up to 300px, then allow scrolling */
-    max-height:300px;
-    overflow-y:auto; /* only show scrollbar when needed */
-    overflow-x:hidden;
-}
 #notif-header h2 {
     margin:auto 0;
 }
@@ -341,7 +350,7 @@ Click generate until you get the loss under 3 */
     color:var(--darkblue);
     font-size:1em;
     cursor: pointer;
-    border-radius:8px 8px 0 0;
+    border-radius:8px;
     transition:all 0.2s;
     position:relative;
 }
@@ -378,6 +387,11 @@ Click generate until you get the loss under 3 */
 }
 #navbarbell:hover {
     box-shadow:none !important;
+}
+.no-notifs {
+    font-style:italic;
+    margin:10px 0;
+    opacity:70%;
 }
 
 /* bell "rings" when hovered over */
@@ -419,10 +433,32 @@ Click generate until you get the loss under 3 */
     width:12px;
 }
 
-#auth-info {
-    height: fit-content;
-    font-size: 1.2em;
-    position:relative
+.pst-auth {
+    margin:0px;
+    color:var(--darkblue);
+    font-weight: bold;
+}
+
+.pst-disp {
+    margin:3px 0 0 0; /* maybe change this to 0? looks better like that in notif page */
+    color:var(--darkblue);
+    font-size: 10pt;
+    font-weight:normal;
+}
+
+.pst-auth-pfp {
+    border-radius: 1000px;
+    width: 40px;
+}
+
+.auth-info-base {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 10px 0;
+    width: 100%;
+    cursor:pointer;
+    height: 40px;
 }
 
 #pfp-head {
@@ -475,7 +511,7 @@ a {
     height: fit-content;
     border-radius: 5px;
     background: var(--darkishblue);
-    color: white;
+    color: var(--lightishblue);
     padding: 8px;
     font-size: 12pt;
     text-align: center;
@@ -503,7 +539,7 @@ a {
 
 /* The submit button. */
 .submit, .submit-h {
-    width: auto ;
+    width: auto;
     height: auto;
     font-size: 11pt;
     padding: 13px;
@@ -516,7 +552,7 @@ a {
     margin: 10px auto 0 auto;
     text-decoration:none !important;
     font-weight:normal !important;
-    text-wrap:nowrap;
+    text-wrap:wrap;
 }
 
 /* Accented submit button */
@@ -573,79 +609,6 @@ a {
         color:var(--lightishblue);
         border:3px solid var(--lightishblue);
     }
-    /*
-    #hder-img {
-        filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
-    }
-    /*.notif-div button {
-        color: var(--lightblue);
-    }
-    body {
-        color: var(--lightblue);
-        background-color: var(--darkblue);
-    }
-
-    label {
-        color:var(--lightblue)
-    }
-
-    #navbar button, .popup-menu button {
-        color: var(--darkblue);
-        background-color: var(--lightblue);
-    }
-
-    #navbar button:hover, .popup-menu button:hover {
-        box-shadow: 0 0 7px 0 var(--lightblue);
-    }
-    /* Sets the image to be a certain color 
-    
-
-    #navbarbell {
-        color: var(--lightblue) !important;
-        background-color:var(--darkblue)!important;
-    }
-    .notif-post {
-        background-color:var(--darkishblue);
-        color:var(--lightblue);
-    }
-
-    .popup-menu {
-        background-color: var(--darkishblue);
-        border:2px solid var(--lightblue);
-    }
-     
-    #usricon-nav {
-        color: var(--lightblue) !important;
-        background-color: var(--darkblue) !important;
-    }
-
-    .submit {
-        background-color: var(--lightblue);
-        color: var(--darkblue);
-        border: 3px solid var(--lightblue);
-    }
-    .custom-file-upload, .submit:hover {
-        background-color: var(--darkishblue);
-        color: white !important;
-        border: 3px solid var(--lightblue);
-    }
-
-    .card {
-        background-color: var(--lightblue);
-        color: var(--darkblue);
-    }
-    .card:hover {
-        box-shadow: 0 0 7px 0 var(--lightblue);
-    }
-    .notif-div {
-        background-color:var(--darkblue);
-        color:var(--lightblue);
-        border:2px solid var(--lightblue);
-    }
-    a {
-        color: var(--lightishblue);
-    }
-        */
 }
 
 @media only screen and (max-width: 611px){
@@ -675,30 +638,3 @@ a {
     }
 
 }
-
- /*
-@media only screen and (max-width: 600px){
-    body {
-        --width:100vw;
-        width:100%;
-        margin:5px 10px;
-        font-size:20px;
-        overflow:scroll;
-    }
-    .input_form {
-        width:var(--width);
-    }
-    #navbar {
-        width: calc(100vw - 15px);
-        justify-content: space-between; /* Spreads the items out 
-    }
-    #navbar button, .card {
-        height:60px;
-        padding: 10px 15px;
-        font-size:16px;
-
-    }
-    #hdr-href {
-        display:none; 
-    } 
-}*/
