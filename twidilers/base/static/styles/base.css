@@ -388,6 +388,11 @@ Click generate until you get the loss under 3 */
 #navbarbell:hover {
     box-shadow:none !important;
 }
+.no-notifs {
+    font-style:italic;
+    margin:10px 0;
+    opacity:70%;
+}
 
 /* bell "rings" when hovered over */
 .ringing {

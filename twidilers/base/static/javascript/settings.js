@@ -66,24 +66,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// general setting toggle handler
-async function toggleSetting(settingId) {
-    const settingCheck = document.getElementById(settingId); // find checkbox
-    const settingIdState = await fetch(`/api/settings/${settingId}`); // fetch current state
-    if (!settingIdState.ok) throw new Error(`Failed to view setting at ${settingId}`);
-    const settingData = await settingIdState.json();
-    settingCheck.checked = settingData.value; // sync checkbox to current state
 
-    // when user toggles the checkbox → update setting via API
-    settingCheck.addEventListener("change", async () => {
-        const newState = settingCheck.checked;
-        const response = await fetch(`/api/settings/${settingId}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ value: newState }),
+let checkbox = [
+    'reaction-toggle',
+    'follow-toggle',
+    'post-notif-toggle'
+];
+
+// handles checkboxes
+async function checkboxHandler() {
+    for (let i = 0; i < checkbox.length; i++) {
+        const checkboxID = document.getElementById(checkbox[i]);
+        const response = await fetch(`/api/settings/${checkbox[i]}`);
+        const data = await response.json();
+        checkboxID.checked = data.value;
+    }
+    // add event listeners for each checkbox
+    checkbox.forEach(id => {
+        const checkboxElement = document.getElementById(id);
+        checkboxElement.addEventListener("change", () => {
+            const newValue = checkboxElement.checked; // get the new checked state
+            // send the new value to the server
+            fetch(`/api/settings/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ value: newValue })
+            });
         });
     });
 }
+
 
 
 // Dark mode toggle handler
