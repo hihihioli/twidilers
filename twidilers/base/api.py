@@ -110,6 +110,8 @@ def write_post():
         for referenceStr in references:
             reference = findAccount(referenceStr)
             if reference:
+                if reference == account:
+                    continue
                 finList.append(reference)
                 notifList.append(referenceStr)
             else:
@@ -123,7 +125,6 @@ def write_post():
             post.references = finList
             for ref in finList:
                 ref.addNotifs(refnotifs)
-    account = findAccount()
     for follower in account.followers:
         if not(references and follower in finList):
                 follower.addNotifs(follownotifs)
