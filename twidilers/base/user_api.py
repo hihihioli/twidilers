@@ -210,3 +210,10 @@ def get_pfp(username):
         return flask.send_file(BytesIO(account.photo),download_name=f'{username}_pfp.png')
     else:
         return flask.send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
+
+""" TODO: ADD NOTIFICATION SETTINGS TO MODELS.PY AND FINISH THIS
+@app.post('/api/settings/<setting>')
+@login_required
+def get_setting(setting)
+    account = findAccount()
+"""
