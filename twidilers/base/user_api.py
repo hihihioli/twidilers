@@ -154,22 +154,6 @@ def bulk_users():
     } for r in rows]
     return flask.jsonify({'users': users})
 
-"""
-Ideally there would be an API for changing user settings. Hopefully someone will add this api :)
-@app.route('/api/currentuser/settings')
-@login_required
-def get_user_settings():
-    account = findAccount()
-    return flask.jsonify({
-        ''
-    })
-
-@app.post('/api/currentuser/settings/<int:setting_id>')
-@login_required
-def change_user_settings(setting_id):
-    account = findAccount()
-"""    
-
 #toggles like on post
 @app.post('/api/post/<int:post_id>/like')
 @login_required
@@ -184,6 +168,8 @@ def api_like(post_id):
             'post_id': post_id
         })
     post.liked_by.append(user)
+    if checkNotifSettings(user.username, 'likes'):
+        sendNotification('likes', post.author, user.username, post.id)
     db.session.commit()
     return flask.jsonify({
         'liked': True,

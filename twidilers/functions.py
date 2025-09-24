@@ -5,6 +5,7 @@ from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
 import sqlalchemy
 import requests
+import datetime
 
 def save():
     try:
@@ -105,6 +106,27 @@ def findPost(post_id) -> Post|None:
 def findPostByDate(date_utc):
     post = db.session.execute(db.select(Post).filter_by(date=date_utc)).scalar()
     return post
+
+# for checking if a user has a notif setting enabled
+def checkNotifSettings(user, setting):
+    account = findAccount(user)
+    if account.notif_settings.get(setting, False):
+        return True
+    return False
+
+#sends notification to user
+def sendNotification(setting, user, author, post_id):
+    account = findAccount(user)
+    if account:
+        notifs = account.notifications.copy()
+        date_utc = datetime.datetime.now(datetime.timezone.utc)
+        notifs.append({
+            "type": setting,
+            "author": author,
+            "post_id": post_id,
+            "date": date_utc.timestamp()
+        })
+        account.notifications = notifs
 
 def deletePost(post):
     for accName in post.references:
