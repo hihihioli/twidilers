@@ -49,7 +49,6 @@ def logout():
 @app.post('/post')
 @login_required
 def write_post():
-    """what this function does!"""
     title   = request.form.get('title') or ''
     content = request.form.get('post-content') or ''
     twords = re.findall(r"[@\w']+|[.,!?;]",title)
