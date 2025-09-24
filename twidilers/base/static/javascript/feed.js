@@ -18,7 +18,7 @@ const refreshButton   = document.getElementById('refresh');
 
 // copy to clipboard logic
 function copyToClipboard(text){
-  newText = `https://twidilers.com/feed/${text}`
+  newText = location.origin + location.pathname+"/"+text
   navigator.clipboard.writeText(newText).then(() => {
     console.log('Text copied to clipboard!');
   }).catch(err => {
@@ -222,10 +222,12 @@ function renderPosts(posts) {
     const mentionClass = post.mentions_current_user ? ' mentioned-you' : '';
     // simple mention highlighting inside content
     let contentHTML = post.content;
+    let titleHTML = post.title;
     if (Array.isArray(post.mentions) && post.mentions.length) {
       // replace each @username with a span
       for (const m of post.mentions) {
         const pattern = new RegExp(`@${m}\\b`, 'g');m
+        titleHTML = titleHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
         contentHTML = contentHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
       }
     }

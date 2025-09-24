@@ -49,7 +49,8 @@ def logout():
 @app.post('/post')
 @login_required
 def write_post():
-    title   = request.form.get('title')
+    """what this function does!"""
+    title   = request.form.get('title') or ''
     content = request.form.get('post-content') or ''
     twords = re.findall(r"[@\w']+|[.,!?;]",title)
     words = re.findall(r"[@\w']+|[.,!?;]", content)
@@ -59,8 +60,11 @@ def write_post():
     for word in words:
         if word.lstrip('@') != word:
             references.append(word)
+    print(twords)
     for tword in twords:
+        print(tword)
         if tword.lstrip('@') != tword:
+            print("yessss")
             references.append(tword)
     for i in range(0,len(references)):
         references[i] = references[i].lstrip('@')
