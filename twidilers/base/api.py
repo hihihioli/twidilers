@@ -113,6 +113,8 @@ def write_post():
         for referenceStr in references:
             reference = findAccount(referenceStr)
             if reference:
+                if reference == account:
+                    continue
                 finList.append(reference)
                 notifList.append(referenceStr)
             else:
@@ -126,7 +128,6 @@ def write_post():
             post.references = finList
             for ref in finList:
                 ref.addNotifs(refnotifs)
-    account = findAccount()
     for follower in account.followers:
         if not(references and follower in finList):
                 follower.addNotifs(follownotifs)
@@ -351,6 +352,18 @@ def profaction(username):
         db.session.commit()
         flash(f'You are no longer following {username}')
         return redirect(url_for('.profile',username=username))
+    elif 'like-post-id' in request.form: #The user is trying to like a post
+        post_id = request.form.get('like-post-id')
+        post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+        if account.id in [person.id for person in post.liked_by]:
+            post.liked_by.remove(account)
+            db.session.commit()
+            flash('Post Unliked','success')
+            return redirect(url_for('.profile',username=username))
+        post.liked_by.append(account)
+        db.session.commit()
+        flash('Post Liked','success')
+        return redirect(url_for('.profile',username=username))
     if "delete-post" in request.form:
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
@@ -362,11 +375,7 @@ def profaction(username):
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
-            
-@app.get('/post/<post_id>')
-def post(post_id):
-    post = db.session.execute(db.get_or_404(post_id)).scalar()
-    return render_template('postinfo.html',post=post)
+
 
 @app.get('/verify/<token>')
 def verify(token):

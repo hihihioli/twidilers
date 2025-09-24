@@ -201,8 +201,9 @@ option:hover {
     height:fit-content;
 }
 #more:disabled, #less:disabled {
-    background:gray;
-    color:white;
+    background:var(--lightishblue);
+    color:var(--darkblue);
+    border:none;
     cursor:not-allowed;
     border:0;
 }
