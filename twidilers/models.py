@@ -64,7 +64,7 @@ class Account(db.Model): #The user accounts
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
       "bio": '',
     })
-  userdata:Mapped[dict] = mapped_column(JSONB,default={
+  notif_settings:Mapped[dict] = mapped_column(JSONB,default={
     "following": True,
     "mentions": True,
     "likes": False

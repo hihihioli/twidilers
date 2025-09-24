@@ -77,9 +77,14 @@ let checkbox = [
 async function checkboxHandler() {
     for (let i = 0; i < checkbox.length; i++) {
         const checkboxID = document.getElementById(checkbox[i]);
-        const response = await fetch(`/api/settings/${checkbox[i]}`);
-        const data = await response.json();
-        checkboxID.checked = data.value;
+        const res = await fetch(`/api/settings/${checkbox[i]}`, { method: "POST" });
+        const json = await res.json();
+        if (!json) {
+            console.error(`No data received for ${checkbox[i]}`);
+        }
+        const data = json[checkbox[i]];
+        // set the checkbox state based on the fetched value
+        checkboxID.checked = data;
     }
     // add event listeners for each checkbox
     checkbox.forEach(id => {
@@ -87,16 +92,17 @@ async function checkboxHandler() {
         checkboxElement.addEventListener("change", () => {
             const newValue = checkboxElement.checked; // get the new checked state
             // send the new value to the server
-            fetch(`/api/settings/${id}`, {
-                method: "PUT",
+            fetch(`/api/settings/${id}/toggle`, {
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ value: newValue })
             });
+            console.log(`${id} set to ${newValue}`);
         });
     });
 }
 
-
+checkboxHandler();
 
 // Dark mode toggle handler
 function handleDarkToggle() {

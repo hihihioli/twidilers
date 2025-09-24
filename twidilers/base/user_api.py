@@ -211,9 +211,37 @@ def get_pfp(username):
     else:
         return flask.send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
 
-""" TODO: ADD NOTIFICATION SETTINGS TO MODELS.PY AND FINISH THIS
+# gets user settings
 @app.post('/api/settings/<setting>')
 @login_required
-def get_setting(setting)
+def get_setting(setting):
     account = findAccount()
-"""
+    if setting not in ['reaction-toggle','post-notif-toggle','follow-toggle']:
+        return flask.jsonify({'error':'invalid setting'}), 400
+    if setting == 'reaction-toggle':
+        query = 'likes'
+    elif setting == 'post-notif-toggle':
+        query = 'mentions'
+    elif setting == 'follow-toggle':
+        query = 'following'
+    res = account.notif_settings[query]
+    return flask.jsonify({setting:res})
+
+# toggles user settings
+@app.post('/api/settings/<setting>/toggle')
+@login_required
+def toggle_setting(setting):
+    account = findAccount()
+    if setting not in ['reaction-toggle','post-notif-toggle','follow-toggle']:
+        return flask.jsonify({'error':'invalid setting'}), 400
+    if setting == 'reaction-toggle':
+        query = 'likes'
+    elif setting == 'post-notif-toggle':
+        query = 'mentions'
+    elif setting == 'follow-toggle':
+        query = 'following'
+    current_value = account.notif_settings.get(query, False)
+    new_value = not current_value
+    account.notif_settings[query] = new_value
+    db.session.commit()
+    return flask.jsonify({setting: new_value})
