@@ -206,10 +206,12 @@ function renderPosts(posts) {
         <a href="${author.profile_link}" 
           class="auth-info"
           aria-label="View ${author.displayname}'s profile">
-          <img class="pst-auth-pfp" 
-            loading="lazy" 
-            src="${author.photo_url}"
-            alt="Profile picture of ${author.displayname}">
+          <div class="pst-auth-pfp-container">
+            <img class="pst-auth-pfp" 
+              loading="lazy" 
+              src="${author.photo_url}"
+              alt="Profile picture of ${author.displayname}">
+          </div>
           <div class="pst-auths">
             <p class="pst-auth">${author.displayname}</p>
             <p class="pst-disp">@${author.username}</p>              

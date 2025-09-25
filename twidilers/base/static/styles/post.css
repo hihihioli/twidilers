@@ -286,6 +286,11 @@ option:hover {
     margin-top:0px
 }
 
+.pst-auth-pfp-container {
+    background-color: var(--darkblue);
+    border-radius:100px;
+}
+
 /* Found a loading animaiton online sorry it's long*/
 
 .lds-ring,

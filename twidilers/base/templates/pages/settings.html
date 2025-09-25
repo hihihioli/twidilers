@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Settings{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('.static', filename='styles/profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/user.css') }}">
 <link rel="stylesheet" href="{{ url_for('.static', filename='styles/form.css') }}">
 <link rel="stylesheet" href="{{ url_for('.static', filename='styles/settings.css') }}">
 {% endblock %}
@@ -168,12 +168,6 @@
         </div>
     </main>
     <main id="notif-content">
-        <div class="profile-div">
-            <h3>Notifications</h3>
-                <p>Manage your notification settings</p>
-                <p>Under construction. Check back later</p>
-        </div>
-
         <div class="profile-div">
             <h3>Reaction notifications</h3>
                 <p>Get notified when someone reacts to your post</p>

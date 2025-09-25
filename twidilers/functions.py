@@ -120,9 +120,13 @@ def sendNotification(setting, user, author, post_id):
     if account:
         notifs = account.notifications.copy()
         date_utc = datetime.datetime.now(datetime.timezone.utc)
+        post = findPost(post_id)
         notifs.append({
             "type": setting,
+            "references": post.references,
             "author": author,
+            "title": post.title,
+            "content": post.content,
             "post_id": post_id,
             "date": date_utc.timestamp()
         })
