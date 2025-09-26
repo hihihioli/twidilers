@@ -234,8 +234,10 @@ def toggle_setting(setting):
 
     current_value = account.notif_settings[query]
     if new_value == current_value:
-        return flask.jsonify({'error':'setting must be the opposite of current value'}), 400
+        return flask.jsonify({'error':'setting must be the opposite of current value'}), 200
 
-    account.notif_settings[query] = new_value
+    new_settings = dict(account.notif_settings)
+    new_settings[query] = new_value
+    account.notif_settings = new_settings
     db.session.commit()
     return flask.jsonify({setting: new_value})
