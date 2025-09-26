@@ -61,9 +61,7 @@ file.addEventListener('change',() => {
 document.addEventListener("DOMContentLoaded", () => {
     handleDarkToggle();
     // initialize all toggles on the page
-    document.querySelectorAll('.setting-toggle').forEach(toggle => {
-        toggleSetting(toggle.id);
-    });
+    checkboxHandler();
 });
 
 
@@ -89,15 +87,30 @@ async function checkboxHandler() {
     // add event listeners for each checkbox
     checkbox.forEach(id => {
         const checkboxElement = document.getElementById(id);
-        checkboxElement.addEventListener("change", () => {
+        checkboxElement.addEventListener("change", async () => {
             const newValue = checkboxElement.checked; // get the new checked state
             // send the new value to the server
-            fetch(`/api/settings/${id}/toggle`, {
+            const res = await fetch(`/api/settings/${id}/toggle`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ value: newValue })
             });
-            console.log(`${id} set to ${newValue}`);
+            // catch problem
+            if (!res.ok) {
+                console.error(`Failed to toggle ${id}:`, res.status);
+                checkboxElement.checked = !newValue;
+                return;
+            }
+            const verifyRes = await fetch(`/api/settings/${id}`, { method: "POST" });
+            const verifyJson = await verifyRes.json();
+            const serverValue = verifyJson[id];
+            // verify the server updated correctly
+
+            if (serverValue !== newValue) {
+                console.error(`Mismatch for ${id}. UI: ${newValue}, Server: ${serverValue}`);
+            } else {
+                console.log(`${id} set to ${newValue}`);
+            }
         });
     });
 }

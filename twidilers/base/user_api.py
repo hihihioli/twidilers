@@ -169,7 +169,7 @@ def api_like(post_id):
         })
     post.liked_by.append(user)
     if checkNotifSettings(user.username, 'likes'):
-        sendNotification('likes', post.author, user.username, post.id)
+        sendNotification('likes', user.username, post.author, post_id)
     db.session.commit()
     return flask.jsonify({
         'liked': True,
@@ -218,16 +218,24 @@ def get_setting(setting):
 @login_required
 def toggle_setting(setting):
     account = findAccount()
-    if setting not in ['reaction-toggle','post-notif-toggle','follow-toggle']:
+
+    # turns setting id into db query key
+    mapping = {
+        'reaction-toggle': 'likes',
+        'post-notif-toggle': 'mentions',
+        'follow-toggle': 'following'
+    }
+    query = mapping.get(setting)
+    if not query:
         return flask.jsonify({'error':'invalid setting'}), 400
-    if setting == 'reaction-toggle':
-        query = 'likes'
-    elif setting == 'post-notif-toggle':
-        query = 'mentions'
-    elif setting == 'follow-toggle':
-        query = 'following'
-    current_value = account.notif_settings.get(query, False)
-    new_value = not current_value
+    
+    data = flask.request.get_json(silent=True) or {}
+    new_value = data.get('value')
+
+    current_value = account.notif_settings[query]
+    if new_value == current_value:
+        return flask.jsonify({'error':'setting must be the opposite of current value'}), 400
+
     account.notif_settings[query] = new_value
     db.session.commit()
     return flask.jsonify({setting: new_value})

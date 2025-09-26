@@ -140,7 +140,6 @@ def write_post():
 def feed():
     user = findAccount()
     if "delete-post-id" in request.form:
-        
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if post.author != user:
