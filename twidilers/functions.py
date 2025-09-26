@@ -116,6 +116,7 @@ def checkNotifSettings(user, setting):
 
 #sends notification to user
 def sendNotification(setting, user, author, post_id):
+    # sends notification TO USER
     account = findAccount(user)
     if account:
         notifs = account.notifications.copy()

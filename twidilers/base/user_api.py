@@ -169,7 +169,7 @@ def api_like(post_id):
         })
     post.liked_by.append(user)
     if checkNotifSettings(user.username, 'likes'):
-        sendNotification('likes', user.username, post.author, post_id)
+        sendNotification('likes',post.author.username, user.username,  post_id)
     db.session.commit()
     return flask.jsonify({
         'liked': True,
