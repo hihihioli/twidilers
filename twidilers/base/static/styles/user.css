@@ -1,0 +1,64 @@
+/* For shared assets between profile and settings */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+    gap: 1rem;
+    position:relative;
+  }
+
+/* For profile page and affiliates */
+.profile-auth {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 20px;
+    height:100%;
+    margin-right:20px;
+    width:fit-content;
+    flex-shrink: 1;
+}
+
+.profile-div {
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  width: 100%;
+  max-width: 600px; /* keeps layout readable on large screens */
+  box-sizing: border-box;
+
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 15px;
+
+  background-color: var(--lightishblue);
+  overflow-wrap: break-word;
+  flex-shrink: 1;
+  box-sizing: border-box;
+}
+
+#prof-usrname {
+    margin: 0;
+    font-size:1em;
+    font-weight:normal;
+    width:fit-content
+}
+#pfp {
+    width: 100px;
+    border-radius: 1000000px;
+    float: left;
+}
+#display-name {
+    margin:0px;
+    width:fit-content;
+    font-size:1.6em;
+}
+  @media only screen and (max-width:450px) {
+  #pfp {
+    width: 80px;
+  }
+  .profile-header {
+    gap: 0rem;
+  }
+}

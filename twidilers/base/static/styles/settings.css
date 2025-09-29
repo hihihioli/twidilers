@@ -42,19 +42,7 @@ input[type="file"] {
 }
 /* Custom button */
 .custom-file-upload {
-  display:block;
-  width: auto ;
-  height: auto;
-  border-radius: 5px;
-  background-color: var(--darkblue);
-  color: var(--lightblue);
-  cursor: pointer;
-  border: 0;
-  align-self: center !important;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
+
 }
 .submit {
     margin: 0;
@@ -63,13 +51,7 @@ input[type="file"] {
 h3 {
     margin: 0 0 20px 0;
 }
-.profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* pushes form to right */
-    gap: 1rem; /* optional spacing between items */
-    transition: all 0.5s ease;
-}
+
 #upload_pfp {
     margin-left: auto; /* optional: ensures it's pushed right */
 }
@@ -277,7 +259,7 @@ h3 {
   border-radius: 5px;
   font-size:15px;
   cursor:pointer;
-  bottom:15%;
+  bottom:0;
   transition: all 0.5s;
 }
 
@@ -411,12 +393,5 @@ h3 {
         gap: 1px;
     }
 }
-@media only screen and (max-width:450px) {
-  .profile-header {
-      gap: 0rem; /* optional spacing between items */
-  }
-  #pfp {
-    width: 80px;
-  }
-}
+
 

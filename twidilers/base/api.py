@@ -49,21 +49,16 @@ def logout():
 @app.post('/post')
 @login_required
 def write_post():
-    title   = request.form.get('title')
+    title   = request.form.get('title') or ''
     content = request.form.get('post-content') or ''
-    twords = re.findall(r"[@\w']+|[.,!?;]",title)
-    words = re.findall(r"[@\w']+|[.,!?;]", content)
-    #references = request.form.get('references').strip().split(',')
-    #if references == ['']:
-    references = []
-    for word in words:
-        if word.lstrip('@') != word:
-            references.append(word)
-    for tword in twords:
-        if tword.lstrip('@') != tword:
-            references.append(tword)
-    for i in range(0,len(references)):
-        references[i] = references[i].lstrip('@')
+
+    # Build list of referenced usernames from title/content
+    mentioned_usernames = set(extract_mentions(title) + extract_mentions(content))
+    # Remove self-mention early (no need to notify self)
+    account  = findAccount()
+    if account and account.username in mentioned_usernames:
+        mentioned_usernames.discard(account.username)
+
     # enforce non‐empty
     if not content.strip():
         flash('Post cannot be empty','error')
@@ -73,20 +68,33 @@ def write_post():
     if len(content) > MAX_CONTENT:
         content = content[:MAX_CONTENT]
         flash(f'Post was longer than {MAX_CONTENT} chars; truncated.','info')
-    account  = findAccount()
     date_utc = datetime.datetime.now(datetime.timezone.utc)
     
+    # Resolve mentioned usernames to existing accounts (in one query)
+    valid_usernames = set(validate_mentions(list(mentioned_usernames)))
+    ref_usernames   = sorted(valid_usernames)
+    # Accounts that exist (for sending notifications)
+    ref_accounts = []
+    if ref_usernames:
+        ref_accounts = list(
+            db.session.execute(
+                db.select(Account).filter(Account.username.in_(ref_usernames))
+            ).scalars()
+        )
+
+    # Create the post. Mark reference state based on resolved accounts
     new_post = Post(
-                title   = title,
-                content = content,
-                date    = date_utc,
-                author  = account,
-                is_reference = False,
-                references = []
-            )
+        title   = title,
+        content = content,
+        date    = date_utc,
+        author  = account,
+        is_reference = bool(ref_accounts),
+        # Post.references is a relationship; assign Account objects, not usernames
+        references   = ref_accounts,
+    )
     db.session.add(new_post)
-    db.session.commit()
-    # notify followers
+    
+    # Prepare notifications
     follownotifs = {
         "type": "follow",
         "references": [],
@@ -97,42 +105,34 @@ def write_post():
     }
     refnotifs = {
         "type": "reference",
-        "references": [],
+        "references": ref_usernames,
         "author":  account.username,
         "title":   title,
         "content": content,
         "date":    date_utc.timestamp()
     }
-    unfound = []
-    finList = []
-    if references != []:
-        notifList = []
-        for referenceStr in references:
-            reference = findAccount(referenceStr)
-            if reference:
-                if reference == account:
-                    continue
-                finList.append(reference)
-                notifList.append(referenceStr)
-            else:
-                unfound.append(referenceStr)
-        post = findPostByDate(date_utc)
-        if len(finList) == 0:
-            post.is_reference = False
-        else:
-            refnotifs["references"] = notifList
-            post.is_reference = True
-            post.references = finList
-            for ref in finList:
-                ref.addNotifs(refnotifs)
+    # Notify referenced users
+    for ref in ref_accounts:
+        if checkNotifSettings(ref.username, 'mentions'):
+            ref.addNotifs(refnotifs)
+
+    # Notify followers (avoid double-notifying anyone who was directly referenced)
+    # Build a fast lookup of referenced usernames to skip double notifications
+    ref_set = set(ref_usernames)
     for follower in account.followers:
-        if not(references and follower in finList):
+        if checkNotifSettings(follower.username, 'following'):
+            if follower.username not in ref_set:
                 follower.addNotifs(follownotifs)
+
+    # Commit all changes
     db.session.commit()
-    if len(unfound) != 0:
-        flash('Posted; References not found: '+', '.join(unfound),'info')
+
+    # Inform about any unfound references (mentioned but non-existent usernames)
+    unfound = mentioned_usernames - valid_usernames
+    if unfound:
+        flash('Posted; References not found: ' + ', '.join(sorted(unfound)), 'info')
     else:
-        flash('Post successfully created','success')
+        flash('Post successfully created', 'success')
     return redirect(url_for('.page',page='feed'))
 
 @app.post('/feed')
@@ -140,7 +140,6 @@ def write_post():
 def feed():
     user = findAccount()
     if "delete-post-id" in request.form:
-        
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if post.author != user:

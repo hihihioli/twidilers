@@ -18,7 +18,7 @@ const refreshButton   = document.getElementById('refresh');
 
 // copy to clipboard logic
 function copyToClipboard(text){
-  newText = `https://twidilers.com/feed/${text}`
+  newText = location.origin + location.pathname+"/"+text
   navigator.clipboard.writeText(newText).then(() => {
     console.log('Text copied to clipboard!');
   }).catch(err => {
@@ -206,10 +206,12 @@ function renderPosts(posts) {
         <a href="${author.profile_link}" 
           class="auth-info"
           aria-label="View ${author.displayname}'s profile">
-          <img class="pst-auth-pfp" 
-            loading="lazy" 
-            src="${author.photo_url}"
-            alt="Profile picture of ${author.displayname}">
+          <div class="pst-auth-pfp-container">
+            <img class="pst-auth-pfp" 
+              loading="lazy" 
+              src="${author.photo_url}"
+              alt="Profile picture of ${author.displayname}">
+          </div>
           <div class="pst-auths">
             <p class="pst-auth">${author.displayname}</p>
             <p class="pst-disp">@${author.username}</p>              
@@ -222,10 +224,12 @@ function renderPosts(posts) {
     const mentionClass = post.mentions_current_user ? ' mentioned-you' : '';
     // simple mention highlighting inside content
     let contentHTML = post.content;
+    let titleHTML = post.title;
     if (Array.isArray(post.mentions) && post.mentions.length) {
       // replace each @username with a span
       for (const m of post.mentions) {
         const pattern = new RegExp(`@${m}\\b`, 'g');m
+        titleHTML = titleHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
         contentHTML = contentHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
       }
     }

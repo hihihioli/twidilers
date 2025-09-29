@@ -154,22 +154,6 @@ def bulk_users():
     } for r in rows]
     return flask.jsonify({'users': users})
 
-"""
-Ideally there would be an API for changing user settings. Hopefully someone will add this api :)
-@app.route('/api/currentuser/settings')
-@login_required
-def get_user_settings():
-    account = findAccount()
-    return flask.jsonify({
-        ''
-    })
-
-@app.post('/api/currentuser/settings/<int:setting_id>')
-@login_required
-def change_user_settings(setting_id):
-    account = findAccount()
-"""    
-
 #toggles like on post
 @app.post('/api/post/<int:post_id>/like')
 @login_required
@@ -184,6 +168,8 @@ def api_like(post_id):
             'post_id': post_id
         })
     post.liked_by.append(user)
+    if checkNotifSettings(user.username, 'likes'):
+        sendNotification('likes',post.author.username, user.username,  post_id)
     db.session.commit()
     return flask.jsonify({
         'liked': True,
@@ -211,9 +197,47 @@ def get_pfp(username):
     else:
         return flask.send_file(app.open_resource('static/images/default_user.png'),download_name=f'{username}_pfp.png')
 
-""" TODO: ADD NOTIFICATION SETTINGS TO MODELS.PY AND FINISH THIS
+# gets user settings
 @app.post('/api/settings/<setting>')
 @login_required
-def get_setting(setting)
+def get_setting(setting):
     account = findAccount()
-"""
+    if setting not in ['reaction-toggle','post-notif-toggle','follow-toggle']:
+        return flask.jsonify({'error':'invalid setting'}), 400
+    if setting == 'reaction-toggle':
+        query = 'likes'
+    elif setting == 'post-notif-toggle':
+        query = 'mentions'
+    elif setting == 'follow-toggle':
+        query = 'following'
+    res = account.notif_settings[query]
+    return flask.jsonify({setting:res})
+
+# toggles user settings
+@app.post('/api/settings/<setting>/toggle')
+@login_required
+def toggle_setting(setting):
+    account = findAccount()
+
+    # turns setting id into db query key
+    mapping = {
+        'reaction-toggle': 'likes',
+        'post-notif-toggle': 'mentions',
+        'follow-toggle': 'following'
+    }
+    query = mapping.get(setting)
+    if not query:
+        return flask.jsonify({'error':'invalid setting'}), 400
+    
+    data = flask.request.get_json(silent=True) or {}
+    new_value = data.get('value')
+
+    current_value = account.notif_settings[query]
+    if new_value == current_value:
+        return flask.jsonify({'error':'setting must be the opposite of current value'}), 200
+
+    new_settings = dict(account.notif_settings)
+    new_settings[query] = new_value
+    account.notif_settings = new_settings
+    db.session.commit()
+    return flask.jsonify({setting: new_value})

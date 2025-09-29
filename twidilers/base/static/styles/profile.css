@@ -1,14 +1,4 @@
-/* For profile page and affiliates */
-.profile-auth {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 20px;
-    height:100%;
-    margin-right:20px;
-    width:fit-content;
-    flex-shrink: 1;
-}
+
 #follow-button {
     position: absolute;
     right: 20px;
@@ -28,19 +18,11 @@
     color: var(--lightblue);
     border-radius: 10px;
 } 
-#pfp {
-    width: 100px;
-    border-radius: 1000000px;
-    float: left;
-}
+
 #about-user {
     margin:0;
 }
-#display-name {
-    margin:0px;
-    width:fit-content;
-    font-size:1.4em;
-}
+
 #follow-button {
     width:100px;
     transition:0.5s all !important;
@@ -50,7 +32,7 @@
     #follow-button {
         width:fit-content;
     }
-}
+}   
 @media screen and (max-width:450px) {
     #follow-button {
         bottom:35px;
@@ -67,30 +49,7 @@
     margin-left: auto;
 
 }
-#prof-usrname {
-    margin: 0;
-    font-size:1em;
-    font-weight:normal;
-    width:fit-content
-}
 
-.profile-div {
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  width: 100%;
-  max-width: 600px; /* keeps layout readable on large screens */
-  box-sizing: border-box;
-
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 15px;
-
-  background-color: var(--lightishblue);
-  overflow-wrap: break-word;
-  flex-shrink: 1;
-  box-sizing: border-box;
-}
 
 /* Popover panels for followers / following */
 .hover-pop {

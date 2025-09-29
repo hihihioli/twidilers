@@ -62,8 +62,13 @@ class Account(db.Model): #The user accounts
     )  
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
-      "bio": '', 
+      "bio": '',
     })
+  notif_settings:Mapped[dict] = mapped_column(JSONB,default={
+    "following": True,
+    "mentions": True,
+    "likes": False
+  })
   #Making the table self-referential (it relates to other objects of the same class)
   followers = relationship('Account', 
     secondary = follow, #The association table the relationship is based on (above)
