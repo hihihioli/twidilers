@@ -111,10 +111,10 @@ def oauth2_callback(provider):
 
 def genUsername(username=""):
     if not username:
-        username = generate_username()[0]
-    if findAccount(username):
-        return genUsername(username + str(random.randint(0,9)))
-    return username
+        username = generate_username()[0].lower()
+    if findAccount(username.lower()):
+        return genUsername(username.lower() + str(random.randint(0,9)))
+    return username.lower()
 
 def redirectToProvider(provider:str) -> Response:
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)

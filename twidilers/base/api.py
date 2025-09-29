@@ -224,7 +224,7 @@ def sign_up():
     display_name = request.form.get('username')
     new_username=request.form.get('username').lower()
     if not checkUsername(new_username):
-        flash("OOnly letters, numbers, and underscores allowed in username","error")
+        flash("Only letters, numbers, and underscores allowed in username","error")
         return redirect(url_for('.page',page='sign-up'))
     password1=request.form.get('password1')
     password2=request.form.get('password2')
@@ -296,7 +296,7 @@ def settings(): #Handles the settings page
 @app.route('/user/<username>/')
 @login_required
 def profile(username):
-    account = findAccount(username)
+    account = findAccount(username.lower())
     if account is None:
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
