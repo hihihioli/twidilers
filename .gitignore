@@ -25,3 +25,6 @@ twidilers/base/.DS_Store
 
 /.vscode
 */.DS_Store
+*/__pycache__
+
+/migrations/__pycache__

@@ -27,7 +27,7 @@ def upgrade():
     )
     op.drop_table('musics')
     with op.batch_alter_table('posts', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('is_reference', sa.Boolean(), nullable=False))
+        batch_op.add_column(sa.Column('is_reference', sa.Boolean(), nullable=False,server_default=sa.text('false')))
 
     # ### end Alembic commands ###
 
