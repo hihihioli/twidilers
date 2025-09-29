@@ -339,6 +339,9 @@ def profile(username):
 def profaction(username):
     account = findAccount()
     if 'follow-button' in request.form: #The user is trying to follow the profile with the name in the username variable
+        if account.username == username:
+            flash('You cannot follow yourself','error')
+            return redirect(url_for('.profile',username=username))
         account.following.append(findAccount(username))
         db.session.commit()
         flash(f'You are now following {username}')
@@ -351,6 +354,9 @@ def profaction(username):
     elif 'like-post-id' in request.form: #The user is trying to like a post
         post_id = request.form.get('like-post-id')
         post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
+        if post.username == username:
+            flash('You cannot like your own post','error')
+            return redirect(url_for('.profile',username=username))
         if account.id in [person.id for person in post.liked_by]:
             post.liked_by.remove(account)
             db.session.commit()
