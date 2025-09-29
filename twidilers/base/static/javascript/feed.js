@@ -331,3 +331,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     await fetchCurrentUser();
     await fetchPosts(currentFeedType);
 });
+
+window.addEventListener('keypress', (e) => {
+  if (e.key === 'r') {
+    // Refresh the current feed
+    fetchPosts(currentFeedType);
+  } else if (e.key === 'n') {
+    document.getElementById('createpost').click();
+  }
+});
