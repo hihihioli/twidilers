@@ -17,7 +17,7 @@ def save():
 def findAccount(username=None) -> Account|None: #Finds an account that matches a given username that defaults to the session username
     if username is None:
         username = session.get('username')
-    account = db.session.execute(db.select(Account).filter_by(username=username)).scalar()
+    account = db.session.execute(db.select(Account).filter_by(username=username.lower())).scalar()
     return account
 
 def findAccountByEmail(email) -> Account|None: #Finds an account that matches a given email
@@ -70,7 +70,7 @@ def changeDisplay(request:Request):
 def changeUsername(request:Request):
     account = findAccount()
     old_name = account.username
-    new_name = request.form.get('username')
+    new_name = request.form.get('username').lower()
     new_name.lstrip('@')
     if not checkUsername(new_name):
         flash("Only letters, numbers, and underscores allowed in username","error")

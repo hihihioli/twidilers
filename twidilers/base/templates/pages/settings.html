@@ -69,7 +69,7 @@
                 
                 </div>
             </div>
-        {% if account.is_oauth %}
+        {% if account.is_oauth and not account.setup %}
             <div class="profile-div profile-warning" role="region" aria-label="Username settings">
                 <h3><label for="change-name">Change Username (ONE TIME ONLY)</label></h3>
                 <form method="post" id="change-username-form" lang="en" class="settings-form">
