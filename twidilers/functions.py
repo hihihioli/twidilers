@@ -134,6 +134,8 @@ def sendNotification(setting, user, author, post_id):
         account.notifications = notifs
 
 def deletePost(post):
+    if not post:
+        return
     for account in post.references:
         o = account.notifications.copy()
         for notif in o:

@@ -374,7 +374,7 @@ def profaction(username):
         deletePost(post)
         flash('Post Deleted','success')
         posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
-        return render_template('profile.html',account=account, posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
+        return profile(username) 
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
         return redirect(url_for('.profile',username=username))
