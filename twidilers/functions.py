@@ -134,14 +134,12 @@ def sendNotification(setting, user, author, post_id):
         account.notifications = notifs
 
 def deletePost(post):
-    for accName in post.references:
-        account = findAccount(accName)
+    for account in post.references:
         o = account.notifications.copy()
         for notif in o:
             if notif.get("date") == post.date:
                 o.remove(notif)
-    for accName in post.author.followers:
-        account = findAccount(accName)
+    for account in post.author.followers:
         o = account.notifications.copy()
         for notif in o:
             if notif.get("date") == post.date:

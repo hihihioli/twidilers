@@ -372,6 +372,7 @@ def profaction(username):
         if username != account.username:
             flash('You cannot delete a post that is not yours','error')
         deletePost(post)
+        flash('Post Deleted','success')
         posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
         return render_template('profile.html',account=account, posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
     else:
