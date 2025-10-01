@@ -300,7 +300,7 @@ def profile(username):
     if account is None:
         abort(404)
     posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
-    if username == session.get('username'): #Checks if the profile the user is trying to access belongs to the user
+    if username.lower() == session.get('username').lower(): #Checks if the profile the user is trying to access belongs to the user
         owner = 1
     else:
         owner = 0
