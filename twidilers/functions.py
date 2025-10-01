@@ -201,7 +201,7 @@ def extract_mentions(text:str) -> list[str]:
     seen = set()
     mentions = []
     for match in MENTION_REGEX.finditer(text):
-        uname = match.group(1)
+        uname = match.group(1).lower()
         if uname not in seen:
             seen.add(uname)
             mentions.append(uname)

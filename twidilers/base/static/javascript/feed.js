@@ -228,7 +228,7 @@ function renderPosts(posts) {
     if (Array.isArray(post.mentions) && post.mentions.length) {
       // replace each @username with a span
       for (const m of post.mentions) {
-        const pattern = new RegExp(`@${m}\\b`, 'g');m
+        const pattern = new RegExp(`@${m}\\b`, 'g');
         titleHTML = titleHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
         contentHTML = contentHTML.replace(pattern, `<a class="mention" href="../user/${m}">@${m}</a>`);
       }
@@ -242,7 +242,7 @@ function renderPosts(posts) {
         <header>
             ${authorHTML}      
         </header>
-        <h2 class="pst-title">${post.title || ''}</h2>
+        <h2 class="pst-title">${titleHTML || ''}</h2>
         <p class="pst-content">${contentHTML}</p>
         <div class="pst-date">${parseDate(post.date)}</div>
         <div class="pst-reactions">${reactionsHTML}</div>
