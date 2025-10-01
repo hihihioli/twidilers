@@ -354,7 +354,7 @@ def profaction(username):
     elif 'like-post-id' in request.form: #The user is trying to like a post
         post_id = request.form.get('like-post-id')
         post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
-        if post.username == username:
+        if post.author == username:
             flash('You cannot like your own post','error')
             return profile(username)
         if account.id in [person.id for person in post.liked_by]:
