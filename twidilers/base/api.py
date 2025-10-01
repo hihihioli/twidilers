@@ -356,27 +356,27 @@ def profaction(username):
         post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if post.username == username:
             flash('You cannot like your own post','error')
-            return redirect(url_for('.profile',username=username))
+            return profile(username)
         if account.id in [person.id for person in post.liked_by]:
             post.liked_by.remove(account)
             db.session.commit()
             flash('Post Unliked','success')
-            return redirect(url_for('.profile',username=username))
+            return profile(username)
         post.liked_by.append(account)
         db.session.commit()
         flash('Post Liked','success')
-        return redirect(url_for('.profile',username=username))
+        return profile(username)
     if "delete-post" in request.form:
         post_id = request.form.get('delete-post-id')
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if username != account.username:
             flash('You cannot delete a post that is not yours','error')
         deletePost(post)
-        posts = sorted(account.posts, key=lambda c: c.date, reverse=True)
-        return render_template('profile.html',account=account, posts=posts,owner=1,date=account.userdata['joined'],bio=account.userdata['bio'])
+        flash('Post Deleted','success')
+        return profile(username) 
     else:
         flash('A desync error occured','error') #The request type is unknown. This catches all of the invalid requests and allows for further debugging
-        return redirect(url_for('.profile',username=username))
+        return profile(username)
 
 
 @app.get('/verify/<token>')
