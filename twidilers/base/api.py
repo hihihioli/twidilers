@@ -341,16 +341,16 @@ def profaction(username):
     if 'follow-button' in request.form: #The user is trying to follow the profile with the name in the username variable
         if account.username == username:
             flash('You cannot follow yourself','error')
-            return redirect(url_for('.profile',username=username))
+            return profile(username)
         account.following.append(findAccount(username))
         db.session.commit()
         flash(f'You are now following {username}')
-        return redirect(url_for('.profile',username=username))
+        return profile(username)
     elif 'unfollow-button' in request.form: #The user is trying to unfollow the user
         account.following.remove(findAccount(username))
         db.session.commit()
         flash(f'You are no longer following {username}')
-        return redirect(url_for('.profile',username=username))
+        return profile(username)
     elif 'like-post-id' in request.form: #The user is trying to like a post
         post_id = request.form.get('like-post-id')
         post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
