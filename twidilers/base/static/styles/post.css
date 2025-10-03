@@ -143,8 +143,8 @@ option:hover {
     margin-top:20px;
 }
 .filter {
-    font-size:26px;
-    padding: 10px;
+    font-size:25px;
+    padding: 7px 10px 10px 10px;
     border-radius:5px;
     border:0;
     background:none;

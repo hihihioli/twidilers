@@ -16,7 +16,7 @@
     <meta name="author" content="wall03">
     <meta name="view-transition" content="same-origin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<script src="https://kit.fontawesome.com/3881932ce2.js" crossorigin="anonymous"></script>
     {% block head %}{% endblock %}
 </head>
 <body class="{% block bodyclasses %}flex vert{% endblock %}"> <!-- Classes of the body element. Can be used to make the page flex, grid, etc. Can be overriden or current classes can be kept using {\{ super() }\}-->
@@ -138,17 +138,18 @@
             </section>
         {% endblock %}
     </div>
+    <!--
     <script>
     // Adds fontawesome styles to the page once everything has loaded
     window.addEventListener('load', function() {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = "{{ url_for('.static', filename='styles/fontawesome.css') }}";
-        document.body.appendChild(link);
+        var script = document.createElement('script');
+        script.src = "https://kit.fontawesome.com/3881932ce2.js";
+        script.crossOrigin = "anonymous";
+        document.body.appendChild(script);
     });
     document.getElementById("year").innerHTML = new Date().getFullYear();
 
-    </script>
+    </script>-->
 </body>
 
 </html>

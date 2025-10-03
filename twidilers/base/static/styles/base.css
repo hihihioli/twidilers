@@ -288,6 +288,10 @@ Click generate until you get the loss under 3 */
     
 }
 
+i {
+    text-align:left!important;
+}
+
 #notif-div-0 {
     max-height:350px;
     display:flex;
