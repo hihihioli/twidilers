@@ -89,7 +89,7 @@
                                 {% endif %}
                             </div>
                             <div class="notif-title">{{notif['title']}}</div>
-                            <div class="notif-content">{{notif['content'][:20]}}{{ '...' if notif['content'] | length > 20 }}</div><!--first line of text. overflow:hidden-->
+                            <div class="notif-content">{{notif['content'][:20]|safe}}{{ '...' if notif['content']|length>20}}</div><!--first line of text. overflow:hidden-->
                             <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
                         </div>
                         <script>

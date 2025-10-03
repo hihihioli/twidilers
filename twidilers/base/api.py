@@ -6,6 +6,8 @@ from flask import render_template, abort, request, redirect, url_for, flash, ses
 import sqlalchemy
 import datetime
 import re
+from markupsafe import escape
+
 
 #Our objects
 from . import base as app #Blueprint imported as app so blueprint layer 
@@ -50,7 +52,7 @@ def logout():
 @login_required
 def write_post():
     title   = request.form.get('title') or ''
-    content = request.form.get('post-content') or ''
+    content = escape(request.form.get('post-content') or '')
 
     # Build list of referenced usernames from title/content
     mentioned_usernames = set(extract_mentions(title) + extract_mentions(content))
@@ -64,9 +66,6 @@ def write_post():
         flash('Post cannot be empty','error')
         return redirect(url_for('.page',page='post'))
 
-    if not checkPostContent(content):
-        flash('Post contains disallowed characters','error')
-        return redirect(url_for('.page',page='post'))
     
     if 'https://' in content or 'http://' in content:
         urls = re.findall(r'(https?://\S+)', content)
