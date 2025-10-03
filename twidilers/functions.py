@@ -33,6 +33,16 @@ def checkUsername(input) -> bool:
         return True
     else:
         return False
+    
+def checkDisplayName(input) -> bool:
+    # Define the pattern for allowed characters
+    pattern = r'^[\w\s]+$'  # Allows letters, numbers, underscores, and spaces
+    
+    # Use re.match to check if the input matches the pattern
+    if re.match(pattern, input):
+        return True
+    else:
+        return False
 
 def deleteAccount(username=None):
     if username is None:
@@ -63,6 +73,9 @@ def newPassword(request:Request):
 def changeDisplay(request:Request):
     account = findAccount()
     new_name = request.form.get('displayname')
+    if not checkDisplayName(new_name):
+        flash("Not a valid display name","error")
+        return
     account.displayname = new_name
     db.session.commit()
     flash(f'Display Name Changed to {account.displayname}','success')
