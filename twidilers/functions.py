@@ -46,7 +46,8 @@ def checkDisplayName(input) -> bool:
     
 def checkPostContent(input) -> bool:
     # Define the pattern for allowed characters
-    pattern = r'^[\w\s.,!?\'"@#\$%\^&\*\(\)\-\+=:;\/\\]*$'  # Allows letters, numbers, underscores, spaces, and common punctuation
+    # Includes letters, numbers, underscores, spaces, common punctuation, URLs
+    pattern = r'^[\w\s.,!?\'"@#\$%\^&\*\(\)\-\+=:;\/\\\[\]{}|`~]*$'
     
     # Use re.match to check if the input matches the pattern
     if re.match(pattern, input):

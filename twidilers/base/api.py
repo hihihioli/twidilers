@@ -67,6 +67,12 @@ def write_post():
     if not checkPostContent(content):
         flash('Post contains disallowed characters','error')
         return redirect(url_for('.page',page='post'))
+    
+    if 'https://' in content or 'http://' in content:
+        urls = re.findall(r'(https?://\S+)', content)
+        for url in urls:
+            link_html = '<a href="' + url + '">' + url + '</a>'
+            content = content.replace(url, link_html)
     # truncate to 500 chars
     MAX_CONTENT = 500
     if len(content) > MAX_CONTENT:
