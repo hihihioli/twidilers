@@ -63,6 +63,10 @@ def write_post():
     if not content.strip():
         flash('Post cannot be empty','error')
         return redirect(url_for('.page',page='post'))
+
+    if not checkPostContent(content):
+        flash('Post contains disallowed characters','error')
+        return redirect(url_for('.page',page='post'))
     # truncate to 500 chars
     MAX_CONTENT = 500
     if len(content) > MAX_CONTENT:

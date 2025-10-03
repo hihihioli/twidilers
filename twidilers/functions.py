@@ -43,6 +43,16 @@ def checkDisplayName(input) -> bool:
         return True
     else:
         return False
+    
+def checkPostContent(input) -> bool:
+    # Define the pattern for allowed characters
+    pattern = r'^[\w\s.,!?\'"@#\$%\^&\*\(\)\-\+=:;\/\\]*$'  # Allows letters, numbers, underscores, spaces, and common punctuation
+    
+    # Use re.match to check if the input matches the pattern
+    if re.match(pattern, input):
+        return True
+    else:
+        return False
 
 def deleteAccount(username=None):
     if username is None:
