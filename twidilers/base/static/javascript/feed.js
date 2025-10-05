@@ -243,7 +243,7 @@ function renderPosts(posts) {
             ${authorHTML}      
         </header>
         <h2 class="pst-title">${titleHTML || ''}</h2>
-        <p class="pst-content">${contentHTML}</p>
+        <div class="pst-content">${contentHTML}</div>
         <div class="pst-date">${parseDate(post.date)}</div>
         <div class="pst-reactions">${reactionsHTML}</div>
         <div class="pst-share" onClick="copyToClipboard(${stringPostId})" id="share-${stringPostId}"><i class="fa-solid fa-link"></i></div>

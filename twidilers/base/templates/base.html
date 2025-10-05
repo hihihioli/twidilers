@@ -47,11 +47,11 @@
                 {% if session['username'] %}
                     fetch("{{url_for('.clear')}}", { // fetches clear function in api.py
                         method: 'POST',
-                    })
-                    document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>'
-                    document.getElementById('notification-count').remove()
+                    });
+                    document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>';
+                    document.getElementById('notification-count').remove();
                 {% else %}
-                    alert('Y no logged in?')
+                    alert('Y no logged in?');
                 {% endif %}
         }
         </script>
@@ -89,7 +89,7 @@
                                 {% endif %}
                             </div>
                             <div class="notif-title">{{notif['title']}}</div>
-                            <div class="notif-content">{{notif['content'][:20]|safe}}{{ '...' if notif['content']|length>20}}</div><!--first line of text. overflow:hidden-->
+                            <div class="notif-content">{{notif['content'][:20]|safe}}{{ '...' if notif['content']|length>25}}</div><!--first line of text. overflow:hidden-->
                             <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
                         </div>
                         <script>

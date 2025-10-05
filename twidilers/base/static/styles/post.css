@@ -283,7 +283,8 @@ option:hover {
 
 
 .pst-content {
-    margin-top:0px
+    margin-top:0px;
+    margin-bottom:15px;
 }
 
 .pst-auth-pfp-container {
