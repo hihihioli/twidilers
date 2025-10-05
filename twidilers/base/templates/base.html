@@ -32,7 +32,7 @@
             {% set account = findAccount() %}
                 <a href="{{ url_for('.page',page='index') }}" id="hdr-href"><button id="hder-img" title="Twidilers Home"><img src="{{ url_for('.static',filename='images/logo.svg') }}" width="35.56px" height="35.54"></button></a> 
                 <a href="{{ url_for('.page',page='feed') }}"><button>Feed</button></a>
-                <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell"></i>
+                <a><button id="navbarbell" title="Notification bell"><i class="fa-solid fa-bell" style="width:auto;"></i>
                     {% if account.notifications %}
                     <div id="notification-count">{{ account.notifications | length}}</div>
                     {% endif %}
@@ -139,9 +139,7 @@
         {% endblock %}
     </div>
     <script>
-
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-
+        document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>
 </body>
 
