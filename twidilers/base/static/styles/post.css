@@ -34,24 +34,9 @@ input[type="checkbox" i] {
 header {
     margin:0;
 }
-.pst-auth {
-    margin:10px 0 0 0;
-    color:var(--darkblue);
-    font-weight: bold;
-}
 
-.pst-disp {
-    margin:3px 0 0 0;
-    color:var(--darkblue);
-    font-size: 10pt;
-    font-weight:normal;
-}
 a {
     text-decoration:none;
-}
-.pst-auths{
-    position: relative;
-    bottom:8px;
 }
 
 .pst-title {
@@ -87,6 +72,7 @@ a {
 
 #feed-dropdown {
     color: var(--darkblue);
+    width:fit-content;
 }
 
 select,
@@ -157,8 +143,8 @@ option:hover {
     margin-top:20px;
 }
 .filter {
-    font-size:26px;
-    padding: 10px;
+    font-size:25px;
+    padding: 7px 10px 10px 10px;
     border-radius:5px;
     border:0;
     background:none;
@@ -184,13 +170,22 @@ option:hover {
     color:var(--darkblue); 
     padding:10px;
     cursor:pointer;
-
+    margin-left:10px;
     width:36px;
     transition:0.3s all;
     height:36px;
 }
 .pst-react-but:hover {
     box-shadow:0 0 5px var(--darkblue);
+}
+
+.pst-share {
+    padding:20px;
+    font-size:18px;
+    position:absolute;
+    bottom:0;
+    right:0;
+    cursor:pointer;
 }
 .checkbox-label {
     position:absolute;
@@ -206,8 +201,9 @@ option:hover {
     height:fit-content;
 }
 #more:disabled, #less:disabled {
-    background:gray;
-    color:white;
+    background:var(--lightishblue);
+    color:var(--darkblue);
+    border:none;
     cursor:not-allowed;
     border:0;
 }
@@ -244,9 +240,35 @@ option:hover {
 }
 
 .liked:hover {
-    border-radius:50%;
+    border-radius:5px;
 }
 
+/* Mention highlighting */
+.mentioned-you {
+    outline: 2px solid var(--maroonred);
+    position: relative;
+}
+.mentioned-you::after {
+    content: "@you";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: var(--maroonred);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 999px;
+    letter-spacing: .5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+
+.mention:hover {
+    background-color: var(--greenish);
+    padding:3px;
+    margin:-3px;
+    border-radius:3px;
+}
 
 .auth-info {
     display: flex;
@@ -258,13 +280,15 @@ option:hover {
     height: 40px;
 }
 
-.pst-auth-pfp {
-    border-radius: 1000px;
-    width: 40px;
-}
+
 
 .pst-content {
     margin-top:0px
+}
+
+.pst-auth-pfp-container {
+    background-color: var(--darkblue);
+    border-radius:100px;
 }
 
 /* Found a loading animaiton online sorry it's long*/
@@ -316,6 +340,6 @@ option:hover {
         width: calc(var(--width) - 40px) !important;
     }
     #feedtitle {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 }

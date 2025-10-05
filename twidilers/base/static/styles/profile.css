@@ -1,12 +1,4 @@
-/* For profile page and affiliates */
-.profile-auth {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 20px;
-    margin-top:24px;
-    height:75px;
-}
+
 #follow-button {
     position: absolute;
     right: 20px;
@@ -26,22 +18,25 @@
     color: var(--lightblue);
     border-radius: 10px;
 } 
-#pfp {
-    width: 100px;
-    border-radius: 1000000px;
-    float: left;
-}
+
 #about-user {
     margin:0;
 }
-#display-name {
-    margin:0px;
-    width:fit-content;
-    font-size:1.4em;
-}
+
 #follow-button {
     width:100px;
     transition:0.5s all !important;
+}
+
+@media screen and (max-width:500px) {
+    #follow-button {
+        width:fit-content;
+    }
+}   
+@media screen and (max-width:450px) {
+    #follow-button {
+        bottom:35px;
+    }
 }
 #prof-disp {
     position: relative;
@@ -54,34 +49,55 @@
     margin-left: auto;
 
 }
-#prof-usrname {
-    margin: 0;
-    margin-bottom: 10px;
-    font-size:1em;
-    font-weight:normal;
-    width:fit-content
+
+
+/* Popover panels for followers / following */
+.hover-pop {
+    cursor: pointer;
 }
-.profile-div {
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  width: 100%;
-  max-width: 600px; /* keeps layout readable on large screens */
-  box-sizing: border-box;
-
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 15px;
-
-  background-color: var(--lightishblue);
-  overflow-wrap: break-word;
-  flex-shrink: 1;
-  box-sizing: border-box;
+.hover-pop:hover, .hover-pop:focus {
+    text-decoration: underline;
 }
+.pop-panel {
+    position: absolute;
+    z-index: 40;
+    background: var(--lightblue);
+    color: var(--darkblue);
+    border: 3px solid var(--darkblue);
+    border-radius: 10px;
+    padding: 10px;
+    width: 240px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    display: none;
+}
+
+.pop-panel.show { display: block; }
+.pop-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 4px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+}
+.pop-user:hover { background: rgba(0,0,0,0.08); }
+.mini-pfp {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.pop-names { display: flex; flex-direction: column; line-height: 1.1; }
+.pop-names small { opacity: 0.7; }
+.empty { opacity: 0.6; font-style: italic; }
 
 #auth-info {
     display:flex;
     flex-direction:row;
+    position:relative;
 }
 
 #about {
@@ -100,10 +116,6 @@
     display:relative !important;
 }
 
-.pst-auths{
-    position: relative;
-    bottom:8px;
-}
 
 .pst-title {
     margin:1px 0 10px 0;
@@ -122,23 +134,7 @@
     bottom:0;
     right:0;
 }
-/*@media only screen and (prefers-color-scheme: dark){
-    #edit-profile:hover {
-        background-color:var(--lightblue);
-        color: var(--darkblue);
- }
- .pst {
-    background-color: var(--darkishblue);
-}
 
-.pst-auth {
-    color:var(--lightblue)
+a {
+    font-weight:normal;
 }
-
-.pst-disp {
-    color:var(--lightblue)
-}
-.profile-div {
-    background-color:var(--darkishblue);
-}
-}*/

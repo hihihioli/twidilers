@@ -30,6 +30,13 @@ likes = Table(
     Column('post_id', Integer, ForeignKey('posts.id'), primary_key=True)
 )
 
+reference = Table(
+    'reference',
+    db.metadata,
+    Column('account_id', Integer, ForeignKey('accounts.id'), primary_key=True),
+    Column('post_id', Integer, ForeignKey('posts.id'), primary_key=True)
+)
+
 class Account(db.Model): #The user accounts
   __tablename__ = 'accounts'
   id:Mapped[int] = mapped_column(primary_key=True,autoincrement=True,unique=True)
@@ -37,6 +44,11 @@ class Account(db.Model): #The user accounts
   displayname:Mapped[str] = mapped_column(nullable=True)
   email:Mapped[str] = mapped_column(nullable=False,unique=True)
   posts:Mapped[list["Post"]] = relationship(back_populates="author",cascade="all, delete, delete-orphan")
+  referenced_in: Mapped[list["Post"]] = relationship(
+        "Post",
+        secondary=reference,
+        back_populates="references"
+    )
   photo:Mapped[bytes] = mapped_column(LargeBinary,nullable=True)
   password_hash:Mapped[bytes] = mapped_column(LargeBinary,nullable=True) #Store the password hash instead of plaintext
   notifications:Mapped[list] = mapped_column(JSONB, default=list)
@@ -50,8 +62,13 @@ class Account(db.Model): #The user accounts
     )  
   userdata:Mapped[dict] = mapped_column(JSONB,default={
       "joined": datetime.datetime.now(datetime.timezone.utc).timestamp(), #The time the account was created
-      "bio": '', 
+      "bio": '',
     })
+  notif_settings:Mapped[dict] = mapped_column(JSONB,default={
+    "following": True,
+    "mentions": True,
+    "likes": False
+  })
   #Making the table self-referential (it relates to other objects of the same class)
   followers = relationship('Account', 
     secondary = follow, #The association table the relationship is based on (above)
@@ -70,6 +87,11 @@ class Account(db.Model): #The user accounts
 
   def check_password(self,plain_password:str): #Returns a bool on whether the passwords match
     return bcrypt.check_password_hash(self.password_hash, plain_password) if self.password_hash else False #Check them if they have a password
+  
+  def addNotifs(self,notifs):
+    m = self.notifications.copy()
+    m.append(notifs)
+    self.notifications = m
   
   def __repr__(self): #When printing, what to return
     return f'username={self.username},id={self.id}'
@@ -108,6 +130,12 @@ class Post(db.Model): #The posts(linked to accounts)
   author:Mapped["Account"] = relationship(back_populates="posts")
   title:Mapped[str]
   content:Mapped[str]
+  is_reference:Mapped[bool] = mapped_column(default=False)
+  references: Mapped[list["Account"]] = relationship(
+        "Account",
+        secondary=reference,
+        back_populates="referenced_in"
+  )
   liked_by: Mapped[list["Account"]] = relationship(
         "Account",
         secondary=likes,
@@ -115,4 +143,4 @@ class Post(db.Model): #The posts(linked to accounts)
   )
   date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=datetime.datetime.now(datetime.timezone.utc),nullable=True) #an aware datetime object
   def __repr__(self):
-    return f"id={self.id},title={self.title},author={self.author}"
+    return f"id={self.id},title={self.title},author={self.author},author_id={self.author_id}"

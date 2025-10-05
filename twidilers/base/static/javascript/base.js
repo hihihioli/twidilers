@@ -3,7 +3,6 @@ const userButton = document.getElementById('usricon-nav');
 const userMenu = document.getElementById('popupMenu');
 const notifButton = document.getElementById('navbarbell');
 const notifMenu = document.getElementById('notif-popup');
-const filterMenu = document.getElementById('filter-form');
 const locationthing = document.getElementById('location');
 
 
@@ -11,7 +10,20 @@ const locationthing = document.getElementById('location');
 notifMenu.style.display = 'none';
 userMenu.style.display = 'none';
 
+
+function parseDate(date_utc, options = ['2-digit','numeric','numeric','numeric','2-digit']) {
+    dateStr = new Date(date_utc).toLocaleString('en-US', {
+            year: options[0],
+            month: options[1],
+            day: options[2],
+            hour: options[3],
+            minute: options[4],
+        })
+    return dateStr
+}
+
 // Expands notif page if it's clicked
+
 notifButton.addEventListener('click', () => {
 if (notifMenu.style.display === 'none') {
     notifMenu.style.display = 'flex';
@@ -29,6 +41,10 @@ if (userMenu.style.display === 'none') {
     userMenu.style.display = 'none';
 }
 });
+
+
+
+
 
 // Handles character count
 document.addEventListener('DOMContentLoaded', function(){
