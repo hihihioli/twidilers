@@ -52,7 +52,7 @@ def logout():
 @login_required
 def write_post():
     title   = request.form.get('title') or ''
-    content = escape(request.form.get('post-content') or '')
+    content = request.form.get('post-content') or ''
 
     # Build list of referenced usernames from title/content
     mentioned_usernames = set(extract_mentions(title) + extract_mentions(content))
@@ -66,12 +66,19 @@ def write_post():
         flash('Post cannot be empty','error')
         return redirect(url_for('.page',page='post'))
 
-    
+    # finds list of URLs
+    urls = []
     if 'https://' in content or 'http://' in content:
         urls = re.findall(r'(https?://\S+)', content)
-        for url in urls:
-            link_html = '<a href="' + url + '">' + url + '</a>'
-            content = content.replace(url, link_html)
+
+    content = str(escape(content))
+    
+    # replace the escaped URLs with HTML links
+    for url in urls:
+        escaped_url = escape(url)  # This should match what's in the escaped content
+        link_html = f'<a href="{escaped_url}">{escaped_url}</a>'
+        content = content.replace(escaped_url, link_html)
+
     # truncate to 500 chars
     MAX_CONTENT = 500
     if len(content) > MAX_CONTENT:
