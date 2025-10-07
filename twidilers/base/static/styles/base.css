@@ -387,6 +387,10 @@ i {
     width:46px !important;
     margin:auto;
 }
+.notif-type {
+    font-weight:normal;
+    font-size:0.9em;
+}
 #navbarbell:hover {
     box-shadow:none !important;
 }

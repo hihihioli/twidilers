@@ -65,19 +65,8 @@ def write_post():
     if not content.strip():
         flash('Post cannot be empty','error')
         return redirect(url_for('.page',page='post'))
-
-    # finds list of URLs
-    urls = []
-    if 'https://' in content or 'http://' in content:
-        urls = re.findall(r'(https?://\S+)', content)
-
-    content = str(escape(content))
     
-    # replace the escaped URLs with HTML links
-    for url in urls:
-        escaped_url = escape(url)  # This should match what's in the escaped content
-        link_html = f'<a href="{escaped_url}">{escaped_url}</a>'
-        content = content.replace(escaped_url, link_html)
+    content = makeURLHTML(content)
 
     # truncate to 500 chars
     MAX_CONTENT = 500
@@ -110,13 +99,17 @@ def write_post():
     )
     db.session.add(new_post)
     
+    # shortens notification content to 50 chars
+
+    notif_content = content[:50]
+
     # Prepare notifications
     follownotifs = {
         "type": "follow",
         "references": [],
         "author":  account.username,
         "title":   title,
-        "content": content,
+        "content": notif_content,
         "date":    date_utc.timestamp()
     }
     refnotifs = {
@@ -124,7 +117,7 @@ def write_post():
         "references": ref_usernames,
         "author":  account.username,
         "title":   title,
-        "content": content,
+        "content": notif_content,
         "date":    date_utc.timestamp()
     }
     # Notify referenced users

@@ -3,6 +3,7 @@ from flask import session,flash,Request,current_app, url_for
 import re #for regular expressions
 from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
+from markupsafe import escape
 import sqlalchemy
 import requests
 import datetime
@@ -129,7 +130,7 @@ def checkNotifSettings(user, setting):
     return False
 
 #sends notification to user
-def sendNotification(setting, user, author, post_id):
+def sendNotification(setting, user, author, post_id=0):
     # sends notification TO USER
     account = findAccount(user)
     if account:
@@ -146,6 +147,7 @@ def sendNotification(setting, user, author, post_id):
             "date": date_utc.timestamp()
         })
         account.notifications = notifs
+        db.session.commit()
 
 def deletePost(post):
     if not post:
@@ -197,6 +199,22 @@ def formatImage(image_bytes:bytes) -> bytes:
 def checkCaptcha(response):
     data = requests.post("https://api.hcaptcha.com/siteverify",data={"secret":current_app.config["HCAPTCHA_SECRET"],"response":response})
     return data.json()['success']
+
+# Sanitizes content and converts URLs to HTML links
+def makeURLHTML(content):
+    # finds list of URLs
+    urls = []
+    if 'https://' in content or 'http://' in content:
+        urls = re.findall(r'(https?://\S+)', content)
+
+    content = str(escape(content))
+    
+    # replace the escaped URLs with HTML links
+    for url in urls:
+        escaped_url = escape(url)  # This should match what's in the escaped content
+        link_html = f'<a href="{escaped_url}">{escaped_url}</a>'
+        content = content.replace(escaped_url, link_html)
+    return content
 
 # -----------------------------
 # API serialization helpers
