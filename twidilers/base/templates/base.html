@@ -80,16 +80,19 @@
                                         src="{{ url_for('.get_pfp', username=notif['author'])}}"
                                         alt="Profile picture of ${author.displayname}">
                                     <div class="pst-auths-base">
-                                        <p class="pst-auth">{{findAccount(notif['author']).displayname}}</p>
-                                        <p class="pst-disp">@{{notif['author']}}</p>              
+                                        <div class="pst-auth">{{findAccount(notif['author']).displayname}}</div>
+                                        <div class="notif-type">
+                                            {% if notif.type == 'reference' %}
+                                                <span>mentioned you in:</span>
+                                            {% elif notif.type == 'follow' %}
+                                                <span>posted:</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </a>
-                                {% if notif.type == 'reference' %}
-                                    <b>mentioned you in:</b>
-                                {% endif %}
                             </div>
                             <div class="notif-title">{{notif['title']}}</div>
-                            <div class="notif-content">{{notif['content'][:20]|safe}}{{ '...' if notif['content']|length>25}}</div><!--first line of text. overflow:hidden-->
+                            <div class="notif-content">{{notif['content']|safe}}{{ '...' if notif['content']|length>49}}</div><!--first line of text. overflow:hidden-->
                             <div class="notif-date" id="notif_date_{{ loop.index0 }}">Loading...</div>
                         </div>
                         <script>

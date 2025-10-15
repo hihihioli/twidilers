@@ -120,6 +120,28 @@ def get_post(post_id):
         flask.abort(404)
     return flask.jsonify(post_detail_api_dict(post, user))
 
+@app.route('/api/feed/<feed_type>/lastpage')
+def get_last_page(feed_type):
+    POSTS_PER_PAGE = 15
+    if feed_type == 'all':
+        total_posts = db.session.execute(db.select(db.func.count()).select_from(Post)).scalar()
+    elif feed_type == 'following':
+        account = findAccount()
+        following_ids = [user.id for user in account.following]
+        total_posts = db.session.execute(
+            db.select(db.func.count()).select_from(Post).filter(Post.author_id.in_(following_ids))
+        ).scalar()
+    elif feed_type == 'liked':
+        account = findAccount()
+        total_posts = db.session.execute(
+            db.select(db.func.count()).select_from(Post).filter(Post.liked_by.contains(account))
+        ).scalar()
+    else:
+        return flask.jsonify({'error': 'Invalid feed type'}), 400
+
+    last_page = (total_posts + POSTS_PER_PAGE - 1) // POSTS_PER_PAGE
+    return flask.jsonify({'last_page': last_page})
+
 # Bulk user existence / data lookup
 # POST { "usernames": ["alice","bob"] }
 @app.post('/api/users/bulk')

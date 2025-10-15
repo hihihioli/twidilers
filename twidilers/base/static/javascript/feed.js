@@ -156,6 +156,20 @@ if (refreshButton) {
     refreshButton.onclick = () => fetchPosts(currentFeedType);
 }
 
+// find last page number from API
+async function fetchLastPage(feedType) {
+  try {
+      const url = `/api/feed/${feedType}/lastpage`;
+      const res = await fetch(url, { credentials: 'same-origin' });
+      if (!res.ok) throw new Error(`Last page fetch failed: ${res.status}`);
+      const data = await res.json();
+      return data.last_page || 1;
+  } catch(err) {
+      console.error('fetchLastPage error:', err);
+      return 1;
+  }
+}
+
 // 6) Helper: do they already like this post?
 function didLike(post) {
   // the API is returning likes as an array of user *ids*
@@ -307,6 +321,13 @@ function newer() {
 function newest() {
   currentPage = 1;
   fetchPosts(currentFeedType);
+}
+
+function oldest() {
+  fetchLastPage(currentFeedType).then(lastPage => {
+    currentPage = lastPage;
+    fetchPosts(currentFeedType);
+  });
 }
 
 // 10) Kick it all off
