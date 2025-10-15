@@ -36,7 +36,6 @@ def login():
     if account.check_password(password): #Checks if the account's logged password is the same as the inputted password
         flash('Login Successful!','success')
         session['username'] = username #Sets session data to be used on other pages
-        session['filter'] = 0
         return redirect(url_for('.page',page='index'))
     flash('Username or password is incorrect. Change account details or create an account','error')
     return redirect(url_for('.page',page='login'))
@@ -44,7 +43,6 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username',None) #remove username from session, effectively logging them out
-    session['filter'] = 0
     flash('Successfully logged out','success')
     return redirect(url_for('.page',page='login'))
 
@@ -144,43 +142,6 @@ def write_post():
         flash('Post successfully created', 'success')
     return redirect(url_for('.page',page='feed'))
 
-@app.post('/feed')
-@login_required
-def feed():
-    user = findAccount()
-    if "delete-post-id" in request.form:
-        post_id = request.form.get('delete-post-id')
-        post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
-        if post.author != user:
-            flash('You cannot delete a post that is not yours','error')
-            return redirect(url_for('.page',page='feed'))
-        deletePost(post)
-        flash('Post Deleted','success')
-        return redirect(url_for('.page',page='feed'))
-    elif "filter-foll" in request.form:
-        filtered = request.form.get('filter-foll')
-        if filtered:
-            session['filter'] = 1
-            flash("You're now seeing only people you follow", 'success')
-        else:
-            session['filter'] = 0
-            flash("You're seeing everything now", 'success')
-        return redirect(url_for('.page', page='feed'))
-    elif "like-post-id" in request.form:
-        post_id = request.form.get('like-post-id')
-        post:Post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
-        if user.id in [person.id for person in post.liked_by]:
-            post.liked_by.remove(user)
-            db.session.commit()
-            flash('Post Unliked','success')
-            return redirect(url_for('.page',page='feed'))
-        post.liked_by.append(user)
-        db.session.commit()
-        flash('Post Liked','success')
-        return redirect(url_for('.page',page='feed'))
-    flash(f'{request.form}','error')
-    return redirect(url_for('.page',page='feed'))
-
 @app.route('/feed/<int:post_id>')
 @login_required
 def go_to_post(post_id):
@@ -198,6 +159,7 @@ def go_to_post(post_id):
     return redirect(f"{url_for('.page', page='feed')}?page={page}&feed=all&jumpTo={post_id}")
 
 
+# clear notifications
 @app.post('/clear')
 @login_required
 def clear():
@@ -214,14 +176,14 @@ def send_reset_link():
         return redirect(url_for('.page', page='send-reset-link'))
     account = findAccountByEmail(email)
     if not account:
-        flash('Email sent if account exists', 'success')  # Corrected spelling
+        flash('Email sent if account exists', 'success')
         return redirect(url_for('.page', page='send-reset-link'))
     try:
         sendResetPassword(account)
         flash('Password Reset Email Sent', 'success')
     except Exception as e:
-        flash('An error occurred while sending the email.', 'error')  # Added error handling
-    
+        flash('An error occurred while sending the email.', 'error')
+        print(e)
     return redirect(url_for('.page', page='login'))
 
 @app.post('/sign-up')
@@ -271,6 +233,7 @@ def sign_up():
 
 
 @app.post('/settings')
+@login_required
 def settings(): #Handles the settings page
     if 'delete' in request.form: #The user wants to delete their account
         deleteAccount()
