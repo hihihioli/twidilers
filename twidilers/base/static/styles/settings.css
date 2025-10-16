@@ -42,7 +42,6 @@ input[type="file"] {
 }
 /* Custom button */
 .custom-file-upload {
-
 }
 .submit {
     margin: 0;
@@ -252,7 +251,7 @@ h3 {
   position: absolute; 
   width:30px;
   height: 30px;
-  padding: 0px;
+  padding: 1px 0 0 3px;
   color: var(--darkblue);
   background-color:var(--lightblue);
   border: 2px solid var(--darkblue);

@@ -115,8 +115,6 @@ async function checkboxHandler() {
     });
 }
 
-checkboxHandler();
-
 // Dark mode toggle handler
 function handleDarkToggle() {
     const html   = document.documentElement;
