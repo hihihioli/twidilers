@@ -134,9 +134,11 @@ def sendNotification(setting, user, author, post_id=0):
     # sends notification TO USER
     account = findAccount(user)
     if account:
+        post = ''
         notifs = account.notifications.copy()
         date_utc = datetime.datetime.now(datetime.timezone.utc)
-        post = findPost(post_id)
+        if post_id > 0:
+            post = findPost(post_id)
         notifs.append({
             "type": setting,
             "references": post.references,
