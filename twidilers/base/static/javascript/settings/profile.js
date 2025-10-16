@@ -1,8 +1,17 @@
+// Submits the image when uploading a profile picture
+file = document.getElementById('file');
+file.addEventListener('change',() => {
+    if(file.files.length > 0){
+        document.getElementById('upload_pfp').submit();
+    }
+})
+
 // Webcam and file uploading logic //
 let videoElement, canvasElement, startButton, closeButton, cameraButton, fileButton, modalContent, modalShell;
 let stream, picTaken, vidWidth, state;
 let isOn = false;
-window.onload = function () {
+
+function initializeProfile() {
     let imageBlob;
     videoShell = document.getElementById('videoShell');
     startButton = document.getElementById('startButton');
@@ -17,6 +26,13 @@ window.onload = function () {
     startButton.addEventListener('click', alternator);
     closeButton.addEventListener('click', stopWebService);
     state = 0
+}
+
+// Auto-initialize when loaded dynamically
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeProfile);
+} else {
+    initializeProfile();
 }  
 
 function alternator() {

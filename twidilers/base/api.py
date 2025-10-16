@@ -231,6 +231,16 @@ def sign_up():
     sendVerification(new_account) #Send the verification screen
     return render_template('pages/sign-up.html',entered=True) #Show the welcome to twidilers screen
 
+@app.get('/settings')
+@login_required
+def get_settings(): #Handles the settings page
+    return render_template('settings/template.html')
+
+@app.get('/settings/<page>')
+@login_required
+def get_settings_page(page):
+    url = escape(page)
+    return render_template(f'settings/{url}.html')
 
 @app.post('/settings')
 @login_required

@@ -1,0 +1,20 @@
+{% set account = findAccount() %}
+
+<div class="profile-div">
+    <form method="post" id="change-password-change">
+        <h3 class="div-heading">Change password</h3>
+        <button class="submit" id="send-email-password" name="password-change">Send password reset link</button>
+    </form>
+</div>
+<div class="profile-div">
+    <h3 class="div-heading">Change email</h3>
+    <form class="settings-form">
+        <input id="new-email" name="new-email" type="email" class="textbox" placeholder="New email">
+        <button class="submit settings-submit" id="email-change" name="email-change">Send confirmation email to new account</button>
+    </form>
+</div>
+<div class="profile-div profile-warning">
+    <form id="delete-account" name="delete-account" method="post">
+        <button class="submit" id="delete" name="delete" onclick="checkDelete(event)">Delete Account</button>
+    </form> 
+</div>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/user.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/form.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles/settings.css') }}">
+{% endblock %}
+{% block content %}
+{% set account = findAccount() %}
+    <nav id="acct-navbar" aria-label="Settings navigation">
+        <button class="pf-mnu-btn" id="acct-dtl-btn" onclick="newPage(0)" aria-current="page">
+            <span>Profile</span>
+        </button>
+        <button class="pf-mnu-btn" id="security-btn" onclick="newPage(1)">
+            <span>Security</span>
+        </button>
+        <button class="pf-mnu-btn" id="appear-btn" onclick="newPage(2)">
+            <span>Appearance</span>
+        </button>
+        <button class="pf-mnu-btn" id="notif-btn" onclick="newPage(3)">
+            <span>Notifications</span>
+        </button>
+    </nav>
+
+
+    <div id="settings-content">
+        Loading...
+    </div>
+        <script src="{{ url_for('.static', filename='javascript/settings/settings.js')}}"></script>
+
+{% endblock %}
