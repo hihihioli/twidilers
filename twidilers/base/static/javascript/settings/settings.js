@@ -20,6 +20,10 @@ const settingsJSFiles = [
     'notif.js',
 ]
 
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const contentContainer = document.getElementById('settings-content');
 
 
@@ -30,14 +34,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // newPage function to get a new page
 async function newPage(pageIndex) {
-    let newContent = `Fetching...`;
-    contentContainer.innerHTML = newContent;
-    
     try {
-        newContent = await fetchSettingsPage(pageIndex);
+        if (!contentContainer) {
+            console.error('contentContainer not found');
+            return;
+        }
+
+        // Start the fetch and a 50ms timer simultaneously
+        const fetchPromise = fetchSettingsPage(pageIndex);
+        const timerPromise = sleep(50);
+
+        // Race between fetch and timer
+        const raceResult = await Promise.race([
+            fetchPromise.then(content => ({ type: 'fetch', content })),
+            timerPromise.then(() => ({ type: 'timer' }))
+        ]);
+
+        let newContent;
+        if (raceResult.type === 'fetch') {
+            // Fetch completed within 50ms - no "Fetching..." needed
+            newContent = raceResult.content;
+        } else {
+            // 50ms elapsed - show "Fetching..." and wait for actual content
+            contentContainer.innerHTML = `Fetching...`;
+            newContent = await fetchPromise;
+        }
+
         if (!newContent) {
             throw new Error('Empty response from server');
         }
+
         await handleButtonChange(pageIndex);
         contentContainer.innerHTML = newContent;
         
