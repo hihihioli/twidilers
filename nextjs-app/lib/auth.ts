@@ -8,8 +8,11 @@ export async function hashPassword(password: string): Promise<Buffer> {
   return Buffer.from(hash);
 }
 
-export async function verifyPassword(password: string, hashedPassword: Buffer): Promise<boolean> {
-  return bcrypt.compare(password, hashedPassword.toString());
+export async function verifyPassword(password: string, hashedPassword: Uint8Array | Buffer): Promise<boolean> {
+  const hashString = Buffer.isBuffer(hashedPassword) 
+    ? hashedPassword.toString() 
+    : Buffer.from(hashedPassword).toString();
+  return bcrypt.compare(password, hashString);
 }
 
 export function generateVerifyToken(userId: number, expiresIn: number = 600): string {
