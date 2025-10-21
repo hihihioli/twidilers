@@ -1,0 +1,346 @@
+/* For individual posts and feed.html */
+#feedtitle {
+    float: left;
+    font-size: 3em;
+    margin: 20px 0;
+}
+
+input[type="checkbox" i] {
+    border:2px solid var(--lightblue);
+    background-color:var(--darkishblue);
+    padding:10px;
+}
+.spacer {
+    height: 100px;
+}
+/* Individual posts */
+.pst {
+    padding: 20px;
+    background-color: var(--lightishblue);
+    border-radius: 15px;
+    margin: 8px 0px;
+    height: fit-content;
+    inline-size: 565px;
+    overflow-wrap: break-word;
+    position:relative;
+    text-decoration:none;
+    transition:all 2s;
+}
+.disabled {
+    cursor: not-allowed;
+    background-color: gray !important;
+    color: white !important;
+}
+header {
+    margin:0;
+}
+
+a {
+    text-decoration:none;
+}
+
+.pst-title {
+    margin:1px 0 10px 0;
+}
+
+.pst-date {
+    margin: 0px
+}
+
+
+#topfeed {
+    position:relative;
+    height:70px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin-bottom:30px;
+    gap:10px;
+}
+#createpost {
+    margin:auto 0 0 0;
+}
+#refreshbutton {
+    margin:auto 0 0 0;
+}
+
+
+.feed-controls {
+    height:50px;
+    margin:21.6px 0 0 auto;
+}
+
+#feed-dropdown {
+    color: var(--darkblue);
+    width:fit-content;
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+::picker(select) {
+  border: none;
+}
+
+select {
+    border-radius:5px;
+    background-color:var(--lightblue);
+    padding:14px 12px;
+    height:50px;
+    border:2px solid var(--darkblue);
+    cursor:pointer;
+}
+
+select::picker-icon {
+  color: #999999;
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  color:var(--darkblue);
+  border: 2px solid var(--darkblue);
+  background: var(--lightishblue);
+  padding: 10px;
+  transition: 0.4s;
+  cursor:pointer;
+}
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+option:not(option:last-of-type) {
+  border-bottom: none;
+}
+option:hover {
+    background-color:var(--lightblue);
+
+}
+#bottomfeed {
+    display: flex; /* Use Flexbox */
+    justify-content: space-between; /* Space buttons apart */
+    width: 100%;
+    margin: 15px auto;
+    padding:0;
+}
+
+#bottomfeed button {
+    width: auto;
+    height: 50px;
+    margin:0;
+}
+#middle {
+    margin-top:20px;
+}
+.filter {
+    font-size:25px;
+    padding: 7px 10px 10px 10px;
+    border-radius:5px;
+    border:0;
+    background:none;
+    color:var(--darkblue);
+    cursor:pointer;
+    float:right;
+    width:50px;
+    transition:all 0.3s;
+}
+.pst-reactions {
+    position:absolute;
+    right:20px;
+    top:20px;
+    display:flex;
+    flex-direction:row-reverse;
+    gap:10px;
+    padding:0;
+}
+.pst-react-but {
+    background-color:var(--lightblue);
+    border:2px solid var(--darkblue);
+    border-radius: 3px;
+    color:var(--darkblue); 
+    padding:10px;
+    cursor:pointer;
+    margin-left:10px;
+    width:36px;
+    transition:0.3s all;
+    height:36px;
+}
+.pst-react-but:hover {
+    box-shadow:0 0 5px var(--darkblue);
+}
+
+.pst-share {
+    padding:20px;
+    font-size:18px;
+    position:absolute;
+    bottom:0;
+    right:0;
+    cursor:pointer;
+}
+.checkbox-label {
+    position:absolute;
+    top:0;
+    right:0;
+    width:200px;
+    margin:10px;
+    color:var(--darkblue);
+}
+#check-text {
+    float:right;
+    margin:0 0 0 10px;
+    height:fit-content;
+}
+#more:disabled, #less:disabled {
+    background:var(--lightishblue);
+    color:var(--darkblue);
+    border:none;
+    cursor:not-allowed;
+    border:0;
+}
+#submit-filter {
+    background-color:var(--lightblue);
+    color:var(--darkblue);
+    border-radius:7px;
+    padding:10px;
+    margin-top:20px;
+    border:0;
+    position:absolute;
+    top:38px;
+    left:8px;
+}
+
+/* container for posts  */
+#pst-div {
+    display: flex;
+}
+.reactions {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+#blog_form {
+    width: 500px;
+    margin-bottom:1px;
+}
+.liked {
+    background-color: var(--maroonred) !important;
+    color:white !important;
+    border:2px solid white;
+}
+
+.liked:hover {
+    border-radius:5px;
+}
+
+/* Mention highlighting */
+.mentioned-you {
+    outline: 2px solid var(--maroonred);
+    position: relative;
+}
+.mentioned-you::after {
+    content: "@you";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: var(--maroonred);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 999px;
+    letter-spacing: .5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+
+.mention:hover {
+    background-color: var(--greenish);
+    padding:3px;
+    margin:-3px;
+    border-radius:3px;
+}
+
+.auth-info {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 10px 0;
+    width: 100%;
+    cursor:pointer;
+    height: 40px;
+}
+
+
+
+.pst-content {
+    margin-top:0px;
+    margin-bottom:15px;
+}
+
+.pst-auth-pfp-container {
+    background-color: var(--darkblue);
+    border-radius:100px;
+}
+
+/* Found a loading animaiton online sorry it's long*/
+
+.lds-ring,
+.lds-ring div {
+  box-sizing: border-box;
+}
+
+.lds-ring {
+  display: flex;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin:auto;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid currentColor;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: currentColor transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 640px) {
+    .pst {
+        width: calc(var(--width) - 40px) !important;
+    }
+    #feedtitle {
+        font-size: 1.8em;
+    }
+}

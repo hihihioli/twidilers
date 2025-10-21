@@ -1,0 +1,646 @@
+/*\ These are the keyframe animations \*/
+
+@keyframes disappear {
+    0% {
+        filter: opacity(1)
+    }
+
+    99% {
+        filter: opacity(0)
+    }
+
+    100% {
+        filter: opacity(0);
+        display:none
+    }
+}
+
+@keyframes shrink {
+    0% {
+        display:flex;
+        width:250px;
+        filter: opacity(1);
+    }
+    90% {
+        width:0;
+        filter: opacity(0);
+    }
+    100% {
+        width:0;
+        padding-left:0px;
+        padding-right:0px;
+        margin-left:0px;
+        border-left:0px;
+        margin-right:0px;
+        border-right:0px;
+        filter: opacity(0);
+        display:none;
+
+    }
+}
+
+
+/* This is variables. You can access them by doing var(--varname) instead of a color. */
+:root {
+    --lightblue: #b8eef9;
+    --darkblue: #001554;
+    --darkishblue: #0a0a8d;
+    --lightishblue: #9eefff;
+    --maroonred: rgb(126, 36, 36);
+    --greenish: #4d7b9f;
+    --maroongreen: #003d00;
+}
+
+[data-theme="dark"] {    
+    --lightblue: #001554;
+    --darkblue: #b8eef9;
+    --darkishblue:#9eefff ;
+    --lightishblue: #0a0a8d;
+    }
+
+html {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+*:focus {
+    outline: 2px solid var(--greenish);
+    outline-offset: 1px;
+}
+
+/* Just normal stuff here. Everything is in a 600px container with a column flexbox.*/
+body {
+    font-family: Arial;
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    background-color: var(--lightblue);
+    color: var(--darkblue);
+    display: flex;
+    flex-direction: column;
+    overflow-x:hidden;
+    scroll-behavior:smooth;
+    padding: 0 10px;
+}
+
+/* Helpful tips:
+img {
+    max-width: 100%;
+    height:auto;
+    aspect-ratio: 9/16;
+    object-fit: contain;
+}
+
+text element {
+    font-size: clamp(1.8rem, calc(7vw + 1rem), 5rem)
+}
+
+*/
+
+
+label {
+    color:var(--darkblue)
+}
+
+input:-webkit-autofill,textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--darkblue)!important;
+}
+
+/* Accessibility for hidden stuff */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+#content {
+    flex: 1;
+}
+
+/* hdr-href is the icon in the leftmost part of the navbar. hdr-img is the image element. We need to filter it to match the text */
+#hdr-href {
+    margin-right:auto
+}
+
+
+#hder-img {
+    background-color: inherit !important;
+    margin: 20px auto 0 0 !important;
+    padding: 5px !important;
+    filter: brightness(0) saturate(100%) invert(7%) sepia(98%) saturate(6972%) hue-rotate(248deg) brightness(52%) contrast(103%);
+    position: relative;
+    bottom:9px;
+    box-shadow: none;
+    transition:none;
+}
+
+#hder-img:hover {
+    box-shadow:none !important;
+}
+
+[data-theme="dark"] #hder-img {
+    filter: brightness(0) saturate(100%) invert(77%) sepia(49%) saturate(361%) hue-rotate(165deg) brightness(105%) contrast(102%);
+}
+
+/* The filters can be generated at https://angel-rs.github.io/css-color-filter-generator/
+Click generate until you get the loss under 3 */
+
+/* This is where the navbar styling is stored.*/
+#navbar button, .popup-menu button {
+    padding: 15px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    height: 46px; 
+    margin: auto;
+    margin-left:10px;
+    margin-top: 10px;
+    width: fit-content;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+#navbar button:hover, .popup-menu button:hover {
+    border-radius: 7px;
+    box-shadow: 0 0 3px 0 var(--darkishblue);
+}
+
+#usricon-nav-img {
+    position: relative;
+    width: 46px;
+    border-radius: 100%;
+    image-resolution: 46px;
+}
+
+#usricon-nav:hover {
+    box-shadow: 0 0 7px 0 var(--lightblue);
+}
+
+
+
+#navbar {
+    display:flex;
+    width:100%;
+    padding:3px;
+    font-size: 1.3em;
+    font-weight: bold !important;
+    flex-shrink: 1!important;
+}
+
+#navbar #usricon-nav {
+    padding: 0;
+    border-radius: 1000px;
+    
+}
+
+#navbar button, .popup-menu button {
+    padding: 15px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    height: 46px; 
+    margin: auto;
+    margin-top: 10px;
+    width: fit-content;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+#navbar button:hover, .popup-menu button:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 7px 0 var(--darkblue);
+}
+
+#navbar {
+    display:flex;
+    width:100%;
+    padding:3px;
+    gap:10px;
+    font-size: 1.3em;
+    font-weight: bold !important;
+}
+
+#navbar #usricon-nav {
+    padding: 0;
+    border-radius: 1000px;
+}
+
+/* Container for Popup */
+.popup-div {
+    position: relative; /* Ensure children use this as the anchor point */
+    width: 600px;
+}
+/* Popup Menu in base.html */
+.popup-menu {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to .popup-div */
+    flex-direction: column;
+    border: 2px solid var(--darkblue);
+    width: 95px;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--lightblue); /* Ensure it contrasts with the background */
+    right: 0; /* Aligns with the left of .popup-div */
+    top: 100%; /* Appears directly below the parent element */
+    gap:10px;
+}
+.popup-menu button {
+    display: block;
+    width: 100% !important;
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    margin:0;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    background-color:var(--darkblue);
+    color:var(--lightblue);
+}
+#notif-popup {
+    gap:10px;
+    display:none;
+    height:0px;
+}
+
+.notif-div {
+    height:auto;
+    width: clamp(200px,calc(15vw + 130px),300px) !important;
+    position: absolute!important; /* Positioned relative to .popup-div */
+    right: 0; /* Aligns with the left of .popup-div */
+    top: 100%; /* Appears directly below the parent element */
+    flex-direction: column;
+    align-items: center;
+
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--darkblue);
+    background-color: var(--lightblue); /* Ensure it contrasts with the background */
+    
+}
+
+i {
+    text-align:left!important;
+}
+
+#notif-div-0 {
+    max-height:350px;
+    display:flex;
+    gap:10px;
+    flex-direction:column;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    scrollbar-width: none;
+    
+}
+
+.notif-div button {
+    display: block;
+    padding: 15px;
+    background: none;
+    border: none;
+    margin:0;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color:var(--darkblue);
+    position:absolute;
+    bottom:0;
+    right:0;
+    border-radius: 8px 0 8px 0;
+}
+/* Individual notifications*/
+.notif-post {
+    border-radius: 5px;
+    background-color:var(--lightishblue);
+    color:var(--darkblue); 
+    padding:13px; 
+}
+.popup-div h2 {
+    margin:0;
+    margin-bottom:10px;
+}
+.notif-title {
+    font-weight:bold;
+    font-size:1.3em;
+}
+
+#notif-header {
+    height:44.4;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    margin-bottom:10px;
+}
+
+#notif-header h2 {
+    margin:auto 0;
+}
+#clear-notifs {
+    border:0;
+    background:none;
+    padding:13px;
+    color:var(--darkblue);
+    font-size:1em;
+    cursor: pointer;
+    border-radius:8px;
+    transition:all 0.2s;
+    position:relative;
+}
+#clear-notifs:hover {
+    background-color:#ee3355;
+    color:white;
+}
+#more-notifs {
+    border:0;
+    background:none;
+    padding:13px;
+    color:var(--darkblue);
+    font-size:1em;
+    position:absolute;
+    bottom:0;
+    right:0;
+    cursor: pointer;
+    border-radius: 8px 0 8px 0;
+    transition:all 0.2s;
+}
+#more-notifs:hover {
+    background-color:var(--darkishblue);
+    color: var(--lightblue);
+}
+/* the bell on the navbar */
+#navbarbell {
+    position: relative; 
+    padding: 0 !important;
+    font-size: 25px;
+    color: var(--darkblue)!important;
+    background-color:var(--lightblue)!important;
+    width:46px !important;
+    margin:auto;
+}
+.notif-type {
+    font-weight:normal;
+    font-size:0.9em;
+}
+#navbarbell:hover {
+    box-shadow:none !important;
+}
+.no-notifs {
+    font-style:italic;
+    margin:10px 0;
+    opacity:70%;
+}
+
+/* bell "rings" when hovered over */
+.ringing {
+  display: inline-block;          /* allow transforms */
+  transform-origin: top center;   /* pivot at the bell’s “hinge” */
+}
+
+.ringing:hover {
+    animation: ring 1s ease-in-out;
+}
+
+@keyframes ring {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(10deg); }   /* small right swing */
+  25%  { transform: rotate(-8deg); }   /* small left swing */
+  40%  { transform: rotate(6deg); }
+  55%  { transform: rotate(-4deg); }
+  70%  { transform: rotate(2deg); }
+  85%  { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.nav-bell-div {
+    width:46px;
+    height:46px;
+}
+/* Number of notifications */
+#notification-count {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: #ee3355;
+    color: white;
+    border-radius: 1000px;
+    padding: 5px;
+    font-size: 10pt;
+    font-weight:500;
+    width:12px;
+}
+
+.pst-auth {
+    margin:0px;
+    color:var(--darkblue);
+    font-weight: bold;
+}
+
+.pst-disp {
+    margin:3px 0 0 0; /* maybe change this to 0? looks better like that in notif page */
+    color:var(--darkblue);
+    font-size: 10pt;
+    font-weight:normal;
+}
+
+.pst-auth-pfp {
+    border-radius: 1000px;
+    width: 40px;
+}
+
+.auth-info-base {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 10px 0;
+    width: 100%;
+    cursor:pointer;
+    height: 40px;
+}
+
+#pfp-head {
+    height:100px!important;
+}
+
+.div-heading {
+    margin-top:0px
+}
+
+/* Footer stuff here. #footer-div is the div for #footer*/
+#footer-div {
+    text-align: center;
+    align-self:flex-end;
+    height: max-content;
+    width: 100%;
+    margin-top: 8px;
+}
+
+#footer {
+    margin: auto;
+    bottom: 0;
+    width: 600px;
+}
+
+#form-content {
+    flex:1;
+
+}
+p #content {
+    margin: 0;
+}
+
+#cards {
+    text-align: center;
+}
+
+
+/* Classes are below */
+
+a {
+    color: var(--darkishblue);
+    font-weight:600;
+}
+
+/* Flashes are the notices like "login successful" and stuff. */
+.flash {
+    width:100%;
+    max-width: 580px;
+    height: fit-content;
+    border-radius: 5px;
+    background: var(--darkishblue);
+    color: var(--lightishblue);
+    padding: 8px;
+    font-size: 12pt;
+    text-align: center;
+    animation: disappear 0.75s ease forwards 10s;
+    margin-bottom:1px;
+}
+
+.flash.error {
+    color: white;
+    background:red;
+}
+
+.flash.success {
+    color: var(--maroongreen);
+    background: rgb(0, 222, 19);
+}
+
+/* The big 'Log In' heading at the top of the page */
+.heading {
+    font-size:3em;
+    text-align:center;
+    font-weight: bold;
+    margin: 25px auto 20px auto;
+}
+
+/* The submit button. */
+.submit, .submit-h {
+    width: auto;
+    height: auto;
+    font-size: 11pt;
+    padding: 13px;
+    border-radius: 5px;
+    color: var(--darkblue);
+    cursor: pointer;
+    border: 3px solid var(--darkblue);
+    align-self: center !important;
+    transition: all 0.3s;
+    margin: 10px auto 0 auto;
+    text-decoration:none !important;
+    font-weight:normal !important;
+    text-wrap:wrap;
+}
+
+/* Accented submit button */
+
+/* Highlighted/importent submit button */
+.submit,.submit-h {
+    background-color:var(--darkblue);
+    color:var(--lightblue);
+}
+
+.submit:hover,.submit-h:hover {
+    background-color:var(--lightishblue);
+    color: var(--darkblue);
+}
+
+
+.submitwide {
+    padding: 13px 100%;
+}
+
+
+/* Cards are just navbars but slightly different as of 12/4/24 */
+.card {
+    padding: 20px;
+    background-color: var(--darkblue);
+    color: var(--lightblue);
+    border-radius: 5px;
+    border: 0;
+    margin: auto;
+    margin-top: 10px;
+    cursor:pointer;
+    transition: all 0.5s;
+}
+
+.card:hover {
+    border-radius: 6px;
+    box-shadow: 0 0 2px 0 var(--darkblue);
+}
+
+/* fancy inline styling if you're cool. I don't know why these are here though. Derin? */
+/* Derin. It's for when you need something with a flex display and vertical flex direction */
+.flex {
+    display: flex !important;
+}
+
+.vert {
+    flex-direction: column !important;
+}
+
+
+
+@media only screen and (prefers-color-scheme: dark) {
+    .flash.info {
+        color:var(--lightishblue);
+        border:3px solid var(--lightishblue);
+    }
+}
+
+@media only screen and (max-width: 611px){
+    #footer {
+        font-weight:normal;
+    }
+}
+
+
+ @media only screen and (max-width: 629px){
+    body {
+        width: 100%;
+    }
+    .profile-div, .pst, #navbar,.popup-div {
+        width: 100% !important;
+    }
+    .flash {
+        width: calc(100% - 20px);
+    }
+    
+}
+
+@media only screen and (max-width: 500px){
+#navbar {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+}

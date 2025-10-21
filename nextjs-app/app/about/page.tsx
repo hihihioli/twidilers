@@ -1,0 +1,47 @@
+export default function About() {
+  return (
+    <main>
+      <h1>Who made this?</h1>
+      <h2>Oliver</h2>
+      <h3>Sysadmin + Backend</h3>
+      <p>
+        Oliver makes sure that the website is online. He deploys new releases and runs the server. 
+        He also did our mail server, database, but he can also be useful in Python.
+      </p>
+      <p>
+        Oliver, aka hihihioli, is a cool guy. Learn more at his{' '}
+        <a href="https://twidilers.com">personal website</a>
+      </p>
+      
+      <h2>Delflare</h2>
+      <h3>Fullstack</h3>
+      <p>
+        While Derin knows his way around the frontend, the majority of his time is spent implementing 
+        features like the notification and feed systems in Python.
+      </p>
+      <p>
+        Delflare, aka dereena is the alter ego of Derin. He is a code master and wrote this paragraph. 
+        His alter alter ego is Mr. Jameson, the father of Jebediah and husband of Mrs. Jameson. 
+        That is all there is to him, except for his{' '}
+        <a href="https://derin.twidilers.com">personal website</a>
+      </p>
+      
+      <h2>wall03</h2>
+      <h3>Frontend, AI dev</h3>
+      <p>
+        wall03 spends most of his time worrying about user interaction with the website. While Derin 
+        is implementing the backend, wall03 makes sure the data can be displayed to the end user.
+      </p>
+      <p>
+        <a href="https://wall03.blue">Wall03</a> is a frontend developer and made this website look cool. 
+        He also wrote the above paragraph. He uses too way to much AI and tries to meddle with the backend, 
+        expecting Oliver and Derin to fix it all.
+      </p>
+      
+      <h1>What is this?</h1>
+      <p>
+        It&apos;s kinda a social media network. We need to add a lot of features for it to be useful to other people lol
+      </p>
+    </main>
+  );
+}
