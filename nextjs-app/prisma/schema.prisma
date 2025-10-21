@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id              Int       @id @default(autoincrement())
+  username        String?   @unique
+  displayname     String?
+  email           String    @unique
+  photo           Bytes?
+  passwordHash    Bytes?    @map("password_hash")
+  notifications   Json      @default("[]")
+  verified        Boolean   @default(false)
+  setup           Boolean   @default(false)
+  isOauth         Boolean   @default(false) @map("is_oauth")
+  userdata        Json      @default("{\"joined\": 0, \"bio\": \"\"}")
+  notifSettings   Json      @default("{\"following\": true, \"mentions\": true, \"likes\": false}") @map("notif_settings")
+  
+  // Relations
+  posts           Post[]    @relation("AuthorPosts")
+  likedPosts      Post[]    @relation("PostLikes")
+  referencedIn    Post[]    @relation("PostReferences")
+  
+  // Self-referential many-to-many for followers
+  followers       Account[] @relation("UserFollows")
+  following       Account[] @relation("UserFollows")
+
+  @@map("accounts")
+}
+
+model Post {
+  id            Int       @id @default(autoincrement())
+  authorId      Int       @map("author_id")
+  title         String
+  content       String
+  isReference   Boolean   @default(false) @map("is_reference")
+  date          DateTime  @default(now()) @db.Timestamptz
+  
+  // Relations
+  author        Account   @relation("AuthorPosts", fields: [authorId], references: [id], onDelete: Cascade)
+  likedBy       Account[] @relation("PostLikes")
+  references    Account[] @relation("PostReferences")
+
+  @@map("posts")
+}
