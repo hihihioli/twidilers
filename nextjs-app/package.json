@@ -8,19 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^6.17.1",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/nodemailer": "^7.0.2",
-    "@types/pg": "^8.15.5",
-    "bcryptjs": "^3.0.2",
-    "iron-session": "^8.0.4",
-    "jsonwebtoken": "^9.0.2",
     "next": "15.5.6",
-    "next-auth": "^4.24.11",
-    "nodemailer": "^6.10.1",
-    "pg": "^8.16.3",
-    "prisma": "^6.17.1",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

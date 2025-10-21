@@ -38,7 +38,7 @@ export default function FeedPage() {
 
   // Fetch current user
   useEffect(() => {
-    fetch('/api/auth/me', { credentials: 'same-origin' })
+    fetch('/api/currentuser/', { credentials: 'same-origin' })
       .then(res => res.ok ? res.json() : null)
       .then(data => setCurrentUser(data))
       .catch(err => console.error('Failed to fetch current user:', err));

@@ -1,21 +1,31 @@
-# Twidilers - Next.js Refactor
+# Twidilers - Next.js Frontend
 
-This is a Next.js refactor of the original Flask-based Twidilers application, maintaining all existing features and design while modernizing the tech stack.
+This is a Next.js frontend for the Twidilers application, which uses Flask for the backend API.
 
-## Tech Stack
+## Architecture
 
-- **Frontend**: Next.js 15 (App Router), React, TypeScript
-- **Backend**: Next.js API Routes
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: Iron Session
-- **Styling**: Original CSS from Flask app
+This is a **hybrid architecture**:
+- **Frontend**: Next.js with React and TypeScript (this directory)
+- **Backend**: Flask with SQLAlchemy (../twidilers/)
+
+The Next.js app handles:
+- Page rendering
+- Client-side routing
+- UI components
+- Static assets
+
+The Flask backend handles:
+- All API endpoints
+- Authentication and sessions
+- Database operations
+- Business logic
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 20.x or later
-- PostgreSQL database (can use the same database as the Flask app)
+- A running Flask backend (see main project README)
 - npm or yarn
 
 ### Installation
@@ -30,28 +40,88 @@ npm install
 cp .env.example .env
 ```
 
-Edit `.env` with your database credentials and secrets.
-
-3. Generate Prisma client:
-```bash
-npx prisma generate
+Edit `.env` to point to your Flask backend:
+```
+FLASK_API_URL=http://localhost:5000
 ```
 
-4. If starting fresh, run migrations:
+3. Start the Flask backend first (in another terminal):
 ```bash
-npx prisma db push
+cd ../
+docker compose up
+# OR
+python -m flask --app 'twidilers:create_app()' run
 ```
 
-### Development
+4. Start the Next.js development server:
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000)
+
+## How It Works
+
+### API Proxy
+
+All API requests from Next.js pages are proxied to the Flask backend:
+
+```
+Next.js Request                Flask Backend
+/api/feed/all/1        →      http://localhost:5000/api/feed/all/1
+/login (POST)          →      http://localhost:5000/login
+/logout                →      http://localhost:5000/logout
+```
+
+This is configured in `next.config.ts` using Next.js rewrites.
+
+### Session Management
+
+Sessions are managed by Flask on the backend. The Next.js frontend simply passes cookies through to Flask for authentication.
+
+### Pages
+
+Next.js serves the following pages:
+- `/` - Home page
+- `/about` - About page
+- `/login` - Login form (submits to Flask)
+- `/feed` - Feed display (fetches from Flask API)
+
+## Development
 
 Run the development server:
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser.
+The app will be available at http://localhost:3000 with hot reload.
 
-### Production Build
+### Adding New Pages
+
+1. Create a new directory in `app/`
+2. Add a `page.tsx` file
+3. Export a default React component
+
+Example:
+```tsx
+// app/new-page/page.tsx
+export default function NewPage() {
+  return <div>New Page</div>;
+}
+```
+
+### Fetching Data from Flask
+
+Use standard fetch with relative URLs:
+
+```tsx
+const response = await fetch('/api/endpoint');
+const data = await response.json();
+```
+
+Next.js will proxy these to Flask automatically.
+
+## Production Build
 
 Build the application:
 ```bash
@@ -67,94 +137,49 @@ npm start
 
 ```
 nextjs-app/
-├── app/                    # Next.js App Router pages and API routes
-│   ├── api/               # API endpoints
-│   │   ├── auth/         # Authentication routes
-│   │   └── feed/         # Feed API routes
-│   ├── about/            # About page
-│   ├── feed/             # Feed page
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Home page
+├── app/                    # Next.js App Router pages
+│   ├── about/             # About page
+│   ├── feed/              # Feed page
+│   ├── login/             # Login page
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
 ├── components/            # React components
 │   └── Navbar.tsx        # Main navigation
-├── lib/                   # Utility libraries
-│   ├── auth.ts           # Authentication utilities
-│   ├── functions.ts      # Business logic
-│   ├── prisma.ts         # Database client
-│   └── session.ts        # Session configuration
-├── prisma/
-│   └── schema.prisma     # Database schema
-└── public/               # Static assets
-    └── styles/           # CSS files from Flask app
+├── lib/                   # Utility functions
+│   └── functions.ts      # Client-side helpers
+├── public/               # Static assets
+│   └── styles/           # CSS files
+├── next.config.ts        # Next.js configuration (API proxy)
+└── package.json          # Dependencies
 ```
 
-## Features Implemented
+## Deployment
 
-- ✅ Home page with navigation
-- ✅ About page
-- ✅ User authentication (login/logout)
-- ✅ Session management
-- ✅ Feed page with post display
-- ✅ Database models (Account, Post)
-- ✅ API routes for authentication and feed
-- ✅ Original styling maintained
+### Option 1: Separate Deployments
 
-## Features In Progress
+Deploy Flask and Next.js separately:
+- Flask: Traditional Python hosting (e.g., Docker, Railway, Fly.io)
+- Next.js: Vercel, Netlify, or any Node.js host
 
-- ⏳ Post creation
-- ⏳ Like/unlike functionality
-- ⏳ Profile pages
-- ⏳ Settings pages
-- ⏳ OAuth2 authentication (Google, GitHub)
-- ⏳ Email functionality
-- ⏳ Sign-up flow
-- ⏳ Following/followers
-- ⏳ Notifications
-- ⏳ Profile pictures
+Set `FLASK_API_URL` in Next.js environment to your Flask deployment URL.
 
-## Migration Notes
+### Option 2: Same Server
 
-### Database
-
-The Prisma schema is designed to be compatible with the existing Flask SQLAlchemy models. If you're migrating from the Flask app:
-
-1. The same PostgreSQL database can be used
-2. Table names and column names match the Flask models
-3. No data migration is required
-
-### API Compatibility
-
-The Next.js API routes mimic the Flask API endpoints where possible:
-- `/api/auth/login` - Login endpoint
-- `/api/auth/logout` - Logout endpoint
-- `/api/auth/me` - Get current user
-- `/api/feed/all/[page]` - Get all posts (paginated)
-
-## Development Tips
-
-- Use `npm run dev` with hot reloading for rapid development
-- API routes are in `app/api/`
-- Components are in `components/`
-- Utility functions are in `lib/`
-- Prisma queries are type-safe and auto-completed
+Use a reverse proxy (nginx, Caddy) to route:
+- `/api/*` → Flask backend
+- `/*` → Next.js frontend
 
 ## Troubleshooting
 
-### Database Connection Issues
+### API requests fail with CORS errors
 
-Ensure your `DATABASE_URL` in `.env` is correct:
-```
-DATABASE_URL="postgresql://user:password@localhost:5432/twidilers"
-```
+Make sure Flask has CORS enabled for the Next.js origin. The proxy should handle most CORS issues, but if deploying separately, you may need flask-cors.
 
-### Prisma Client Not Found
+### Session/login not working
 
-Regenerate the Prisma client:
-```bash
-npx prisma generate
-```
+Ensure cookies are being passed through. The Flask backend must accept cookies from the Next.js domain. In production, both should be on the same domain or use proper CORS configuration.
 
-### Build Errors
+### Build errors
 
 Clear the Next.js cache:
 ```bash
@@ -164,13 +189,11 @@ npm run build
 
 ## Contributing
 
-This is a refactor in progress. Key areas that need work:
-1. Complete post creation and interaction features
-2. Implement remaining pages (profile, settings, sign-up)
-3. Add OAuth2 authentication
-4. Implement email functionality
-5. Add comprehensive tests
+This is a hybrid frontend for the Twidilers Flask application. When adding features:
+1. Add pages/components in Next.js (this directory)
+2. Add API endpoints in Flask (../twidilers/)
+3. Connect them using fetch calls
 
 ## License
 
-MIT License - Same as the original Twidilers project
+MIT License - Same as the main Twidilers project

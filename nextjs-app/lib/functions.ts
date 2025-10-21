@@ -1,20 +1,4 @@
-import { prisma } from './prisma';
-import { Account, Post } from '@prisma/client';
-
-export async function findAccount(username?: string): Promise<Account | null> {
-  if (!username) {
-    return null;
-  }
-  return await prisma.account.findUnique({
-    where: { username: username.toLowerCase() }
-  });
-}
-
-export async function findAccountByEmail(email: string): Promise<Account | null> {
-  return await prisma.account.findUnique({
-    where: { email }
-  });
-}
+// Client-side utility functions for the Next.js frontend
 
 export function checkUsername(input: string): boolean {
   const pattern = /^[a-zA-Z0-9_]+$/;
@@ -24,12 +8,6 @@ export function checkUsername(input: string): boolean {
 export function checkDisplayName(input: string): boolean {
   const pattern = /^[\w\s]+$/;
   return pattern.test(input);
-}
-
-export async function findPost(postId: number): Promise<Post | null> {
-  return await prisma.post.findUnique({
-    where: { id: postId }
-  });
 }
 
 const MENTION_REGEX = /(?<![\w@])@([A-Za-z0-9_]{1,32})/g;
@@ -48,23 +26,6 @@ export function extractMentions(text: string): string[] {
     }
   }
   return mentions;
-}
-
-export async function validateMentions(usernames: string[]): Promise<string[]> {
-  if (!usernames.length) return [];
-  
-  const accounts = await prisma.account.findMany({
-    where: {
-      username: {
-        in: usernames
-      }
-    },
-    select: {
-      username: true
-    }
-  });
-  
-  return accounts.map(a => a.username).filter((u): u is string => u !== null);
 }
 
 export function makeURLHTML(content: string): string {
@@ -98,43 +59,4 @@ export function makeURLHTML(content: string): string {
   }
 
   return escaped;
-}
-
-export function checkNotifSettings(account: Account, setting: string): boolean {
-  const settings = account.notifSettings as any;
-  return settings?.[setting] ?? false;
-}
-
-export async function sendNotification(
-  setting: string,
-  username: string,
-  author: string,
-  postId: number = 0
-) {
-  const account = await findAccount(username);
-  if (!account) return;
-
-  const notifications = (account.notifications as any[]) || [];
-  const dateUtc = new Date();
-  
-  let post = null;
-  if (postId > 0) {
-    post = await findPost(postId);
-  }
-
-  if (post) {
-    notifications.push({
-      type: setting,
-      author: author,
-      title: (post as any).title,
-      content: (post as any).content,
-      post_id: postId,
-      date: dateUtc.getTime() / 1000
-    });
-
-    await prisma.account.update({
-      where: { id: account.id },
-      data: { notifications }
-    });
-  }
 }
