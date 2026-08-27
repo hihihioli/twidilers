@@ -343,6 +343,7 @@ def profaction(username):
         post = db.session.execute(db.select(Post).filter_by(id=post_id)).scalar()
         if username != account.username:
             flash('You cannot delete a post that is not yours','error')
+            return profile(username)
         deletePost(post)
         flash('Post Deleted','success')
         return profile(username) 

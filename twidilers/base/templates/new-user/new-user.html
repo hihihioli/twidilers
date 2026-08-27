@@ -14,6 +14,7 @@ import * as Turbo from "@hotwired/turbo"
     <title>Setup new user - Twidilers</title> <!-- The title of the tab depending on the current page. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="A wonderful website">
     <meta name="keywords" content="HTML, CSS, Python">
     <meta name="author" content="dereena">
@@ -38,12 +39,24 @@ import * as Turbo from "@hotwired/turbo"
     {% block skip %}
         <div id="skip">
             <form method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                 <button name="skip{% block pn %}{% endblock %}" class="submit">Skip</button>
             </form>
         </div>
     {% endblock %}
     <!-- The footer has a default but can be overridden. -->
     <progress id="progress" value="{% block pagenumber %}{% endblock %}" max="5"></progress>
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            if (form.method.toLowerCase() === 'post' && !form.querySelector('[name="_csrf_token"]')) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = '_csrf_token';
+                input.value = document.querySelector('meta[name="csrf-token"]').content;
+                form.appendChild(input);
+            }
+        });
+    </script>
 
 </body>
 

@@ -148,6 +148,7 @@ function uploadPhoto() {
         method: "POST",
         body: formData,
         credentials: "include",
+        headers: { "X-CSRFToken": document.querySelector('meta[name="csrf-token"]').content },
     }).then(response => {
         if (response.ok) {
             if (response.redirected) {

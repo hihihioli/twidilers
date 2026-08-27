@@ -26,6 +26,12 @@ function copyToClipboard(text){
   });
 };
 
+function escapeHTML(value) {
+  const element = document.createElement('div');
+  element.textContent = value == null ? '' : String(value);
+  return element.innerHTML;
+}
+
 // 3) Utility: sleep X ms
 function sleep(ms) {
   return new Promise(res => setTimeout(res, ms));
@@ -217,18 +223,18 @@ function renderPosts(posts) {
     `;
 
     const authorHTML = `
-        <a href="${author.profile_link}" 
+        <a href="${escapeHTML(author.profile_link)}"
           class="auth-info"
-          aria-label="View ${author.displayname}'s profile">
+          aria-label="View ${escapeHTML(author.displayname)}'s profile">
           <div class="pst-auth-pfp-container">
             <img class="pst-auth-pfp" 
               loading="lazy" 
-              src="${author.photo_url}"
-              alt="Profile picture of ${author.displayname}">
+              src="${escapeHTML(author.photo_url)}"
+              alt="Profile picture of ${escapeHTML(author.displayname)}">
           </div>
           <div class="pst-auths">
-            <p class="pst-auth">${author.displayname}</p>
-            <p class="pst-disp">@${author.username}</p>              
+            <p class="pst-auth">${escapeHTML(author.displayname)}</p>
+            <p class="pst-disp">@${escapeHTML(author.username)}</p>
           </div>
         </a>
     `;
@@ -238,7 +244,7 @@ function renderPosts(posts) {
     const mentionClass = post.mentions_current_user ? ' mentioned-you' : '';
     // simple mention highlighting inside content
     let contentHTML = post.content;
-    let titleHTML = post.title;
+    let titleHTML = escapeHTML(post.title);
     if (Array.isArray(post.mentions) && post.mentions.length) {
       // replace each @username with a span
       for (const m of post.mentions) {
@@ -291,6 +297,7 @@ document.addEventListener('submit', async e => {
     const res = await fetch(form.action, {
       method:   form.method.toUpperCase(),
       credentials: 'same-origin', 
+      headers: {'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content},
       body:     new FormData(form)
     });
     if (!res.ok) {

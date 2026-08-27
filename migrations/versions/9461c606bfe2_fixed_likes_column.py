@@ -25,7 +25,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.PrimaryKeyConstraint('account_id', 'post_id')
     )
-    op.execute("DROP TABLE IF EXISTS post")
     with op.batch_alter_table('posts', schema=None) as batch_op:
         batch_op.drop_column('likes')
 
