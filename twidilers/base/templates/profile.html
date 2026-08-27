@@ -20,10 +20,12 @@
         {% else %}
             {% if not account in findAccount().following %}
                 <form method="post" id="follow-form" name="follow-form">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <button class="submit" id="follow-button" name="follow-button">Follow</button></a>
                 </form>
             {% else %}
                 <form method="post" id="unfollow-form" name="unfollow-form">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <button class="submit" id="follow-button" name="unfollow-button">Unfollow</button></a>
                 </form>
             {% endif %}
@@ -91,6 +93,7 @@
                 <div class="pst-reactions">
                     {% if owner == 1 %}
                         <form method="post">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                             <button type="submit" class="pst-react-but" id="delete-post" name="delete-post" title="Delete Post">
                                 <input type="hidden" name="delete-post-id" value="{{ post.id }}">
                                 <i class="fa-solid fa-trash" aria-hidden="true"></i>
@@ -99,6 +102,7 @@
                         </form>
                     {% else %}
                         <form method="post" class="js-reaction-form">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                             <button type="submit" class="pst-react-but  like-button {% if findAccount() and (findAccount() in post.likes) %}liked{% endif %}" name="like-button" title="Like">
                                 <input type="hidden" name="like-post-id" value="{{ post.id }}">
                                 <i class="fa-solid fa-heart" aria-hidden="true"></i>

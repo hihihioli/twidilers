@@ -16,6 +16,7 @@
     <meta name="author" content="wall03">
     <meta name="view-transition" content="same-origin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://kit.fontawesome.com/3881932ce2.js" crossorigin="anonymous"></script>
     {% block head %}{% endblock %}
 </head>
@@ -47,6 +48,7 @@
                 {% if session['username'] %}
                     fetch("{{url_for('.clear')}}", { // fetches clear function in api.py
                         method: 'POST',
+                        headers: {'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content},
                     });
                     document.getElementById('notif-div-0').innerHTML = '<p>No Notifications</p>';
                     document.getElementById('notification-count').remove();
@@ -142,6 +144,15 @@
         {% endblock %}
     </div>
     <script>
+        document.querySelectorAll('form').forEach(form => {
+            if (form.method.toLowerCase() === 'post' && !form.querySelector('[name="_csrf_token"]')) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = '_csrf_token';
+                input.value = document.querySelector('meta[name="csrf-token"]').content;
+                form.appendChild(input);
+            }
+        });
         document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>
 </body>

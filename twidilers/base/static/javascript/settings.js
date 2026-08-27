@@ -75,7 +75,7 @@ let checkbox = [
 async function checkboxHandler() {
     for (let i = 0; i < checkbox.length; i++) {
         const checkboxID = document.getElementById(checkbox[i]);
-        const res = await fetch(`/api/settings/${checkbox[i]}`, { method: "POST" });
+        const res = await fetch(`/api/settings/${checkbox[i]}`, { method: "POST", headers: { "X-CSRFToken": document.querySelector('meta[name="csrf-token"]').content } });
         const json = await res.json();
         if (!json) {
             console.error(`No data received for ${checkbox[i]}`);
@@ -92,7 +92,7 @@ async function checkboxHandler() {
             // send the new value to the server
             const res = await fetch(`/api/settings/${id}/toggle`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "X-CSRFToken": document.querySelector('meta[name="csrf-token"]').content },
                 body: JSON.stringify({ value: newValue })
             });
             // catch problem
@@ -101,7 +101,7 @@ async function checkboxHandler() {
                 checkboxElement.checked = !newValue;
                 return;
             }
-            const verifyRes = await fetch(`/api/settings/${id}`, { method: "POST" });
+            const verifyRes = await fetch(`/api/settings/${id}`, { method: "POST", headers: { "X-CSRFToken": document.querySelector('meta[name="csrf-token"]').content } });
             const verifyJson = await verifyRes.json();
             const serverValue = verifyJson[id];
             // verify the server updated correctly

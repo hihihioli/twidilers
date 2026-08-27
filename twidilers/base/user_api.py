@@ -182,6 +182,8 @@ def bulk_users():
 def api_like(post_id):
     user = findAccount()
     post = findPost(post_id)
+    if post is None:
+        return flask.jsonify({'error': 'post not found'}), 404
     if user in post.liked_by:
         post.liked_by.remove(user)
         db.session.commit()

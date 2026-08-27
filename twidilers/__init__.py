@@ -3,12 +3,14 @@ Welcome to Twidilers App! Backend by Derin and Oliver. Frontend by Eamon.
 '''
 
 #the imports
-from flask import Flask, session
+from flask import Flask, session, request, abort
 from dotenv import load_dotenv
 from werkzeug.middleware.proxy_fix import ProxyFix
 import os
 import uuid
 import ast
+import secrets
+import hmac
 
 
 
@@ -25,6 +27,20 @@ def create_app():
     
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
     app.config['PREFERRED_URL_SCHEME'] = 'https'
+
+    @app.context_processor
+    def csrf_context():
+        token = session.setdefault('_csrf_token', secrets.token_urlsafe(32))
+        return {'csrf_token': lambda: token}
+
+    @app.before_request
+    def validate_csrf():
+        if request.method not in {'POST', 'PUT', 'PATCH', 'DELETE'}:
+            return
+        expected = session.get('_csrf_token')
+        supplied = request.form.get('_csrf_token') or request.headers.get('X-CSRFToken')
+        if not expected or not supplied or not hmac.compare_digest(expected, supplied):
+            abort(400, description='Invalid CSRF token')
 
     app.config['OAUTH2_PROVIDERS'] = {
         # Google OAuth 2.0 documentation:
